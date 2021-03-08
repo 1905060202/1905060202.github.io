@@ -144,6 +144,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-OS256t3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/08/OS256t3/">OS256t3</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/08/OS256t3/" class="archive-article-date">
+  	<time datetime="2021-03-08T07:51:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="操作系统OS256第三次作业"><a href="#操作系统OS256第三次作业" class="headerlink" title="操作系统OS256第三次作业"></a>操作系统OS256第三次作业</h2><p><img src="/images/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E4%B9%A63.png"></p>
+<p>1.OS256使用什么语言开发？<br>    Javascript。<br>2.从源码来看，OS256由哪两个部分组成？<br>    软件和硬件。<br>    软件即汇编器，取名为assemble256。<br>    硬件，一台假想的机器，也叫虚拟机，名字为PC256。<br>3.请用”四分五列”详细说明assembler256的指令格式<br>    汇编指令=标号：指令助记符或伪指令  目的操作数，源操作数；注释<br>    伪指令(directive)：不生成机器指令，指导性语句。例如：DB UNTIL。并且伪指令是由汇编器定义的，而不是由CPU定义的。<br>    标号由最多8个英文字母组成，不区分大小写。<br>4.assembler256怎么知道一个字符串是标号？<br>    如果字符串后有冒号，那他就是标号。<br>5.为什么assembler256的指令里没有操作码？<br>    因为assembler256是汇编器，它使用的是伪指令，可汇编成操作码。<br>6.源操作数和目的操作数，谁在前，谁在后？<br>    目的操作数在前，源操作数在后。<br>7.你下载了VS CODE么？或者用了其它什么编辑器？<br>    vscode和webstorm<br>8.assembler256的源码在哪个文件里？PC256呢？<br>    assembler256源码在assets文件夹中的software.js文件里。<br>    PC256源码在assets文件夹中的hardware.js文件里。<br>9.伪指令和指令的区别是什么？<br>    指令是执行阶段发挥作用的，对应CPU可执行代码，编译时会分配存储单元。<br>    伪指令只是在编译阶段发挥作用，由汇编器来解释，编译时不会给分配存储单元，只是按伪指令的功能定位程序数据或指令位置。<br>10.操作数有哪4种类型？<br>    操作数有四种类型：<br>        (1).number类型 如0，1，100，255,标号<br>        (2).register类型 如A,B,C,D<br>        (3).number-address类型 如[0],[1],[2],[255]<br>        (4).register-address类型 如[A],[B],[C],[D]<br>11.在assembler256的汇编指令中，中括号的意义是什么？<br>    中括号表示要访问内存地址。（暂时不确定…）<br>12.UNTIL指令的效果是什么?<br>    从上一个位置填充0直到X为止。<br>13.DB指令有哪几种用法？<br>    （1）在当前位置定义一个字节 DB 7<br>    （2）在当前位置定义Y个X来填充当前位置 DB 13,9<br>    （3）在当前位置定义一个字符串 DB “HELLO”<br>    （4）在当前位置定义一个数组 DB [0,1,2,3,4,5,6,7,8,9]<br>14.LocationCounter的作用是什么？<br>    LocationCounter,简写为LC，位置计数器，表示当前code已用长度，初值为0.<br>15.标签数组label[]的作用是什么？<br>    存储标签，并记录标签所在位置。<br>16.标签出现在冒号的左边和右边，有什么不同？<br>    出现在左边就是标号，右边会语义出错。<br>17.code[256]和RAM[256]的联系和区别是什么？<br>    暂时空着…</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">作业</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/08/OS256t3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据库复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -716,6 +791,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">习题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">作业</a>
               </li>
             
             <div class="clearfix"></div>
