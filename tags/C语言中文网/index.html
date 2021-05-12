@@ -144,28 +144,28 @@
 </ul>
 </blockquote>
 <p>两种套接字的特点决定了他们的应用场景，有些服务对可靠性要求比较高，必须数据包能完整无误地送达，那就得选择Stream Sockets（TCP服务），比如HTTP、FTP等；而另一些服务，并不需要那么高的可靠性，效率和实时才是它们所关心的，那就可以选择Datagram Sockets（UDP服务），比如DNS、即时聊天工具等。</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-21T11:41:20.000Z" title="2021/4/21 下午7:41:20">2021-04-21</time>发表</span><span class="level-item"><time dateTime="2021-04-21T12:32:14.097Z" title="2021/4/21 下午8:32:14">2021-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">10 分钟读完 (大约1506个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/21/%E7%8E%A9%E8%BD%ACsocket%EF%BC%88%E4%BA%8C%EF%BC%89/">玩转socket（二）</a></h1><div class="content"><h2 id="套接字有哪些类型？socket有哪些类型？"><a href="#套接字有哪些类型？socket有哪些类型？" class="headerlink" title="套接字有哪些类型？socket有哪些类型？"></a>套接字有哪些类型？socket有哪些类型？</h2><p>这个世界上有很多种套接字（socket），比如DAPRA Internet地址（Internet套接字）、本地节点的路径名（Unix套接字）、CCITT X.25地址（X.25套接字）等。本文只讨论Internet套接字。<br>根据数据的传输方式，可以将Internet套接字分成两种类型（其实还有很多种）。通过socket()函数创建链接时，必须告诉它使用哪种数据传输方式。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-21T11:41:20.000Z" title="2021/4/21 下午7:41:20">2021-04-21</time>发表</span><span class="level-item"><time dateTime="2021-05-12T12:35:52.629Z" title="2021/5/12 下午8:35:52">2021-05-12</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">10 分钟读完 (大约1506个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/21/%E7%8E%A9%E8%BD%ACsocket%EF%BC%88%E4%BA%8C%EF%BC%89/">玩转socket（二）</a></h1><div class="content"><h2 id="套接字有哪些类型？socket有哪些类型？"><a href="#套接字有哪些类型？socket有哪些类型？" class="headerlink" title="套接字有哪些类型？socket有哪些类型？"></a>套接字有哪些类型？socket有哪些类型？</h2><p>这个世界上有很多种套接字（socket），比如DAPRA Internet地址（Internet套接字）、本地节点的路径名（Unix套接字）、CCITT X.25地址（X.25套接字）等。本文只讨论Internet套接字。<br>根据数据的传输方式，可以将Internet套接字分成两种类型（其实还有很多种）。通过socket()函数创建链接时，必须告诉它使用哪种数据传输方式。</p>
 <ul>
 <li>流格式套接字（SOCK_STREAM）</li>
 <li>数据报格式套接字（SOCK_DGRAM）</li>
 </ul>
-<h3 id="SOCK-STREAM"><a href="#SOCK-STREAM" class="headerlink" title="SOCK_STREAM"></a>SOCK_STREAM</h3><p>SOCK_STREAM也叫“面向连接的套接字”，在代码中使用SOCK_STREAM表示。</p>
-<p><strong>SOCK_STREAM是一种可靠的、双向的通信数据流，数据可以准确无误地到达另一台计算机，如果损坏或丢失，可以重新发送</strong></p>
-<p>SOCK_STREAM有以下几个特征：</p>
+<h3 id="Stream-Sockets"><a href="#Stream-Sockets" class="headerlink" title="Stream Sockets"></a>Stream Sockets</h3><p>Stream Sockets也叫 “面向连接的套接字” ，在代码中使用SOCK_STREAM表示。</p>
+<p><strong>Stream Sockets是一种可靠的、双向的通信数据流，数据可以准确无误地到达另一台计算机，如果损坏或丢失，可以重新发送</strong></p>
+<p>Stream Sockets有以下几个特征：</p>
 <ul>
 <li>数据在传输过程中不会消失</li>
 <li>数据是按照顺序传输的</li>
 <li>数据的发送和接收不是同步的（也称“不存在数据边界”）</li>
 </ul>
-<p>可以将SOCK_STREAM比喻成一条传送带，只要传送带本身没问题（不会断网），就能保证数据不丢失；同时，较晚传输的数据不会先到达，较早传输的数据不会晚到达，这就保证了数据是按照顺序传递的。<br><img src="/images/%E4%BC%A0%E9%80%81%E5%B8%A6.gif"><br>为什么SOCK_STREAM可以达到高质量的数据传输呢？这是因为它使用了TCP协议（The Transmission Control Protocol，传输控制协议），TCP协议会控制你的数据按照顺序达到并且没有错误。<br>你也许见过TCP，是因为经常听说“TCP/IP”。TCP用来确保数据的正确性，IP（Internet Protocol，网络协议）用来控制数据如何从源头到达目的地，也就是常说的“路由”。</p>
+<p>可以将Stream Sockets比喻成一条传送带，只要传送带本身没问题（不会断网），就能保证数据不丢失；同时，较晚传输的数据不会先到达，较早传输的数据不会晚到达，这就保证了数据是按照顺序传递的。<br><img src="/images/%E4%BC%A0%E9%80%81%E5%B8%A6.gif"><br>为什么Stream Sockets可以达到高质量的数据传输呢？这是因为它使用了TCP协议（The Transmission Control Protocol，传输控制协议），TCP协议会控制你的数据按照顺序达到并且没有错误。<br>你也许见过TCP，是因为经常听说“TCP/IP”。TCP用来确保数据的正确性，IP（Internet Protocol，网络协议）用来控制数据如何从源头到达目的地，也就是常说的“路由”。</p>
 <p>那么，数据地发送和接收不同步该如何理解呢？</p>
 <p>假设传送带传送的是水果，接收者需要凑齐100个后才能装袋，但是传送带可能把这100个水果分批传送，比如第一批传送20个，第二批传送50个，第三批传送30个。接收者不需要和传送带保持同步，只要根据自己的节奏来装袋即可。<br>不用管传送带传送了几批，也不用每到一批就装袋一次，可以等到凑够了100个水果再装袋。</p>
-<p>SOCK_STREAM地内部有提个缓冲区（也就是字符数组），通过socket传输的数据将保存到这个缓冲区。接收端再收到数据后并不一定立即读取，只要数据不超过缓冲区容量，接收端有可能在缓冲区被填满以后一次性读取，也可能分好几次读取。</p>
+<p>Stream Sockets地内部有提个缓冲区（也就是字符数组），通过socket传输的数据将保存到这个缓冲区。接收端再收到数据后并不一定立即读取，只要数据不超过缓冲区容量，接收端有可能在缓冲区被填满以后一次性读取，也可能分好几次读取。</p>
 <p>也就是说，不管数据分几次传送过来，接收端只需要根据自己的要求读取，不用非得在数据达到时立即读取。传送端有自己的节奏，接收端也有自己的节奏，他们是不一致的。</p>
-<p>SOCK_STREAM有什么实际的应用场景吗？浏览器所使用的http协议就基于SOCK_STREAM，因为必须要保证数据准确无误，否则加载的HTML将无法解析。</p>
-<h3 id="SOCK-DGRAM"><a href="#SOCK-DGRAM" class="headerlink" title="SOCK_DGRAM"></a>SOCK_DGRAM</h3><p>SOCK_STREAM也叫“无连接的套接字”，在代码中使用SOCK_STREAM表示。</p>
+<p>Stream Sockets有什么实际的应用场景吗？浏览器所使用的http协议就基于Stream Sockets，因为必须要保证数据准确无误，否则加载的HTML将无法解析。</p>
+<h3 id="Datagram-Sockets"><a href="#Datagram-Sockets" class="headerlink" title="Datagram Sockets"></a>Datagram Sockets</h3><p>Datagram Sockets也叫“无连接的套接字”，在代码中使用SOCK_DGRAM表示。</p>
 <p>计算机只管传输数据，不做数据校验，如果数据在传输中损坏，或者没有达到另一台计算机，是没有办法补救的。也就是说，数据错了就错了，无法重传。</p>
-<p>因为SOCK_STREAM所做的校验工作少，所以在传输效率方面比SOCK_STREAM高。可以将SOCK_STREAM比喻成高速移动的摩托车快递，它有以下特征：</p>
+<p>因为Datagram Sockets所做的校验工作少，所以在传输效率方面比Stream Sockets高。可以将Datagram Sockets比喻成高速移动的摩托车快递，它有以下特征：</p>
 <ul>
 <li>强调快速传输而非传输顺序</li>
 <li>传输的数据可能丢失也可能损毁</li>
@@ -173,10 +173,10 @@
 <li>数据的发送和接受是同步的（也称“存在数据边界”）</li>
 </ul>
 <p>众所周知，速度是快递行业的生命。用摩托车发往同一地点的两件包裹无需保证顺序，只要以最快的速度叫个客户就好。这种方式存在损坏或丢失的风险，而且包裹大小有一定的限制。因此，想要传递大量包裹，就得分配发送。<br><img src="/images/%E6%91%A9%E6%89%98%E8%BD%A6%E5%BF%AB%E9%80%92.jpg"><br>另外，用摩托车分别发送两件包裹，那么接收者也需要分两次接收，所以“数据的发送和接收是同步的”，换句话说，接受次数和发送次数相同。<br><strong>总之，SOCK_STREAM是一种不可靠的、不按顺序传输的、以追求速度为目的的套接字</strong></p>
-<p>SOCK_STREAM也使用IP协议作路由，但是它不使用TCP协议，而是使用UDP（User Datagram Protocol，用户数据协议）。</p>
+<p>Datagram Sockets也使用IP协议作路由，但是它不使用TCP协议，而是使用UDP（User Datagram Protocol，用户数据协议）。</p>
 <p>QQ视频聊天和语音聊天就使用SOCK_STREAM来传送数据，因为首先要保证通信的效率，尽量减少延迟，而数据的正确性是次要的，即使丢失很小的一部分数据，视频和音频也可以正常解析，最多出现噪点或杂音，不会对通信质量有实质的影响。</p>
 <blockquote>
-<p>SOCK_STREAM没有想象中的糟糕，不会频繁的丢失数据，数据错误只是小概率事件。</p>
+<p>Datagram Sockets没有想象中的糟糕，不会频繁的丢失数据，数据错误只是小概率事件。</p>
 </blockquote>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-21T11:13:19.000Z" title="2021/4/21 下午7:13:19">2021-04-21</time>发表</span><span class="level-item"><time dateTime="2021-04-21T12:04:27.604Z" title="2021/4/21 下午8:04:27">2021-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">5 分钟读完 (大约798个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/21/%E7%8E%A9%E8%BD%ACsocket%EF%BC%88%E4%B8%80%EF%BC%89/">玩转socket（一）</a></h1><div class="content"><h3 id="什么是socket？"><a href="#什么是socket？" class="headerlink" title="什么是socket？"></a>什么是socket？</h3><p>socket的原意是“插座”，在计算机通信领域，socket被翻译成“套接字”，它是计算机之间进行通信的一种约定或一种方式。<br>通过socket这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。</p>
 <p>把充电器插头插到插座上就能从电网获取电力供应给手机充电，同样的，为了与远程计算机进行数据传输，需要连接到互联网，而<br>socket就是用来连接到互联网的工具。</p>
