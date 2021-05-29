@@ -545,13 +545,13 @@
 </ul>
 </li>
 </ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-23T14:25:10.000Z" title="2021/5/23 下午10:25:10">2021-05-23</time>发表</span><span class="level-item"><time dateTime="2021-05-23T15:45:49.950Z" title="2021/5/23 下午11:45:49">2021-05-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/">脚本语言</a></span><span class="level-item">4 分钟读完 (大约661个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/05/23/%E7%8E%A9%E8%BD%ACJavaScript-%E4%BA%8C/">玩转JavaScript(二)</a></h1><div class="content"><h2 id="前排提示"><a href="#前排提示" class="headerlink" title="前排提示"></a>前排提示</h2><p>本节包含如下几个知识点：</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-23T14:25:10.000Z" title="2021/5/23 下午10:25:10">2021-05-23</time>发表</span><span class="level-item"><time dateTime="2021-05-29T12:17:39.394Z" title="2021/5/29 下午8:17:39">2021-05-29</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/">脚本语言</a></span><span class="level-item">8 分钟读完 (大约1271个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/05/23/%E7%8E%A9%E8%BD%ACJavaScript-%E4%BA%8C/">玩转JavaScript(二)</a></h1><div class="content"><h2 id="前排提示"><a href="#前排提示" class="headerlink" title="前排提示"></a>前排提示</h2><p>本节包含如下几个知识点：</p>
 <ul>
 <li>严格检查模式strict</li>
 <li>字符串类型详解</li>
 <li>数组类型详解</li>
 <li>对象类型详解</li>
-<li>分支和循环详解</li>
+<li>分支和循环详解（流程控制）</li>
 </ul>
 <h2 id="卖个关子"><a href="#卖个关子" class="headerlink" title="卖个关子"></a>卖个关子</h2><p>在学习JavaScript的过程中，console.log()会频繁出现，如果你不懂它是什么，那么在学习、调试代码的时候就会走很多弯路。</p>
 <p>console.log()是JavaScript中的一个内置函数，用于在控制台输出信息；该方法对于开发过程进行测试很有帮助。可以输出之前在其中定义的任何类型的变量，或者只输出需要显示给用户的任何消息。</p>
@@ -602,6 +602,96 @@
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> student = <span class="hljs-string">&#x27;student&#x27;</span>;<br>student[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br><br><span class="hljs-built_in">console</span>.log(student);<br></code></pre></td></tr></table></figure>
 <p><img src="/images/JavaScript/image-20210523232540152.png"></p>
+<ol start="7">
+<li><p>大小写转换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//注意，这里是方法，不是属性了</span><br>student.toUpperCase()<br>student.toLowerCase()<br></code></pre></td></tr></table></figure></li>
+<li><p>student.indexOf(‘t’)</p>
+</li>
+<li><p>substring</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[)<br>student.substring(<span class="hljs-number">1</span>)<span class="hljs-comment">//从第一个字符串到最后一个字符串</span><br>student.substring(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>)<span class="hljs-comment">//[1,3)</span><br></code></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3></li>
+</ol>
+<p>Array可以包含任意的数据类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br></code></pre></td></tr></table></figure>
+<ol>
+<li><p>长度</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">arr.length<br></code></pre></td></tr></table></figure>
+<p>注意：假给arr.length赋值，数组大小就会发生变化，如果赋值过小，元素就会丢失。</p>
+</li>
+<li><p>indexOf，通过元素获得下标索引</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">arr.indexof(<span class="hljs-number">2</span>)<br><span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>字符串的”1”和数字1是不同的</p>
+</li>
+<li><p><strong>slice()截取Array()的一部分，返回一个新数组。</strong></p>
+</li>
+<li><p>push、pop</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">arr.push(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>)<span class="hljs-comment">//压入到尾部</span><br>arr.pop()<span class="hljs-comment">//弹出尾部的一个元素</span><br></code></pre></td></tr></table></figure></li>
+<li><p>unshift()、shift()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">arr.unshift(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>)<span class="hljs-comment">//在头部添加元素</span><br>arr.shift()<span class="hljs-comment">//弹出头部的元素</span><br></code></pre></td></tr></table></figure></li>
+<li><p>排序sort()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>]<br>arr.sort()<br>[<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>]<br></code></pre></td></tr></table></figure></li>
+<li><p>元素反转</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-string">&#x27;d&#x27;</span>]<br>arr.reverse()<br>[<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>]<br></code></pre></td></tr></table></figure></li>
+<li><p>concat()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">arr.concat([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529192233452.png"></p>
+<p>可见，concat()方法并不会把原数组干掉。只是会返回一个新的数组。</p>
+</li>
+<li><p>连接符join</p>
+<p>打印拼接数组，使用特定的字符串连接</p>
+<p><img src="/images/JavaScript/image-20210529192452519.png"></p>
+<p>也不会改变原数组哦！</p>
+</li>
+<li><p>多维数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]]<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529192820975.png"></p>
+</li>
+</ol>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>若干个键值对 = =。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> person = &#123;<br>    name : <span class="hljs-string">&#x27;huyaning&#x27;</span>,<br>    age : <span class="hljs-number">20</span>,<br>    sex : <span class="hljs-string">&#x27;male&#x27;</span>,<br>    legion : <span class="hljs-string">&#x27;湖南&#x27;</span>,<br>    major : <span class="hljs-string">&#x27;数据科学与大数据技术&#x27;</span>,<br>    Ideal_university : <span class="hljs-string">&#x27;深圳大学&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>js对象中，{……}表示一个对象，键值对描述属性xxxx：xxxx，多个属性间用逗号隔开，最后一个属性不加逗号。</p>
+<p><strong>Javascript中所有的键都是字符串，值是任意对象！</strong></p>
+<ol>
+<li><p>对象赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">person.name = <span class="hljs-string">&#x27;胡雅宁&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529195207027.png"></p>
+</li>
+<li><p>动态删减属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">delete</span> person.legion<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529195338460.png"></p>
+</li>
+<li><p>动态的添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">person.Ideal_university_high_level = <span class="hljs-string">&#x27;中山大学&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529195515759.png"></p>
+</li>
+<li><p>判断属性值是否在这个对象中</p>
+<p>xxx in xxx</p>
+<p><strong>Javascript中所有的键都是字符串，值是任意对象！</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;age&#x27;</span> <span class="hljs-keyword">in</span> person<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529195838008.png"></p>
+</li>
+</ol>
+<h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><ol>
+<li>if判断</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> age = <span class="hljs-number">3</span>;<br><span class="hljs-keyword">if</span>(age&gt;<span class="hljs-number">3</span>)&#123;<br>    alert(<span class="hljs-string">&quot;i love you&quot;</span>)<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    alert(<span class="hljs-string">&#x27;i hate you&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>while循环,注意要避免程序死循环</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> age = <span class="hljs-number">20</span>;<br><span class="hljs-keyword">while</span>(age &lt; <span class="hljs-number">70</span>)&#123;<br>    age = age + <span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">console</span>.log(age);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529200400211.png"></p>
+<ol start="3">
+<li>for循环</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> age = <span class="hljs-number">20</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i =<span class="hljs-number">1</span>;i&lt;<span class="hljs-number">20</span>;i++)&#123;<br>    <span class="hljs-built_in">console</span>.log(i);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529200724526.png"></p>
+<ol start="4">
+<li>数组循环</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> age = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">18</span>,<span class="hljs-number">21</span>,<span class="hljs-number">32</span>,<span class="hljs-number">35</span>,<span class="hljs-number">47</span>]<br>age.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(value)<br>            &#125;)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529201126196.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> age = [<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">10</span>,<span class="hljs-number">15</span>,<span class="hljs-number">16</span>,<span class="hljs-number">17</span>,<span class="hljs-number">18</span>,<span class="hljs-number">19</span>,<span class="hljs-number">20</span>,<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>,<span class="hljs-number">25</span>,<span class="hljs-number">26</span>,<span class="hljs-number">27</span>,<span class="hljs-number">28</span>,<span class="hljs-number">29</span>,<span class="hljs-number">30</span>]<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> num <span class="hljs-keyword">in</span> age)&#123;<br>    <span class="hljs-keyword">if</span> (age.hasOwnProperty(num))&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;存在&#x27;</span>)<br>        <span class="hljs-built_in">console</span>.log(age[num])<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210529201733589.png"></p>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-22T13:15:57.000Z" title="2021/5/22 下午9:15:57">2021-05-22</time>发表</span><span class="level-item"><time dateTime="2021-05-22T15:01:54.334Z" title="2021/5/22 下午11:01:54">2021-05-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></span><span class="level-item">11 分钟读完 (大约1612个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/05/22/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Typora%E6%96%B9%E4%BE%BF%E5%BF%AB%E6%8D%B7%E5%9C%B0%E5%86%99%E5%8D%9A%E5%AE%A2/">如何利用Typora方便快捷地写博客</a></h1><div class="content"><h2 id="Typora大法之乾坤大挪移"><a href="#Typora大法之乾坤大挪移" class="headerlink" title="Typora大法之乾坤大挪移"></a>Typora大法之乾坤大挪移</h2><p>因为我的博客是基于hexo搭建的，所以写博客用的文件都为.md的格式。起初写博客用的软件是Notepad++，因为是看CodeSheep的视频入门的，羊哥推荐的软件就是Notepad++，所以我就从21年一月初一直用到五月中旬。说句实话，在写博客的时候最让我头痛的事情就是导入图片这一块。比如要进行效果演示，在Notepad++的编辑器中书写格式如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">![](/images/Javascript/xxx.png/jpg)<br></code></pre></td></tr></table></figure>
 <p>格式看起来很简洁，写起来好像没什么困难的，的确如此。但是当我需要进行大量的效果演示的时候，这简洁代码背后隐藏的是大量的截图、保存截图的工作。一开始我只会用qq的【Ctrl+Alt+A】进行截图，截图过后还要手动保存在本地，手动调配文件保存路径，这就让我非常苦恼。好在现在没有了这种苦恼，因为我发现了Windows10自带的截图快捷键【Shift+Win+S】搭配上Typora会产生极其简单的导入图片操作。</p>
