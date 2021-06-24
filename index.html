@@ -722,7 +722,7 @@
 <p>ReleaseMutex(hMutexSuicide);<br>一个线程释放了互斥对象的控制权后，如果其他进程在等待互斥对象置位，则等待的线程可以得到该互斥对象，等待函数返回，互斥对象被新的线程所拥有。并且会发送信号给waitforsingleobject</p>
 <p>WaitForSingleObject(hMutexSuicide, INFINITE);<br>WaitForSingleObject函数用来检测hMutexSuicide事件的信号状态，在某一线程中调用该函数时，线程暂时挂起，如果在挂起的dwMilliseconds毫秒内，线程所等待的对象变为有信号状态，则该函数立即返回；如果超时时间已经到达dwMilliseconds毫秒，但hMutexSuicide所指向的对象还没有变成有信号状态，函数照样返回。<br>参数dwMilliseconds有两个具有特殊意义的值：0和INFINITE。若为0，则该函数立即返回；若为INFINITE，则线程一直为阻塞状态，直到hHandle所指向的对象变为有信号状态时为止。</p>
 <p>OpenMutex() 打开已有的互斥体</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-19T05:53:46.000Z" title="2021/6/19 下午1:53:46">2021-06-19</time>发表</span><span class="level-item"><time dateTime="2021-06-19T08:33:43.872Z" title="2021/6/19 下午4:33:43">2021-06-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">5 分钟读完 (大约740个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/19/Python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">Python与数据分析期末复习</a></h1><div class="content"><h2 id="21年考情"><a href="#21年考情" class="headerlink" title="21年考情"></a>21年考情</h2><p>题型：</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-19T05:53:46.000Z" title="2021/6/19 下午1:53:46">2021-06-19</time>发表</span><span class="level-item"><time dateTime="2021-06-24T08:48:55.265Z" title="2021/6/24 下午4:48:55">2021-06-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">27 分钟读完 (大约4106个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/19/Python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">Python与数据分析期末复习</a></h1><div class="content"><h2 id="21年考情"><a href="#21年考情" class="headerlink" title="21年考情"></a>21年考情</h2><p>题型：</p>
 <p>​    填空题10分</p>
 <p>​    代码填空20分</p>
 <p>​    读程序写结果40分</p>
@@ -747,7 +747,7 @@
 <p>P135  缺失值（检测缺失值的方法，处理缺失值有哪几种方法）</p>
 <p>P138  示例5-5填充缺失值fillna函数的应用</p>
 <p>Ps：前途是光明的，道路是曲折的！</p>
-<h2 id="逐点击破"><a href="#逐点击破" class="headerlink" title="逐点击破"></a>逐点击破</h2><h3 id="P1、-1-1-1数据分析的概念：分哪几个部分？"><a href="#P1、-1-1-1数据分析的概念：分哪几个部分？" class="headerlink" title="P1、 1.1.1数据分析的概念：分哪几个部分？"></a>P1、 1.1.1数据分析的概念：分哪几个部分？</h3><p>数据分析概念：数据分析是指选用适当的分析方法对收集来的大量数据进行分析、提取有用的信息和形成结论、对数据加以详细研究和概括总结的过程。</p>
+<h2 id="逐点击破"><a href="#逐点击破" class="headerlink" title="逐点击破"></a>逐点击破</h2><h3 id="零、数据分析的概念：分哪几个部分？"><a href="#零、数据分析的概念：分哪几个部分？" class="headerlink" title="零、数据分析的概念：分哪几个部分？"></a>零、数据分析的概念：分哪几个部分？</h3><p>数据分析概念：数据分析是指选用适当的分析方法对收集来的大量数据进行分析、提取有用的信息和形成结论、对数据加以详细研究和概括总结的过程。</p>
 <p>广义的数据分析包括：</p>
 <ul>
 <li>狭义数据分析</li>
@@ -756,7 +756,7 @@
 <p>共两部分。</p>
 <h4 id="狭义数据分析"><a href="#狭义数据分析" class="headerlink" title="狭义数据分析"></a>狭义数据分析</h4><p>是指根据分析目的，采用对比分析、分组分析、交叉分析和回归分析等方法，对收集的数据进行处理与分析，提取有价值的信息，发挥数据的作用，得到一个特征统计量结果的过程。</p>
 <h4 id="数据挖掘"><a href="#数据挖掘" class="headerlink" title="数据挖掘"></a>数据挖掘</h4><p>是从大量的、不完全的、有噪声的、模糊的、随机的实际应用数据中，通过应用聚类模型、分类模型、回归和关联规则等技术，挖掘潜在价值的过程。</p>
-<h3 id="P2、1-1-2数据分析的流程：各有什么用？"><a href="#P2、1-1-2数据分析的流程：各有什么用？" class="headerlink" title="P2、1.1.2数据分析的流程：各有什么用？"></a>P2、1.1.2数据分析的流程：各有什么用？</h3><p>数据分析已经逐渐演化为一种解决问题的过程，典型的数据分析流程如下：</p>
+<h3 id="一、数据分析的流程：各有什么用？"><a href="#一、数据分析的流程：各有什么用？" class="headerlink" title="一、数据分析的流程：各有什么用？"></a>一、数据分析的流程：各有什么用？</h3><p>数据分析已经逐渐演化为一种解决问题的过程，典型的数据分析流程如下：</p>
 <ul>
 <li>需求分析</li>
 <li>数据获取</li>
@@ -765,7 +765,289 @@
 <li>模型评价与优化</li>
 <li>部署</li>
 </ul>
-<p>需求分析：需求分析的主要内容是根据数据分析需求方的要求和实际情况，结合现有的数据情况，提出数据分析需求的整体分析方向</p>
+<p>需求分析：需求分析的主要内容是根据数据分析需求方的要求和实际情况，结合现有的数据情况，提出数据分析需求的整体分析方向、分析内容，最终和需求方达成一致意见。</p>
+<p>数据获取：数据获取是根据需求分析的结果提取、收集数据。</p>
+<p>数据预处理：数据预处理是指对数据进行数据合并、数据清洗和数据变换，并直接用于分析建模的这一过程的总称。</p>
+<p>分析与建模：分析与建模是指通过对比分析、分组分析、交叉分析、回归分析deng分析方法，以及聚类模型、分类模型、关联模型等模型与算法，发现数据中有价值的信息，并得出结论的过程。</p>
+<p>模型评价与优化：模型评价是指对于已经建立的模型，根据其模型的类别，使用不同指标评价其性能优劣的过程。</p>
+<h3 id="二、-熟悉Numpy、Pandas、Matplotlib的用处。"><a href="#二、-熟悉Numpy、Pandas、Matplotlib的用处。" class="headerlink" title="二、 熟悉Numpy、Pandas、Matplotlib的用处。"></a>二、 熟悉Numpy、Pandas、Matplotlib的用处。</h3><ul>
+<li><p>Numpy:<strong>Numpy是Numerical Python的简称，是Python语言的一个科学计算的扩展程序库，支持大量的多维数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。</strong>Numpy主要提供以下内容：</p>
+<ul>
+<li>快速高效的多维数组对象ndarray</li>
+<li>广播功能函数，广播是一种对数组执行数学运算的函数，其执行的是元素级计算。广播提供了算术运算期间处理不同形状的数组的能力。</li>
+<li>读/写硬盘上基于数组的数据集工具</li>
+<li>线性代数运算、傅里叶变换及随机数生成功能</li>
+<li>将C/C++、Fortran代码集成到Python的工具</li>
+</ul>
+<p><strong>除了为Python提供快速的数组处理能力外，Numpy在数据分析方面还有另一个主要作用，即作为算法之间传递数据的容器。</strong>对于数值型数据，使用Numpy数组存储和处理数据要比使用内置的Python数据结构高效得多。此外，由其他语言(如C语言)编写的库可以直接操作Numpy数组中的数据，无需进行任何数据复制工作。</p>
+</li>
+<li><p>Pandas：<strong>Pandas是Python的数据分析核心库，最初被作为金融数据分析工具而开发出来。Pandas为时间序列分析提供了很好的支持。Pandas纳入了大量库和一些标准的数据模型，提供了高效地操作大型数据集所需的工具，提供一些列能够快速、便捷地处理结构化数据的结构和函数。</strong>Python之所以成为强大而高效的数据分析环境与他息息相关。Pandas兼具Numpy高性能的数组计算功能以及电子表格和关系型数据库的灵活数据处理功能，它提供了复杂精细的索引功能，以便便捷地完成重塑、切片和切换、聚合及选取数据子集等操作。</p>
+</li>
+<li><p>Matplotlib：<strong>Matplotlib是最流行的用于绘制数据图形地Python库，它以各种硬件拷贝格式和跨平台地交互式环境生成出高质量的图形。</strong></p>
+</li>
+</ul>
+<h3 id="三-、-Numpy多维数组下的一段话，即Numpy多维数组的作用？"><a href="#三-、-Numpy多维数组下的一段话，即Numpy多维数组的作用？" class="headerlink" title="三 、 Numpy多维数组下的一段话，即Numpy多维数组的作用？"></a>三 、 Numpy多维数组下的一段话，即Numpy多维数组的作用？</h3><p>Numpy提供了一个名为ndarray的多维数组对象，该数组元素具有固定的大小，即Numpy数组元素是同质的，只能存放同一种数据类型的对象，因此能够确定存储数组所需空间的大小，能够运用向量化运算来处理整个数组，具有较高的运算效率。</p>
+<h3 id="四、-arange函数、linspace函数、logspace函的使用。"><a href="#四、-arange函数、linspace函数、logspace函的使用。" class="headerlink" title="四、 arange函数、linspace函数、logspace函的使用。"></a>四、 arange函数、linspace函数、logspace函的使用。</h3><p>从数值范围创建数组的Numpy函数有三个：arange()\linspace()和logspace()。</p>
+<ul>
+<li><ol>
+<li>arange()函数：</li>
+</ol>
+<p>函数arange()根据start指定的范围以及step设置的步长，生成一个ndarry对象，函数格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">numpy.arange(start,stop,step,dtype)<br></code></pre></td></tr></table></figure>
+<p>其中的参数如表所示：</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">start</td>
+<td align="center">起始值，默认为0</td>
+</tr>
+<tr>
+<td align="center">stop</td>
+<td align="center">终止值(不包含)</td>
+</tr>
+<tr>
+<td align="center">step</td>
+<td align="center">步长，默认为1</td>
+</tr>
+<tr>
+<td align="center">dtype</td>
+<td align="center">返回的ndarray的数据类型，如果没有提供，则会使用输入数据的类型</td>
+</tr>
+</tbody></table>
+</li>
+<li><ol start="2">
+<li>linspace()函数</li>
+</ol>
+<p>Linspace()函数用于创建一个一维数组，数组是一个等差数列构成的，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">np.linspace(start,stop,num=<span class="hljs-number">50</span>,endpoint=<span class="hljs-literal">True</span>,retstep=<span class="hljs-literal">False</span>,dtype=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+<p>其中参数如表所示</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">start</td>
+<td align="center">起始值，默认为0</td>
+</tr>
+<tr>
+<td align="center">stop</td>
+<td align="center">序列的终止值，如果endpoint为True，该值包含于数列中</td>
+</tr>
+<tr>
+<td align="center">num</td>
+<td align="center">要生成的等步长的样本数量，默认为50</td>
+</tr>
+<tr>
+<td align="center">dtype</td>
+<td align="center">ndarray的数据类型</td>
+</tr>
+<tr>
+<td align="center">endpoint</td>
+<td align="center">该值为True时，数列中包含stop值，反之不包含，默认为True</td>
+</tr>
+<tr>
+<td align="center">retstep</td>
+<td align="center">如果为True，生成的数组中会显示间距，反之不显示</td>
+</tr>
+</tbody></table>
+</li>
+<li><ol start="3">
+<li><p>logspace()函数</p>
+<p>logspace()函数用于创建一个对数运算的等比数列，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">np.logspace(start,stop,num=<span class="hljs-number">50</span>,endpoint=<span class="hljs-literal">True</span>,base=<span class="hljs-number">10.0</span>,dtype=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">start</td>
+<td align="center">起始值，默认为0</td>
+</tr>
+<tr>
+<td align="center">stop</td>
+<td align="center">序列的终止值，如果endpoint为True，该值包含于数列中</td>
+</tr>
+<tr>
+<td align="center">num</td>
+<td align="center">要生成的等步长的样本数量，默认为50</td>
+</tr>
+<tr>
+<td align="center">dtype</td>
+<td align="center">ndarray的数据类型</td>
+</tr>
+<tr>
+<td align="center">endpoint</td>
+<td align="center">该值为True时，数列中包含stop值，反之不包含，默认为True</td>
+</tr>
+<tr>
+<td align="center">base</td>
+<td align="center">对数log的底数</td>
+</tr>
+</tbody></table>
+<p>实例：从数值范围创建数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>c1 = np.arange(<span class="hljs-number">10</span>)<br>c2 = np.linspace(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">10</span>)<br>c3 = np.logspace(<span class="hljs-number">10</span>,<span class="hljs-number">100</span>,<span class="hljs-number">10</span>)<br>print(<span class="hljs-string">&#x27;c1=&#x27;</span>,c1)<br>print(<span class="hljs-string">&#x27;c2=&#x27;</span>,c2)<br>print(<span class="hljs-string">&#x27;c3=&#x27;</span>,c3)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210525190435736.png"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="五、-最下面-5-随机数数组，熟悉前四个函数的使用（rand、randint、randn、seed）"><a href="#五、-最下面-5-随机数数组，熟悉前四个函数的使用（rand、randint、randn、seed）" class="headerlink" title="五、 最下面 5.随机数数组，熟悉前四个函数的使用（rand、randint、randn、seed）"></a>五、 最下面 5.随机数数组，熟悉前四个函数的使用（rand、randint、randn、seed）</h3><ul>
+<li><p>rand()函数</p>
+<p>rand()函数产生一个指定形状的数组，数组中的值服从[0,1)之间的均匀分布，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">numpy.random.rand(d0,d1,...,dn)<br></code></pre></td></tr></table></figure>
+<p>其中，参数d0，d1，…，dn为int型，可选。如果没有参数则返回一个float型的随机数。该随机数服从[0,1]之间的均匀分布。其返回值是一个ndarray对象或者一个float型的值。</p>
+<p>示例：rand()函数的应用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.random.rand(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>)<br>print(a)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210525204538586.png"></p>
+</li>
+<li><p>randn()函数</p>
+<p>函数randn()返回一个指定形状的数组，数组中的值服从标准正态分布(均值为0，方差为1)，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">numpy.random.randn(d0,d1,...,dn)<br></code></pre></td></tr></table></figure>
+<p>其中，参数d0，d1，…，dn为int型，可选。如果没有参数，则返回一个服从标准正态分布的float型随机数。</p>
+<p>返回值：ndarray对象或者float</p>
+<p>示例：randn()函数的应用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.random.randn(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>)<br>print(a)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210526153628490.png"></p>
+</li>
+<li><p>randint()函数</p>
+<p>randint()函数生成一个在区间[low,high)中离散均匀抽样的数组，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">numpy.random.randint(low,high=<span class="hljs-literal">None</span>,size=<span class="hljs-literal">None</span>,dtype=<span class="hljs-string">&#x27;1&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>函数参数说明如下：</p>
+<p>①low、high：int型，指定抽样区间[low，high)</p>
+<p>②size：int型或int型元组，指定形状</p>
+<p>③dtype：可选参数，指定数据类型，如int、int64等，默认为np.int</p>
+<p>返回值：如果指定了size，则返回一个int型的ndarray对象，否则返回一个服从该分布的int型随机数。</p>
+<p>示例：randint()函数的应用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.random.randint(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,size=(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>))<br>print(a)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/JavaScript/image-20210526155734411.png"></p>
+</li>
+</ul>
+<h3 id="六、-示例2-34，四个函数都要会用"><a href="#六、-示例2-34，四个函数都要会用" class="headerlink" title="六、 示例2-34，四个函数都要会用"></a>六、 示例2-34，四个函数都要会用</h3><p>add()、subtract()、multiply()和divide()函数的应用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.array([[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>],[<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]])<br>b = np.array([<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>])<br>print(np.add(a,b))<br>print(np.subtract(a,b))<br>print(np.multiply(a,b))<br>print(np.divide(a,b))<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624111049303.png" alt="效果"></p>
+<p>解释一下：函数用法对应英文单词的意思。用法同线性代数的矩阵运算相同。矩阵首尾要相同！(1,3)(3,1)就可以，(1,3)(2,3)就不行。</p>
+<h3 id="七、矩阵行列式、示例2-44"><a href="#七、矩阵行列式、示例2-44" class="headerlink" title="七、矩阵行列式、示例2-44"></a>七、矩阵行列式、示例2-44</h3><p>numpy.linalg.det()函数计算输入矩阵的行列式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]])<br>b = np.linalg.det(a)<br>print(b)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624141726127.png" alt="效果"></p>
+<p>解释：对角线相乘然后一减，后面有4是因为机器码转换成数据时精度问题。</p>
+<p><img src="/images/python/image-20210624142257413.png"></p>
+<p><img src="/images/python/image-20210624143215690.png" alt="3*3"></p>
+<p><img src="/images/python/image-20210624143241419.png" alt="3*3"></p>
+<h3 id="八、线性方程组、示例2-46"><a href="#八、线性方程组、示例2-46" class="headerlink" title="八、线性方程组、示例2-46"></a>八、线性方程组、示例2-46</h3><p>numpy.linalg中的solve()函数可以求解线性方程组。</p>
+<p>线性方程<strong>A</strong>x=b,其中<strong>A</strong>是一个矩阵，b是一维或者二维数组，而x是未知量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">x+y+z=<span class="hljs-number">6</span><br>2y+5z=-<span class="hljs-number">4</span><br>2x+5y-z=<span class="hljs-number">27</span><br></code></pre></td></tr></table></figure>
+<p>代码求解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>A = np.mat(<span class="hljs-string">&quot;1 1 1;0 2 5;2 5 -1&quot;</span>)<br>b = np.array([<span class="hljs-number">6</span>,-<span class="hljs-number">4</span>,<span class="hljs-number">27</span>])<br>x = np.linalg.solve(A,b)<br>print(<span class="hljs-string">&#x27;方程解:&#x27;</span>,x)<br>print(x.ndim)<br>print(np.dot(A,x)) <span class="hljs-comment">#验证</span><br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624145645886.png" alt="结果"></p>
+<p>上面代码的创建矩阵也可写成如下形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">A = np.mat([[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,-<span class="hljs-number">1</span>]])<br></code></pre></td></tr></table></figure>
+<h3 id="九、读程序的1、2题"><a href="#九、读程序的1、2题" class="headerlink" title="九、读程序的1、2题"></a>九、读程序的1、2题</h3><ol>
+<li><p>以下程序的执行结果是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.arange(<span class="hljs-number">12</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">6</span>)<br>c = a.ravel()<br>c[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span><br>print(a)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624151603428.png" alt="对比下面的看"></p>
+<p><img src="/images/python/image-20210624151506198.png" alt="看区别！"></p>
+</li>
+</ol>
+<p>说明ravel不会动原数组对象。</p>
+<ol start="2">
+<li><p>以下程序执行结果是:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>a = np.arange(<span class="hljs-number">9</span>)<br>b = np.split(a,<span class="hljs-number">3</span>)<br>print(b)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624151839552.png" alt="分成了三个对象"></p>
+</li>
+</ol>
+<h3 id="十、引言matplotlib的作用、绘制线形图、示例3-1，熟悉plot函数的使用。"><a href="#十、引言matplotlib的作用、绘制线形图、示例3-1，熟悉plot函数的使用。" class="headerlink" title="十、引言matplotlib的作用、绘制线形图、示例3-1，熟悉plot函数的使用。"></a>十、引言matplotlib的作用、绘制线形图、示例3-1，熟悉plot函数的使用。</h3><ol>
+<li><p>matplotlib的作用：数据可视化是形象展示数据的主要手段，也是数据分析的重要组成部分。matplotlib是一个基于Python的图形可视化工具，支持多种图形的绘制，并支持完整的图标样式和个行化设置，功能强大且易学易用。</p>
+</li>
+<li><p>绘制线形图：</p>
+<p>线形图是最基本的图表类型，常用于绘制连续的数据。通过绘制线形图，可以表现出数据的一种趋势变化。Matplotlib的plot()函数用来绘制线形图，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">matplotlib.pyplot.plot(*args,**kwargs)<br></code></pre></td></tr></table></figure>
+<p>args是一个可变长的参数，允许使用可选格式字符串的多个x、y对，<strong>并且x可以省略。当省略x时，通过y索引0,1…,n-1作为x。</strong></p>
+<p>kwargs参数也是一个可变长的参数，允许对线形图的显示效果进行设置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">%matplotlib inline<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br>x = np.linspace(-np.pi,np.pi,<span class="hljs-number">250</span>)<br>y,z = np.sin(x),np.cos(x)<br>plt.plot(x,y,x,z)<br>plt.plot([<span class="hljs-number">0.5</span>,<span class="hljs-number">1</span>,-<span class="hljs-number">0.5</span>,<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624153358593.png" alt="效果"></p>
+<p>程序分析：</p>
+<ol>
+<li>%matplotlib inline的作用是在Jupyter Notebook中显示图形，使用其他开发工具，这行代码可以不要</li>
+<li>import matplotlib.pyplot as plt的作用是导入matplotlib的pyplot模块</li>
+<li>x = np.linspace(-np.pi,np.pi,250)的作用是生成一个由250个浮点数组成的数组</li>
+<li>y,z = np.sin(x),np.cos(x)的作用是计算出数组的正弦、余弦值，并赋值给y和z两个变量</li>
+<li>plt.plot(x,y,x,z)绘制两条线形图，分别是正弦和余弦曲线</li>
+<li>plt.plot([0.5,1,-0.5,1])绘制线形图，其中y轴的值是[0.5,1,-0.5,1]，而x轴的值是[0，1，2，3]，即数组[0.5,1,-0.5,1]的索引</li>
+</ol>
+</li>
+</ol>
+<h3 id="十一、-示例3-25用figure函数创建子图"><a href="#十一、-示例3-25用figure函数创建子图" class="headerlink" title="十一、 示例3-25用figure函数创建子图"></a>十一、 示例3-25用figure函数创建子图</h3><p>subplot(nrows,ncols,plot_number)函数创建子图，其中参数nrows、ncols表示行数和列数，决定了子图的个数；plot_number表示当前是第几个子图。</p>
+<p>利用figure()函数创建子图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">%matplotlib inline<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br>x = np.linspace(-np.pi,np.pi,<span class="hljs-number">50</span>)<br>y1,y2 = np.sin(x),np.cos(x)<br>fig = plt.figure(figsize=(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))<br>plt.plot(x,y1)<br>fig = plt.figure(figsize=(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))<br>plt.plot(x,y2)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20210624160551401.png" alt="效果"></p>
+<h3 id="十二、-pandas有哪几种数据结构、概念"><a href="#十二、-pandas有哪几种数据结构、概念" class="headerlink" title="十二、 pandas有哪几种数据结构、概念"></a>十二、 pandas有哪几种数据结构、概念</h3><p>Pandas有3钟数据结构：系列(Series)、数据帧(DataFrame)和面板(Panel)，这些数据结构可以构建在Numpy数组上。</p>
+<ol>
+<li><p>Series系列</p>
+<p>系列是具有均匀数据的一维数据结构，其特点是：均匀数据、尺寸大小不变、数据的值可变。</p>
+<p>系列是能够保存任何数据类型的数据(整数、字符串、浮点数、Python对象等)的一维标记数组。</p>
+<p>Pandas系列可以使用以下构造函数构建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pandas.Series(data,index,dtype,copy)<br></code></pre></td></tr></table></figure></li>
+<li><p>数据帧</p>
+<p>数据帧(DataFrame)是一个具有异构数据的二维数组，其特点是异构数据、大小可变、数据可变。数据帧是Pandas使用最多的数据结构。</p>
+<p>数据以行和列表示，每行是一条记录(对象)，每列表示一个属性，属性数据具有数据类型。例如，姓名是字符串，年龄是整数，如表所示。</p>
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th align="center">性别</th>
+<th align="center">年龄</th>
+<th align="center">身高</th>
+<th align="center">班级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">小明</td>
+<td align="center">男</td>
+<td align="center">20</td>
+<td align="center">178</td>
+<td align="center">1班</td>
+</tr>
+<tr>
+<td align="center">小花</td>
+<td align="center">女</td>
+<td align="center">22</td>
+<td align="center">165</td>
+<td align="center">1班</td>
+</tr>
+<tr>
+<td align="center">小兰</td>
+<td align="center">女</td>
+<td align="center">19</td>
+<td align="center">163</td>
+<td align="center">2班</td>
+</tr>
+<tr>
+<td align="center">小胜</td>
+<td align="center">男</td>
+<td align="center">23</td>
+<td align="center">175</td>
+<td align="center">1班</td>
+</tr>
+</tbody></table>
+<p>Pandas中的DataFrame可以使用以下构造函数创建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">Pandas.DataFrame(data,index,columns,dtype,copy)<br></code></pre></td></tr></table></figure></li>
+<li><p>面板</p>
+<p>面板是具有异构数据的三维数据结构。其特点是：异构数据、大小可变、数据可变。</p>
+<p>可以使用以下构造函数创建面板：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pandas.Panel(data,items,major_axis,minor_axis,dtype,copy)<br></code></pre></td></tr></table></figure>
+<h3 id="十三、-数据帧DataFrame的定义和使用"><a href="#十三、-数据帧DataFrame的定义和使用" class="headerlink" title="十三、 数据帧DataFrame的定义和使用"></a>十三、 数据帧DataFrame的定义和使用</h3></li>
+</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-16T06:14:14.000Z" title="2021/6/16 下午2:14:14">2021-06-16</time>发表</span><span class="level-item"><time dateTime="2021-06-16T13:19:58.423Z" title="2021/6/16 下午9:19:58">2021-06-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a></span><span class="level-item">4 分钟读完 (大约657个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/16/%E5%9F%BA%E4%BA%8ESSM%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9B%BE%E4%B9%A6%E9%A2%84%E7%BA%A6%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91/">基于SSM图书管理项目的图书预约功能实现逻辑</a></h1><div class="content"><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在写这篇博客时，图书管理系统的图书管理模块、用户管理模块已经实现。前两个模块已经写好了完善的Service，所以接下来在写预约模块的时候会省很多功夫。下面是一份简单的预约模块构造流程图：</p>
 <p><img src="/images/JavaScript/date_book_flush_chart-1623824321875.png"></p>
 <h2 id="预约模块各功能的设计"><a href="#预约模块各功能的设计" class="headerlink" title="预约模块各功能的设计"></a>预约模块各功能的设计</h2><h3 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h3><p>图书管理模块与用户管理模块所使用的登录逻辑相同，即调用adminService来获取管理员的信息。但对于普通用户而言，本项目要设计一个新的Service出来，即user_login_Service。之所以起这种沙雕名字，是因为之前在为pojo下reader_info设计的时候，就已经使用了userService这一名字，它已经与Mapper绑定了，故另辟蹊径。</p>
