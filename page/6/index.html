@@ -1,5 +1,566 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-11T07:16:21.000Z" title="2021/4/11 下午3:16:21">2021-04-11</time>发表</span><span class="level-item"><time dateTime="2021-04-19T05:27:36.234Z" title="2021/4/19 下午1:27:36">2021-04-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">2 分钟读完 (大约265个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/11/%E7%88%AC%E8%99%AB%E4%B9%8Brequest%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%A6%E4%B9%A0/">爬虫之request模块的学习</a></h1><div class="content"><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><blockquote>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-18T12:04:53.000Z" title="2021/4/18 下午8:04:53">2021-04-18</time>发表</span><span class="level-item"><time dateTime="2021-04-19T05:22:10.315Z" title="2021/4/19 下午1:22:10">2021-04-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><span class="level-item">6 分钟读完 (大约881个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/18/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E4%B9%8B%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">统计学习方法之监督学习（一）</a></h1><div class="content"><h3 id="统计学习"><a href="#统计学习" class="headerlink" title="统计学习"></a>统计学习</h3><h4 id="统计学习的特点"><a href="#统计学习的特点" class="headerlink" title="统计学习的特点"></a>统计学习的特点</h4><p>统计学习是关于计算机基于数据构建概率统计模型并运用模型对数据进行预测与分析的一门学科。<br>统计学习也称为统计机器学习。<br>= =。看了上面的定义，是不是觉得一团浆糊呢。但其实说的已经很清楚了，在这里我用自己的话总结一下。<br><strong>统计学习就是用数据建模型，再用建出来的模型对数据进行分析和预测的一个看起来高大上实则学起来也就那么回事的一门学科。</strong></p>
+<p>统计学习有诸多特点，在这里作简单概括：</p>
+<ul>
+<li>统计学习以计算机和网络为平台，是建立在计算机和网络上的</li>
+<li><strong>统计学习以数据为研究对象，是数据驱动的学科</strong></li>
+<li><strong>统计学习的目的是对数据进行预测与分析</strong></li>
+<li>统计学习以方法为中心，统计学习方法构建模型并应用模型进行预测与分析</li>
+<li>统计学习是概率论、统计学、信息论、计算理论、最优化理论及计算机科学等多个领域的交叉学科。并且在发展中逐步形成独自的理论体系与方法论。</li>
+</ul>
+<h4 id="统计学习的对象"><a href="#统计学习的对象" class="headerlink" title="统计学习的对象"></a>统计学习的对象</h4><p>统计学习的研究对象是<strong>数据</strong>。它从数据出发，提取数据的特征，抽象出数据的模型，发现数据中的知识，又回到对数据的分析与预测中去。<br><strong>统计学习关于数据的基本假设是同类数据具有一定的统计规律，这是统计学习的前提</strong></p>
+<h4 id="统计学习的目的"><a href="#统计学习的目的" class="headerlink" title="统计学习的目的"></a>统计学习的目的</h4><p>统计学习用于<strong>对数据的预测与分析</strong>，特别是对未知新数据的预测与分析。对数据的预测与分析是通过构建概率统计模型实现的。</p>
+<h4 id="统计学习的方法"><a href="#统计学习的方法" class="headerlink" title="统计学习的方法"></a>统计学习的方法</h4><p>统计学习的方法可以概括如下：</p>
+<ul>
+<li>从给定的、有限的、用于学习的训练数据集合出发，假设数据是独立同分布产生的</li>
+<li>并且假设要学习的模型属于某个函数的集合，称为假设空间({f1,f2,f3,…,fn})</li>
+<li>应用某个评价准则，从假设空间选取一个最优模型，使它对已知的训练数据及未知的测试数据在给定的评价准则下有最优的预测</li>
+<li>最优模型由算法实现</li>
+</ul>
+<p>如此可知，统计学习方法包括<strong>模型的假设空间、模型选择的准则、模型学习的算法</strong>，简称为‘模型’，‘策略’，‘算法’。</p>
+<p>实现统计学习方法的步骤如下：</p>
+<ol>
+<li>得到一个有限的训练数据集合</li>
+<li>确定包含所有可能的模型的假设空间，即学习模型的集合</li>
+<li>确定模型选择的准则，即学习的策略</li>
+<li>实现求解最优模型的算法，即学习的算法</li>
+<li>通过学习方法选择最优模型</li>
+<li>利用学习的最优模型对新数据进行预测和分析</li>
+</ol>
+<p>= =。就先写到这里，这算对统计学习做了一个简单的概述，大致看一下即可。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-15T16:07:04.000Z" title="2021/4/16 上午12:07:04">2021-04-16</time>发表</span><span class="level-item"><time dateTime="2021-04-19T05:25:36.141Z" title="2021/4/19 下午1:25:36">2021-04-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span><span class="level-item">26 分钟读完 (大约3905个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/16/python%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">python之正则表达式</a></h1><div class="content"><h3 id="学习基础：Python之正则表达式-引用runoob的正则表达式篇"><a href="#学习基础：Python之正则表达式-引用runoob的正则表达式篇" class="headerlink" title="学习基础：Python之正则表达式(引用runoob的正则表达式篇)"></a>学习基础：Python之正则表达式(引用runoob的正则表达式篇)</h3><p>正则表达式是一个特殊的字符序列，它能方便我们检查一个字符串是否与某种模式匹配。<br>Python的re模块使Python语言拥有全部的正则表达式功能。</p>
+<h4 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h4><p>re.match函数尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。<br><strong>函数语法：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.match(pattern, string, flags=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>函数参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式</td>
+</tr>
+</tbody></table>
+<p>匹配成功re.match方法返回一个匹配的对象，否则返回None。<br>可以使用group（num）或groups（）匹配对象函数来获取匹配表达式。</p>
+<table>
+<thead>
+<tr>
+<th>匹配对象方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>group（num=0）</td>
+<td>匹配的整个表达式的字符串，group（）可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组</td>
+</tr>
+<tr>
+<td>groups（）</td>
+<td>返回一个包含所有小组字符串的元组，从1到所含的小组号</td>
+</tr>
+</tbody></table>
+<p><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python</span><br><br><span class="hljs-keyword">import</span> re<br>print(re.match(<span class="hljs-string">&#x27;www&#x27;</span>,<span class="hljs-string">&#x27;www.youtube.com&#x27;</span>).span()) <span class="hljs-comment">#在起始位置匹配</span><br>print(re.match(<span class="hljs-string">&#x27;com&#x27;</span>,<span class="hljs-string">&#x27;www.youtube.com&#x27;</span>)) <span class="hljs-comment">#不在起始位置匹配</span><br></code></pre></td></tr></table></figure>
+<p><strong>以上实例运行输出结果为:</strong></p>
+<blockquote>
+<p>(0,3)<br>None</p>
+</blockquote>
+<p><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> re<br><br>line = <span class="hljs-string">&quot;Cats are smarter than dogs&quot;</span><br><span class="hljs-comment"># .*表示任意匹配除换行符（\n,\r）之外的任何单个或多个字符</span><br><span class="hljs-comment"># (.*?)表示“非贪婪”模式，只保存第一个匹配到的子串</span><br>matchObj = re.match(<span class="hljs-string">r&#x27;(.*) are (.*?) .*&#x27;</span>,line,re.M|re.I)<br><span class="hljs-keyword">if</span> matchObj:<br>	print(<span class="hljs-string">&quot;matchObj.group():&quot;</span>,matchObj.group())<br>	print(<span class="hljs-string">&quot;match.group(1):&quot;</span>,matchObj.group(<span class="hljs-number">1</span>))<br>	print(<span class="hljs-string">&quot;match.group(2):&quot;</span>,matchObj.group(<span class="hljs-number">2</span>))<br><span class="hljs-keyword">else</span>:<br>	print(<span class="hljs-string">&quot;No match!&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>以上实例执行结果如下：</p>
+<blockquote>
+<p>matchObj.group(): Cats are smarter than dogs<br>matchObj.group(1):Cats<br>matchObj.group(2):smarter</p>
+</blockquote>
+<h4 id="re-search方法"><a href="#re-search方法" class="headerlink" title="re.search方法"></a>re.search方法</h4><p>re.search扫描整个字符串并返回第一个成功的匹配<br><strong>函数语法：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.search(pattern, string, flags=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>函数参数说明：</strong><br>同re.match<br><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br> <br><span class="hljs-keyword">import</span> re<br> <br>print(re.search(<span class="hljs-string">&#x27;www&#x27;</span>, <span class="hljs-string">&#x27;www.youtube.com&#x27;</span>).span())  <span class="hljs-comment"># 在起始位置匹配</span><br>print(re.search(<span class="hljs-string">&#x27;com&#x27;</span>, <span class="hljs-string">&#x27;www.youtube.com&#x27;</span>).span())  <span class="hljs-comment"># 不在起始位置匹配</span><br></code></pre></td></tr></table></figure>
+<p><strong>以上实例运行输出结果为：</strong></p>
+<blockquote>
+<p>(0,3)<br>(12,15)<br><strong>实例：</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br> <br><span class="hljs-keyword">import</span> re<br> <br>line = <span class="hljs-string">&quot;Cats are smarter than dogs&quot;</span><br> <br>searchObj = re.search( <span class="hljs-string">r&#x27;(.*) are (.*?) .*&#x27;</span>, line, re.M|re.I)<br> <br><span class="hljs-keyword">if</span> searchObj:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;searchObj.group() : &quot;</span>, searchObj.group())<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;searchObj.group(1) : &quot;</span>, searchObj.group(<span class="hljs-number">1</span>))<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;searchObj.group(2) : &quot;</span>, searchObj.group(<span class="hljs-number">2</span>))<br><span class="hljs-keyword">else</span>:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Nothing found!!&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>以上实例运行输出结果为：</strong></p>
+<blockquote>
+<p>searchObj.group() :  Cats are smarter than dogs<br>searchObj.group(1) :  Cats<br>searchObj.group(2) :  smarter</p>
+</blockquote>
+<h4 id="re-match与re-search的区别"><a href="#re-match与re-search的区别" class="headerlink" title="re.match与re.search的区别"></a>re.match与re.search的区别</h4><p>re.match 只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回 None，而 re.search 匹配整个字符串，直到找到一个匹配。<br><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br> <br><span class="hljs-keyword">import</span> re<br> <br>line = <span class="hljs-string">&quot;Cats are smarter than dogs&quot;</span><br> <br>matchObj = re.match( <span class="hljs-string">r&#x27;dogs&#x27;</span>, line, re.M|re.I)<br><span class="hljs-keyword">if</span> matchObj:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;match --&gt; matchObj.group() : &quot;</span>, matchObj.group())<br><span class="hljs-keyword">else</span>:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;No match!!&quot;</span>)<br> <br>matchObj = re.search( <span class="hljs-string">r&#x27;dogs&#x27;</span>, line, re.M|re.I)<br><span class="hljs-keyword">if</span> matchObj:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;search --&gt; matchObj.group() : &quot;</span>, matchObj.group())<br><span class="hljs-keyword">else</span>:<br>   <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;No match!!&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>以上实例运行结果如下：</strong></p>
+<blockquote>
+<p>No match!!<br>search –&gt; matchObj.group() :  dogs</p>
+</blockquote>
+<h4 id="检索和替换"><a href="#检索和替换" class="headerlink" title="检索和替换"></a>检索和替换</h4><p>Python 的re模块提供了re.sub用于替换字符串中的匹配项。<br><strong>语法：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.sub(pattern, repl, string, count=<span class="hljs-number">0</span>, flags=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>参数：</strong></p>
+<ul>
+<li>pattern : 正则中的模式字符串。</li>
+<li>repl : 替换的字符串，也可为一个函数。</li>
+<li>string : 要被查找替换的原始字符串。</li>
+<li>count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。</li>
+<li>flags : 编译时用的匹配模式，数字形式。</li>
+</ul>
+<p><strong>前三个为必选参数，后两个为可选参数。</strong><br><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> re<br> <br>phone = <span class="hljs-string">&quot;2004-959-559 # 这是一个电话号码&quot;</span><br> <br><span class="hljs-comment"># 删除注释</span><br>num = re.sub(<span class="hljs-string">r&#x27;#.*$&#x27;</span>, <span class="hljs-string">&quot;&quot;</span>, phone)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;电话号码 : &quot;</span>, num)<br> <br><span class="hljs-comment"># 移除非数字的内容</span><br>num = re.sub(<span class="hljs-string">r&#x27;\D&#x27;</span>, <span class="hljs-string">&quot;&quot;</span>, phone)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;电话号码 : &quot;</span>, num)<br></code></pre></td></tr></table></figure>
+<p><strong>以上实例执行结果如下：</strong></p>
+<blockquote>
+<p>电话号码 :  2004-959-559<br>电话号码 :  2004959559<br><strong>repl 参数是一个函数</strong></p>
+</blockquote>
+<p><strong>以下实例中将字符串中的匹配的数字乘于 2：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python</span><br> <br><span class="hljs-keyword">import</span> re<br> <br><span class="hljs-comment"># 将匹配的数字乘于 2</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span>(<span class="hljs-params">matched</span>):</span><br>    value = <span class="hljs-built_in">int</span>(matched.group(<span class="hljs-string">&#x27;value&#x27;</span>))<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(value * <span class="hljs-number">2</span>)<br> <br>s = <span class="hljs-string">&#x27;A23G4HFD567&#x27;</span><br>print(re.sub(<span class="hljs-string">&#x27;(?P&lt;value&gt;\d+)&#x27;</span>, double, s))<br></code></pre></td></tr></table></figure>
+<p><strong>执行输出结果为：</strong></p>
+<blockquote>
+<p>A46G8HFD1134</p>
+</blockquote>
+<p><strong>compile 函数</strong><br>compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</p>
+<p><strong>语法格式为：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.<span class="hljs-built_in">compile</span>(pattern[, flags])<br></code></pre></td></tr></table></figure>
+<p><strong>参数：</strong></p>
+<ul>
+<li>pattern : 一个字符串形式的正则表达式</li>
+<li>flags 可选，表示匹配模式，比如忽略大小写，多行模式等，具体参数为：</li>
+<li>re.I 忽略大小写<ul>
+<li>re.L 表示特殊字符集 \w, \W, \b, \B, \s, \S 依赖于当前环境</li>
+<li>re.M 多行模式</li>
+<li>re.S 即为’ . ‘并且包括换行符在内的任意字符（’ . ‘不包括换行符）</li>
+<li>re.U 表示特殊字符集 \w, \W, \b, \B, \d, \D, \s, \S 依赖于 Unicode 字符属性数据库</li>
+<li>re.X 为了增加可读性，忽略空格和’ # ‘后面的注释</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">&gt;&gt;&gt;<span class="hljs-keyword">import</span> re<br><span class="hljs-meta">&gt;&gt;&gt; </span>pattern = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;\d+&#x27;</span>)                    <span class="hljs-comment"># 用于匹配至少一个数字</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="hljs-string">&#x27;one12twothree34four&#x27;</span>)        <span class="hljs-comment"># 查找头部，没有匹配</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>print( m )<br><span class="hljs-literal">None</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="hljs-string">&#x27;one12twothree34four&#x27;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">10</span>) <span class="hljs-comment"># 从&#x27;e&#x27;的位置开始匹配，没有匹配</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>print( m )<br><span class="hljs-literal">None</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="hljs-string">&#x27;one12twothree34four&#x27;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>) <span class="hljs-comment"># 从&#x27;1&#x27;的位置开始匹配，正好匹配</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>print( m )                                        <span class="hljs-comment"># 返回一个 Match 对象</span><br>&lt;_sre.SRE_Match <span class="hljs-built_in">object</span> at <span class="hljs-number">0x10a42aac0</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.group(<span class="hljs-number">0</span>)   <span class="hljs-comment"># 可省略 0</span><br><span class="hljs-string">&#x27;12&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.start(<span class="hljs-number">0</span>)   <span class="hljs-comment"># 可省略 0</span><br><span class="hljs-number">3</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.end(<span class="hljs-number">0</span>)     <span class="hljs-comment"># 可省略 0</span><br><span class="hljs-number">5</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.span(<span class="hljs-number">0</span>)    <span class="hljs-comment"># 可省略 0</span><br>(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)<br></code></pre></td></tr></table></figure>
+<p>在上面，当匹配成功时返回一个 Match 对象，其中：</p>
+<ul>
+<li>group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；</li>
+<li>start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；</li>
+<li>end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；</li>
+<li>span([group]) 方法返回 (start(group), end(group))。</li>
+</ul>
+<p><strong>再看看一个例子：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">&gt;&gt;&gt;<span class="hljs-keyword">import</span> re<br><span class="hljs-meta">&gt;&gt;&gt; </span>pattern = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;([a-z]+) ([a-z]+)&#x27;</span>, re.I)   <span class="hljs-comment"># re.I 表示忽略大小写</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="hljs-string">&#x27;Hello World Wide Web&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>print( m )                            <span class="hljs-comment"># 匹配成功，返回一个 Match 对象</span><br>&lt;_sre.SRE_Match <span class="hljs-built_in">object</span> at <span class="hljs-number">0x10bea83e8</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.group(<span class="hljs-number">0</span>)                            <span class="hljs-comment"># 返回匹配成功的整个子串</span><br><span class="hljs-string">&#x27;Hello World&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.span(<span class="hljs-number">0</span>)                             <span class="hljs-comment"># 返回匹配成功的整个子串的索引</span><br>(<span class="hljs-number">0</span>, <span class="hljs-number">11</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.group(<span class="hljs-number">1</span>)                            <span class="hljs-comment"># 返回第一个分组匹配成功的子串</span><br><span class="hljs-string">&#x27;Hello&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.span(<span class="hljs-number">1</span>)                             <span class="hljs-comment"># 返回第一个分组匹配成功的子串的索引</span><br>(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.group(<span class="hljs-number">2</span>)                            <span class="hljs-comment"># 返回第二个分组匹配成功的子串</span><br><span class="hljs-string">&#x27;World&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>m.span(<span class="hljs-number">2</span>)                             <span class="hljs-comment"># 返回第二个分组匹配成功的子串索引</span><br>(<span class="hljs-number">6</span>, <span class="hljs-number">11</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.groups()                            <span class="hljs-comment"># 等价于 (m.group(1), m.group(2), ...)</span><br>(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;World&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>m.group(<span class="hljs-number">3</span>)                            <span class="hljs-comment"># 不存在第三个分组</span><br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>IndexError: no such group<br></code></pre></td></tr></table></figure>
+<p><strong>findall</strong><br>在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表。</p>
+<p>注意： match 和 search 是匹配一次 findall 匹配所有。<br><strong>语法格式为：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">re.findall(pattern, string, flags=<span class="hljs-number">0</span>)<br>或<br>pattern.findall(string[, pos[, endpos]])<br></code></pre></td></tr></table></figure>
+<p><strong>参数：</strong></p>
+<ul>
+<li>pattern 匹配模式。</li>
+<li>string 待匹配的字符串。</li>
+<li>pos 可选参数，指定字符串的起始位置，默认为 0。</li>
+<li>endpos 可选参数，指定字符串的结束位置，默认为字符串的长度。</li>
+</ul>
+<p><strong>查找字符串中的所有数字：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br> <br>result1 = re.findall(<span class="hljs-string">r&#x27;\d+&#x27;</span>,<span class="hljs-string">&#x27;runoob 123 google 456&#x27;</span>)<br> <br>pattern = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;\d+&#x27;</span>)   <span class="hljs-comment"># 查找数字</span><br>result2 = pattern.findall(<span class="hljs-string">&#x27;runoob 123 google 456&#x27;</span>)<br>result3 = pattern.findall(<span class="hljs-string">&#x27;run88oob123google456&#x27;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>)<br> <br>print(result1)<br>print(result2)<br>print(result3)<br></code></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">[<span class="hljs-string">&#x27;123&#x27;</span>, <span class="hljs-string">&#x27;456&#x27;</span>]<br>[<span class="hljs-string">&#x27;123&#x27;</span>, <span class="hljs-string">&#x27;456&#x27;</span>]<br>[<span class="hljs-string">&#x27;88&#x27;</span>, <span class="hljs-string">&#x27;12&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p><strong>re.finditer</strong><br>和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为一个迭代器返回。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.finditer(pattern, string, flags=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式</td>
+</tr>
+</tbody></table>
+<p><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br> <br>it = re.finditer(<span class="hljs-string">r&quot;\d+&quot;</span>,<span class="hljs-string">&quot;12a32bc43jf3&quot;</span>) <br><span class="hljs-keyword">for</span> match <span class="hljs-keyword">in</span> it: <br>    <span class="hljs-built_in">print</span> (match.group() )<br></code></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<blockquote>
+<p>12<br>32<br>43<br>3</p>
+</blockquote>
+<p><strong>re.split</strong><br>split 方法按照能够匹配的子串将字符串分割后返回列表，它的使用形式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.split(pattern, string[, maxsplit=<span class="hljs-number">0</span>, flags=<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串</td>
+</tr>
+<tr>
+<td>maxsplit</td>
+<td>分隔次数，maxsplit=1 分隔一次，默认为 0，不限制次数</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式</td>
+</tr>
+</tbody></table>
+<p><strong>实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">&gt;&gt;&gt;<span class="hljs-keyword">import</span> re<br><span class="hljs-meta">&gt;&gt;&gt; </span>re.split(<span class="hljs-string">&#x27;\W+&#x27;</span>, <span class="hljs-string">&#x27;runoob, runoob, runoob.&#x27;</span>)<br>[<span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>re.split(<span class="hljs-string">&#x27;(\W+)&#x27;</span>, <span class="hljs-string">&#x27; runoob, runoob, runoob.&#x27;</span>) <br>[<span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;, &#x27;</span>, <span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;, &#x27;</span>, <span class="hljs-string">&#x27;runoob&#x27;</span>, <span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>re.split(<span class="hljs-string">&#x27;\W+&#x27;</span>, <span class="hljs-string">&#x27; runoob, runoob, runoob.&#x27;</span>, <span class="hljs-number">1</span>) <br>[<span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;runoob, runoob, runoob.&#x27;</span>]<br> <br><span class="hljs-meta">&gt;&gt;&gt; </span>re.split(<span class="hljs-string">&#x27;a*&#x27;</span>, <span class="hljs-string">&#x27;hello world&#x27;</span>)   <span class="hljs-comment"># 对于一个找不到匹配的字符串而言，split 不会对其作出分割</span><br>[<span class="hljs-string">&#x27;hello world&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<h4 id="正则表达式对象"><a href="#正则表达式对象" class="headerlink" title="正则表达式对象"></a>正则表达式对象</h4><p><strong>re.RegexObject</strong><br>re.compile() 返回 RegexObject 对象。<br><strong>re.MatchObject</strong></p>
+<ul>
+<li>group() 返回被 RE 匹配的字符串。</li>
+<li>start() 返回匹配开始的位置</li>
+<li>end() 返回匹配结束的位置</li>
+<li>span() 返回一个元组包含匹配 (开始,结束) 的位置<h4 id="正则表达式修饰符-可选标志"><a href="#正则表达式修饰符-可选标志" class="headerlink" title="正则表达式修饰符 - 可选标志"></a>正则表达式修饰符 - 可选标志</h4>正则表达式可以包含一些可选标志修饰符来控制匹配的模式。修饰符被指定为一个可选的标志。多个标志可以通过按位 OR(|) 它们来指定。<br>如 re.I | re.M 被设置成 I 和 M 标志：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>re.I</td>
+<td>使匹配对大小写不敏感</td>
+</tr>
+<tr>
+<td>re.L</td>
+<td>做本地化识别（locale-aware）匹配</td>
+</tr>
+<tr>
+<td>re.M</td>
+<td>多行匹配，影响 ^ 和 $</td>
+</tr>
+<tr>
+<td>re.S</td>
+<td>使 . 匹配包括换行在内的所有字符</td>
+</tr>
+<tr>
+<td>re.U</td>
+<td>根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.</td>
+</tr>
+<tr>
+<td>re.X</td>
+<td>该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。</td>
+</tr>
+</tbody></table>
+<h4 id="正则表达式模式"><a href="#正则表达式模式" class="headerlink" title="正则表达式模式"></a>正则表达式模式</h4><p>模式字符串使用特殊的语法来表示一个正则表达式：</p>
+<p>字母和数字表示他们自身。一个正则表达式模式中的字母和数字匹配同样的字符串。</p>
+<p>多数字母和数字前加一个反斜杠时会拥有不同的含义。</p>
+<p>标点符号只有被转义时才匹配自身，否则它们表示特殊的含义。</p>
+<p>反斜杠本身需要使用反斜杠转义。</p>
+<p>由于正则表达式通常都包含反斜杠，所以你最好使用原始字符串来表示它们。模式元素(如 r’\t’，等价于 \t )匹配相应的特殊字符。</p>
+<p>下表列出了正则表达式模式语法中的特殊元素。如果你使用模式的同时提供了可选的标志参数，某些模式元素的含义会改变。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>匹配字符串的开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的末尾。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>用来表示一组字符,单独列出：[amk] 匹配 ‘a’，’m’或’k’</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。</td>
+</tr>
+<tr>
+<td>re*</td>
+<td>匹配0个或多个的表达式。</td>
+</tr>
+<tr>
+<td>re+</td>
+<td>匹配1个或多个的表达式。</td>
+</tr>
+<tr>
+<td>re?</td>
+<td>匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式</td>
+</tr>
+<tr>
+<td>re{ n}</td>
+<td>匹配n个前面表达式。例如，”o{2}”不能匹配”Bob”中的”o”，但是能匹配”food”中的两个o。</td>
+</tr>
+<tr>
+<td>re{ n,}</td>
+<td>精确匹配n个前面表达式。例如，”o{2,}”不能匹配”Bob”中的”o”，但能匹配”foooood”中的所有o。”o{1,}”等价于”o+”。”o{0,}”则等价于”o*”。</td>
+</tr>
+<tr>
+<td>re{ n, m}</td>
+<td>匹配 n 到 m 次由前面的正则表达式定义的片段，贪婪方式</td>
+</tr>
+<tr>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr>
+<td>(re)</td>
+<td>匹配括号内的表达式，也表示一个组</td>
+</tr>
+<tr>
+<td>(?imx)</td>
+<td>正则表达式包含三种可选标志：i, m, 或 x 。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td>(?-imx)</td>
+<td>正则表达式关闭 i, m, 或 x 可选标志。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td>(?: re)</td>
+<td>类似 (…), 但是不表示一个组</td>
+</tr>
+<tr>
+<td>(?imx: re)</td>
+<td>在括号中使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td>(?-imx: re)</td>
+<td>在括号中不使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td>(?#…)</td>
+<td>注释.</td>
+</tr>
+<tr>
+<td>(?= re)</td>
+<td>前向肯定界定符。如果所含正则表达式，以 … 表示，在当前位置成功匹配时成功，否则失败。但一旦所含表达式已经尝试，匹配引擎根本没有提高；模式的剩余部分还要尝试界定符的右边。</td>
+</tr>
+<tr>
+<td>(?! re)</td>
+<td>前向否定界定符。与肯定界定符相反；当所含表达式不能在字符串当前位置匹配时成功。</td>
+</tr>
+<tr>
+<td>(?&gt; re)</td>
+<td>匹配的独立模式，省去回溯。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配数字字母下划线</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非数字字母下划线</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意空白字符，等价于 [\t\n\r\f]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意非空字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配任意数字，等价于 [0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>匹配字符串开始</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>匹配字符串结束，如果是存在换行，只匹配到换行前的结束字符串。</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>匹配字符串结束</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>匹配最后匹配完成的位置。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\n, \t, 等。</td>
+<td>匹配一个换行符。匹配一个制表符, 等</td>
+</tr>
+<tr>
+<td>\1…\9</td>
+<td>匹配第n个分组的内容。</td>
+</tr>
+<tr>
+<td>\10</td>
+<td>匹配第n个分组的内容，如果它经匹配。否则指的是八进制字符码的表达式。</td>
+</tr>
+</tbody></table>
+<h4 id="正则表达式实例"><a href="#正则表达式实例" class="headerlink" title="正则表达式实例"></a>正则表达式实例</h4><p>字符匹配</p>
+<table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>python</td>
+<td>匹配 “python”.</td>
+</tr>
+</tbody></table>
+<p>字符类</p>
+<table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[Pp]ython</td>
+<td>匹配 “Python” 或 “python”</td>
+</tr>
+<tr>
+<td>rub[ye]</td>
+<td>匹配 “ruby” 或 “rube”</td>
+</tr>
+<tr>
+<td>[aeiou]</td>
+<td>匹配中括号内的任意一个字母</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>匹配任何数字。类似于 [0123456789]</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>匹配任何小写字母</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>匹配任何大写字母</td>
+</tr>
+<tr>
+<td>[a-zA-Z0-9]</td>
+<td>匹配任何字母及数字</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>除了aeiou字母以外的所有字符</td>
+</tr>
+<tr>
+<td>[^0-9]</td>
+<td>匹配除了数字外的字符</td>
+</tr>
+</tbody></table>
+<p>特殊字符类</p>
+<table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何非单词字符。等价于 ‘[^A-Za-z0-9_]’。</td>
+</tr>
+</tbody></table>
+<p>获取更多Python知识，请移步：<a target="_blank" rel="noopener" href="https://www.runoob.com/">菜鸟教程</a></p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-15T14:34:42.000Z" title="2021/4/15 下午10:34:42">2021-04-15</time>发表</span><span class="level-item"><time dateTime="2021-04-19T05:28:03.053Z" title="2021/4/19 下午1:28:03">2021-04-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">7 分钟读完 (大约979个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/15/%E7%88%AC%E8%99%AB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90/">爬虫之数据解析</a></h1><div class="content"><h3 id="爬虫之数据解析"><a href="#爬虫之数据解析" class="headerlink" title="爬虫之数据解析"></a>爬虫之数据解析</h3><p><strong>上一节学习了requests模块的使用，这一节学习数据解析。</strong></p>
+<h4 id="数据解析分类"><a href="#数据解析分类" class="headerlink" title="数据解析分类"></a>数据解析分类</h4><ul>
+<li>正则表达式</li>
+<li>bs4</li>
+<li>xpath（重要）<h4 id="数据解析原理概述"><a href="#数据解析原理概述" class="headerlink" title="数据解析原理概述"></a>数据解析原理概述</h4></li>
+<li>解析的局部的文本内容都会在标签之间或者标签对应的属性中进行存储</li>
+<li>进行指定标签的定位</li>
+<li>标签或者标签对应的属性中存储的数据值进行提取（解析）<h4 id="聚焦爬虫"><a href="#聚焦爬虫" class="headerlink" title="聚焦爬虫"></a>聚焦爬虫</h4></li>
+</ul>
+<p><strong>编码流程：</strong></p>
+<ul>
+<li>指定url</li>
+<li>发起请求</li>
+<li>获取响应数据</li>
+<li>数据解析</li>
+<li>持久化存储<h4 id="学习基础：Python之正则表达式"><a href="#学习基础：Python之正则表达式" class="headerlink" title="学习基础：Python之正则表达式"></a>学习基础：Python之正则表达式</h4>请移步至另一章：<a href="https://1905060202.github.io/2021/04/16/python%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">python之正则表达式</a><h4 id="使用bs4进行数据解析"><a href="#使用bs4进行数据解析" class="headerlink" title="使用bs4进行数据解析"></a>使用bs4进行数据解析</h4>数据解析原理：</li>
+<li>标签定位</li>
+<li>提取标签、标签属性中存储的数据值<br>bs4数据解析原理：</li>
+<li>实例化一个BeautifulSoup对象，并且将页面源码数据加载到该对象中</li>
+<li>通过调用BeautifulSoup对象中相关的属性或者方法进行标签定位和数据提取</li>
+</ul>
+<p><strong>数据解析步骤：</strong><br>环境安装：</p>
+<ul>
+<li>pip install bs4</li>
+<li>pip install lxml<br>bs4数据解析步骤：</li>
+<li>导包，from bs4 import BeautifulSoup</li>
+<li>实例化bs4对象的两种方法<blockquote>
+<p>1.将本地html文档中的数据加载到该对象中</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">fp = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./苏州大学.html&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>soup = BeautifulSoup(fp,<span class="hljs-string">&#x27;lxml&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>2.将互联网上获取的页面源码加载到该对象中</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">page_text = response.text<br>soup = BeautifulSoup(page_text,<span class="hljs-string">&#x27;lxml&#x27;</span>)<br></code></pre></td></tr></table></figure></li>
+<li>提供的用于数据解析的方法和属性：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">soup.tagName:返回的是html中第一次出现的tagName标签<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">soup.find():<br>	- find(<span class="hljs-string">&#x27;tagName&#x27;</span>):等同于soup.tagName<br>	- 属性定位：<br>		soup.find(<span class="hljs-string">&#x27;div&#x27;</span>,class_或<span class="hljs-built_in">id</span>或attr = <span class="hljs-string">&#x27;song&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">soup.find_all:<br>	- soup.find_all(<span class="hljs-string">&#x27;tagName&#x27;</span>):返回符合要求的所有标签（列表），同find，一样拥有属性定位功能<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">soup.select:<br>	- soup.select(<span class="hljs-string">&#x27;某种选择器(id,class,标签...选择器&#x27;</span>)，返回的是一个列表.<br>	层级选择器:<br>		- soup.select(<span class="hljs-string">&#x27;.tang &gt; ul &gt; li &gt; a&#x27;</span>)[<span class="hljs-number">0</span>] <span class="hljs-comment">#层级选择器,&gt;代表一个层级(注意两边要有空格),而[n]代表第n个元素</span><br>		- soup.select(<span class="hljs-string">&#x27;.tang &gt; ul a&#x27;</span>) <span class="hljs-comment">#空格表示多个层级</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python">获取标签之间的文本数据:<br>	- soup.a.text或者String或者get_text() <span class="hljs-comment">#两个属性,一个方法</span><br>	区别:<br>	- text或者get_text():可以获取某一个标签中所有的文本内容<br>	- string:只可以获取该标签下面直系的文本内容<br>	<br>实例<span class="hljs-number">1</span>:<br>	&gt;&gt;&gt; print(soup.select(<span class="hljs-string">&#x27;.tang &gt; ul a&#x27;</span>)[<span class="hljs-number">0</span>].get_text())<br>	&gt;&gt;&gt; print(soup.select(<span class="hljs-string">&#x27;.tang &gt; ul a&#x27;</span>)[<span class="hljs-number">0</span>].text)<br>	&gt;&gt;&gt; print(soup.select(<span class="hljs-string">&#x27;.tang &gt; ul a&#x27;</span>)[<span class="hljs-number">0</span>].string)<br>	<br>输出<span class="hljs-number">1</span>:	<span class="hljs-string">&quot;清明时节雨纷纷,路上行人欲断魂,借问酒家何处有,牧童遥指杏花村.&quot;</span><br>	<span class="hljs-string">&quot;清明时节雨纷纷,路上行人欲断魂,借问酒家何处有,牧童遥指杏花村.&quot;</span><br>	<span class="hljs-string">&quot;清明时节雨纷纷,路上行人欲断魂,借问酒家何处有,牧童遥指杏花村.&quot;</span><br><br>实例<span class="hljs-number">2</span>:<br>	&gt;&gt;&gt; soup.select(<span class="hljs-string">&#x27;.tang &#x27;</span>).text<br>	&gt;&gt;&gt; soup.select(<span class="hljs-string">&#x27;.tang &#x27;</span>).string<br>	<br>输出<span class="hljs-number">2</span>:	<span class="hljs-string">&quot;清明时节雨纷纷,路上行人欲断魂,借问酒家何处有,牧童遥指杏花村.&quot;</span><br>	<span class="hljs-string">&quot;秦时明月汉时关,万里长征人未还,但使龙城飞将在,不教胡马度阴山.&quot;</span><br>	<span class="hljs-string">&quot;岐王宅里寻常见,崔九堂前几度闻,正是江南好风景,落花时节又逢君.&quot;</span><br>	<span class="hljs-string">&quot;杜甫&quot;</span><br>	<span class="hljs-string">&quot;None&quot;</span><br>	<br>HTML部分文本(对应上述实例):<br>	&lt;div class = &quot;tang&quot;&gt;<br>		&lt;ul&gt;<br>			&lt;li&gt;&lt;a href = &quot;http://www.baidu.com&quot; title = &quot;qing&quot;&gt;清明时节雨纷纷,路上行人欲断魂,借问酒家何处有,牧童遥指杏花村.&lt;/a&gt;&lt;/li&gt;<br>			&lt;li&gt;&lt;a href = &quot;http://www.163.com&quot; title = &quot;qin&quot;&gt;秦时明月汉时关,万里长征人未还,但使龙城飞将在,不教胡马度阴山.&lt;/a&gt;&lt;/li&gt;<br>			&lt;li&gt;&lt;a href = &quot;http://www.126.com&quot; alt = &quot;qi&quot;&gt;岐王宅里寻常见,崔九堂前几度闻,正是江南好风景,落花时节又逢君.&lt;/a&gt;&lt;/li&gt;<br>			&lt;li&gt;&lt;a href = &quot;http://www.sina.com&quot; class = &quot;du&quot;&gt;杜甫&lt;/a&gt;&lt;/li&gt;<br>		&lt;/ul&gt;<br>	&lt;/div&gt;		<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">获取标签中属性值:<br>	- soup.a[<span class="hljs-string">&#x27;href&#x27;</span>]<br>		<br>实例:<br>	&gt;&gt;&gt; print(soup.select(<span class="hljs-string">&#x27;.tang &gt; ul a&#x27;</span>)[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;href&#x27;</span>])<br><br>输出:	<span class="hljs-string">&quot;http://www.baidu.com&quot;</span><br>	<br></code></pre></td></tr></table></figure></li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-11T07:16:21.000Z" title="2021/4/11 下午3:16:21">2021-04-11</time>发表</span><span class="level-item"><time dateTime="2021-04-19T05:27:36.234Z" title="2021/4/19 下午1:27:36">2021-04-19</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">2 分钟读完 (大约265个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/11/%E7%88%AC%E8%99%AB%E4%B9%8Brequest%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%A6%E4%B9%A0/">爬虫之request模块的学习</a></h1><div class="content"><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><blockquote>
 <p>统一资源定位符（英语：Uniform Resource Locator，缩写：URL；或称统一资源定位器、定位地址、URL地址，俗称网页地址或简称网址）是因特网上标准的资源的地址（Address），如同在网络上的门牌。它最初是由蒂姆·伯纳斯-李发明用来作为万维网的地址，现在它已经被万维网联盟编制为因特网标准RFC 1738.</p>
 </blockquote>
 <blockquote>
@@ -146,18 +707,7 @@
 <p>本文之外，别无它物。——德里达</p>
 </blockquote>
 <p>@更新于2021/1/3</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-03T09:34:56.248Z" title="2021/1/3 下午5:34:56">2021-01-03</time>发表</span><span class="level-item"><time dateTime="2021-01-03T11:02:01.542Z" title="2021/1/3 下午7:02:01">2021-01-03</time>更新</span><span class="level-item">2 分钟读完 (大约242个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/01/03/hello-world/">Hello World</a></h1><div class="content"><p>欢迎访问 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! 这是第一个post. 点击 <a target="_blank" rel="noopener" href="https://hexo.io/docs/">我</a> 获取更多内容. 如果你在使用hexo时遇到了任何问题, 你可以在这里找到答案 <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">我遇到麻烦了</a> 或者你可以直接问我在我的github上 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>如果是windows操作系统，win+R开启运行，输入cmd打开命令框。在blog（胡小宁自己的博客文件夹）目录下操作。</p>
-<h3 id="创作一个帖子"><a href="#创作一个帖子" class="headerlink" title="创作一个帖子"></a>创作一个帖子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>更多内容: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">创作</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-<p>更多内容: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">生成文件</a></p>
-<h3 id="启动本地服务链接"><a href="#启动本地服务链接" class="headerlink" title="启动本地服务链接"></a>启动本地服务链接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>更多内容: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">本地连接服务</a></p>
-<h3 id="在远端部署（也就是github）"><a href="#在远端部署（也就是github）" class="headerlink" title="在远端部署（也就是github）"></a>在远端部署（也就是github）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-<p>更多内容: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">推送文件</a></p>
-<p>@更新于2021/1/3</p>
-</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/page/5/">上一页</a></div><div class="pagination-next is-invisible is-hidden-mobile"><a href="/page/7/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/5/">5</a></li><li><a class="pagination-link is-current" href="/page/6/">6</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">58</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">36</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:21:38.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/">如何防范黑客入侵？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:06:02.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/">社会工程学</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:01:33.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%EF%BC%9F/">如何选择开源项目？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T15:54:54.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/netcat/">netcat</a></p><p class="categories"><a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T15:43:01.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/java%E6%96%B0%E6%89%8B%E7%9A%84%E9%80%9A%E7%97%85/">java新手的通病</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/page/5/">上一页</a></div><div class="pagination-next"><a href="/page/7/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/5/">5</a></li><li><a class="pagination-link is-current" href="/page/6/">6</a></li><li><a class="pagination-link" href="/page/7/">7</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">61</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%B2%92%E8%AE%A1%E7%AE%97/"><span class="tag">粒计算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:49:45.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/">粒计算综述</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:47:27.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%BF%98%E6%98%AF%E7%BA%BF%E7%A8%8B%EF%BC%9F/">架构设计：进程还是线程？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:37:29.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/">架构设计：生产者/消费者模式</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:21:38.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/">如何防范黑客入侵？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:06:02.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/">社会工程学</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
