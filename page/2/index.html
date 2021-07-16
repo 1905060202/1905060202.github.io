@@ -1,5 +1,500 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-22T06:28:20.000Z" title="2021/6/22 下午2:28:20">2021-06-22</time>发表</span><span class="level-item"><time dateTime="2021-06-22T08:52:29.614Z" title="2021/6/22 下午4:52:29">2021-06-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">15 分钟读完 (大约2318个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/22/%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E7%9A%84%E6%A8%A1%E6%8B%9F%E4%B8%8E%E5%AE%9E%E7%8E%B0/">银行家算法的模拟与实现</a></h1><div class="content"><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在这漫长的人生旅途中，我们总会遇到荆棘，难以逾越。有人选择放弃，有人忍痛前行。虽然两者并无高下之分，但我还是希望自己能够选择后者，无畏艰险，至死不渝。</p>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-30T13:49:05.000Z" title="2021/6/30 下午9:49:05">2021-06-30</time>发表</span><span class="level-item"><time dateTime="2021-06-30T14:00:42.672Z" title="2021/6/30 下午10:00:42">2021-06-30</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span><span class="level-item">22 分钟读完 (大约3354个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">站在数据分析师的角度谈谈对数据的处理方法</a></h1><div class="content"><p>淘宝卖家数据显示：</p>
+<p>胸最大的是新疆妹子，国内内衣消费最多的SIZE是B；</p>
+<p>其中75B销量最好，占比41.45%，其次是A，占比 25.26%；</p>
+<p>各种颜色中，黑色最为畅销，因为百搭。</p>
+<p>…………</p>
+<p>这些早已应用在内衣生产、备货、销售等关键环节。</p>
+<p>网易云音乐数据显示：</p>
+<p>90后用户占比高达59%，其次是80后（12%）；</p>
+<p>除了流行歌曲，用户最喜欢的风格竟是电音，其中又以广东用户对电音最为热爱；</p>
+<p>最青睐民谣的省份是：甘肃&amp;陕西，最喜欢舞曲的是新疆朋友；</p>
+<p>小众音乐主要聚集在北上广深；</p>
+<p>…………</p>
+<p>这些数据也服务于网易云音乐的个性化推荐系统</p>
+<p>但数据分析的应用还远不止如此，利用数据分析的方法，我们还可以得到很多有意思的结论。</p>
+<p>比如谷歌的数据分析可以预测一个地区即将爆发的流感，从而进行针对性的预防；淘宝可以根据你浏览和消费的数据进行分析，为你精准推荐商品；口碑极好的网易云音乐，通过其相似性算法，为不同的人量身定制每日歌单……</p>
+<p>数据正在变得越来越常见，而数据分析的价值也越来越凸显。在大型互联网企业（比如谷歌、阿里、腾讯、等）每天将产生海量的数据；就算是初创的互联网公司，日志、用户、运营等数据量也不可小觑；而一大波传统企业，在普及智能终端的情况下，所产生的数据，也非同小可。那么一个比较完善的数据分析流程是什么样的呢？</p>
+<h2 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1.问题定义"></a>1.问题定义</h2><p>比较典型的场景是我们需要针对企业的数据进行分析，比如公司通常会有销售数据、用户数据、运营数据、产品生产数据……你需要从这些数据里获得哪些有用的信息，对策略的制定进行指导呢？又比如你需要做的是一份市场调研或者行业分析，那么你需要知道你需要获得关于这个行业的哪些信息。</p>
+<p>首先你需要确定去分析的问题是什么？你想得出哪些结论？</p>
+<p>比如某地区空气质量变化的趋势是什么？</p>
+<p>王者荣耀玩家的用户画像是什么样的？经常消费的是那类人？</p>
+<p>影响公司销售额增长的关键因素是什么？</p>
+<p>生产环节中影响产能和质量的核心指标是什么？</p>
+<p>如何对分析用户画像并进行精准营销？</p>
+<p>如何基于历史数据预测未来某个阶段用户行为？</p>
+<p>…………</p>
+<p>这些问题可能来源于你已有的经验和知识。比如你已经知道每周的不同时间用户购买量不一样，那么你可以通过分析得出销量和时间的精确关系，从而精准备货。又比如你知道北京最近几年的空气质量是在变坏的，可能的因素是工厂排放、沙尘暴、居民排放、天气因素等，那么在定义问题的时候你就需要想清楚，需要针对哪些因素进行重点分析。</p>
+<p>有些问题则并不清晰，比如在生产环节中，影响质量的核心指标是什么，是原材料？设备水平？工人水平？天气情况？某个环节工艺的复杂度？某项操作的重复次数？……这些可能并不明显，或者你是涉足新的领域，并没有非常专业的知识，那么你可能需要定义的问题就需要更加宽泛，涵盖更多的可能性。</p>
+<p>问题的定义可能需要你去了解业务的核心知识，并从中获得一些可以帮助你进行分析的经验。从某种程度上说，这也是我们经常提到的数据思维。数据分析很多时候可以帮助你发现我们不容易发现的相关性，但对问题的精确定义，可以从很大程度上提升数据分析的效率。</p>
+<p>如何更好地定义问题？</p>
+<p>这就需要你在长期的训练中找到对数据的感觉，开始的时候你拿到特别大的数据，有非常多的字段，可能会很懵逼，到底应该从什么地方下手呢？</p>
+<p>但如果有一些经验就会好很多。比如，你要研究影响跑步运动员速度的身体因素，那么我们可能会去研究运动员的身高、腿长、体重、甚至心率、血压、臂长，而不太会去研究运动员的腋毛长度，这是基于我们已有的知识。又比如我们要分析影响一个地方房价的因素，那么我们可能会有一些通用的常识，比如城市人口、地理位置、GDP、地价、物价水平，更深入的可能会有产业格局、文化状态、气候情况等等，但一般我们不会去研究城市的女孩长相，美女占比。</p>
+<p>所以当你分析的问题多了之后，你就会有一些自己对数据的敏感度，从而养成用数据分析、用数据说话的习惯。这个时候你甚至可以基于一些数据，根据自己的经验做出初步的判断和预测（当然是不能取代完整样本的精准预测），这个时候，你就基本拥有数据思维了。</p>
+<h2 id="2-数据获取"><a href="#2-数据获取" class="headerlink" title="2.数据获取"></a>2.数据获取</h2><p>有了具体的问题，你就需要获取相关的数据了。比如你要探究北京空气质量变化的趋势，你可能就需要收集北京最近几年的空气质量数据、天气数据，甚至工厂数据、气体排放数据、重要日程数据等等。如果你要分析影响公司销售的关键因素，你就需要调用公司的历史销售数据、用户画像数据、广告投放数据等。</p>
+<p>数据的获取方式有多种。</p>
+<p>一是公司的销售、用户数据，可以直接从企业数据库调取，所以你需要SQL技能去完成数据提取等的数据库管理工作。比如你可以根据你的需要提取2017年所有的销售数据、提取今年销量最大的50件商品的数据、提取上海、广东地区用户的消费数据……，SQL可以通过简单的命令帮你完成这些工作。</p>
+<p>第二种是获取外部的公开数据集，一些科研机构、企业、政府会开放一些数据，你需要到特定的网站去下载这些数据。这些数据集通常比较完善、质量相对较高。当然这种方式也有一些缺陷，通常数据会发布的比较滞后，但通常因为客观性、权威性，仍然具有很大的价值。</p>
+<p>第三种是编写网页爬虫，去收集互联网上的数据。比如你可以通过爬虫获取招聘网站某一职位的招聘信息，爬取租房网站上某城市的租房信息，爬取豆瓣评分评分最高的电影列表，获取知乎点赞排行、网易云音乐评论排行列表。基于互联网爬取的数据，你可以对某个行业、某种人群进行分析，这算是非常靠谱的市场调研、竞品分析的方式了。</p>
+<p>当然，比较BUG的一点是，你通常并不能够获得所有你需要的数据，这对你的分析结果是有一定影响的，但不不影响的是，你通过有限的可获取的数据，提取更多有用的信息。</p>
+<h2 id="3-数据预处理"><a href="#3-数据预处理" class="headerlink" title="3.数据预处理"></a>3.数据预处理</h2><p>现实世界中数据大体上都是不完整，不一致的脏数据，无法直接进行数据分析，或分析结果差强人意。数据预处理有多种方法：数据清理，数据集成，数据变换，数据归约等。把这些影响分析的数据处理好，才能获得更加精确地分析结果。</p>
+<p>比如空气质量的数据，其中有很多天的数据由于设备的原因是没有监测到的，有一些数据是记录重复的，还有一些数据是设备故障时监测无效的。</p>
+<p>那么我们需要用相应的方法去处理，比如残缺数据，我们是直接去掉这条数据，还是用临近的值去补全，这些都是需要考虑的问题。</p>
+<p>当然在这里我们还可能会有数据的分组、基本描述统计量的计算、基本统计图形的绘制、数据取值的转换、数据的正态化处理等，能够帮助我们掌握数据的分布特征，是进一步深入分析和建模的基础。</p>
+<h2 id="4-数据分析与建模"><a href="#4-数据分析与建模" class="headerlink" title="4.数据分析与建模"></a>4.数据分析与建模</h2><p>在这个部分需要了解基本的数据分析方法、数据挖掘算法，了解不同方法适用的场景和适合的问题。分析时应切忌滥用和误用统计分析方法。滥用和误用统计分析方法主要是由于对方法能解决哪类问题、方法适用的前提、方法对数据的要求不清等原因造成的。</p>
+<p>另外，选择几种统计分析方法对数据进行探索性的反复分析也是极为重要的。每一种统计分析方法都有自己的特点和局限，因此，一般需要选择几种方法反复印证分析，仅依据一种分析方法的结果就断然下结论是不科学的。</p>
+<p>比如你发现在一定条件下，销量和价格是正比关系，那么你可以据此建立一个线性回归模型，你发现价格和广告是非线性关系，你可以先建立一个逻辑回归模型来进行分析。</p>
+<p>一般情况下，回归分析的方法可以满足很大一部分的分析需求，当然你也可以了解一些数据挖掘的算法、特征提取的方法来优化自己的模型，获得更好地结果。</p>
+<h2 id="5-数据可视化及数据报告的撰写"><a href="#5-数据可视化及数据报告的撰写" class="headerlink" title="5.数据可视化及数据报告的撰写"></a>5.数据可视化及数据报告的撰写</h2><p>分析结果最直接的结果是统计量的描述和统计量的展示。</p>
+<p>比如我们通过数据的分布发现数据分析工资最高的5个城市，目前各种语言的流行度排行榜，近几年北京空气质量的变化趋势，避孕套消费的地区分布……这些都是我们通过简单数据分析与可视化就可以展现出的结果。</p>
+<p>另外一些则需要深入探究内部的关系，比如影响产品质量最关键的几个指标，你需要对不同指标与产品质量进行相关性分析之后才能得出正确结论。又比如你需要预测未来某个时间段的产品销量，则需要你对历史数据进行建模和分析，才能对未来的情况有更精准的预测。</p>
+<p>数据分析报告不仅是分析结果的直接呈现，还是对相关情况的一个全面的认识。我们经常看到一些行业分析报告从不同角度、深入浅析地剖析各种关系。所以你需要一个讲故事的逻辑，如何从一个宏观的问题，深入、细化到问题内部的方方面面，得出令人信服的结果，这需要从实践中不断训练。</p>
+<p>数据分析的一般流程总的来说就是这几个步骤：问题定义、数据获取、数据预处理、数据分析与建模、数据可视化与数据报告的撰写。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-22T09:12:42.000Z" title="2021/6/22 下午5:12:42">2021-06-22</time>发表</span><span class="level-item"><time dateTime="2021-06-22T09:16:35.503Z" title="2021/6/22 下午5:16:35">2021-06-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">33 分钟读完 (大约4947个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E4%BA%94-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">操作系统课程设计(五)-内存管理</a></h1><div class="content"><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>又到了 一年一度期末课设的时候，距离考试还有12天的时间，此时胡小宁还没有复习(准确的说是学习)之前的课程，所以在这个平平无奇的周二，胡小宁就要开始做课设了！</p>
+<h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><p>（1） 通过对 Windows xp/7“任务管理器”、“计算机管理”、“我的电脑”属性、“系统信息”、“系统监视器”等程序的应用，学习如何察看和调整 Windows 的内存性能，加深对操作系统内存管理、虚拟存储管理等理论知识的理解。</p>
+<p>（2） 了解 Windows xp/7 的内存结构和虚拟内存的管理，理解进程的虚拟内存空间和物理内存的映射关系。</p>
+<h2 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h2><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h3><p>耗尽内存是 Windows 系统中最常见的问题之一。当系统耗尽内存时，所有进程对内存的总需求超出了系统的物理内存总量。随后，Windows 必须借助它的虚拟内存来维持系统和进程的运行。虚拟内存机制是 Windows 操作系统的重要组成部分，但它的速度比物理内存慢得多，因此，应该尽量避免耗尽物理内存资源，以免导致性能下降。解决内存不足问题的一个有效的方法就是添加更多的内存。但是，一旦提供了更多的内存，Windows 很可以会立即“吞食”。而事实上，添加更多的内存并非总是可行的，也可能只是推迟了实际问题的发生。因此，应该相信，优化所拥有的内存是非常关键的。</p>
+<p>（1） 分页过程</p>
+<p>当 Windows 求助于硬盘以获得虚拟内存时，这个过程被称为分页 (paging) 。分页就是将信息从主内存移动到磁盘进行临时存储的过程。当进程需要已经交换到硬盘上的代码或数据时，系统要将数据送回物理内存，并在必要时将其他信息传输到硬盘上，而硬盘与物理内存在性能上的差异极大。例如，硬盘的访问时间通常大约为 4-10 毫秒，而物理内存的访问时间为 60us，甚至更快。</p>
+<p>（2） 内存共享</p>
+<p>应用程序经常需要彼此通信和共享信息。为了提供这种能力，Windows 必须允许访问某些内存空间而不危及它和其他应用程序的安全性和完整性。从性能的角度来看，共享内存的能力大大减少了应用程序使用的内存数量。</p>
+<p>（3） 未分页合并内存与分页合并内存</p>
+<p>Windows 决定了系统内存组件哪些可以以及哪些不可以交换到磁盘上。显然，不应该将某些代码 (例如内核) 交换出主内存。因此，Windows 将系统使用的内存进一步划分为未分页合并内存和分页合并内存。分页合并内存是存储迟早需要的可分页代码或数据的内存部分。虽然可以将分页合并内存中的任何系统进程交换到磁盘上，但是它临时存储在主内存的这一部分，以防系统立刻需要它。在将系统进程交换到磁盘上之前，Windows 会交换其他进程。</p>
+<p>未分页合并内存包含必须驻留在内存中的占用代码或数据。这种结构类似于早期的 MS-DOS</p>
+<p>程序使用的结构，在 MS-DOS 中，相对较小的终止并驻留程序 (Terminate and Stay Resident，TSR) 在启动时加载到内存中。这些程序在系统重新启动或关闭之前一直驻留在内存的特定部分中。</p>
+<p>（4）分页文件最重要的配置参数是大小。无论系统中有多少个分页文件，如果它们的大小不合适，那么系统就可能遇到性能问题。</p>
+<p>如果初始值太小，那么系统可能必须扩大分页文件，以补偿额外的分页活动。当系统临时增加分页文件时，它必须在处理分页请求的同时创建新的空间。这时，系统将出现大量的页面错误，甚至可能出现系统失效。当系统必须在进程的工作区外部 (在物理内存或分页文件中的其他位置) 查找信息时，就会出现页面错误。当系统缺乏存储资源 (物理内存及虚拟内存) 来满足使用需求，从而遇到过多的分页时，就会出现系统失效。系统将花更多的时间来分页而不是执行应用程序。当系统失效时，Memory：Pages/see 计数器将持续高于每秒 100 页。系统失效严重降低了系统的性能。此外，动态扩展分页文件将导致碎片化。分页文件将散布在整个磁盘上而不是在启动时的连续空间中创建，从而增加了系统的开销，并导致系统性能降低。因此，应该尽量避免系统增加分页文件的大小。</p>
+<h3 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h3><p>（1）观察和调整 Windows XP/7 的内存性能。</p>
+<p>步骤 1：阅读“背景知识”，请回答：</p>
+<ol>
+<li><p>什么是“分页过程”？ </p>
+</li>
+<li><p>什么是“内存共享”？</p>
+</li>
+<li><p>什么是“未分页合并内存”和“分页合并内存”？</p>
+</li>
+</ol>
+<p>Windows xp 中，未分页合并内存的最大限制是多少？</p>
+<ol start="4">
+<li>Windows xp 分页文件默认设置的最小容量和最大容量是多少？</li>
+</ol>
+<p>步骤 2：登录进入 Windows xp。</p>
+<p>步骤 3：查看包含多个实例的应用程序的内存需求。</p>
+<ol>
+<li><p>启动想要监视的应用程序，例如 Word。</p>
+</li>
+<li><p>右键单击任务栏以启动“任务管理器”。</p>
+</li>
+<li><p>在“Windows 任务管理器”对话框中选定“进程”选项卡。</p>
+</li>
+<li><p>向下滚动在系统上运行的进程列表，查找想要监视的应用程序。</p>
+</li>
+</ol>
+<p>请在表5-1中记录：</p>
+<p>“内存使用”列显示了该应用程序的一个实例正在使用的内存数量。</p>
+<ol start="5">
+<li>启动应用程序的另一个实例并观察它的内存需求。</li>
+</ol>
+<p>请描述使用第二个实例占用的内存与使用第一个实例时的内存对比情况。</p>
+<p>步骤 4：未分页合并内存。</p>
+<p>估算未分页合并内存大小的最简单方法是使用“任务管理器”。未分页合并内存的估计值显示在“任务管理器”的“性能”选项卡的“核心内存”部分。见5.4</p>
+<p>还可以使用“任务管理器”查看一个独立进程正在使用的未分页合并内存数量和分页合并内存数量。操作步骤如下：</p>
+<ol>
+<li><p>单击“Windows 任务管理器”的“进程”选项卡，然后从“查看”菜单中选择“选择列”命令，显示“进程”选项卡的可查看选项。</p>
+</li>
+<li><p>在“选择列”对话框中，选定“页面缓冲池”选项和“非页面缓冲池”选项旁边的复选框，然后单击“确定”按钮。</p>
+</li>
+</ol>
+<p>返回 Windows Xp“任务管理器”的“进程”选项卡时，将看到其中增加显示了各个进程占用的分页合并内存数量和未分页合并内存数量。</p>
+<p>仍以刚才打开观察的应用程序 (例如 Word) 为例，请在表5-2中记录：</p>
+<p>从性能的角度来看，未分页合并内存越多，可以加载到这个空间的数据就越多。拥有的物理内存越多，未分页合并内存就越多。但未分页合并内存被限制为 256MB，因此添加超出这个限制的内存对未分页合并内存没有影响。</p>
+<p>步骤 5：提高分页性能。</p>
+<p>在 Windows xp 的安装过程中，将使用连续的磁盘空间自动创建分页文件(pagefile.sys) 。用户可以事先监视变化的内存需求并正确配置分页文件，使得当系统必须借助于分页时的性能达到最高。</p>
+<p>虽然分页文件一般都放在系统分区的根目录下面，但这并不总是该文件的最佳位置。要想从分页获得最佳性能，应该首先检查系统的磁盘子系统的配置，以了解它是否有多个物理硬盘驱动器。</p>
+<ol>
+<li><p>在“开始”菜单中单击“设置” – “控制面板”命令，双击“管理工具”图标，再双击“计算机管理”图标。</p>
+</li>
+<li><p>在“计算机管理”窗口的左格选择“磁盘管理”管理单元来查看系统的磁盘配置。</p>
+</li>
+</ol>
+<p>请在表5-3中记录：</p>
+<p>如果系统只有一个硬盘，那么建议应该尽可能为系统配置额外的驱动器。这是因为：Windows</p>
+<p>xp 最多可以支持在多个驱动器上分布的 16 个独立的分页文件。为系统配置多个分页文件可以实现对不同磁盘 I/O 请求的并行处理，这将大大提高 I/O 请求的分页文件性能。</p>
+<p>步骤 6：计算分页文件的大小。</p>
+<p>要想更改分页文件的位置或大小配置参数，可按以下步骤进行：</p>
+<ol>
+<li><p>右键单击桌面上的“我的电脑” （Win7 为计算机）图标并选定“属性” （Win7 为高级系统设置） 。</p>
+</li>
+<li><p>在“高级”选项卡上单击“性能选项”按钮。</p>
+</li>
+<li><p>单击对话框中的“虚拟内存”区域中的“更改”按钮。</p>
+</li>
+</ol>
+<p>请记录：见5.4</p>
+<ol start="4">
+<li><p>要想将另一个分页文件添加到现有配置，在“虚拟内存”对话框中选定一个还没有分页文件的驱动器，然后指定分页文件的初始值和最大值 (以兆字节表示) ，单击“设置”，然后单击“确定”。</p>
+</li>
+<li><p>要想更改现有分页文件的最大值和最小值，可选定分页文件所在的驱动器。然后指定分页文件的初始值和最大值，单击“设置”按钮，然后单击“确定”按钮。</p>
+</li>
+<li><p>在“性能选项”对话框中单击“确定”按钮。</p>
+</li>
+<li><p>单击“确定”按钮以关闭“系统特性”对话框。</p>
+</li>
+</ol>
+<p>（2）了解和检测进程的虚拟内存空间。</p>
+<p>步骤 1：创建一个“Win32 Consol Application”工程，然后拷贝清单 5-1 中的程序，编译成</p>
+<p>可执行文件。</p>
+<p>步骤 2：在 VC 的工具栏单击“Execute Program”(执行程序) 按钮，或者按 Ctrl + F5 键，或者在“命令提示符”窗口运行步骤 1 中生成的可执行文件。</p>
+<p>步骤 3：根据运行结果，回答下列问题。见5.4</p>
+<p>按 committed、reserved、free 等三种虚拟地址空间分别记录实验数据。其中“描述”是指对该组数据的简单描述，例如，对下列一组数据：</p>
+<p>00010000 – 00012000 &lt;8.00KB&gt;  Committed,  READWRITE,  Private</p>
+<p>可描述为：具有 READWRITE 权限的已调配私有内存区。</p>
+<p>将系统当前的自由区 (free) 虚拟地址空间按表5-4格式记录。</p>
+<p>将系统当前的已调配区 (committed) 虚拟地址空间按表5-5格式记录。</p>
+<p>将系统当前的保留区 (reserved) 虚拟地址空间按表5-6格式记录。</p>
+<h2 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h2><p>（1）了解和检测进程的虚拟内存空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 工程 vmwalker</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;windows.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;shlwapi.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iomanip&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;Shlwapi.lib&quot;</span>)</span><br><span class="hljs-comment">// 以可读方式对用户显示保护的辅助方法。</span><br><span class="hljs-comment">// 保护标记表示允许应用程序对内存进行访问的类型</span><br><span class="hljs-comment">// 以及操作系统强制访问的类型</span><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">TestSet</span><span class="hljs-params">(DWORD dwTarget, DWORD dwMask)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> ((dwTarget &amp;dwMask) == dwMask) ;&#125;<br><span class="hljs-meta"># <span class="hljs-meta-keyword">define</span> SHOWMASK(dwTarget, type) \</span><br><span class="hljs-keyword">if</span> (TestSet(dwTarget, PAGE_#<span class="hljs-meta">#type) ) \</span><br>&#123;<span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; <span class="hljs-meta">#type; &#125;</span><br><span class="hljs-keyword">void</span> ShowProtection(DWORD dwTarget)<br>&#123;<br>    SHOWMASK(dwTarget, READONLY) ;<br>    SHOWMASK(dwTarget, GUARD) ;<br>    SHOWMASK(dwTarget, NOCACHE) ;<br>    SHOWMASK(dwTarget, READWRITE) ;<br>    SHOWMASK(dwTarget, WRITECOPY) ;<br>    SHOWMASK(dwTarget, EXECUTE) ;<br>    SHOWMASK(dwTarget, EXECUTE_READ) ;<br>    SHOWMASK(dwTarget, EXECUTE_READWRITE) ;<br>    SHOWMASK(dwTarget, EXECUTE_WRITECOPY) ;<br>    SHOWMASK(dwTarget, NOACCESS) ;&#125;<br><span class="hljs-comment">// 遍历整个虚拟内存并对用户显示其属性的工作程序的方法</span><br><span class="hljs-keyword">void</span> WalkVM(HANDLE hProcess)<br>&#123;<br><span class="hljs-comment">// 首先，获得系统信息</span><br>    SYSTEM_INFO si;<br>    :: ZeroMemory(&amp;si, <span class="hljs-keyword">sizeof</span>(si) ) ;<br>    :: GetSystemInfo(&amp;si) ;<br><span class="hljs-comment">// 分配要存放信息的缓冲区</span><br>    MEMORY_BASIC_INFORMATION mbi;<br>    :: ZeroMemory(&amp;mbi, <span class="hljs-keyword">sizeof</span>(mbi) ) ;<br><span class="hljs-comment">// 循环整个应用程序地址空间</span><br>    LPCVOID pBlock = (LPVOID) si.lpMinimumApplicationAddress;<br>    <span class="hljs-keyword">while</span> (pBlock &lt; si.lpMaximumApplicationAddress)<br>    &#123;<span class="hljs-comment">// 获得下一个虚拟内存块的信息</span><br>        <span class="hljs-keyword">if</span> (:: VirtualQueryEx(<br>                    hProcess,            <span class="hljs-comment">// 相关的进程</span><br>                    pBlock, <span class="hljs-comment">// 开始位置</span><br>                    &amp;mbi, <span class="hljs-comment">// 缓冲区</span><br>                    <span class="hljs-keyword">sizeof</span>(mbi))==<span class="hljs-keyword">sizeof</span>(mbi) )   <span class="hljs-comment">// 大小的确认</span><br>        &#123;<span class="hljs-comment">// 计算块的结尾及其大小</span><br>            LPCVOID pEnd = (PBYTE) pBlock + mbi.RegionSize;<br>            TCHAR szSize[MAX_PATH];<br>            :: StrFormatByteSize(mbi.RegionSize, szSize, MAX_PATH) ;<br>            <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span>.fill (<span class="hljs-string">&#x27;0&#x27;</span>) ;<br>            <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span>&lt;&lt; <span class="hljs-built_in">std</span> :: hex &lt;&lt; <span class="hljs-built_in">std</span> :: setw(<span class="hljs-number">8</span>) &lt;&lt; (DWORD) pBlock &lt;&lt; <span class="hljs-string">&quot;-&quot;</span><br>                    &lt;&lt; <span class="hljs-built_in">std</span> :: hex &lt;&lt; <span class="hljs-built_in">std</span> :: setw(<span class="hljs-number">8</span>) &lt;&lt; (DWORD) pEnd<br>                    &lt;&lt; (:: <span class="hljs-built_in">strlen</span>(szSize)==<span class="hljs-number">7</span>? <span class="hljs-string">&quot; (&quot;</span> : <span class="hljs-string">&quot; (&quot;</span>) &lt;&lt; szSize&lt;&lt; <span class="hljs-string">&quot;) &quot;</span> ;<br>            <span class="hljs-keyword">switch</span>(mbi.State)<br>            &#123;<br>            <span class="hljs-keyword">case</span> MEM_COMMIT :<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Committed&quot;</span> ; <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MEM_FREE :<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Free&quot;</span> ; <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MEM_RESERVE : <br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Reserved&quot;</span> ; <span class="hljs-keyword">break</span>; &#125;<br>            <span class="hljs-keyword">if</span>(mbi.Protect==<span class="hljs-number">0</span> &amp;&amp; mbi.State!=MEM_FREE)<br>            &#123;<br>                mbi.Protect=PAGE_READONLY; &#125;<br>            ShowProtection(mbi.Protect);<br>            <span class="hljs-keyword">switch</span>(mbi.Type)<br>            &#123;<br>            <span class="hljs-keyword">case</span> MEM_IMAGE :<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, Image&quot;</span> ; <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MEM_MAPPED:<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, Mapped&quot;</span>; <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MEM_PRIVATE :<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, Private&quot;</span> ; <span class="hljs-keyword">break</span>;&#125;<br><span class="hljs-comment">// 检验可执行的影像</span><br>            TCHAR szFilename [MAX_PATH] ;<br>            <span class="hljs-keyword">if</span> (:: GetModuleFileName (<br>                        (HMODULE) pBlock,    <span class="hljs-comment">// 实际虚拟内存的模块句柄</span><br>                        szFilename, <span class="hljs-comment">//完全指定的文件名称</span><br>                        MAX_PATH)&gt;<span class="hljs-number">0</span>) <span class="hljs-comment">//实际使用的缓冲区大小</span><br>            &#123;<br><span class="hljs-comment">// 除去路径并显示</span><br>                :: PathStripPath(szFilename) ;<br>                <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, Module: &quot;</span> &lt;&lt; szFilename; &#125;<br>            <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">endl</span>;<br><span class="hljs-comment">// 移动块指针以获得下一下个块</span><br>            pBlock = pEnd; &#125; &#125; &#125;<br><span class="hljs-keyword">void</span> ShowVirtualMemory()<br>&#123;<br><span class="hljs-comment">// 首先，让我们获得系统信息</span><br>    SYSTEM_INFO si;<br>    :: ZeroMemory(&amp;si, <span class="hljs-keyword">sizeof</span>(si) ) ;<br>    :: GetSystemInfo(&amp;si) ;<br><span class="hljs-comment">// 使用外壳辅助程序对一些尺寸进行格式化</span><br>    TCHAR szPageSize[MAX_PATH];<br>    ::StrFormatByteSize(si.dwPageSize, szPageSize, MAX_PATH) ;<br>    <span class="hljs-number">26</span><br>    DWORD dwMemSize = (DWORD)si.lpMaximumApplicationAddress -(DWORD) si.lpMinimumApplicationAddress;<br>    TCHAR szMemSize [MAX_PATH] ;<br>    :: StrFormatByteSize(dwMemSize, szMemSize, MAX_PATH) ;<br><span class="hljs-comment">// 将内存信息显示出来</span><br>    <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Virtual memory page size: &quot;</span> &lt;&lt; szPageSize &lt;&lt; <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span>.fill (<span class="hljs-string">&#x27;0&#x27;</span>) ;<br>    <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Minimum application address: 0x&quot;</span>&lt;&lt; <span class="hljs-built_in">std</span> :: hex &lt;&lt; <span class="hljs-built_in">std</span> :: setw(<span class="hljs-number">8</span>)<br>                &lt;&lt; (DWORD) si.lpMinimumApplicationAddress&lt;&lt; <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Maximum application address: 0x&quot;</span>&lt;&lt; <span class="hljs-built_in">std</span> :: hex &lt;&lt; <span class="hljs-built_in">std</span> :: setw(<span class="hljs-number">8</span>)<br>                &lt;&lt; (DWORD) si.lpMaximumApplicationAddress&lt;&lt; <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Total available virtual memory: &quot;</span>&lt;&lt; szMemSize &lt;&lt; <span class="hljs-built_in">std</span> :: <span class="hljs-built_in">endl</span> ; &#125;<br><span class="hljs-keyword">void</span> main()<br>&#123;<br><span class="hljs-comment">//显示虚拟内存的基本信息</span><br>    ShowVirtualMemory();<br><span class="hljs-comment">// 遍历当前进程的虚拟内存</span><br>    ::WalkVM(::GetCurrentProcess()); &#125;<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="5-4实验结果和分析"><a href="#5-4实验结果和分析" class="headerlink" title="5.4实验结果和分析"></a>5.4实验结果和分析</h2><p>（1）观察和调整 Windows XP/7 的内存性能。</p>
+<p><strong>步骤1**</strong>：**</p>
+<ol>
+<li><p>分页过程：当 Windows 求助于硬盘以获得虚拟内存时，这个过程被称为分页。分页就是将信息从主内存移动到磁盘进行临时存储的过程。</p>
+</li>
+<li><p>内存共享：应用程序需要彼此通信和共享信息。</p>
+</li>
+<li><p>未分页合并内存：包含必须驻留在内存中的占用代码或数据。</p>
+</li>
+</ol>
+<p>分页合并内存：存储迟早需要的可分页代码或数据的内存部分。</p>
+<p>Windows xp 中，未分页合并内存的最大限制是：256MB (在 Windows NT 4 中的限制为 128MB) </p>
+<p>4） Windows xp 使用内存容量的1.5倍作为分页文件的最小容量，这个最小容量的两倍作为最大容量。</p>
+<p>​     <strong>步骤3**</strong>：**</p>
+<p>表5-1 应用内存需求实验记录</p>
+<table>
+<thead>
+<tr>
+<th>映像名称</th>
+<th>PID</th>
+<th>CPU</th>
+<th>时间</th>
+<th>内存使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome</td>
+<td>11704</td>
+<td>00</td>
+<td>0:01:07</td>
+<td>10,844k</td>
+</tr>
+</tbody></table>
+<p>​     <strong>步骤4**</strong>：**</p>
+<p>​     总数 ：248MB     分页数：179MB    未分页 ：69MB</p>
+<p>表5-2 应用内存使用实验记录</p>
+<table>
+<thead>
+<tr>
+<th>映像名称</th>
+<th>PID</th>
+<th>内存使用</th>
+<th>页面缓冲池</th>
+<th>非页面缓冲池</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome</td>
+<td>11704</td>
+<td>00</td>
+<td>399k</td>
+<td>10k</td>
+</tr>
+</tbody></table>
+<p>​     <strong>步骤5**</strong>：**</p>
+<p>表5-3 磁盘配置实验记录</p>
+<table>
+<thead>
+<tr>
+<th>卷</th>
+<th>布局</th>
+<th>类型</th>
+<th>文件系统</th>
+<th>容量</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>（C：）</td>
+<td>简单</td>
+<td>基本</td>
+<td>NTFS</td>
+<td>80.00GB</td>
+<td>状态良好（系统，启动，页面文件，活动，故障转储，主分区）</td>
+</tr>
+<tr>
+<td>（D：）</td>
+<td>简单</td>
+<td>基本</td>
+<td>NTFS</td>
+<td>15.00GB</td>
+<td>良好（逻辑驱动器）</td>
+</tr>
+<tr>
+<td>（E：）</td>
+<td>简单</td>
+<td>基本</td>
+<td>NTFS</td>
+<td>15.00GB</td>
+<td>良好（逻辑驱动器）</td>
+</tr>
+<tr>
+<td>（F：）</td>
+<td>简单</td>
+<td>基本</td>
+<td>FAT32</td>
+<td>49.99GB</td>
+<td>良好（逻辑驱动器）</td>
+</tr>
+</tbody></table>
+<p>所选驱动器的页面文件大小：</p>
+<p>1_驱动器：C:  可用空间：55653MB  初始大小(MB)：无  最大值(MB)：无</p>
+<p>2_驱动器：D:  可用空间：14611MB  初始大小(MB)：无  最大值(MB)：无</p>
+<p>3_驱动器：E:   可用空间：15260MB  初始大小(MB)：无   最大值(MB)：无</p>
+<p>4_驱动器：F:   可用空间：14110MB  初始大小(MB)：无   最大值(MB)：无</p>
+<p>5_所有驱动器页面文件大小的总数：</p>
+<p>允许的最小值：16MB     推荐：5266MB    当前已分配：3511MB</p>
+<p>（2）了解和检测进程的虚拟内存空间。</p>
+<p><strong>步骤3**</strong>：**</p>
+<p>虚拟内存每页容量为：4.00KB  最小应用地址：0x00010000</p>
+<p>最大应用地址：0x7ffeffff    当前可供应用程序使用的内存空间为：1.99GB</p>
+<p>当前计算机的实际内存大小为：4.00GB</p>
+<p>理论上每个 Windows 应用程序可以独占的最大存储空间是：4.00GB</p>
+<p>表5-4 自由区虚拟地址空间实验记录</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>大小</th>
+<th>虚拟地址空间类型</th>
+<th>访问权限</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00134000-00140000</td>
+<td>48.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>00141000-00150000</td>
+<td>60.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>001b7000-001c0000</td>
+<td>36.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>00388000-00390000</td>
+<td>32.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>00391000-003a0000</td>
+<td>60.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>003a1000-003b0000</td>
+<td>60.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>003b7000-003c0000</td>
+<td>36.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>003c2000-00400000</td>
+<td>248KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>00485000-00520000</td>
+<td>620KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>00631000-00640000</td>
+<td>60.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>01240000-01310000</td>
+<td>832KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>01717000-73f10000</td>
+<td>1.78GB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>770d7000-77130000</td>
+<td>356KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>77131000-7f6f0000</td>
+<td>133MB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>7f7f0000-7ffa0000</td>
+<td>7.68MB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>7ffd3000-7ffd7000</td>
+<td>16.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+<tr>
+<td>7ffd8000-7ffdf000</td>
+<td>28.0KB</td>
+<td>Free</td>
+<td>NOACCESS</td>
+<td>具有NOACCESS权限的内存区</td>
+</tr>
+</tbody></table>
+<p>表5-5已调配区虚拟地址空间实验记录</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>大小</th>
+<th>虚拟地址空间类型</th>
+<th>访问权限</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00010000-00020000</td>
+<td>64.0KB</td>
+<td>Committed</td>
+<td>READWRITE</td>
+<td>具有READWRITE权限的已调配Mapped内存区</td>
+</tr>
+<tr>
+<td>00020000-00030000</td>
+<td>64.0KB</td>
+<td>Committed</td>
+<td>READWRITE</td>
+<td>具有READWRITE权限的已调配Mapped内存区</td>
+</tr>
+<tr>
+<td>0012d000-0012e000</td>
+<td>4.00KB</td>
+<td>Committed</td>
+<td>READWRITE</td>
+<td>具有READWRITE权限的已调配私有内存区</td>
+</tr>
+<tr>
+<td>0012e000-00130000</td>
+<td>8.00KB</td>
+<td>Committed</td>
+<td>READWRITE</td>
+<td>具有READWRITE权限的已调配Image内存区</td>
+</tr>
+<tr>
+<td>00130000-00134000</td>
+<td>16.0KB</td>
+<td>Committed</td>
+<td>READWRITE</td>
+<td>具有READWRITE权限的已调配私有内存区</td>
+</tr>
+</tbody></table>
+<p>表5-6保留区虚拟地址空间实验记录</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>大小</th>
+<th>虚拟地址空间类型</th>
+<th>访问权限</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00030000-0012d000</td>
+<td>0.98MB</td>
+<td>Reserved</td>
+<td>READONLY</td>
+<td>具有READONLY权限的已调配私有内存区</td>
+</tr>
+<tr>
+<td>001c7000-00280000</td>
+<td>740KB</td>
+<td>Reserved</td>
+<td>READONLY</td>
+<td>具有READONLY权限的已调配私有内存区</td>
+</tr>
+<tr>
+<td>00283000-00288000</td>
+<td>20KB</td>
+<td>Reserved</td>
+<td>READONLY</td>
+<td>具有READONLY权限的已调配私有内存区</td>
+</tr>
+<tr>
+<td>00333000-00340000</td>
+<td>52KB</td>
+<td>Reserved</td>
+<td>READONLY</td>
+<td>具有READONLY权限的已调配Mapped内存区</td>
+</tr>
+<tr>
+<td>0065f000-00740000</td>
+<td>900KB</td>
+<td>Reserved</td>
+<td>READONLY</td>
+<td>具有READONLY权限的已调配Mapped内存区</td>
+</tr>
+</tbody></table>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-22T06:28:20.000Z" title="2021/6/22 下午2:28:20">2021-06-22</time>发表</span><span class="level-item"><time dateTime="2021-06-22T08:52:29.614Z" title="2021/6/22 下午4:52:29">2021-06-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">15 分钟读完 (大约2318个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/22/%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E7%9A%84%E6%A8%A1%E6%8B%9F%E4%B8%8E%E5%AE%9E%E7%8E%B0/">银行家算法的模拟与实现</a></h1><div class="content"><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在这漫长的人生旅途中，我们总会遇到荆棘，难以逾越。有人选择放弃，有人忍痛前行。虽然两者并无高下之分，但我还是希望自己能够选择后者，无畏艰险，至死不渝。</p>
 <h3 id="银行家算法的模拟与实现"><a href="#银行家算法的模拟与实现" class="headerlink" title="银行家算法的模拟与实现"></a>银行家算法的模拟与实现</h3><p>(1) 进一步理解进程的并发执行。<br>(2) 加强对进程死锁的理解，理解安全状态与不安全状态的概念。<br>(3) 掌握使用银行家算法避免死锁问题。</p>
 <ol>
 <li><p>基本概念</p>
@@ -689,107 +1184,7 @@
 <li>沿用book_manage得到Controller，import相应的类(lend_list_Service)。并写出预约逻辑。</li>
 <li>前端写出预约图书的页面，上部分为搜索框，下部分为对应的搜索结果和预约按钮。分为两个form表单。</li>
 </ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-15T08:45:24.000Z" title="2021/6/15 下午4:45:24">2021-06-15</time>发表</span><span class="level-item"><time dateTime="2021-06-16T06:44:38.210Z" title="2021/6/16 下午2:44:38">2021-06-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a></span><span class="level-item">8 分钟读完 (大约1195个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/15/%E5%9F%BA%E4%BA%8ESSM%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%90%84%E6%A8%A1%E5%9D%97%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91/">基于SSM图书管理项目的图书管理各模块功能实现逻辑</a></h1><div class="content"><h2 id="关于登录逻辑"><a href="#关于登录逻辑" class="headerlink" title="关于登录逻辑"></a>关于登录逻辑</h2><p>登录逻辑的实现，具体流程图如下：</p>
-<p><img src="/images/JavaScript/login_flush_chart.png"></p>
-<p>在Controller层的核心代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hu.controller;<br><br><span class="hljs-keyword">import</span> com.hu.pojo.admin;<br><span class="hljs-keyword">import</span> com.hu.pojo.book_info;<br><span class="hljs-keyword">import</span> com.hu.service.BookService;<br><span class="hljs-keyword">import</span> com.hu.service.adminService;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-meta">@SuppressWarnings(&quot;all&quot;)</span><br><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/book&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">adminController</span> </span>&#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> adminService adminService;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> BookService bookService;<br><br>    <span class="hljs-comment">//check user</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/book_manage_2&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">login</span><span class="hljs-params">(admin admin, Model model)</span> </span>&#123;<br>        admin = adminService.checkLogin(admin.getAdmin_id(), admin.getPassword());<br>        <span class="hljs-keyword">if</span> (admin != <span class="hljs-keyword">null</span>) &#123;<br>            List&lt;book_info&gt; list = bookService.queryAllBook();<br>            model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>, list);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;login&quot;</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在Service层的核心代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">   <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> admin <span class="hljs-title">checkLogin</span><span class="hljs-params">(<span class="hljs-keyword">int</span> admin_id, String password)</span> </span>&#123;<br>        admin admin = adminMapper.queryadminById(admin_id);<br>        <span class="hljs-keyword">if</span>(admin!=<span class="hljs-keyword">null</span>&amp;&amp;admin.getPassword().equals(password))&#123;<br>            <span class="hljs-keyword">return</span> admin;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>Service层删减了部分代码，其余具体代码请看<a href="https://1905060202.github.io/2021/06/12/%E5%9F%BA%E4%BA%8ESSM-BootStrap%E7%9A%84%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE/">点我白嫖</a></p>
-<p>在login.jsp页面：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;form action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/book/book_manage_2&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-horizontal &quot;</span> role=<span class="hljs-string">&quot;form&quot;</span>&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;账号：&lt;/label&gt;<br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;col-sm-10&quot;</span>&gt;<br>            &lt;input id=<span class="hljs-string">&quot;zh&quot;</span> type=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-control&quot;</span> placeholder=<span class="hljs-string">&quot;账号&quot;</span> name=<span class="hljs-string">&quot;admin_id&quot;</span>&gt;<br>        &lt;/div&gt;<br>    &lt;/div&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>        &lt;label id=&quot;pwd&quot; class=&quot;col-sm-2 control-label&quot;&gt;密码：&lt;/label&gt;<br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;col-sm-10&quot;</span>&gt;<br>            &lt;input id=<span class="hljs-string">&quot;pwd_real&quot;</span> type=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-control&quot;</span> placeholder=<span class="hljs-string">&quot;密码&quot;</span> name=<span class="hljs-string">&quot;password&quot;</span>&gt;<br>        &lt;/div&gt;<br>    &lt;/div&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>    &lt;/div&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>        &lt;div  <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;col-sm-offset-2 col-sm-5&quot;</span>&gt;<br>            &lt;button id=&quot;login&quot; type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt; 登录 &lt;/button&gt;<br>        &lt;/div&gt;<br>    &lt;/div&gt;<br>&lt;/form&gt;<br>&lt;script type=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;<br>    $(<span class="hljs-string">&quot;#login&quot;</span>).click(<span class="hljs-function">function <span class="hljs-title">checkpwdAndzh</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">var</span> name = $(<span class="hljs-string">&quot;#zh&quot;</span>).val();<br>        <span class="hljs-keyword">var</span> pass = $(<span class="hljs-string">&quot;#pwd_real&quot;</span>).val();<br>        <span class="hljs-keyword">if</span> (name == <span class="hljs-string">&quot;&quot;</span>) &#123;<br>            alert(<span class="hljs-string">&quot;用户名不能为空&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pass == <span class="hljs-string">&quot;&quot;</span>) &#123;<br>            alert(<span class="hljs-string">&quot;密码不能为空&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125; <span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>        &#125;<br>    &#125;);<br><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
-<p>login.jsp层删减了部分代码，只留下核心代码。</p>
-<p>逻辑如代码所示，只是在实现的过程中碰到了一些棘手的问题。比如，通过ModelAndView向前端传递参数来实现登录成功与否的提示弹窗存在一些目前难以解决的逻辑bug。例如：登陆成功后，依然会弹出登陆失败的提示。碍于技术水平，此问题暂未得到解决，索性移除了弹窗提示。</p>
-<h2 id="关于上架图书逻辑"><a href="#关于上架图书逻辑" class="headerlink" title="关于上架图书逻辑"></a>关于上架图书逻辑</h2><p>首先来看登陆后，form表单提交的地址：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;form action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/book/book_manage_2&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-horizontal &quot;</span> role=<span class="hljs-string">&quot;form&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
-<p>再来看一下配置了/book/book_manage_2的Controller：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/book&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">adminController</span> </span>&#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> adminService adminService;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> BookService bookService;<br><br>    <span class="hljs-comment">//check user</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/book_manage_2&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">login</span><span class="hljs-params">(admin admin, Model model)</span> </span>&#123;<br>        admin = adminService.checkLogin(admin.getAdmin_id(), admin.getPassword());<br>        <span class="hljs-keyword">if</span> (admin != <span class="hljs-keyword">null</span>) &#123;<br>            List&lt;book_info&gt; list = bookService.queryAllBook();<br>            model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>, list);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;login&quot;</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>登陆成功后，请求地址为:</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://localhost:8080/ssm_build_book_war_exploded/book/book_manage_2">http://localhost:8080/ssm_build_book_war_exploded/book/book_manage_2</a></p>
-</blockquote>
-<p>当我们选择上架图书模块时：</p>
-<p><img src="/images/JavaScript/image-20210615172401967.png"></p>
-<p>请求地址如图所示。</p>
-<p>而此路径的配置在book_manage这个Controller里：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/book&quot;)</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Book_manage</span> </span>&#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> BookService bookService;<br>    <span class="hljs-meta">@RequestMapping(&quot;/book_manage&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">get_Book_manage</span><span class="hljs-params">()</span></span>&#123;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">// just return add_book page</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/add_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">add_book_page</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;add_book&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">// just return delete_book page</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/delete_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">delete_book_page</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;delete_book&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">//return admin book manage page</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/admin_overview_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">back_overview</span><span class="hljs-params">(Model model)</span></span>&#123;<br>        List&lt;book_info&gt; list = bookService.queryAllBook();<br>        model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>,list);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">//implement add_book function</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/real_add_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">add_book</span><span class="hljs-params">(book_info book,Model model)</span></span>&#123;<br>        <span class="hljs-keyword">int</span> check = bookService.addbook(book);<br>        <span class="hljs-keyword">if</span> (check&gt;<span class="hljs-number">0</span>)&#123;<br>            List&lt;book_info&gt; list = bookService.queryAllBook();<br>            model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>,list);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;add_book&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">//implement delete_book function</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/real_delete_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">delete_book</span><span class="hljs-params">(String book_id,Model model)</span></span>&#123;<br>        <span class="hljs-keyword">int</span> check = bookService.deleteBookById(Integer.parseInt(book_id));<br>        <span class="hljs-keyword">if</span> (check&gt;<span class="hljs-number">0</span>)&#123;<br>            List&lt;book_info&gt; list = bookService.queryAllBook();<br>            model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>,list);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>        &#125;<br>        model.addAttribute(<span class="hljs-string">&quot;check&quot;</span>,<span class="hljs-string">&quot;fail&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;delete_book&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>上述为图书管理的整体配置(此时更新图书功能还未实现)，我们摘出与上架图书有关的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//implement add_book function</span><br>   <span class="hljs-meta">@RequestMapping(&quot;/real_add_book&quot;)</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">add_book</span><span class="hljs-params">(book_info book,Model model)</span></span>&#123;<br>       <span class="hljs-keyword">int</span> check = bookService.addbook(book);<br>       <span class="hljs-keyword">if</span> (check&gt;<span class="hljs-number">0</span>)&#123;<br>           List&lt;book_info&gt; list = bookService.queryAllBook();<br>           model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>,list);<br>           <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;add_book&quot;</span>;<br>   &#125;<br><span class="hljs-comment">// just return add_book page</span><br>   <span class="hljs-meta">@RequestMapping(&quot;/add_book&quot;)</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">add_book_page</span><span class="hljs-params">()</span></span>&#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;add_book&quot;</span>;<br>   &#125;<br></code></pre></td></tr></table></figure>
-<p>可以看到，跳转到add_book.jsp的方法有两种。但是这两种方法的作用并不相同。对于第二种方法，其主要的作用就是实现页面跳转，并不包含传参。之所以这么设计，是因为单纯的页面跳转并不需要传递参数，而上架图书功能需要传参，需要通过Service访问数据库。如果将两者统一为一个方法，那么在页面跳转的时候会因为没有携带参数而出现错误。什么时候需要单纯的跳转页面呢？很简单，我们的第一次访问上架图书功能模块，这个跳转，并不需要参数。</p>
-<p>上架图书逻辑图如下：</p>
-<p><img src="/images/JavaScript/add_book_flush_chart.png"></p>
-<h2 id="关于下架图书逻辑"><a href="#关于下架图书逻辑" class="headerlink" title="关于下架图书逻辑"></a>关于下架图书逻辑</h2><p>下架图书与上架图书的Controller构造基本相同(本身他们也在同一个Controller内)。同样的，需要两个方法，一个实现传参，一个单纯的用于跳转。过多细节不再赘述，具体内容请看代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-comment">//implement delete_book function</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/real_delete_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">delete_book</span><span class="hljs-params">(String book_id,Model model)</span></span>&#123;<br>        <span class="hljs-keyword">int</span> check = bookService.deleteBookById(Integer.parseInt(book_id));<br>        <span class="hljs-keyword">if</span> (check&gt;<span class="hljs-number">0</span>)&#123;<br>            List&lt;book_info&gt; list = bookService.queryAllBook();<br>            model.addAttribute(<span class="hljs-string">&quot;list&quot;</span>,list);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;book_manage&quot;</span>;<br>        &#125;<br>        model.addAttribute(<span class="hljs-string">&quot;check&quot;</span>,<span class="hljs-string">&quot;fail&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;delete_book&quot;</span>;<br>    &#125;<br><span class="hljs-comment">// just return delete_book page</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/delete_book&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">delete_book_page</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;delete_book&quot;</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-12T13:54:36.000Z" title="2021/6/12 下午9:54:36">2021-06-12</time>发表</span><span class="level-item"><time dateTime="2021-06-12T16:09:06.852Z" title="2021/6/13 上午12:09:06">2021-06-13</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a></span><span class="level-item">13 分钟读完 (大约1895个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/12/%E8%AF%A6%E8%A7%A3SpringMVC%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86/">详解SpringMVC执行原理</a></h1><div class="content"><h2 id="详解SpringMVC执行原理"><a href="#详解SpringMVC执行原理" class="headerlink" title="详解SpringMVC执行原理"></a>详解SpringMVC执行原理</h2><p><img src="/images/JavaScript/SpringMVC%E6%B5%81%E7%A8%8B%E5%9B%BE-1623506202049.png"></p>
-<p>图为SpringMVC的一个比较完整的流程图，实线表示SpringMVC框架提供的技术，不需要开发者实现，虚线表示需要开发者实现。</p>
-<h3 id="简要分析执行流程"><a href="#简要分析执行流程" class="headerlink" title="简要分析执行流程"></a>简要分析执行流程</h3><ol>
-<li><p>DIspatcherServlet表示前置控制器，是整个SpringMVC的控制中心。用户发出请求，DIspatcherServlet接收请求并拦截请求。我们假设请求的url为：localhost:8080/SpringMVC/hello。如上url拆分成三部分：</p>
-<ul>
-<li>http:localhost:8080服务器域名</li>
-<li>SpringMVC部署在服务器上的web站点</li>
-<li>hello表示控制器</li>
-</ul>
-<p>通过分析，如上url表示为：请求位于服务器localhost:8080上的SpringMVC站点的hello控制器。</p>
-</li>
-<li><p>HandlerMapping为处理器映射。DIspatcherServlet调用HandleMapping，HandlerMapping根据请求url查找Handler。</p>
-</li>
-<li><p>HandlerExecution表示具体的的Handler，其主要作用是根据url查找控制器，如上url被查找控制器为：hello。</p>
-</li>
-<li><p>HandlerExecution将解析后的信息传递给DIspatcherServlet，如解析控制器映射等。</p>
-</li>
-<li><p>HandlerAdapter表示处理器适配器，其按照特定的规则去执行Handler。</p>
-</li>
-<li><p>Handler让具体的Controller执行</p>
-</li>
-<li><p>Controller将具体的执行信息返回给HandlerAdapter，如ModelAndView。</p>
-</li>
-<li><p>HandlerAdapter将视图逻辑名或模型传给DIspatcherServlet</p>
-</li>
-<li><p>DIspatcherServlet调用视图解析器(ViewResolver)来解析HandlerAdapter传递的逻辑视图名。</p>
-</li>
-<li><p>视图解析器将解析的逻辑视图名传给DIspatcherServlet</p>
-</li>
-<li><p>DIspatcherServlet根据视图解析器解析的视图结果，调用具体的视图。</p>
-</li>
-<li><p>最终视图呈现给用户</p>
-</li>
-</ol>
-<h3 id="关于SpringMVC的配置（结合上面的流程来理解）"><a href="#关于SpringMVC的配置（结合上面的流程来理解）" class="headerlink" title="关于SpringMVC的配置（结合上面的流程来理解）"></a>关于SpringMVC的配置（结合上面的流程来理解）</h3><ol>
-<li><p>首先在web.xml中配置DIspatcherServlet</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml"> <span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>springmvc<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span><br>     //绑定文件，方便以后直接使用<br>        <span class="hljs-tag">&lt;<span class="hljs-name">init-param</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">param-name</span>&gt;</span>contextConfigLocation<span class="hljs-tag">&lt;/<span class="hljs-name">param-name</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="hljs-tag">&lt;/<span class="hljs-name">param-value</span>&gt;</span><br>            //resource下的applicationContext.xml<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">init-param</span>&gt;</span><br>     <br>        <span class="hljs-tag">&lt;<span class="hljs-name">load-on-startup</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">load-on-startup</span>&gt;</span><br>   //用户发出的请求都会被它接收、拦截  <br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>springmvc<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li><p>对于Spring-mvc.xml的配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:context</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/context&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:mvc</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/mvc&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans</span></span><br><span class="hljs-tag"><span class="hljs-string">   http://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="hljs-tag"><span class="hljs-string">   http://www.springframework.org/schema/context</span></span><br><span class="hljs-tag"><span class="hljs-string">   http://www.springframework.org/schema/context/spring-context.xsd</span></span><br><span class="hljs-tag"><span class="hljs-string">   http://www.springframework.org/schema/mvc</span></span><br><span class="hljs-tag"><span class="hljs-string">   https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;</span>&gt;</span><br><span class="hljs-comment">&lt;!--1.note driver--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mvc:annotation-driven</span>/&gt;</span><br>    <span class="hljs-comment">&lt;!--2.static resource filter--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mvc:default-servlet-handler</span>/&gt;</span><br>    <span class="hljs-comment">&lt;!--3.scan controller--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">&quot;com.hu.controller&quot;</span>/&gt;</span><br>    <span class="hljs-comment">&lt;!--view--&gt;</span><br>    <span class="hljs-comment">&lt;!--视图解析器</span><br><span class="hljs-comment">1.获取了ModelAndView的数据</span><br><span class="hljs-comment">2.解析ModelAndView的视图名字</span><br><span class="hljs-comment">3.拼接视图名字、找到对应的视图</span><br><span class="hljs-comment">4.将数据渲染到视图上--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;prefix&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;/WEB-INF/jsp/&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;suffix&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;.jsp&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<ul>
-<li>解释7、8、9、10、11步：</li>
-</ul>
-<ol>
-<li>在Controller中return了一个视图(“login”)，并且通过Model返回了数据(也可以说是ModelAndView，比如一个list集合)。HandlerAdapter把这些信息给了DIspatcherServlet(model:一个list集合，view:”login” – 这个login是jsp文件名，也就是自己写的小页面。而model带的list数据将会传递给login这个页面)。</li>
-<li>DIspatcherServlet调用视图解析器(ViewResolver)来解析HandlerAdapter传递的逻辑视图名。说人话就是，DIspatcherServlet调用了一个小弟，这个小弟是用来拼接url的。在上述的Spring-mvc.xml文件中，你可以在<bean>标签中找到这个小弟。它有两个属性，一个是prefix，另一个是suffix。字面意思理解一下，pre-前面，fix-修复。所以它就是”修复残缺的url”的工具。prefix修复前缀，suffix修复后缀。比如，DIspatcherServlet拿来刚才HandlerAdapter传递的逻辑视图名传递的”login”，把”login”送给小弟(ViewResolver)去修复一下url(拼接url)。拼接好了之后，按照如上的bean配置，得到的url即为：/WEB-INF/jsp/login.jsp。小弟搞好了之后再把它交给大哥DIspatcherServlet。</li>
-<li>DIspatcherServlet根据视图解析器解析的视图结果，调用具体的视图。收到了修补后的url，DIspatcherServlet根据这个url帮我们进行了网页的跳转。所谓的呈现具体视图，就是网页~</li>
-</ol>
-<ul>
-<li>解释1、2、3、4、5、6：</li>
-</ul>
-<ol>
-<li>用户通过发起了请求：”喂！服务器！你TM的醒醒！我要去你那儿访问个东西！url是:”localhost:8080/SpringMVC/hello”，你最好赶快帮我找！”。</li>
-<li>服务器一看：”8080，这不就是老子的地址嘛！SpringMVC，这不是我罩着的web文件夹吗！文件夹里面都是web的东西，什么jsp啦，css，什么的。我再仔细定睛一看，你TM的这个小用户，原来是想找hello这个Controller来帮你做事情啊！”</li>
-<li>这个时候呢，DIspatcherServlet这个大哥就让HandlerMapping这个东西根据用户发来的url查找对应的handler。handler去找到底有没有用户想找的controller(hello)。找到了就返回给DIspatcherServlet，然后DIspatcherServlet大哥再通过HandlerAdapter来调用Controller。</li>
-</ol>
-<ul>
-<li>整合解释：</li>
-</ul>
-<ol>
-<li>老王想去p站看小电影，他之前不满于平民的视频清晰度，为此老王充了会员。现在尊贵的会员要登录p站看小电影了。他在输入框内敲下了奢华的账号与密码，点击”登录”！</li>
-<li>就在这个平平无奇的点击登录操作背后，后端上演的是一场狂风暴雨与惊涛骇浪。当然了，它也蕴藏着无数程序员的夜不能寐和他们所剩无几的几根倔强与坚强。</li>
-<li>在前端input标签内，action属性剑指请求，method里面是卑微的请求方法(毕竟要跟服务器大哥说话，还是放尊重点用个post吧！)。当尊贵的小王点击登录按钮后，前端的submit脑海中一阵电流钻过，请求发过去了。</li>
-<li>服务器大哥(DIspatcherServlet)看到了请求，”localhost:8080/SpringMVC/hello”。这个请求曾原模原样的写在action里面。服务器大哥(DIspatcherServlet)开始分析用户的请求了:”emm…8080是我，Tomcat本尊所在的地址(这地址其实是开发者分给我的，我多么想在8488端口啊，如果有的话…！就是没这王者的命啊！)。而SpringMVC是本服务器下面的一个文件夹，里面是开发者曾部署给我的web文件，等会我的操作还得靠里面的文件嘞！！至于hello嘛，是用户想找的Controller，用它来实现某种功能！”。服务器大哥分析完了之后，就把这种事交给手下的小弟去做了。大哥吆喝了几个小弟，他们是HandlerMapping、HandlerAdapter、ViewResolver。这些小弟开始干活了，小弟们实现了各种操作，他们要做的就是把做完的事报告给大哥，然后让大哥在顶层做决策。守得云开见月明，大哥看到所有操作都over了，就返给了用户一个结果。</li>
-<li>老王一看，我擦，密码错误！？重新输入密码，还是不对！TMD，你知不知道反复做这种操作后端都经历了什么啊！老王瘫在椅子上，好家伙，自己花了999软妹币充值的十年vip账号让别人盗了！事后老王惆怅不已，在家书里写下了这样一段话:”吾子孙，万不可玩p站。”</li>
-</ol>
-<p><strong>厘清一些误解：</strong></p>
-<p>上述url中的地址，并不是web站点的目录，它实际上是在通过Controller来访问web站点的资源。这一点很牛逼哦！因为你无法直接通过目录形式访问得到web资源，你得经过Controller！否则，想登录p站，门都没有。</p>
-</li>
-</ol>
-</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/">上一页</a></div><div class="pagination-next"><a href="/page/3/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><a class="pagination-link is-current" href="/page/2/">2</a></li><li><a class="pagination-link" href="/page/3/">3</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/6/">6</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">52</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">35</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:48:51.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C/">Linux&amp;命令行</a></p><p class="categories"><a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:44:33.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/%E5%A4%A7%E8%AF%9D%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">大话计算机网络</a></p><p class="categories"><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:32:13.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9F/">如何阅读一本书？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-10T04:30:51.000Z">2021-07-10</time></p><p class="title"><a href="/2021/07/10/2021%E6%9A%91%E5%81%87leetcode%E8%AE%AD%E7%BB%83%EF%BC%88%E4%B8%80%EF%BC%89/">2021暑假leetcode训练（一）</a></p><p class="categories"><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-06T15:59:50.000Z">2021-07-06</time></p><p class="title"><a href="/2021/07/06/python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A2%98%E5%BA%93/">python与数据分析题库</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/">上一页</a></div><div class="pagination-next"><a href="/page/3/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><a class="pagination-link is-current" href="/page/2/">2</a></li><li><a class="pagination-link" href="/page/3/">3</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/6/">6</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">54</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">36</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T15:43:01.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/java%E6%96%B0%E6%89%8B%E7%9A%84%E9%80%9A%E7%97%85/">java新手的通病</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T15:31:58.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF%E4%B8%89%E9%83%A8%E6%9B%B2/">学习技术三部曲</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:48:51.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C/">Linux&amp;命令行</a></p><p class="categories"><a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:44:33.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/%E5%A4%A7%E8%AF%9D%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">大话计算机网络</a></p><p class="categories"><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T13:32:13.000Z">2021-07-16</time></p><p class="title"><a href="/2021/07/16/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9F/">如何阅读一本书？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
