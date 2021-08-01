@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>浅谈对结构体的理解 | 胡小宁的博客</title><meta name="keywords" content="学习,c/c++"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文是学习过程中的思考与总结，存在许多不妥之处，若有幸被大牛指点出纰漏，必当及时更正，感激不尽！ 一、什么是结构体？  二、结构体数组与结构体指针  三、结构体指针作为函数参数  四、typedef的用法 一、什么是结构体？ 可以把结构体当作自定义的数据类型，它相当于一个容器，里面容纳了许多的基本数据类型（int ,float ,char ,double…诸如此类）。姑且把结构体所容纳的变量叫做成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈对结构体的理解">
+<meta property="og:url" content="http://1905060202.github.io/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="本文是学习过程中的思考与总结，存在许多不妥之处，若有幸被大牛指点出纰漏，必当及时更正，感激不尽！ 一、什么是结构体？  二、结构体数组与结构体指针  三、结构体指针作为函数参数  四、typedef的用法 一、什么是结构体？ 可以把结构体当作自定义的数据类型，它相当于一个容器，里面容纳了许多的基本数据类型（int ,float ,char ,double…诸如此类）。姑且把结构体所容纳的变量叫做成">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-08-01T15:16:10.000Z">
+<meta property="article:modified_time" content="2021-08-01T15:17:53.510Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '浅谈对结构体的理解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-08-01 23:17:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">浅谈对结构体的理解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-01T15:16:10.000Z" title="发表于 2021-08-01 23:16:10">2021-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-01T15:17:53.510Z" title="更新于 2021-08-01 23:17:53">2021-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="浅谈对结构体的理解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>本文是学习过程中的思考与总结，存在许多不妥之处，若有幸被大牛指点出纰漏，必当及时更正，感激不尽！</strong></p>
+<pre><code>一、什么是结构体？
+
+二、结构体数组与结构体指针
+
+三、结构体指针作为函数参数
+
+四、typedef的用法</code></pre>
+<p><strong>一、什么是结构体？</strong></p>
+<p>可以把结构体当作自定义的数据类型，它相当于一个容器，里面容纳了许多的基本数据类型（int ,float ,char ,double…诸如此类）。姑且把结构体所容纳的变量叫做成员变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//姓名</span><br>    <span class="hljs-keyword">int</span> num;  <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> age;  <span class="hljs-comment">//年龄</span><br>    <span class="hljs-keyword">char</span> group;  <span class="hljs-comment">//所在学习小组</span><br>    <span class="hljs-keyword">float</span> score;  <span class="hljs-comment">//成绩</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong>注意：结构体大括号后面的；不能丢，否则不是完整的语句。</strong></p>
+<p>既然结构体是一种数据类型，那么就可以用它来定义变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//姓名</span><br>    <span class="hljs-keyword">int</span> num;  <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> age;  <span class="hljs-comment">//年龄</span><br>    <span class="hljs-keyword">char</span> group;  <span class="hljs-comment">//所在学习小组</span><br>    <span class="hljs-keyword">float</span> score;  <span class="hljs-comment">//成绩</span><br>&#125; stu1, stu2;<span class="hljs-comment">//这是一种定义变量的方法，直接在大括号尾部定义</span><br><br><span class="hljs-comment">//还可以如下定义</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span> <span class="hljs-title">stu3</span>,<span class="hljs-title">stu4</span>;</span><span class="hljs-comment">//定义的时候，struct stu作为整体出现</span><br></code></pre></td></tr></table></figure>
+<p>上述代码中，stu1与stu2便是由stu数据类型定义的变量（类比于int类型定义stu1与stu2）。</p>
+<p><font color=#6495ED><strong>需要注意的是:结构体是创建变量的模板（没东西的容器），不占用内存；结构体变量才包含了真实的数据，需要内存来存储。</strong></font></p>
+<p><strong>二、结构体数组与结构体指针</strong></p>
+<p>类比着讲更容易理解。<br>拿int类型举例，int可以定义整型数组，类比来看，结构体数据类型，同样可以定义数组。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//姓名</span><br>    <span class="hljs-keyword">int</span> num;  <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> age;  <span class="hljs-comment">//年龄</span><br>    <span class="hljs-keyword">char</span> group;  <span class="hljs-comment">//所在小组 </span><br>    <span class="hljs-keyword">float</span> score;  <span class="hljs-comment">//成绩</span><br>&#125;;<br><span class="hljs-comment">//先定义一个结构体数据类型</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> i[<span class="hljs-number">5</span>];<span class="hljs-comment">//定义整型数组</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span> <span class="hljs-title">j</span>[5];</span><span class="hljs-comment">//定义stu类型数组</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从代码中可以发现，stu类型数组<strong>j</strong>包含了五组stu内部的成员变量（name，num，age，group，score）。</p>
+<p>结构体数组的使用很简单<code>j[0].score;</code>表示的意思就是stu类型的j数组中第一组score。</p>
+<p>当一个指针变量指向结构体时，我们就称它为<font color=#0099ff><strong>结构体指针。</strong></font></p>
+<p>注意:结构体变量名和数组名不同，数组名在表达式中会被转换为数组指针，而结构体变量名不会，无论在任何表达式中它表示的都是整个集合本身，要想取得结构体变量的地址，必须在前面加<code>&amp;</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//姓名</span><br>    <span class="hljs-keyword">int</span> num;  <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> age;  <span class="hljs-comment">//年龄</span><br>    <span class="hljs-keyword">char</span> group;  <span class="hljs-comment">//所在学习小组</span><br>    <span class="hljs-keyword">float</span> score;  <span class="hljs-comment">//成绩</span><br>&#125; stu1, stu2;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span> *<span class="hljs-title">pstu</span>=</span>&amp;stu1;<span class="hljs-comment">//只能这样赋值</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span> *<span class="hljs-title">pstu</span>=</span>stu1;<span class="hljs-comment">//这样赋值是错的</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过结构体指针可获得结构体中的成员，<code>(*pstu).score</code>或者<code>pstu-&gt;score</code>。</p>
+<p>三、结构体变量作为函数参数</p>
+<p><font color=#6495ED>结构体变量名代表的是整个容器，里面所有成员作为一个集合在一起。</font>而不是同数组一样被编译器转换成指针，用结构体变量传参会极大影响程序的效率。最好的方法就是使用指针，这时由实参传向形参的只是一个地址。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//姓名</span><br>    <span class="hljs-keyword">int</span> num;  <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> age;  <span class="hljs-comment">//年龄</span><br>    <span class="hljs-keyword">char</span> group;  <span class="hljs-comment">//所在学习小组</span><br>    <span class="hljs-keyword">float</span> score;  <span class="hljs-comment">//成绩</span><br>&#125; stu1, stu2;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(struct stu *pstu)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	stu1.score=<span class="hljs-number">99.5</span>;<br>	test(&amp;stu1);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(struct stu *pstu1)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,pstu1-&gt;score);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出结果<code>99.5</code>。</p>
+<p><strong>四、typedef的用法</strong></p>
+<p>typedef相当于起外号的工具，在定义结构体变量时非常方便！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">stu</span>&#123;</span><br>    <span class="hljs-keyword">char</span> name[<span class="hljs-number">20</span>];<br>    <span class="hljs-keyword">int</span> age;<br>&#125; Stu;<br></code></pre></td></tr></table></figure>
+<p>如果没有<code>typedef</code>，我们定义结构体变量时，<code>struct stu student1；</code>还要如上操作。<br>但有了<code>typedef</code>，我们给<code>struct stu</code>起了一个外号<code>Stu</code>。如此一来，在定义结构体类型变量时，只需<code>Stu student1；</code>即可。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/">http://1905060202.github.io/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a class="post-meta__tags" href="/tags/c-c/">c/c++</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%80%86%E8%BD%AC/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据结构之单链表的创建和逆转</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">粒计算综述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/01/数据结构之单链表的创建和逆转/" title="数据结构之单链表的创建和逆转"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">数据结构之单链表的创建和逆转</div></div></a></div><div><a href="/2021/08/01/数据结构之排序算法-一/" title="数据结构之排序算法(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">数据结构之排序算法(一)</div></div></a></div><div><a href="/2021/05/25/python数据分析-二/" title="python数据分析(二)-数值计算(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-25</div><div class="title">python数据分析(二)-数值计算(一)</div></div></a></div><div><a href="/2021/05/24/python数据分析-一/" title="python数据分析(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-24</div><div class="title">python数据分析(一)</div></div></a></div><div><a href="/2021/06/30/人工智能练习题/" title="人工智能练习题"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-30</div><div class="title">人工智能练习题</div></div></a></div><div><a href="/2021/07/16/学习技术三部曲/" title="学习技术三部曲"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-16</div><div class="title">学习技术三部曲</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/" title="数据结构之排序算法(一)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构之排序算法(一)"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/" title="数据结构之排序算法(一)">数据结构之排序算法(一)</a><time datetime="2021-08-01T15:22:44.000Z" title="发表于 2021-08-01 23:22:44">2021-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="数据结构课程设计之大爱线性表"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构课程设计之大爱线性表"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="数据结构课程设计之大爱线性表">数据结构课程设计之大爱线性表</a><time datetime="2021-08-01T15:21:39.000Z" title="发表于 2021-08-01 23:21:39">2021-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%8D%95%E8%AF%8D%E6%A3%80%E6%9F%A5/" title="数据结构课程设计之单词检查"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构课程设计之单词检查"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%8D%95%E8%AF%8D%E6%A3%80%E6%9F%A5/" title="数据结构课程设计之单词检查">数据结构课程设计之单词检查</a><time datetime="2021-08-01T15:20:50.000Z" title="发表于 2021-08-01 23:20:50">2021-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%80%86%E8%BD%AC/" title="数据结构之单链表的创建和逆转"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构之单链表的创建和逆转"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%80%86%E8%BD%AC/" title="数据结构之单链表的创建和逆转">数据结构之单链表的创建和逆转</a><time datetime="2021-08-01T15:18:58.000Z" title="发表于 2021-08-01 23:18:58">2021-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/" title="浅谈对结构体的理解"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浅谈对结构体的理解"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/" title="浅谈对结构体的理解">浅谈对结构体的理解</a><time datetime="2021-08-01T15:16:10.000Z" title="发表于 2021-08-01 23:16:10">2021-08-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
