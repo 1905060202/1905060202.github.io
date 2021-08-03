@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>配置butterfly时我踩过的坑</title>
+      <link href="/2021/08/03/%E9%85%8D%E7%BD%AEbutterfly%E6%97%B6%E6%88%91%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/"/>
+      <url>/2021/08/03/%E9%85%8D%E7%BD%AEbutterfly%E6%97%B6%E6%88%91%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="最前面的话"><a href="#最前面的话" class="headerlink" title="最前面的话"></a>最前面的话</h1><p>因为之前用过很多的主题，并且安装的方式都是从<mark class="hl-label blue">github</mark> 上<mark class="hl-label default">clone</mark> 下来。而安装<mark class="hl-label purple">butterfly</mark> 的方式是通过<mark class="hl-label orange">npm</mark> 下来的。这就导致主题文件并不在theme里。先前的主题文件都是保存在theme里的，并且都会在博客根目录或者主题文件里生成一个<mark class="hl-label green">_config.xxxx.yml</mark> 的.yml文件，所以配置主题就直接修改生成的yml文件就好了。但是捏，我这次<mark class="hl-label orange">npm</mark> 挖了很大的一个坑，我找不到生成的<mark class="hl-label green">_config.butterfly.yml</mark> 了！</p><p>在我看<a href="https://blog.imzjw.cn/posts/b74f504f/">小嘉的部落格</a>配置主页文字的时候，有一处需要修改<code>css</code>文件，但我并不知道css文件在哪里。机缘巧合之下，我开始了Google之旅，并发现了先前自己给自己挖的坑。原来<mark class="hl-label orange">npm</mark> 下来的主题文件在<code>\node_modules\hexo-theme-butterfly</code>，<mark class="hl-label green">_config.butterfly.yml</mark> 也在里面。</p><p>我也很佩服自己在没有官方配置文件的前提下，还能装修一阵博客 hhhh。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 前端 </tag>
+            
+            <tag> butterfly </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Butterfly装修之新手上路</title>
       <link href="/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/"/>
       <url>/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/</url>
