@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>wordpress之搭建博客</title>
+      <link href="/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h1><p>腾讯云检测到我的服务器有漏洞，这如同晴天霹雳，我这两天一直在搭建新的博客，完全没有深入配置服务器，这下可好，又要把搭建博客的工作先放一放了。不过，这两天的搭建工作确实让自己有了收获，这份收获在于如何用wordpress快速搭建起一个看着还过得去的<mark class="hl-label orange">blog</mark> 。</p><h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>wordpress原生主题看着还过得去，不过我的审美被apple惯坏了，看着它扁平化和卡片化的设计，我也想把自己的博客改造成那般摸样。于是我的第一步工作就是更换一套主题。我选择的是<mark class="hl-label pink">Blocksy</mark> 。它卡片化的设计正合我意。</p><h2 id="新建博客页面"><a href="#新建博客页面" class="headerlink" title="新建博客页面"></a>新建博客页面</h2><p>由于Blocksy面向的是商业，所以blog元素基本上没有。这就需要我手动建立一个blog页面。</p><h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><p><img src="/images/python/%E6%96%B0%E5%BB%BA%E9%A1%B5%E9%9D%A2.png" alt="新建页面"></p><p>按图所示，顺序执行。</p><h3 id="将blog添加到菜单"><a href="#将blog添加到菜单" class="headerlink" title="将blog添加到菜单"></a>将blog添加到菜单</h3><p><img src="/images/python/image-20210805183642782.png" alt="菜单"></p><p><img src="/images/python/image-20210805183751845.png" alt="继续"></p><p>然后选择添加项目，如果你感觉菜单栏上的顺序不满意，可以选择第二步重新排序。</p><p><img src="/images/python/image-20210805183854577.png" alt="添加项目"></p><h3 id="将blog页面设为文章页"><a href="#将blog页面设为文章页" class="headerlink" title="将blog页面设为文章页"></a>将blog页面设为文章页</h3><p><img src="/images/python/image-20210805184012688.png" alt="第一步"></p><p>选择设置-&gt;阅读</p><p><img src="/images/python/image-20210805184054239.png" alt="第二步"></p><p>将blog设为文章页，大功告成！</p><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/images/python/image-20210805184358319.png" alt="优美的页面"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 前端 </tag>
+            
+            <tag> wordpress </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>腾讯云之购买与配置</title>
       <link href="/2021/08/04/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B9%8B%E8%B4%AD%E4%B9%B0%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
       <url>/2021/08/04/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B9%8B%E8%B4%AD%E4%B9%B0%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>

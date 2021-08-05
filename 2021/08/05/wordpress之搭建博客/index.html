@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>wordpress之搭建博客 | 胡小宁的博客</title><meta name="keywords" content="博客,前端,wordpress"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="写在最前面腾讯云检测到我的服务器有漏洞，这如同晴天霹雳，我这两天一直在搭建新的博客，完全没有深入配置服务器，这下可好，又要把搭建博客的工作先放一放了。不过，这两天的搭建工作确实让自己有了收获，这份收获在于如何用wordpress快速搭建起一个看着还过得去的blog 。 更换主题wordpress原生主题看着还过得去，不过我的审美被apple惯坏了，看着它扁平化和卡片化的设计，我也想把自己的博客改造">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wordpress之搭建博客">
+<meta property="og:url" content="http://1905060202.github.io/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="写在最前面腾讯云检测到我的服务器有漏洞，这如同晴天霹雳，我这两天一直在搭建新的博客，完全没有深入配置服务器，这下可好，又要把搭建博客的工作先放一放了。不过，这两天的搭建工作确实让自己有了收获，这份收获在于如何用wordpress快速搭建起一个看着还过得去的blog 。 更换主题wordpress原生主题看着还过得去，不过我的审美被apple惯坏了，看着它扁平化和卡片化的设计，我也想把自己的博客改造">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png">
+<meta property="article:published_time" content="2021-08-05T10:16:18.000Z">
+<meta property="article:modified_time" content="2021-08-05T10:44:05.751Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="wordpress">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"6456TWTNI2","apiKey":"cf5116dbc73ddb4c9ee08cca50344cf5","indexName":"bloghu","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":200,"position":"top","messagePrev":"这篇博文已经是","messageNext":"天前更新的了, 文章中的内容很可能过时了。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'wordpress之搭建博客',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-08-05 18:44:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/you.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">wordpress之搭建博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-05T10:16:18.000Z" title="发表于 2021-08-05 18:16:18">2021-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-05T10:44:05.751Z" title="更新于 2021-08-05 18:44:05">2021-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="wordpress之搭建博客"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h1><p>腾讯云检测到我的服务器有漏洞，这如同晴天霹雳，我这两天一直在搭建新的博客，完全没有深入配置服务器，这下可好，又要把搭建博客的工作先放一放了。不过，这两天的搭建工作确实让自己有了收获，这份收获在于如何用wordpress快速搭建起一个看着还过得去的<mark class="hl-label orange">blog</mark> 。</p>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>wordpress原生主题看着还过得去，不过我的审美被apple惯坏了，看着它扁平化和卡片化的设计，我也想把自己的博客改造成那般摸样。于是我的第一步工作就是更换一套主题。我选择的是<mark class="hl-label pink">Blocksy</mark> 。它卡片化的设计正合我意。</p>
+<h2 id="新建博客页面"><a href="#新建博客页面" class="headerlink" title="新建博客页面"></a>新建博客页面</h2><p>由于Blocksy面向的是商业，所以blog元素基本上没有。这就需要我手动建立一个blog页面。</p>
+<h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><p><img src="/images/python/%E6%96%B0%E5%BB%BA%E9%A1%B5%E9%9D%A2.png" alt="新建页面"></p>
+<p>按图所示，顺序执行。</p>
+<h3 id="将blog添加到菜单"><a href="#将blog添加到菜单" class="headerlink" title="将blog添加到菜单"></a>将blog添加到菜单</h3><p><img src="/images/python/image-20210805183642782.png" alt="菜单"></p>
+<p><img src="/images/python/image-20210805183751845.png" alt="继续"></p>
+<p>然后选择添加项目，如果你感觉菜单栏上的顺序不满意，可以选择第二步重新排序。</p>
+<p><img src="/images/python/image-20210805183854577.png" alt="添加项目"></p>
+<h3 id="将blog页面设为文章页"><a href="#将blog页面设为文章页" class="headerlink" title="将blog页面设为文章页"></a>将blog页面设为文章页</h3><p><img src="/images/python/image-20210805184012688.png" alt="第一步"></p>
+<p>选择设置-&gt;阅读</p>
+<p><img src="/images/python/image-20210805184054239.png" alt="第二步"></p>
+<p>将blog设为文章页，大功告成！</p>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/images/python/image-20210805184358319.png" alt="优美的页面"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">http://1905060202.github.io/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/wordpress/">wordpress</a></div><div class="post_share"><div class="social-share" data-image="/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/08/04/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B9%8B%E8%B4%AD%E4%B9%B0%E4%B8%8E%E9%85%8D%E7%BD%AE/"><img class="next-cover" src="/images/%E5%B0%81%E9%9D%A2/%E4%BA%91%E6%9C%8D%E5%8A%A1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">腾讯云之购买与配置</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/02/Butterfly装修之新手上路/" title="Butterfly装修之新手上路"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-01-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-02</div><div class="title">Butterfly装修之新手上路</div></div></a></div><div><a href="/2021/08/04/腾讯云之购买与配置/" title="腾讯云之购买与配置"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E4%BA%91%E6%9C%8D%E5%8A%A1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-04</div><div class="title">腾讯云之购买与配置</div></div></a></div><div><a href="/2021/08/03/配置butterfly时我踩过的坑/" title="配置butterfly时我踩过的坑"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-03</div><div class="title">配置butterfly时我踩过的坑</div></div></a></div><div><a href="/2021/05/22/如何利用Typora方便快捷地写博客/" title="如何利用Typora方便快捷地写博客"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-22</div><div class="title">如何利用Typora方便快捷地写博客</div></div></a></div><div><a href="/2021/07/17/如何选择开源项目？/" title="如何选择开源项目？"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-17</div><div class="title">如何选择开源项目？</div></div></a></div><div><a href="/2021/07/17/架构设计：进程还是线程？/" title="架构设计：进程还是线程？"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-17</div><div class="title">架构设计：进程还是线程？</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/you.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/1905060202"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1905060202" target="_blank" title="关注我"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">四海之内皆兄弟</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在最前面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">更换主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.2.</span> <span class="toc-text">新建博客页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.2.1.</span> <span class="toc-text">新建页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86blog%E6%B7%BB%E5%8A%A0%E5%88%B0%E8%8F%9C%E5%8D%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">将blog添加到菜单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86blog%E9%A1%B5%E9%9D%A2%E8%AE%BE%E4%B8%BA%E6%96%87%E7%AB%A0%E9%A1%B5"><span class="toc-number">1.2.3.</span> <span class="toc-text">将blog页面设为文章页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-number">1.2.4.</span> <span class="toc-text">效果</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="wordpress之搭建博客"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="wordpress之搭建博客"/></a><div class="content"><a class="title" href="/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="wordpress之搭建博客">wordpress之搭建博客</a><time datetime="2021-08-05T10:16:18.000Z" title="发表于 2021-08-05 18:16:18">2021-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/04/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B9%8B%E8%B4%AD%E4%B9%B0%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="腾讯云之购买与配置"><img src="/images/%E5%B0%81%E9%9D%A2/%E4%BA%91%E6%9C%8D%E5%8A%A1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="腾讯云之购买与配置"/></a><div class="content"><a class="title" href="/2021/08/04/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B9%8B%E8%B4%AD%E4%B9%B0%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="腾讯云之购买与配置">腾讯云之购买与配置</a><time datetime="2021-08-03T16:52:22.000Z" title="发表于 2021-08-04 00:52:22">2021-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/03/%E9%85%8D%E7%BD%AEbutterfly%E6%97%B6%E6%88%91%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/" title="配置butterfly时我踩过的坑"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="配置butterfly时我踩过的坑"/></a><div class="content"><a class="title" href="/2021/08/03/%E9%85%8D%E7%BD%AEbutterfly%E6%97%B6%E6%88%91%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/" title="配置butterfly时我踩过的坑">配置butterfly时我踩过的坑</a><time datetime="2021-08-03T10:18:18.000Z" title="发表于 2021-08-03 18:18:18">2021-08-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/" title="Butterfly装修之新手上路"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-01-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Butterfly装修之新手上路"/></a><div class="content"><a class="title" href="/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/" title="Butterfly装修之新手上路">Butterfly装修之新手上路</a><time datetime="2021-08-02T10:34:41.000Z" title="发表于 2021-08-02 18:34:41">2021-08-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/" title="数据结构之排序算法(一)"><img src="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构之排序算法(一)"/></a><div class="content"><a class="title" href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/" title="数据结构之排序算法(一)">数据结构之排序算法(一)</a><time datetime="2021-08-01T15:22:44.000Z" title="发表于 2021-08-01 23:22:44">2021-08-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
