@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>算法之简单模拟题（一）</title>
+      <link href="/2021/08/17/%E7%AE%97%E6%B3%95%E4%B9%8B%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>/2021/08/17/%E7%AE%97%E6%B3%95%E4%B9%8B%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h1 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h1><p><strong>题目描述</strong></p><p>Time Limit: 1000 ms<br>Memory Limit: 256 mb</p><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs txt">对于长度为6位的一个01串，每一位都可能是0或1，一共有64种可能。它的前几个是：<br>000000<br>000001<br>000010<br>000011<br>000100<br>请按从小到大的顺序输出这64种01串。<br></code></pre></td></tr></table></figure><p><strong>输入输出格式</strong></p><p><strong>输出描述:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">输出64行，每行一个01串。<br></code></pre></td></tr></table></figure><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-keyword">int</span> k[<span class="hljs-number">6</span>] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>&#125;;<br><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-keyword">while</span>(i&lt;<span class="hljs-number">64</span>)&#123;<br><span class="hljs-keyword">int</span> c = i;<br><span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">while</span>(c)&#123;<br><span class="hljs-keyword">if</span>(c&amp;<span class="hljs-number">1</span>) <span class="hljs-comment">//按位运算，如果位运算是1则更改数组的值。</span><br>&#123;<br>k[j] = <span class="hljs-number">1</span>;<br>j++;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>k[j] = <span class="hljs-number">0</span>;<br>j++;<br>&#125;<br>c &gt;&gt;=<span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-built_in">cout</span> &lt;&lt;k[<span class="hljs-number">5</span>]&lt;&lt;k[<span class="hljs-number">4</span>]&lt;&lt;k[<span class="hljs-number">3</span>]&lt;&lt;k[<span class="hljs-number">2</span>]&lt;&lt;k[<span class="hljs-number">1</span>]&lt;&lt;k[<span class="hljs-number">0</span>]&lt;&lt;<span class="hljs-built_in">endl</span>;<br>i++;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> c/c++ </tag>
+            
+            <tag> N诺 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>计算机考研法宝</title>
       <link href="/2021/08/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E7%A0%94%E6%B3%95%E5%AE%9D/"/>
       <url>/2021/08/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E7%A0%94%E6%B3%95%E5%AE%9D/</url>
