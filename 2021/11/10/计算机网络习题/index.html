@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>计算机网络习题 | 胡小宁的博客</title><meta name="keywords" content="习题,计算机网络"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第一章1-01 简述分组交换的要点： 加首部，报文分组 经路由器存储转发 在目的地合并  1-03 试从多个方面比较电路交换、报文交换和分组交换的主要优缺点：  电路交换，端对端通信质量因为约定了通信资源获得可靠保障，对连续传送大量数据效率高。 报文交换，无需预约传送带宽，动态逐段利用传输带宽对突发式数据通信效率高。 分组交换，具有报文交换的高效，迅速的特点，并且各分组较小路由灵活，生存性能好。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络习题">
+<meta property="og:url" content="http://1905060202.github.io/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="第一章1-01 简述分组交换的要点： 加首部，报文分组 经路由器存储转发 在目的地合并  1-03 试从多个方面比较电路交换、报文交换和分组交换的主要优缺点：  电路交换，端对端通信质量因为约定了通信资源获得可靠保障，对连续传送大量数据效率高。 报文交换，无需预约传送带宽，动态逐段利用传输带宽对突发式数据通信效率高。 分组交换，具有报文交换的高效，迅速的特点，并且各分组较小路由灵活，生存性能好。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg">
+<meta property="article:published_time" content="2021-11-10T14:22:26.000Z">
+<meta property="article:modified_time" content="2021-11-11T03:43:58.939Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="习题">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"6456TWTNI2","apiKey":"cf5116dbc73ddb4c9ee08cca50344cf5","indexName":"bloghu","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":200,"position":"top","messagePrev":"这篇博文已经是","messageNext":"天前更新的了, 文章中的内容很可能过时了。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机网络习题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-11 11:43:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/you.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机网络习题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-10T14:22:26.000Z" title="发表于 2021-11-10 22:22:26">2021-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-11T03:43:58.939Z" title="更新于 2021-11-11 11:43:58">2021-11-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机网络习题"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-01-简述分组交换的要点："><a href="#1-01-简述分组交换的要点：" class="headerlink" title="1-01 简述分组交换的要点："></a>1-01 简述分组交换的要点：</h3><ol>
+<li>加首部，报文分组</li>
+<li>经路由器存储转发</li>
+<li>在目的地合并</li>
+</ol>
+<h3 id="1-03-试从多个方面比较电路交换、报文交换和分组交换的主要优缺点："><a href="#1-03-试从多个方面比较电路交换、报文交换和分组交换的主要优缺点：" class="headerlink" title="1-03 试从多个方面比较电路交换、报文交换和分组交换的主要优缺点："></a>1-03 试从多个方面比较电路交换、报文交换和分组交换的主要优缺点：</h3><ol>
+<li> 电路交换，端对端通信质量因为约定了通信资源获得可靠保障，对连续传送大量数据效率高。</li>
+<li>报文交换，无需预约传送带宽，动态逐段利用传输带宽对突发式数据通信效率高。</li>
+<li>分组交换，具有报文交换的高效，迅速的特点，并且各分组较小路由灵活，生存性能好。</li>
+</ol>
+<h3 id="1-08-计算机网络都有哪些类别？各种类别的网络都有哪些特点？"><a href="#1-08-计算机网络都有哪些类别？各种类别的网络都有哪些特点？" class="headerlink" title="1-08 计算机网络都有哪些类别？各种类别的网络都有哪些特点？"></a>1-08 计算机网络都有哪些类别？各种类别的网络都有哪些特点？</h3><ol>
+<li>按范围：<ul>
+<li>广域网WAN：远程、高速、是Internet的核心网</li>
+<li>城域网：城市范围，链接多个局域网</li>
+<li>局域网：校园、企业、机关、社区</li>
+<li>个域网PAN：个人电子设备</li>
+</ul>
+</li>
+<li>按用户：<ul>
+<li>公用网：面向公共运营</li>
+<li>专用网：面向特定机构</li>
+</ul>
+</li>
+</ol>
+<h3 id="1-10"><a href="#1-10" class="headerlink" title="1-10"></a>1-10</h3><p><img src="/images/python/image-20211110224448846.png"></p>
+<p>线路交换时延：kd+x/b+s</p>
+<p>分组交换时延：kd+(x/p)×(p/b)+(k-1)×(p/b)，其中(k-1)×(p/b)表示K段传输中，有（k-1）次的储存转发时延，当s&gt;(k-1)×(p/b)时，电路交换的时延比分组交换的时延大，当x&gt;&gt;p，则结果相反。</p>
+<h3 id="1-11"><a href="#1-11" class="headerlink" title="1-11"></a>1-11</h3><p><img src="/images/python/image-20211110224943200.png"></p>
+<p>总时延D表达式，分组交换时延为：D=kd+(x/p)×（（p+h）/b）+（k-1）×（p+h）/b。</p>
+<p>D对p求导后，令其值等于0，求得p=[(xh)/(k-1)]^(1/2)。</p>
+<h3 id="1-12-Internet的两大部分组成（边缘部分与核心部分）的特点是什么？他们的工作方式各有什么特点？"><a href="#1-12-Internet的两大部分组成（边缘部分与核心部分）的特点是什么？他们的工作方式各有什么特点？" class="headerlink" title="1-12 Internet的两大部分组成（边缘部分与核心部分）的特点是什么？他们的工作方式各有什么特点？"></a>1-12 Internet的两大部分组成（边缘部分与核心部分）的特点是什么？他们的工作方式各有什么特点？</h3><ol>
+<li>边缘部分：由各主机构成，用户直接进行信息处理和信息共享；低俗连入核心网。</li>
+<li>核心部分：由各路由器连网，负责为边缘部分提供高速远程分组交换。</li>
+</ol>
+<h3 id="1-14-计算机网络有哪些常用的性能指标？"><a href="#1-14-计算机网络有哪些常用的性能指标？" class="headerlink" title="1-14 计算机网络有哪些常用的性能指标？"></a>1-14 计算机网络有哪些常用的性能指标？</h3><ol>
+<li>速率</li>
+<li>带宽</li>
+<li>吞吐量</li>
+<li>时延</li>
+<li>时延带宽积</li>
+<li>往返时间RTT</li>
+<li>利用率</li>
+</ol>
+<h3 id="1-17"><a href="#1-17" class="headerlink" title="1-17"></a>1-17</h3><p><img src="/images/python/image-20211110225610010.png"></p>
+<ol>
+<li>发送时延：ts=107/105=100s 传播时延：tp=106/(2×108)=0.005s</li>
+<li>发送时延ts=103/109=1μs 传播时延：tp=106/(2×108)=0.005s</li>
+</ol>
+<p>结论：若数据长度大而发送速率低，则在总时延中，发送时延往往大于传播时延。但若数据长度短而发送速率高，则传播时延就可能是总时延中的主要成分。</p>
+<h3 id="1-18"><a href="#1-18" class="headerlink" title="1-18"></a>1-18</h3><p><img src="/images/python/image-20211110230013501.png"></p>
+<p><img src="/images/python/image-20211110230038638.png"></p>
+<h3 id="1-19"><a href="#1-19" class="headerlink" title="1-19"></a>1-19</h3><p><img src="/images/python/image-20211110230105998.png"></p>
+<ol>
+<li>100/(100+20+20+18)=63.3%</li>
+<li>1000/(1000+20+20+18)=94.5%</li>
+</ol>
+<h3 id="1-20-网络体系结构为什么要采用分层次的结构？试举出一些与分层体系结构的思想相似的日常生活的例子"><a href="#1-20-网络体系结构为什么要采用分层次的结构？试举出一些与分层体系结构的思想相似的日常生活的例子" class="headerlink" title="1-20 网络体系结构为什么要采用分层次的结构？试举出一些与分层体系结构的思想相似的日常生活的例子"></a>1-20 网络体系结构为什么要采用分层次的结构？试举出一些与分层体系结构的思想相似的日常生活的例子</h3><ol>
+<li>各层之间是独立的。某一层可以使用其下一层提供的服务而不需要知道服务是如何实现的。</li>
+<li>灵活性好。当某一层发生变化时，只要其接口关系不变，则这层以上或以下的各层均不受影响。</li>
+<li>结构上可以分隔开。各层可以采用最合适的技术来实现</li>
+<li>易于实现和维护。</li>
+<li>能促进标准化工作。</li>
+</ol>
+<p>与分层体系结构思想相似的日常生活有邮政系统，物流系统。</p>
+<h3 id="1-22-网络协议的三个要素是什么？各有什么含义？"><a href="#1-22-网络协议的三个要素是什么？各有什么含义？" class="headerlink" title="1-22 网络协议的三个要素是什么？各有什么含义？"></a>1-22 网络协议的三个要素是什么？各有什么含义？</h3><p>网络协议：为进行网络中的数据交换而建立的规则、标准或约定。</p>
+<ol>
+<li>语法。即数据与控制信息的结构或格式</li>
+<li>语义。即需要发出何种控制信息，完成何种动作以及做出何种反应</li>
+<li>同步：即事件实现顺序的详细说明</li>
+</ol>
+<h3 id="1-26"><a href="#1-26" class="headerlink" title="1-26"></a>1-26</h3><p><img src="/images/python/image-20211110230847028.png"></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">实体（ <span class="hljs-keyword">en</span> &quot; <span class="hljs-keyword">ty</span> ）表示任何可发送或接收信息的硬件或软件进程．协议是控制两个对等实体进行通信的规则的集合。客户（ c Uent ）和服务器（ server ）都是指通信中所涉及的两个应用进程．客户是服务的请求方，服务器是服务的提供方。客户服务器方式所描述的是进程之间服务和被服务的关系。协议栈：指计算机网络体系结构采用分层模型后，每层的主要功能山对等层协议的运行来实现，因而每层可用一些上要协议来表征，儿个层次画在一起很像一个栈的结构．对等层：在网络体系结构中，通信双方实现同样功能的层．协议数据单元：对等层实体进行信息交换的数据单位．服务访问点：在同一系统中相邻两层的实体进行交互（即交换信息）的地方．服务访问点 SAP 是一个抽象的概念，它实体上就是一个逻辑接口．<br></code></pre></td></tr></table></figure>
+<h3 id="1-29"><a href="#1-29" class="headerlink" title="1-29"></a>1-29</h3><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><h3 id="2-04"><a href="#2-04" class="headerlink" title="2-04"></a>2-04</h3><p><img src="/images/python/image-20211110231055767.png"></p>
+<ol>
+<li>数据：是运送信息的载体。</li>
+<li>信号：是数据的电气的或电磁的表现</li>
+<li>模拟数据：运送信息的模拟信号。</li>
+<li>模拟信号：连续变化的信号。</li>
+<li>数字信号：取值为有限的几个离散值的信号</li>
+<li>数字数据：取值为不连续数值的数据</li>
+<li>码元：在使用时间域的波形表示数字信号时，代表不同离散值的基本波形。</li>
+<li>单工通信：即只有一个方向的通信而没有反方向的交互。</li>
+<li>半双工通信：即通信双方都可以发送信息，但不能双方同时发送</li>
+<li>全双工通信：即通信双方可以同时发送和接收信息。</li>
+</ol>
+<h3 id="2-06"><a href="#2-06" class="headerlink" title="2-06"></a>2-06</h3><p><img src="/images/python/image-20211110231505558.png"></p>
+<p>码元传输速率受奈式准则的限制，信息传输速率受香农公式的限制。</p>
+<p>香农公式在数据通信中的意义是：只要信息传输速率低于信道的极限传信率，就可以实现无差传输。</p>
+<p>比特/s是信息传输速率的单位。码元传输速率也称为调制速率。一个码元不一定对应于一个比特。</p>
+<h3 id="2-07"><a href="#2-07" class="headerlink" title="2-07"></a>2-07</h3><p><img src="/images/python/image-20211110232158640.png"></p>
+<p>C=R×Log2(16)=20000b/s×4=80000b/s</p>
+<h3 id="2-09"><a href="#2-09" class="headerlink" title="2-09"></a>2-09</h3><p><img src="/images/python/image-20211110232837142.png"></p>
+<p>C = Wlog2(l+S/N) b/s-aSNl=2* (C1/W) -1=2* (35000/3100) -1</p>
+<p>SN2=2* (C2AV) -1=2* (1.6<em>Cl/w) -1=2</em> (1.6*35000/3100) -1</p>
+<p>SN2/SN1=1OO 信噪比应增大到约 100 倍。C3=Wlong2 (1+SN3) =Wlog2 (l+10*SN2) C3/C2=18.5%</p>
+<p>如果在此基础上将信噪比S/N再增大到10倍，最大信息通率只能再增加18.5%左右</p>
+<h3 id="2-13-为什么要使用信道复用技术？常用信道复用技术有哪些？"><a href="#2-13-为什么要使用信道复用技术？常用信道复用技术有哪些？" class="headerlink" title="2-13 为什么要使用信道复用技术？常用信道复用技术有哪些？"></a>2-13 为什么要使用信道复用技术？常用信道复用技术有哪些？</h3><p>为了通过共享信息、最大限度提高信道利用率。</p>
+<ul>
+<li>频分</li>
+<li>时分</li>
+<li>码分</li>
+<li>波分</li>
+</ul>
+<h3 id="2-16"><a href="#2-16" class="headerlink" title="2-16"></a>2-16</h3><p><img src="/images/python/image-20211110233455717.png"></p>
+<p><img src="/images/python/image-20211110233523063.png"></p>
+<p>S・A= (4-1-14-34-1-1+34-14-1) /8=1, A 发送 1</p>
+<p>S・B= ( + 1-1-3-1-1-3-1-1-1) /8=-1, B 发送 0</p>
+<p>S・C= ( + 1 + 14-3+1-1-3-1-1) /8=0, C 无发送</p>
+<p>S・D= ( + 1 + 1+3 —1 + 1+3+1 — 1) /8=1, D 发送 1</p>
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><h2 id="3-01"><a href="#3-01" class="headerlink" title="3-01"></a>3-01</h2><p><img src="/images/python/image-20211111110943641.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">数据链路与链路的区别在于数据链路出链路外，还必须有一些必要的规程来控制数据的传输，因此，数据链路比链路多了实现通信规程所需要的硬件和软件。“电路接通了”表示链路两端的结点交换机己经开机，物理连接己经能够传送比特流了，但是，数据传输并不可靠，在物理连接基础上，再建立数据链路连接，才是“数据链路接通了”，此后，由于数据链路连接具有检测、确认和重传功能，才使不太可靠的物理链路变成可靠的数据链路，进行可靠的数据传输当数据链路断开连接时，物理电路连接不一定跟着断开连接。<br></code></pre></td></tr></table></figure>
+<h3 id="3-03-网络适配器的作用是什么？网络适配器工作在哪一层？"><a href="#3-03-网络适配器的作用是什么？网络适配器工作在哪一层？" class="headerlink" title="3-03 网络适配器的作用是什么？网络适配器工作在哪一层？"></a>3-03 网络适配器的作用是什么？网络适配器工作在哪一层？</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tap">适配器（即网卡）来实现数据链路层和物理层这两层的协议的硬件和软件网络适配器工作在 TCPllP 协议中的网络接口层（<span class="hljs-number"> 051 </span>中的数据链里层和物理层）<br></code></pre></td></tr></table></figure>
+<h3 id="3-04"><a href="#3-04" class="headerlink" title="3-04"></a>3-04</h3><p><img src="/images/python/image-20211111111608590.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">帧定界是分组交换的必然要求透明传输避免消息符号与帧定界符号相混淆差错检测防止合差错的无效数据帧浪费后续路山上的传输和处理资源<br></code></pre></td></tr></table></figure>
+<h3 id="3-06"><a href="#3-06" class="headerlink" title="3-06"></a>3-06</h3><p><img src="/images/python/image-20211111111719122.png"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">简单，提供不可靠的数据报服务，检错，无纠错不使用序号和确认机制地址字段 A 只置为 oxFF 。地址字段实际． L 并不起作用。控制字段 C 通常置为 0x03 。<span class="hljs-built_in"> PPP </span>是面向字节的当<span class="hljs-built_in"> PPP </span>用在同步传输链路时，协议规定采用硬件来完成比特填充（和 HDLC 的做法 · 样），当<span class="hljs-built_in"> PPP </span>用在异步传输时，就使用一种特殊的字符填充法<span class="hljs-built_in"> ppP </span>适用于线路质量不太差的情况下、<span class="hljs-built_in"> PPP </span>没有编码和确认机制<br></code></pre></td></tr></table></figure>
+<h3 id="3-07"><a href="#3-07" class="headerlink" title="3-07"></a>3-07</h3><p><img src="/images/python/image-20211111111849962.png"></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tap">作二进制除法，<span class="hljs-number"> 1101011011 </span>以众）两种错译均可发展仅仅采用了 CRC 检验<span class="hljs-number"> 10011 </span>得余数<span class="hljs-number"> 1 </span>110 ，添加的检验序列是<span class="hljs-number"> 1110 </span>．作二进制除法，缺重传机制，数据链路层的传输还不是可靠的传输。<br></code></pre></td></tr></table></figure>
+<h3 id="3-08"><a href="#3-08" class="headerlink" title="3-08"></a>3-08</h3><p><img src="/images/python/image-20211111112009058.png"></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">作二进制除法，<span class="hljs-number">101110 000</span> <span class="hljs-number">10011</span> 添加在数据后面的余数是<span class="hljs-number">011</span><br></code></pre></td></tr></table></figure>
+<h3 id="3-20-假定1km长的CSMA-CD的网络数据率为1Gbit-s。设信号在网络上的传播速率为200000km-s。求能够使用此协议的最短帧长度。"><a href="#3-20-假定1km长的CSMA-CD的网络数据率为1Gbit-s。设信号在网络上的传播速率为200000km-s。求能够使用此协议的最短帧长度。" class="headerlink" title="3-20 假定1km长的CSMA/CD的网络数据率为1Gbit/s。设信号在网络上的传播速率为200000km/s。求能够使用此协议的最短帧长度。"></a>3-20 假定1km长的CSMA/CD的网络数据率为1Gbit/s。设信号在网络上的传播速率为200000km/s。求能够使用此协议的最短帧长度。</h3><p>对于1km电缆，单程传播时间为1/200000=5为微秒，来回路程传播时间为 10微秒，为了能够按照CSMA/CD工作，最小帧的发射时间不能小于10微秒，以Gb/s速率工作，10微秒 可以发送的比特数等于10*10A0A-9=10000,因此，最短帧是10000位或1250字节长</p>
+<h3 id="3-24"><a href="#3-24" class="headerlink" title="3-24"></a>3-24</h3><p><img src="/images/python/image-20211111112620038.png"></p>
+<p>设在t=0时A开始发送，在1= (64+8) *8=576比特时间，A应当发送完毕。仁225比特时间，B就检测出A的信号。只要B在t=224比特时间之前发送数据，A 在发送完毕之前就</p>
+<h3 id="3-25-在上题中的站点A和B在仁0时同时发送了数据帧。当t-255比特时间，A和B同时检测到发生了碰"><a href="#3-25-在上题中的站点A和B在仁0时同时发送了数据帧。当t-255比特时间，A和B同时检测到发生了碰" class="headerlink" title="3-25 在上题中的站点A和B在仁0时同时发送了数据帧。当t=255比特时间，A和B同时检测到发生了碰"></a>3-25 在上题中的站点A和B在仁0时同时发送了数据帧。当t=255比特时间，A和B同时检测到发生了碰</h3><p>撞，并且在t=255+48=273比特时间完成了干扰信号的传输。A和B在CSMA/CD算法中选择不同的i■值退<br>避。假定A和B选择的随机数分别是rA=O和rB=l。试问A和B各在什么时间开始重传其数据帧？ A重<br>传的数据帧在什么时间到达B? A重传的数据会不会和B重传的数据再次发生碰撞？ B会不会在预定的重<br>传时间停止发送数据？</p>
+<p>t=0时,A和B开始发送数据Tl=225比特时间,A和B都检测到碰撞(tau)T2=273 比特时间,A和B结束干扰信号的传输(Tl+48) T3=594比特时间,A开始发送(T2+Tau+rA<em>Tau+96 ) T4=785比特时间，B再次检测信道。(T4+T2+Tau+Rb</em>Tau)如空闲，则B在T5=881比特时间发送数据、 否则再退避。(T5=T4+96) A重传的数据在819比特时间到达B, B先检测到信道忙，因此B在预定的881<br>比特时间停止发送</p>
+<h3 id="3-27"><a href="#3-27" class="headerlink" title="3-27"></a>3-27</h3><p><img src="/images/python/image-20211111113030483.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/">http://1905060202.github.io/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B9%A0%E9%A2%98/">习题</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post_share"><div class="social-share" data-image="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/09/28/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%8B%93%E8%8D%92/"><img class="next-cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大数据实验之拓荒</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/07/06/操作系统题库/" title="操作系统题库"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-06</div><div class="title">操作系统题库</div></div></a></div><div><a href="/2021/01/08/数据库复习/" title="数据库复习"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-08</div><div class="title">数据库复习</div></div></a></div><div><a href="/2021/04/28/湖南科大Web期中考试复习参考/" title="湖南科大Web期中考试复习参考"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-28</div><div class="title">湖南科大Web期中考试复习参考</div></div></a></div><div><a href="/2021/07/06/python与数据分析题库/" title="python与数据分析题库"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-06</div><div class="title">python与数据分析题库</div></div></a></div><div><a href="/2021/01/05/计算机组成原理题库/" title="计算机组成原理题库"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-05</div><div class="title">计算机组成原理题库</div></div></a></div><div><a href="/2021/07/16/netcat/" title="netcat"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-16</div><div class="title">netcat</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/you.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/1905060202"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1905060202" target="_blank" title="关注我"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">四海之内皆兄弟</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-01-%E7%AE%80%E8%BF%B0%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%9A%84%E8%A6%81%E7%82%B9%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1-01 简述分组交换的要点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-03-%E8%AF%95%E4%BB%8E%E5%A4%9A%E4%B8%AA%E6%96%B9%E9%9D%A2%E6%AF%94%E8%BE%83%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2%E5%92%8C%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1-03 试从多个方面比较电路交换、报文交换和分组交换的主要优缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%88%AB%EF%BC%9F%E5%90%84%E7%A7%8D%E7%B1%BB%E5%88%AB%E7%9A%84%E7%BD%91%E7%BB%9C%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1-08 计算机网络都有哪些类别？各种类别的网络都有哪些特点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-10"><span class="toc-number">1.4.</span> <span class="toc-text">1-10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-11"><span class="toc-number">1.5.</span> <span class="toc-text">1-11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-12-Internet%E7%9A%84%E4%B8%A4%E5%A4%A7%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90%EF%BC%88%E8%BE%B9%E7%BC%98%E9%83%A8%E5%88%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E9%83%A8%E5%88%86%EF%BC%89%E7%9A%84%E7%89%B9%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%BB%96%E4%BB%AC%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F%E5%90%84%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">1-12 Internet的两大部分组成（边缘部分与核心部分）的特点是什么？他们的工作方式各有什么特点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%EF%BC%9F"><span class="toc-number">1.7.</span> <span class="toc-text">1-14 计算机网络有哪些常用的性能指标？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-17"><span class="toc-number">1.8.</span> <span class="toc-text">1-17</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-18"><span class="toc-number">1.9.</span> <span class="toc-text">1-18</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-19"><span class="toc-number">1.10.</span> <span class="toc-text">1-19</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-20-%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%87%E7%94%A8%E5%88%86%E5%B1%82%E6%AC%A1%E7%9A%84%E7%BB%93%E6%9E%84%EF%BC%9F%E8%AF%95%E4%B8%BE%E5%87%BA%E4%B8%80%E4%BA%9B%E4%B8%8E%E5%88%86%E5%B1%82%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E7%9A%84%E6%80%9D%E6%83%B3%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">1.11.</span> <span class="toc-text">1-20 网络体系结构为什么要采用分层次的结构？试举出一些与分层体系结构的思想相似的日常生活的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-22-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%B8%89%E4%B8%AA%E8%A6%81%E7%B4%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%90%84%E6%9C%89%E4%BB%80%E4%B9%88%E5%90%AB%E4%B9%89%EF%BC%9F"><span class="toc-number">1.12.</span> <span class="toc-text">1-22 网络协议的三个要素是什么？各有什么含义？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-26"><span class="toc-number">1.13.</span> <span class="toc-text">1-26</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-29"><span class="toc-number">1.14.</span> <span class="toc-text">1-29</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-04"><span class="toc-number">2.1.</span> <span class="toc-text">2-04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-06"><span class="toc-number">2.2.</span> <span class="toc-text">2-06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-07"><span class="toc-number">2.3.</span> <span class="toc-text">2-07</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-09"><span class="toc-number">2.4.</span> <span class="toc-text">2-09</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF%EF%BC%9F%E5%B8%B8%E7%94%A8%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">2.5.</span> <span class="toc-text">2-13 为什么要使用信道复用技术？常用信道复用技术有哪些？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-16"><span class="toc-number">2.6.</span> <span class="toc-text">2-16</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0"><span class="toc-number">3.</span> <span class="toc-text">第三章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-01"><span class="toc-number">4.</span> <span class="toc-text">3-01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-03-%E7%BD%91%E7%BB%9C%E9%80%82%E9%85%8D%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E7%BD%91%E7%BB%9C%E9%80%82%E9%85%8D%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%9C%A8%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">3-03 网络适配器的作用是什么？网络适配器工作在哪一层？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-04"><span class="toc-number">4.2.</span> <span class="toc-text">3-04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-06"><span class="toc-number">4.3.</span> <span class="toc-text">3-06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-07"><span class="toc-number">4.4.</span> <span class="toc-text">3-07</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-08"><span class="toc-number">4.5.</span> <span class="toc-text">3-08</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-20-%E5%81%87%E5%AE%9A1km%E9%95%BF%E7%9A%84CSMA-CD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E7%8E%87%E4%B8%BA1Gbit-s%E3%80%82%E8%AE%BE%E4%BF%A1%E5%8F%B7%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%B8%8A%E7%9A%84%E4%BC%A0%E6%92%AD%E9%80%9F%E7%8E%87%E4%B8%BA200000km-s%E3%80%82%E6%B1%82%E8%83%BD%E5%A4%9F%E4%BD%BF%E7%94%A8%E6%AD%A4%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%9C%80%E7%9F%AD%E5%B8%A7%E9%95%BF%E5%BA%A6%E3%80%82"><span class="toc-number">4.6.</span> <span class="toc-text">3-20 假定1km长的CSMA&#x2F;CD的网络数据率为1Gbit&#x2F;s。设信号在网络上的传播速率为200000km&#x2F;s。求能够使用此协议的最短帧长度。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-24"><span class="toc-number">4.7.</span> <span class="toc-text">3-24</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-25-%E5%9C%A8%E4%B8%8A%E9%A2%98%E4%B8%AD%E7%9A%84%E7%AB%99%E7%82%B9A%E5%92%8CB%E5%9C%A8%E4%BB%810%E6%97%B6%E5%90%8C%E6%97%B6%E5%8F%91%E9%80%81%E4%BA%86%E6%95%B0%E6%8D%AE%E5%B8%A7%E3%80%82%E5%BD%93t-255%E6%AF%94%E7%89%B9%E6%97%B6%E9%97%B4%EF%BC%8CA%E5%92%8CB%E5%90%8C%E6%97%B6%E6%A3%80%E6%B5%8B%E5%88%B0%E5%8F%91%E7%94%9F%E4%BA%86%E7%A2%B0"><span class="toc-number">4.8.</span> <span class="toc-text">3-25 在上题中的站点A和B在仁0时同时发送了数据帧。当t&#x3D;255比特时间，A和B同时检测到发生了碰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-27"><span class="toc-number">4.9.</span> <span class="toc-text">3-27</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/" title="计算机网络习题"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络习题"/></a><div class="content"><a class="title" href="/2021/11/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98/" title="计算机网络习题">计算机网络习题</a><time datetime="2021-11-10T14:22:26.000Z" title="发表于 2021-11-10 22:22:26">2021-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/28/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%8B%93%E8%8D%92/" title="大数据实验之拓荒"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据实验之拓荒"/></a><div class="content"><a class="title" href="/2021/09/28/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%8B%93%E8%8D%92/" title="大数据实验之拓荒">大数据实验之拓荒</a><time datetime="2021-09-28T08:37:17.000Z" title="发表于 2021-09-28 16:37:17">2021-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/22/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E6%97%B6%E5%BA%8F%E5%9B%BE/" title="软件工程之时序图"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="软件工程之时序图"/></a><div class="content"><a class="title" href="/2021/09/22/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E6%97%B6%E5%BA%8F%E5%9B%BE/" title="软件工程之时序图">软件工程之时序图</a><time datetime="2021-09-22T13:25:55.000Z" title="发表于 2021-09-22 21:25:55">2021-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/09/%E9%80%9F%E8%BF%87%E8%8B%B1%E8%AF%AD%E5%85%AD%E7%BA%A7%E6%94%BB%E7%95%A5/" title="速过英语六级攻略"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="速过英语六级攻略"/></a><div class="content"><a class="title" href="/2021/09/09/%E9%80%9F%E8%BF%87%E8%8B%B1%E8%AF%AD%E5%85%AD%E7%BA%A7%E6%94%BB%E7%95%A5/" title="速过英语六级攻略">速过英语六级攻略</a><time datetime="2021-09-09T14:16:50.000Z" title="发表于 2021-09-09 22:16:50">2021-09-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/17/%E7%AE%97%E6%B3%95%E4%B9%8B%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法之简单模拟题（一）"><img src="/images/%E5%B0%81%E9%9D%A2/%E5%9F%8E%E5%B8%821.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法之简单模拟题（一）"/></a><div class="content"><a class="title" href="/2021/08/17/%E7%AE%97%E6%B3%95%E4%B9%8B%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法之简单模拟题（一）">算法之简单模拟题（一）</a><time datetime="2021-08-16T17:45:49.000Z" title="发表于 2021-08-17 01:45:49">2021-08-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
