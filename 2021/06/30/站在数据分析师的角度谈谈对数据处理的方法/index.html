@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>站在数据分析师的角度谈谈对数据的处理方法 | 胡小宁的博客</title><meta name="keywords" content="python,期末复习"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="淘宝卖家数据显示： 胸最大的是新疆妹子，国内内衣消费最多的SIZE是B； 其中75B销量最好，占比41.45%，其次是A，占比 25.26%； 各种颜色中，黑色最为畅销，因为百搭。 ………… 这些早已应用在内衣生产、备货、销售等关键环节。 网易云音乐数据显示： 90后用户占比高达59%，其次是80后（12%）； 除了流行歌曲，用户最喜欢的风格竟是电音，其中又以广东用户对电音最为热爱； 最青睐民谣的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="站在数据分析师的角度谈谈对数据的处理方法">
+<meta property="og:url" content="http://1905060202.github.io/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="淘宝卖家数据显示： 胸最大的是新疆妹子，国内内衣消费最多的SIZE是B； 其中75B销量最好，占比41.45%，其次是A，占比 25.26%； 各种颜色中，黑色最为畅销，因为百搭。 ………… 这些早已应用在内衣生产、备货、销售等关键环节。 网易云音乐数据显示： 90后用户占比高达59%，其次是80后（12%）； 除了流行歌曲，用户最喜欢的风格竟是电音，其中又以广东用户对电音最为热爱； 最青睐民谣的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-06-30T13:49:05.000Z">
+<meta property="article:modified_time" content="2021-06-30T14:00:42.672Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="期末复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '站在数据分析师的角度谈谈对数据的处理方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-30 22:00:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">站在数据分析师的角度谈谈对数据的处理方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-30T13:49:05.000Z" title="发表于 2021-06-30 21:49:05">2021-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-30T14:00:42.672Z" title="更新于 2021-06-30 22:00:42">2021-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="站在数据分析师的角度谈谈对数据的处理方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>淘宝卖家数据显示：</p>
+<p>胸最大的是新疆妹子，国内内衣消费最多的SIZE是B；</p>
+<p>其中75B销量最好，占比41.45%，其次是A，占比 25.26%；</p>
+<p>各种颜色中，黑色最为畅销，因为百搭。</p>
+<p>…………</p>
+<p>这些早已应用在内衣生产、备货、销售等关键环节。</p>
+<p>网易云音乐数据显示：</p>
+<p>90后用户占比高达59%，其次是80后（12%）；</p>
+<p>除了流行歌曲，用户最喜欢的风格竟是电音，其中又以广东用户对电音最为热爱；</p>
+<p>最青睐民谣的省份是：甘肃&amp;陕西，最喜欢舞曲的是新疆朋友；</p>
+<p>小众音乐主要聚集在北上广深；</p>
+<p>…………</p>
+<p>这些数据也服务于网易云音乐的个性化推荐系统</p>
+<p>但数据分析的应用还远不止如此，利用数据分析的方法，我们还可以得到很多有意思的结论。</p>
+<p>比如谷歌的数据分析可以预测一个地区即将爆发的流感，从而进行针对性的预防；淘宝可以根据你浏览和消费的数据进行分析，为你精准推荐商品；口碑极好的网易云音乐，通过其相似性算法，为不同的人量身定制每日歌单……</p>
+<p>数据正在变得越来越常见，而数据分析的价值也越来越凸显。在大型互联网企业（比如谷歌、阿里、腾讯、等）每天将产生海量的数据；就算是初创的互联网公司，日志、用户、运营等数据量也不可小觑；而一大波传统企业，在普及智能终端的情况下，所产生的数据，也非同小可。那么一个比较完善的数据分析流程是什么样的呢？</p>
+<h2 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1.问题定义"></a>1.问题定义</h2><p>比较典型的场景是我们需要针对企业的数据进行分析，比如公司通常会有销售数据、用户数据、运营数据、产品生产数据……你需要从这些数据里获得哪些有用的信息，对策略的制定进行指导呢？又比如你需要做的是一份市场调研或者行业分析，那么你需要知道你需要获得关于这个行业的哪些信息。</p>
+<p>首先你需要确定去分析的问题是什么？你想得出哪些结论？</p>
+<p>比如某地区空气质量变化的趋势是什么？</p>
+<p>王者荣耀玩家的用户画像是什么样的？经常消费的是那类人？</p>
+<p>影响公司销售额增长的关键因素是什么？</p>
+<p>生产环节中影响产能和质量的核心指标是什么？</p>
+<p>如何对分析用户画像并进行精准营销？</p>
+<p>如何基于历史数据预测未来某个阶段用户行为？</p>
+<p>…………</p>
+<p>这些问题可能来源于你已有的经验和知识。比如你已经知道每周的不同时间用户购买量不一样，那么你可以通过分析得出销量和时间的精确关系，从而精准备货。又比如你知道北京最近几年的空气质量是在变坏的，可能的因素是工厂排放、沙尘暴、居民排放、天气因素等，那么在定义问题的时候你就需要想清楚，需要针对哪些因素进行重点分析。</p>
+<p>有些问题则并不清晰，比如在生产环节中，影响质量的核心指标是什么，是原材料？设备水平？工人水平？天气情况？某个环节工艺的复杂度？某项操作的重复次数？……这些可能并不明显，或者你是涉足新的领域，并没有非常专业的知识，那么你可能需要定义的问题就需要更加宽泛，涵盖更多的可能性。</p>
+<p>问题的定义可能需要你去了解业务的核心知识，并从中获得一些可以帮助你进行分析的经验。从某种程度上说，这也是我们经常提到的数据思维。数据分析很多时候可以帮助你发现我们不容易发现的相关性，但对问题的精确定义，可以从很大程度上提升数据分析的效率。</p>
+<p>如何更好地定义问题？</p>
+<p>这就需要你在长期的训练中找到对数据的感觉，开始的时候你拿到特别大的数据，有非常多的字段，可能会很懵逼，到底应该从什么地方下手呢？</p>
+<p>但如果有一些经验就会好很多。比如，你要研究影响跑步运动员速度的身体因素，那么我们可能会去研究运动员的身高、腿长、体重、甚至心率、血压、臂长，而不太会去研究运动员的腋毛长度，这是基于我们已有的知识。又比如我们要分析影响一个地方房价的因素，那么我们可能会有一些通用的常识，比如城市人口、地理位置、GDP、地价、物价水平，更深入的可能会有产业格局、文化状态、气候情况等等，但一般我们不会去研究城市的女孩长相，美女占比。</p>
+<p>所以当你分析的问题多了之后，你就会有一些自己对数据的敏感度，从而养成用数据分析、用数据说话的习惯。这个时候你甚至可以基于一些数据，根据自己的经验做出初步的判断和预测（当然是不能取代完整样本的精准预测），这个时候，你就基本拥有数据思维了。</p>
+<h2 id="2-数据获取"><a href="#2-数据获取" class="headerlink" title="2.数据获取"></a>2.数据获取</h2><p>有了具体的问题，你就需要获取相关的数据了。比如你要探究北京空气质量变化的趋势，你可能就需要收集北京最近几年的空气质量数据、天气数据，甚至工厂数据、气体排放数据、重要日程数据等等。如果你要分析影响公司销售的关键因素，你就需要调用公司的历史销售数据、用户画像数据、广告投放数据等。</p>
+<p>数据的获取方式有多种。</p>
+<p>一是公司的销售、用户数据，可以直接从企业数据库调取，所以你需要SQL技能去完成数据提取等的数据库管理工作。比如你可以根据你的需要提取2017年所有的销售数据、提取今年销量最大的50件商品的数据、提取上海、广东地区用户的消费数据……，SQL可以通过简单的命令帮你完成这些工作。</p>
+<p>第二种是获取外部的公开数据集，一些科研机构、企业、政府会开放一些数据，你需要到特定的网站去下载这些数据。这些数据集通常比较完善、质量相对较高。当然这种方式也有一些缺陷，通常数据会发布的比较滞后，但通常因为客观性、权威性，仍然具有很大的价值。</p>
+<p>第三种是编写网页爬虫，去收集互联网上的数据。比如你可以通过爬虫获取招聘网站某一职位的招聘信息，爬取租房网站上某城市的租房信息，爬取豆瓣评分评分最高的电影列表，获取知乎点赞排行、网易云音乐评论排行列表。基于互联网爬取的数据，你可以对某个行业、某种人群进行分析，这算是非常靠谱的市场调研、竞品分析的方式了。</p>
+<p>当然，比较BUG的一点是，你通常并不能够获得所有你需要的数据，这对你的分析结果是有一定影响的，但不不影响的是，你通过有限的可获取的数据，提取更多有用的信息。</p>
+<h2 id="3-数据预处理"><a href="#3-数据预处理" class="headerlink" title="3.数据预处理"></a>3.数据预处理</h2><p>现实世界中数据大体上都是不完整，不一致的脏数据，无法直接进行数据分析，或分析结果差强人意。数据预处理有多种方法：数据清理，数据集成，数据变换，数据归约等。把这些影响分析的数据处理好，才能获得更加精确地分析结果。</p>
+<p>比如空气质量的数据，其中有很多天的数据由于设备的原因是没有监测到的，有一些数据是记录重复的，还有一些数据是设备故障时监测无效的。</p>
+<p>那么我们需要用相应的方法去处理，比如残缺数据，我们是直接去掉这条数据，还是用临近的值去补全，这些都是需要考虑的问题。</p>
+<p>当然在这里我们还可能会有数据的分组、基本描述统计量的计算、基本统计图形的绘制、数据取值的转换、数据的正态化处理等，能够帮助我们掌握数据的分布特征，是进一步深入分析和建模的基础。</p>
+<h2 id="4-数据分析与建模"><a href="#4-数据分析与建模" class="headerlink" title="4.数据分析与建模"></a>4.数据分析与建模</h2><p>在这个部分需要了解基本的数据分析方法、数据挖掘算法，了解不同方法适用的场景和适合的问题。分析时应切忌滥用和误用统计分析方法。滥用和误用统计分析方法主要是由于对方法能解决哪类问题、方法适用的前提、方法对数据的要求不清等原因造成的。</p>
+<p>另外，选择几种统计分析方法对数据进行探索性的反复分析也是极为重要的。每一种统计分析方法都有自己的特点和局限，因此，一般需要选择几种方法反复印证分析，仅依据一种分析方法的结果就断然下结论是不科学的。</p>
+<p>比如你发现在一定条件下，销量和价格是正比关系，那么你可以据此建立一个线性回归模型，你发现价格和广告是非线性关系，你可以先建立一个逻辑回归模型来进行分析。</p>
+<p>一般情况下，回归分析的方法可以满足很大一部分的分析需求，当然你也可以了解一些数据挖掘的算法、特征提取的方法来优化自己的模型，获得更好地结果。</p>
+<h2 id="5-数据可视化及数据报告的撰写"><a href="#5-数据可视化及数据报告的撰写" class="headerlink" title="5.数据可视化及数据报告的撰写"></a>5.数据可视化及数据报告的撰写</h2><p>分析结果最直接的结果是统计量的描述和统计量的展示。</p>
+<p>比如我们通过数据的分布发现数据分析工资最高的5个城市，目前各种语言的流行度排行榜，近几年北京空气质量的变化趋势，避孕套消费的地区分布……这些都是我们通过简单数据分析与可视化就可以展现出的结果。</p>
+<p>另外一些则需要深入探究内部的关系，比如影响产品质量最关键的几个指标，你需要对不同指标与产品质量进行相关性分析之后才能得出正确结论。又比如你需要预测未来某个时间段的产品销量，则需要你对历史数据进行建模和分析，才能对未来的情况有更精准的预测。</p>
+<p>数据分析报告不仅是分析结果的直接呈现，还是对相关情况的一个全面的认识。我们经常看到一些行业分析报告从不同角度、深入浅析地剖析各种关系。所以你需要一个讲故事的逻辑，如何从一个宏观的问题，深入、细化到问题内部的方方面面，得出令人信服的结果，这需要从实践中不断训练。</p>
+<p>数据分析的一般流程总的来说就是这几个步骤：问题定义、数据获取、数据预处理、数据分析与建模、数据可视化与数据报告的撰写。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">http://1905060202.github.io/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">期末复习</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/30/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%83%E4%B9%A0%E9%A2%98/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">人工智能练习题</div></div></a></div><div class="next-post pull-right"><a href="/2021/06/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E4%BA%94-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">操作系统课程设计(五)-内存管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/06/19/Python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="Python与数据分析期末复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-19</div><div class="title">Python与数据分析期末复习</div></div></a></div><div><a href="/2021/05/24/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E4%B8%80/" title="python数据分析(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-24</div><div class="title">python数据分析(一)</div></div></a></div><div><a href="/2021/05/25/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E4%BA%8C/" title="python数据分析(二)-数值计算(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-25</div><div class="title">python数据分析(二)-数值计算(一)</div></div></a></div><div><a href="/2021/04/11/%E7%88%AC%E8%99%AB%E4%B9%8Brequest%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%A6%E4%B9%A0/" title="爬虫之request模块的学习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-11</div><div class="title">爬虫之request模块的学习</div></div></a></div><div><a href="/2021/04/15/%E7%88%AC%E8%99%AB%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90/" title="爬虫之数据解析"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-15</div><div class="title">爬虫之数据解析</div></div></a></div><div><a href="/2021/07/06/python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A2%98%E5%BA%93/" title="python与数据分析题库"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-06</div><div class="title">python与数据分析题库</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">1.问题定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><span class="toc-number">2.</span> <span class="toc-text">2.数据获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">3.数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.</span> <span class="toc-text">4.数据分析与建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%91%8A%E7%9A%84%E6%92%B0%E5%86%99"><span class="toc-number">5.</span> <span class="toc-text">5.数据可视化及数据报告的撰写</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/12/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="计算机网络课程设计-网络聊天程序的设计与实现"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络课程设计-网络聊天程序的设计与实现"/></a><div class="content"><a class="title" href="/2021/12/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="计算机网络课程设计-网络聊天程序的设计与实现">计算机网络课程设计-网络聊天程序的设计与实现</a><time datetime="2021-12-27T07:15:48.000Z" title="发表于 2021-12-27 15:15:48">2021-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/%E5%AF%B9%E4%BA%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E6%9E%81%E5%A5%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="对于写程序极好的快捷键"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="对于写程序极好的快捷键"/></a><div class="content"><a class="title" href="/2021/12/06/%E5%AF%B9%E4%BA%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E6%9E%81%E5%A5%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="对于写程序极好的快捷键">对于写程序极好的快捷键</a><time datetime="2021-12-06T05:15:36.000Z" title="发表于 2021-12-06 13:15:36">2021-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" title="计算智能课程设计(基于神经网络的手写数字识别)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(基于神经网络的手写数字识别)"/></a><div class="content"><a class="title" href="/2021/12/06/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" title="计算智能课程设计(基于神经网络的手写数字识别)">计算智能课程设计(基于神经网络的手写数字识别)</a><time datetime="2021-12-06T00:23:27.000Z" title="发表于 2021-12-06 08:23:27">2021-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B1%82%E8%A7%A3%E6%97%A0%E7%BA%A6%E6%9D%9F%E5%8D%95%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="计算智能课程设计(遗传算法求解无约束单目标优化问题)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(遗传算法求解无约束单目标优化问题)"/></a><div class="content"><a class="title" href="/2021/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B1%82%E8%A7%A3%E6%97%A0%E7%BA%A6%E6%9D%9F%E5%8D%95%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="计算智能课程设计(遗传算法求解无约束单目标优化问题)">计算智能课程设计(遗传算法求解无约束单目标优化问题)</a><time datetime="2021-12-04T00:04:54.000Z" title="发表于 2021-12-04 08:04:54">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/02/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85%E7%9A%84%E6%A8%A1%E7%B3%8A%E8%81%9A%E7%B1%BB/" title="计算智能课程设计(基于传递闭包的模糊聚类)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(基于传递闭包的模糊聚类)"/></a><div class="content"><a class="title" href="/2021/12/02/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85%E7%9A%84%E6%A8%A1%E7%B3%8A%E8%81%9A%E7%B1%BB/" title="计算智能课程设计(基于传递闭包的模糊聚类)">计算智能课程设计(基于传递闭包的模糊聚类)</a><time datetime="2021-12-02T05:05:37.000Z" title="发表于 2021-12-02 13:05:37">2021-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>

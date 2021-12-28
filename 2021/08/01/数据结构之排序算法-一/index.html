@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构之排序算法(一) | 胡小宁的博客</title><meta name="keywords" content="c/c++,学习,数据结构"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="直接插入法是最简单的排序法，其排序思想如下：打牌时，每抓一张牌就将其放到对应的顺序位置。下面是待排记录的类型定义： 12345678910#define MAXSIZE 200typedef int KeyType&#x2F;&#x2F;关键字类型typedef struct&amp;#123;KeyType key;&#x2F;&#x2F;关键字InfoType otherinfo;&#x2F;&#x2F;其他数据项&amp;#125;RedType;&#x2F;&#x2F;记录类型ty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之排序算法(一)">
+<meta property="og:url" content="http://1905060202.github.io/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="直接插入法是最简单的排序法，其排序思想如下：打牌时，每抓一张牌就将其放到对应的顺序位置。下面是待排记录的类型定义： 12345678910#define MAXSIZE 200typedef int KeyType&#x2F;&#x2F;关键字类型typedef struct&amp;#123;KeyType key;&#x2F;&#x2F;关键字InfoType otherinfo;&#x2F;&#x2F;其他数据项&amp;#125;RedType;&#x2F;&#x2F;记录类型ty">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89.png">
+<meta property="article:published_time" content="2021-08-01T15:22:44.000Z">
+<meta property="article:modified_time" content="2021-08-02T11:34:14.412Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1905060202.github.io/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1905060202.github.io/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据结构之排序算法(一)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-08-02 19:34:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据结构之排序算法(一)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-01T15:22:44.000Z" title="发表于 2021-08-01 23:22:44">2021-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-02T11:34:14.412Z" title="更新于 2021-08-02 19:34:14">2021-08-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据结构之排序算法(一)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<p><strong>直接插入法是最简单的排序法，其排序思想如下：<br>打牌时，每抓一张牌就将其放到对应的顺序位置。</strong><br>下面是待排记录的类型定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAXSIZE 200</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> KeyType<span class="hljs-comment">//关键字类型</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>KeyType key;<span class="hljs-comment">//关键字</span><br>InfoType otherinfo;<span class="hljs-comment">//其他数据项</span><br>&#125;RedType;<span class="hljs-comment">//记录类型</span><br>typededf <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>RedType r[MAXSIZE+<span class="hljs-number">1</span>];<span class="hljs-comment">//r[0]闲置或作为哨兵</span><br><span class="hljs-keyword">int</span> length;<span class="hljs-comment">//顺序表长度</span><br>&#125;SqList;<br></code></pre></td></tr></table></figure>
+<p>上述的RedType结构体类型实际上是没必要定义的，实际做题时可以写成如下代码，更方便一点：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAXSIZE 200</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> KeyType<span class="hljs-comment">//关键字类型</span><br>typededf <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>KeyType r[MAXSIZE+<span class="hljs-number">1</span>];<span class="hljs-comment">//r[0]闲置或作为哨兵</span><br><span class="hljs-keyword">int</span> length;<span class="hljs-comment">//顺序表长度</span><br>&#125;SqList;<br></code></pre></td></tr></table></figure>
+<p>直接插入排序算法的描述：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(SqList &amp;L)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//对顺序表L做直接插入排序</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>;i&lt;=L.length;i++)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(L.r[i]&lt;L.r[i<span class="hljs-number">-1</span>])<br>		&#123;<br>			L.r[<span class="hljs-number">0</span>]=L.r[i];<span class="hljs-comment">//r[i]暂存到监视哨中</span><br>			L.r[i]=L.r[i<span class="hljs-number">-1</span>];<span class="hljs-comment">//r[i-1]后移</span><br>			<span class="hljs-comment">//记录逐个后移，直到找到插入位置</span><br>			<span class="hljs-keyword">for</span>(j=i<span class="hljs-number">-2</span>;L.r[<span class="hljs-number">0</span>]&lt;L.r[j];j--)<br>				L.r[j+<span class="hljs-number">1</span>]=L.r[j];<br>			L.r[j+<span class="hljs-number">1</span>]=L.r[<span class="hljs-number">0</span>];<br>		<br>		&#125;<br>	&#125;	<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>常见错误^by小胡^：<br>1）低位输出随机数。（记录逐个后移，找到插入位置）三行代码的位置放在了if语句外，导致即便低位符合降序，但仍执行代码，致溢出。</p>
+<p> 直接插入排序算法分析：</p>
+<ul>
+<li>最好的情况是记录序列按关键字有序</li>
+<li>比较次数n-1；移动次数0</li>
+<li>最坏的情况是记录序列按关键字逆序</li>
+<li>比较次数(n+2)(n-1)/2；移动次数(n+4)(n-1)/2</li>
+<li>平均情况下比较次数和移动次数约为n^2^/4,时间复杂度为O(N^2^)</li>
+<li>直接插入排序容易实现，是稳定排序</li>
+<li>直接插入排序也适用于链式结构，不需要移动</li>
+<li>适用于初始基本有序的情况</li>
+</ul>
+<hr>
+<p><strong>希尔排序法是直接插入法的优化，它的思想是先将整个排序序列分成若干子序列，并分别进行直接插入排序，当整个记录中的序列基本有序时，再对全体记录进行一次直接插入排序。</strong></p>
+<p>希尔排序法的描述：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShellInsert</span><span class="hljs-params">(SqList&amp; L, <span class="hljs-keyword">int</span> dk)</span></span><br><span class="hljs-function"></span>&#123;<span class="hljs-comment">//对顺序表 L 做一趟增量是 dk 的希尔插入排序</span><br>	<span class="hljs-keyword">int</span> i, j;<br>	<span class="hljs-keyword">for</span> (i = dk + <span class="hljs-number">1</span>; i &lt;= L.length; ++i)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (L.r[i] &lt; L.r[i - dk]) &#123;<br>			<span class="hljs-comment">//需将 L.r[i] 插入有序增量子表</span><br>			L.r[<span class="hljs-number">0</span>] = L.r[i]; <span class="hljs-comment">//暂存在L.r[0]</span><br>			<span class="hljs-keyword">for</span> (j = i - dk; j &gt; <span class="hljs-number">0</span> &amp;&amp; L.r[<span class="hljs-number">0</span>] &lt; L.r[j]; j -= dk)<br>				L.r[j + dk] = L.r[j];<span class="hljs-comment">//记录后移</span><br>			L.r[j + dk] = L.r[<span class="hljs-number">0</span>];<span class="hljs-comment">//将 r[0] 插入</span><br>		&#125;<span class="hljs-comment">//if</span><br>	&#125;<span class="hljs-comment">//for</span><br>&#125;<span class="hljs-comment">//ShellInsert</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShellSort</span><span class="hljs-params">(SqList&amp; L, <span class="hljs-keyword">int</span> dt[], <span class="hljs-keyword">int</span> t)</span></span><br><span class="hljs-function"></span>&#123;<span class="hljs-comment">//按增量序列 dt[0..t-1] 对顺序表 L 作 t 趟希尔排序</span><br>	<span class="hljs-keyword">int</span> k;<br>	<span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>; k &lt; t; ++k)<br>		ShellInsert(L, dt[k]);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>希尔排序法算法分析：</p>
+<ul>
+<li>时间复杂度取决于增量序列，可到 O(N ^4/3^ )，优于直接插入排序</li>
+<li> 如何选择最佳 d序列，目前尚未解决，但增量系列应该无公因子，最后一个增量值必须为 1 </li>
+<li>空间复杂度为 O(1) </li>
+<li>记录跳跃移动导致排序方法不稳定</li>
+<li>只能用于顺序结构，不能用于链式结构</li>
+</ul>
+<blockquote>
+<p>利用希尔排序解决如下问题：<br>输入<br>输入的第一行包含1个正整数n，表示共有n个整数需要参与排序。其中n不超过1000。<br>第二行包含n个用空格隔开的正整数，表示n个需要排序的整数.<br>输出<br>只有1行，包含n个整数，表示从小到大排序完毕的所有整数。<br>请在每个整数后输出一个空格，并请注意行尾输出换行。<br>样例输入<br>10<br>2 8 4 6 1 10 7 3 5 9<br>样例输出<br>1 2 3 4 5 6 7 8 9 10 </p>
+</blockquote>
+<p>下面是源码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> KeyType int</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAXSIZE 1000</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>	KeyType r[MAXSIZE+<span class="hljs-number">1</span>];<br>	<span class="hljs-keyword">int</span> length;<br>&#125;SqList;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShellInsert</span><span class="hljs-params">(SqList&amp; L, <span class="hljs-keyword">int</span> dk)</span></span><br><span class="hljs-function"></span>&#123;<span class="hljs-comment">//对顺序表 L 做一趟增量是 dk 的希尔插入排序</span><br>	<span class="hljs-keyword">int</span> i, j;<br>	<span class="hljs-keyword">for</span> (i = dk + <span class="hljs-number">1</span>; i &lt;= L.length; ++i)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (L.r[i] &lt; L.r[i - dk]) &#123;<br>			<span class="hljs-comment">//需将 L.r[i] 插入有序增量子表</span><br>			L.r[<span class="hljs-number">0</span>] = L.r[i]; <span class="hljs-comment">//暂存在L.r[0]</span><br>			<span class="hljs-keyword">for</span> (j = i - dk; j &gt; <span class="hljs-number">0</span> &amp;&amp; L.r[<span class="hljs-number">0</span>] &lt; L.r[j]; j -= dk)<br>				L.r[j + dk] = L.r[j];<span class="hljs-comment">//记录后移</span><br>			L.r[j + dk] = L.r[<span class="hljs-number">0</span>];<span class="hljs-comment">//将 r[0] 插入</span><br>		&#125;<span class="hljs-comment">//if</span><br>	&#125;<span class="hljs-comment">//for</span><br>&#125;<span class="hljs-comment">//ShellInsert</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShellSort</span><span class="hljs-params">(SqList&amp; L, <span class="hljs-keyword">int</span> dt[], <span class="hljs-keyword">int</span> t)</span></span><br><span class="hljs-function"></span>&#123;<span class="hljs-comment">//按增量序列 dt[0..t-1] 对顺序表 L 作 t 趟希尔排序</span><br>	<span class="hljs-keyword">int</span> k;<br>	<span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>; k &lt; t; ++k)<br>		ShellInsert(L, dt[k]);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> n;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; n;<br>	SqList L;<br>	<span class="hljs-keyword">int</span> dlta[<span class="hljs-number">1000</span>];<br>	L.length = n;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>	&#123;<br>		<span class="hljs-built_in">cin</span> &gt;&gt; L.r[i];<br>		dlta[i - <span class="hljs-number">1</span>] = n-i;<br>	&#125;<br>	ShellSort(L,dlta,n);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>		<span class="hljs-built_in">cout</span> &lt;&lt; L.r[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+<p><strong>冒泡排序排序法，相邻元素之间进行比较，如果逆序则交换位置。</strong></p>
+<p>冒泡排序法的描述：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BubbleSort</span><span class="hljs-params">(SqList &amp;L)</span></span><br><span class="hljs-function"> </span>&#123;<span class="hljs-comment">//对顺序表L做冒泡排序</span><br> 	m = L.length − <span class="hljs-number">1</span>;<br> 	flag = <span class="hljs-number">1</span>;<span class="hljs-comment">//用来标记某一趟排序是否发生交换</span><br> 	<span class="hljs-keyword">while</span>((m &gt; <span class="hljs-number">0</span>) &amp;&amp; (flag == <span class="hljs-number">1</span>)) &#123;<br> 		flag = <span class="hljs-number">0</span>; <span class="hljs-comment">//没有发生交换</span><br> 		<span class="hljs-keyword">for</span>(j = <span class="hljs-number">1</span>; j &lt;= m; j++)<br> 			<span class="hljs-keyword">if</span>(L.r[j].key &gt; L.r[j + <span class="hljs-number">1</span>].key) &#123;<br> 				flag = <span class="hljs-number">1</span>;<span class="hljs-comment">//表示本趟排序发生了交换</span><br> 				t = L.r[j];<br> 				L.r[j] = L.r[j + <span class="hljs-number">1</span>];<br> 				L.r[j + <span class="hljs-number">1</span>] = t;<span class="hljs-comment">//交换前后两个记录</span><br> 			&#125;<span class="hljs-comment">//if</span><br> 		−−m;<br> 	&#125;<span class="hljs-comment">//while</span><br>&#125;<span class="hljs-comment">//BubbleSort</span><br></code></pre></td></tr></table></figure>
+<p><strong>实际上此冒泡排序是对原冒泡排序的一种优化，flag标识符实现了优化。<br>例如：1 2 5 3 7 8 9 10<br>原冒泡排序要比较7趟，而此冒泡排序只需比较3趟。</strong></p>
+<p>下面贴上原冒泡排序算法描述：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BubbleSort</span><span class="hljs-params">(SqList &amp;L)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> i, j，temp;<br>    <span class="hljs-keyword">int</span> m=L.length<span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">while</span>(m&gt;<span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">for</span> (j = <span class="hljs-number">1</span>; j &lt;= m; j++)<br>        	<span class="hljs-keyword">if</span> (L.r[j] &gt; L.r[j + <span class="hljs-number">1</span>])<br>        	&#123;<br>            	temp = L.r[j];<br>            	L.r[j] = L.r[j + <span class="hljs-number">1</span>];<br>            	L.r[j + <span class="hljs-number">1</span>] = temp;<br>        	&#125;<br>        --m;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>冒泡排序算法分析:</p>
+<ul>
+<li>最好情况下初始有序，只需一趟排序，比较次数为n-1，不需要移动记录</li>
+<li> 最坏情况是初始逆序，需 n-1 趟排序</li>
+<li>比较的次数：n(n-1)/2;移动的次数：3n(n-1)/2 </li>
+<li> 平均时间复杂度为 O(n 2 ) </li>
+<li>辅助空间复杂度为 O(1)</li>
+<li>是一种稳定的排序方法，可用于链式存储结构</li>
+</ul>
+<hr>
+<p><strong>快速排序法是最常用的一种排序方法，同时也是很典型的分治思想，分而治之。它的排序思路如下：</strong></p>
+<p><strong>1.任取一个记录作为枢轴<br>2.划分：所有比枢轴小的记录一律前放，比枢轴大的记录一律后放，形成左右两个子表<br>3.对子表重新进行前两步操作，直到每个子表元素只剩一个</strong></p>
+<p>快速排序法算法描述：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(SqList &amp;L,<span class="hljs-keyword">int</span> low,<span class="hljs-keyword">int</span> high)</span></span><br><span class="hljs-function"></span>&#123;<span class="hljs-comment">//对表 r[low..high] 进行一趟排序，返回枢轴位置</span><br>	L.r[<span class="hljs-number">0</span>]=L.r[low]; <span class="hljs-comment">//子表的第一个记录做枢轴</span><br>	pivotkey=L.r[low];<br>	<span class="hljs-keyword">while</span>(low&lt;high)&#123;<span class="hljs-comment">//从表两端交替向中间扫描</span><br>		<span class="hljs-keyword">while</span>(low&lt;high&amp;&amp;L.r[high]&gt;=pivotkey)<br>			−−high;<br>	L.r[low]=L.r[high];<span class="hljs-comment">//比枢轴小的移到低端</span><br> 	<span class="hljs-keyword">while</span>(low&lt;high&amp;&amp;L.r[low]&lt;=pivotkey)<br> 		++low;<br> 	L.r[high]=L.r[low];<span class="hljs-comment">//比枢轴大的移到高端</span><br> &#125;<span class="hljs-comment">//while</span><br> 	L.r[low]=L.r[<span class="hljs-number">0</span>]; <span class="hljs-comment">//枢轴记录到位</span><br> 	<span class="hljs-keyword">return</span> low; <span class="hljs-comment">//返回枢轴位置</span><br>&#125;<span class="hljs-comment">//Partition</span><br> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QSort</span><span class="hljs-params">(SqList &amp;L, <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span></span><br><span class="hljs-function"> </span>&#123; <span class="hljs-comment">//对顺序表 L 中的子序列 L.r[low..high] 做快速排序</span><br> 	<span class="hljs-keyword">if</span>(low &lt; high) &#123; <span class="hljs-comment">//长度大于1</span><br> 		pivotloc = Partition(L, low, high);<br> 		QSort(L, low, pivotloc − <span class="hljs-number">1</span>);<span class="hljs-comment">//左子表排序</span><br> 		QSort(L, pivotloc + <span class="hljs-number">1</span>, high);<span class="hljs-comment">//右子表排序</span><br> 	&#125;<span class="hljs-comment">//if</span><br> &#125;<span class="hljs-comment">//QSort</span><br> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(SqList &amp;L)</span></span><br><span class="hljs-function"> </span>&#123; <span class="hljs-comment">//对顺序表L做快速排序</span><br> 	QSort(L, <span class="hljs-number">1</span>, L.length);<br> &#125;<span class="hljs-comment">//QuickSort</span><br></code></pre></td></tr></table></figure>
+<p>快速排序算法分析：</p>
+<ul>
+<li>性能最好情况是均匀划分，时间复杂度是 O(nlog <em>2</em> n)。</li>
+<li>性能最差情况如初始序列有序，导致最不均匀划分，性能退至O(n ^2^)。</li>
+<li>为避免最坏情况发生，可以三者取中，即头、尾和中间记录三者中关键字居中的记录作为枢轴</li>
+<li>可以证明，平均计算时间是 O(nlog  n)。</li>
+<li>实验结果表明：就平均计算时间而言，快速排序是所有内部排序方法中最好的一个。</li>
+<li>辅助空间复杂度取决于栈的层次，最坏 O(n), 最好O(log <em>2</em> n)。</li>
+<li>快速排序不稳定，不适用于链表结构。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/">http://1905060202.github.io/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95-%E4%B8%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c-c/">c/c++</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post_share"><div class="social-share" data-image="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-01-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Butterfly装修之新手上路</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8/"><img class="next-cover" src="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构课程设计之大爱线性表</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%80%86%E8%BD%AC/" title="数据结构之单链表的创建和逆转"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%80%86%E8%BD%AC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">数据结构之单链表的创建和逆转</div></div></a></div><div><a href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%8D%95%E8%AF%8D%E6%A3%80%E6%9F%A5/" title="数据结构课程设计之单词检查"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%8D%95%E8%AF%8D%E6%A3%80%E6%9F%A5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">数据结构课程设计之单词检查</div></div></a></div><div><a href="/2021/08/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="数据结构课程设计之大爱线性表"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%A4%A7%E7%88%B1%E7%BA%BF%E6%80%A7%E8%A1%A8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">数据结构课程设计之大爱线性表</div></div></a></div><div><a href="/2021/08/01/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3/" title="浅谈对结构体的理解"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E6%B5%85%E8%B0%88%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%90%86%E8%A7%A3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">浅谈对结构体的理解</div></div></a></div><div><a href="/2021/07/10/2021%E6%9A%91%E5%81%87leetcode%E8%AE%AD%E7%BB%83%EF%BC%88%E4%B8%80%EF%BC%89/" title="2021暑假leetcode训练（一）"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/leetcode.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-10</div><div class="title">2021暑假leetcode训练（一）</div></div></a></div><div><a href="/2021/08/12/2021%E6%9A%91%E5%81%87leetcode%E8%AE%AD%E7%BB%83%EF%BC%88%E4%B8%89%EF%BC%89/" title="2021暑假leetcode训练（三）"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/leetcode.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-12</div><div class="title">2021暑假leetcode训练（三）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/12/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="计算机网络课程设计-网络聊天程序的设计与实现"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络课程设计-网络聊天程序的设计与实现"/></a><div class="content"><a class="title" href="/2021/12/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="计算机网络课程设计-网络聊天程序的设计与实现">计算机网络课程设计-网络聊天程序的设计与实现</a><time datetime="2021-12-27T07:15:48.000Z" title="发表于 2021-12-27 15:15:48">2021-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/%E5%AF%B9%E4%BA%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E6%9E%81%E5%A5%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="对于写程序极好的快捷键"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="对于写程序极好的快捷键"/></a><div class="content"><a class="title" href="/2021/12/06/%E5%AF%B9%E4%BA%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E6%9E%81%E5%A5%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="对于写程序极好的快捷键">对于写程序极好的快捷键</a><time datetime="2021-12-06T05:15:36.000Z" title="发表于 2021-12-06 13:15:36">2021-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" title="计算智能课程设计(基于神经网络的手写数字识别)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(基于神经网络的手写数字识别)"/></a><div class="content"><a class="title" href="/2021/12/06/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" title="计算智能课程设计(基于神经网络的手写数字识别)">计算智能课程设计(基于神经网络的手写数字识别)</a><time datetime="2021-12-06T00:23:27.000Z" title="发表于 2021-12-06 08:23:27">2021-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B1%82%E8%A7%A3%E6%97%A0%E7%BA%A6%E6%9D%9F%E5%8D%95%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="计算智能课程设计(遗传算法求解无约束单目标优化问题)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(遗传算法求解无约束单目标优化问题)"/></a><div class="content"><a class="title" href="/2021/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B1%82%E8%A7%A3%E6%97%A0%E7%BA%A6%E6%9D%9F%E5%8D%95%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="计算智能课程设计(遗传算法求解无约束单目标优化问题)">计算智能课程设计(遗传算法求解无约束单目标优化问题)</a><time datetime="2021-12-04T00:04:54.000Z" title="发表于 2021-12-04 08:04:54">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/02/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85%E7%9A%84%E6%A8%A1%E7%B3%8A%E8%81%9A%E7%B1%BB/" title="计算智能课程设计(基于传递闭包的模糊聚类)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算智能课程设计(基于传递闭包的模糊聚类)"/></a><div class="content"><a class="title" href="/2021/12/02/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-%E5%9F%BA%E4%BA%8E%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85%E7%9A%84%E6%A8%A1%E7%B3%8A%E8%81%9A%E7%B1%BB/" title="计算智能课程设计(基于传递闭包的模糊聚类)">计算智能课程设计(基于传递闭包的模糊聚类)</a><time datetime="2021-12-02T05:05:37.000Z" title="发表于 2021-12-02 13:05:37">2021-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
