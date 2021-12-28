@@ -8,7 +8,7 @@
       <link href="/2021/12/28/%E6%B9%96%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%80%83%E7%A0%94%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
       <url>/2021/12/28/%E6%B9%96%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E8%80%83%E7%A0%94%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
       
-        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>写这个的起因是在google搜滨中老师的名字，看看能不能检索出有趣的结果。后来呢，就突发奇想搜自己的名字+科大，然后又搜索别人的名字+科大，结果就搜到了2021科大考研报考高校的统计数据，于是我顺水推舟，做了一波数据可视化。</p><h2 id="2021科大学子考研报考热门高校"><a href="#2021科大学子考研报考热门高校" class="headerlink" title="2021科大学子考研报考热门高校"></a>2021科大学子考研报考热门高校</h2><p>先看一眼词云：</p><p><img src="/images/2021ciyun.png" alt="词云"></p><p>再康康部分高校柱状图：</p><p><img src="/images/2021kaoyan.png"></p><p>2021科大考研报考高校前20：</p><p><img src="/images/2021_20.png"></p><p>抛开本校，考研报考前五十名：</p><p><img src="/images/2021_50.png"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>写这个的起因是在google搜滨中老师的名字，看看能不能检索出有趣的结果。后来呢，就突发奇想搜自己的名字+科大，然后又搜索别人的名字+科大，结果就搜到了2021科大考研报考高校的统计数据，于是我顺水推舟，做了一波数据可视化。</p><h2 id="2021科大学子考研报考热门高校"><a href="#2021科大学子考研报考热门高校" class="headerlink" title="2021科大学子考研报考热门高校"></a>2021科大学子考研报考热门高校</h2><p>先看一眼词云：</p><p><img src="/images/2021kaoyan.png" alt="词云"></p><p>2021科大考研报考高校前20：</p><p><img src="/images/2021_20.png"></p><p>抛开本校，考研报考前五十名：</p><p><img src="/images/2021_50.png"></p>]]></content>
       
       
       <categories>
