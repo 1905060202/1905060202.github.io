@@ -1,0 +1,532 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高级Web技术复习 | 胡小宁的博客</title><meta name="keywords" content="前端,期末复习,web,后端"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="高级Web技术复习2022年春季，2019级数据科学与大数据技术高级Web技术期中考试复习提纲。  Spring的两大特性及其含义 Spring的自动装配机制 Spring核心容器层组成 Spring Bean的作用域 Spring MVC框架组合注解 SpringMVC页面跳转类型 SpringMVC三大组件 Mybatis映射文件 Mybatis的核心对象 动态SQL元素 Mybatis常用注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级Web技术复习">
+<meta property="og:url" content="http://1905060202.github.io/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="高级Web技术复习2022年春季，2019级数据科学与大数据技术高级Web技术期中考试复习提纲。  Spring的两大特性及其含义 Spring的自动装配机制 Spring核心容器层组成 Spring Bean的作用域 Spring MVC框架组合注解 SpringMVC页面跳转类型 SpringMVC三大组件 Mybatis映射文件 Mybatis的核心对象 动态SQL元素 Mybatis常用注">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-05-06T12:46:53.000Z">
+<meta property="article:modified_time" content="2022-05-06T15:58:38.304Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="期末复习">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/images/you.jpg"><link rel="canonical" href="http://1905060202.github.io/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '高级Web技术复习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-06 23:58:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/you.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">62</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">高级Web技术复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T12:46:53.000Z" title="发表于 2022-05-06 20:46:53">2022-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-06T15:58:38.304Z" title="更新于 2022-05-06 23:58:38">2022-05-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="高级Web技术复习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="高级Web技术复习"><a href="#高级Web技术复习" class="headerlink" title="高级Web技术复习"></a>高级Web技术复习</h1><p>2022年春季，2019级数据科学与大数据技术高级Web技术期中考试复习提纲。</p>
+<ul>
+<li>Spring的两大特性及其含义</li>
+<li>Spring的自动装配机制</li>
+<li>Spring核心容器层组成</li>
+<li>Spring Bean的作用域</li>
+<li>Spring MVC框架组合注解</li>
+<li>SpringMVC页面跳转类型</li>
+<li>SpringMVC三大组件</li>
+<li>Mybatis映射文件</li>
+<li>Mybatis的核心对象</li>
+<li>动态SQL元素</li>
+<li>Mybatis常用注解</li>
+<li>Mybatis映射文件中常用元素</li>
+</ul>
+<h2 id="Spring的两大特性及其含义"><a href="#Spring的两大特性及其含义" class="headerlink" title="Spring的两大特性及其含义"></a>Spring的两大特性及其含义</h2><p>IOC就是典型的工厂模式，通过sessionfactory去注入实例。</p>
+<p>AOP就是典型的代理模式的体现。</p>
+<h3 id="IoC"><a href="#IoC" class="headerlink" title="IoC"></a>IoC</h3><p>IoC，英文全称<strong>Inversion of Control</strong>，意为控制反转。</p>
+<p>在 使用Spring框架后，对象的实例不再由调用者来创建，而是由Spring的IoC容器来创建，IoC容器会负责控制程序之间的关系，而不是由调用者的程序代码直接控制。这样，控制权由应用代码转到了IoC容器，控制权发生了反转，这就是Spring的控制反转。</p>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>AOP，英文全称<strong>Aspect-Oriented Programming</strong>，意为面向切面编程。</p>
+<p>AOP主张将程序中相同的业务逻辑进行横向隔离，并将重复的业务逻辑抽取到一个独立的模块中，以达到提高程序可重用性和开发效率的目的。</p>
+<h2 id="Spring的自动装配机制"><a href="#Spring的自动装配机制" class="headerlink" title="Spring的自动装配机制"></a>Spring的自动装配机制</h2><p>Spring容器支持XML和Properties两种格式的配置文件，在实际开发中，最常用的是XML格式的配置文件。XML是标准数据传输和存储格式，方便查看和操作数据。在Spring中，XML配置文件的根元素是<beans>,<beans>元素包含<bean>子元素，每个<bean>子元素可以定义一个Bean，通过<bean>元素将Bean注册到Spring容器中。</p>
+<h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><p>Spring的<bean>元素中包含一个autowire属性，可以通过设置autowire属性的值实现Bean的自动装配。</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">default（默认值）</td>
+<td>由的上级元素的default-autowire属性值确定。</td>
+</tr>
+<tr>
+<td align="center">byName</td>
+<td>根据元素id属性的值自动装配。</td>
+</tr>
+<tr>
+<td align="center">byType</td>
+<td>根据元素的数据类型（Type）自动装配，如果一个Bean的数 据类型，兼容另一个Bean中的数据类型，则自动装配。</td>
+</tr>
+<tr>
+<td align="center">constructor</td>
+<td>根据构造函数参数的数据类型，进行byType模式的自动装配。</td>
+</tr>
+<tr>
+<td align="center">no</td>
+<td>默认值，不使用自动装配，Bean依赖必须通过元素或ref属性定义。</td>
+</tr>
+</tbody></table>
+<h3 id="基于XML的装配"><a href="#基于XML的装配" class="headerlink" title="基于XML的装配"></a>基于XML的装配</h3><p>在基于XML的装配就是读取XML配置文件中的信息完成依赖注入，Spring容器提供了两种基于XML的装配方式，属性setter方法注入和构造方法注入。</p>
+<h4 id="属性setter方法注入"><a href="#属性setter方法注入" class="headerlink" title="属性setter方法注入"></a>属性setter方法注入</h4><p>属性setter方法注入要求一个Bean必须满足以下两点要求：</p>
+<ul>
+<li>Bean类必须提供一个默认的无参构造方法</li>
+<li>Bean类必须为需要注入的属性提供对应的setter方法</li>
+</ul>
+<h4 id="构造方法注入"><a href="#构造方法注入" class="headerlink" title="构造方法注入"></a>构造方法注入</h4><p>使用构造方法注入时，在配置文件里，需要使用<bean>元素的子元素<constructor-arg>来定义构造方法的参数，例如，可以使其value属性来设置该参数的值。</p>
+<ul>
+<li>基于注解的装配</li>
+</ul>
+<p>在Spring中，使用XML配置文件可以实现Bean的装配工作，但在实际开发中如果Bean的数量比较多，会导致XML文件过于臃肿，给后期维护和升级带来一定的困难。为解决此问题，Spring提供了注解，通过注解也可以实现Bean的装配。</p>
+<h3 id="基于注解的装配"><a href="#基于注解的装配" class="headerlink" title="基于注解的装配"></a>基于注解的装配</h3><p>Spring的常用注解</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Component</td>
+<td>指定一个普通的Bean，可以作用在任何层次。</td>
+</tr>
+<tr>
+<td>@Controller</td>
+<td>指定一个控制器组件Bean，用于将控制层的类标识为Spring中的Bean，功能上等 同于@Component。</td>
+</tr>
+<tr>
+<td>@Service</td>
+<td>指定一个业务逻辑组件Bean，用于将业务逻辑层的类标识为Spring中的Bean，功 能上等同于@Component。</td>
+</tr>
+<tr>
+<td>@Repository</td>
+<td>指定一个数据访问组件Bean，用于将数据访问层的类标识为Spring 中的Bean，功 能上等同于@Component。</td>
+</tr>
+<tr>
+<td>@Scope</td>
+<td>指定Bean实例的作用域。</td>
+</tr>
+<tr>
+<td>@Value</td>
+<td>指定Bean实例的注入值。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Autowired</td>
+<td>指定要自动装配的对象。</td>
+</tr>
+<tr>
+<td>@Resource</td>
+<td>指定要注入的对象。</td>
+</tr>
+<tr>
+<td>@Qualifier</td>
+<td>指定要自动装配的对象名称，通常与@Autowired联合使用。</td>
+</tr>
+<tr>
+<td>@PostConstruc t</td>
+<td>指定Bean实例完成初始化后调用的方法。</td>
+</tr>
+<tr>
+<td>@PreDestroy</td>
+<td>指定Bean实例销毁前调用的方法</td>
+</tr>
+</tbody></table>
+<p>下面是基于注解装配的例子：</p>
+<ul>
+<li><p>定义实体类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component(&quot;user&quot;)</span><br><span class="hljs-meta">@Scope(&quot;singleton&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br><span class="hljs-meta">@Value(&quot;1&quot;)</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br><span class="hljs-meta">@Value(&quot;张三&quot;)</span><br><span class="hljs-keyword">private</span> String name;<br><span class="hljs-meta">@Value(&quot;123&quot;)</span><br><span class="hljs-keyword">private</span> String password;<br><span class="hljs-comment">// 省略getter/setter方法和toString()方法</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>定义dao层：创建UserDao接口作为数据访问层接口，并在UserDao接口中声明save()方法用于查询User实体类的对象信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hnust.dao;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserDao</span> </span>&#123;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>实现dao层：创建UserDaoImpl作为UserDao的实现类，并在UserDao类中实现UserDao接口中的save()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Repository(&quot;userDao&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserDao</span> </span>&#123;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span></span>&#123;<br>ApplicationContext applicationContext=<span class="hljs-keyword">new</span><br>ClassPathXmlApplicationContext(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br>User user=(User) applicationContext.getBean(<span class="hljs-string">&quot;user&quot;</span>);<br>System.out.println(user);<br>System.out.println(<span class="hljs-string">&quot;执行UserDaoImpl.save()&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>定义service层：创建UserService接口作为业务逻辑层的接口，并在UserService接口中定义save()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hnust.service;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserService</span> </span>&#123;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>实现service层：创建UserServiceImpl作为UserService的实现类，并在UserServiceImpl中实现UserService接口中的save()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service(&quot;userService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserService</span> </span>&#123;<br><span class="hljs-comment">//使用@Resource注解注入UserDao</span><br><span class="hljs-meta">@Resource(name=&quot;userDao&quot;)</span><br><span class="hljs-keyword">private</span> UserDao userDao;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-keyword">this</span>.userDao.save();<br>System.out.println(<span class="hljs-string">&quot;执行UserServiceImpl.save()&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>定义controller层：创建UserController类作为控制层。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> </span>&#123;<br><span class="hljs-comment">//使用@Resource注解注入UserService</span><br><span class="hljs-meta">@Resource(name=&quot;userService&quot;)</span><br><span class="hljs-keyword">private</span> UserService userService;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">save</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-keyword">this</span>.userService.save();<br>System.out.println(<span class="hljs-string">&quot;执行UserController.save()&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="Spring核心容器层组成"><a href="#Spring核心容器层组成" class="headerlink" title="Spring核心容器层组成"></a>Spring核心容器层组成</h2><p>Spring核心容器模块在Spring的功能体系中起着支撑性作用，是其他模块的基石。核心容器层主要由Beans模块、Core模块、Context模块和SpEL模块组成。</p>
+<h3 id="核心容器模块各模块组成"><a href="#核心容器模块各模块组成" class="headerlink" title="核心容器模块各模块组成"></a>核心容器模块各模块组成</h3><ul>
+<li>Beans模块。它提供了BeanFactory类，是工厂模式的经典实现。Beans模块的主要作用是创建和管理Bean对象。</li>
+<li>Core模块。它提供了Spring框架的基本组成部分，包括IoC和DI功能。</li>
+<li>Context模块。它构建于Beans模块和Core模块之上，它可以通过ApplicationContext接口提供上下文信息。</li>
+<li>SpEL模块。它是Spring3.0新增的模块，提供了SpEL表达式语言的支持，SpEL表达式语言是一个在程序运行时支持操作对象图的表达式语言。</li>
+</ul>
+<h2 id="Spring-Bean的作用域"><a href="#Spring-Bean的作用域" class="headerlink" title="Spring Bean的作用域"></a>Spring Bean的作用域</h2><p>Bean的生命周期是指Bean的实例被创建、初始化和销毁的过程。在Bean的两种作用域singleton和prototype中，Spring容器对Bean的生命周期的管理是不同的。在singleton作用域中，Spring容器可以管理Bean的生命周期，控制着Bean的创建，初始化和销毁。在prototype作用域中，Spring容器只负责创建Bean的实例，不会管理其生命周期。</p>
+<h2 id="Spring-MVC框架组合注解"><a href="#Spring-MVC框架组合注解" class="headerlink" title="Spring MVC框架组合注解"></a>Spring MVC框架组合注解</h2><p><img src="/images/python/KQUFOCVW5NRTBQ$%7DYYUR1.png" alt="Spring MVC在三层架构中的位置"></p>
+<p>Spring MVC组合注解：</p>
+<ul>
+<li><p>@GetMapping：匹配GET方式的请求。</p>
+</li>
+<li><p>@PostMapping：匹配POST方式的请求。</p>
+</li>
+<li><p>@PutMapping：匹配PUT方式的请求。</p>
+</li>
+<li><p>@DeleteMapping：匹配DELETE方式的请求。 </p>
+</li>
+<li><p>@PatchMapping：匹配PATCH方式的请求。</p>
+</li>
+</ul>
+<p>@GetMapping用法示例：</p>
+<p>接下来以@GetMapping为例讲解组合注解的用法，@GetMapping是 @RequestMapping(method = RequestMethod.GET)的缩写，使用组合注解替代 @RequestMapping注解，可以省略method属性，从而简化代码。@GetMapping用 法示例代码如下所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(value=&quot;/firstController&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span>&#123;<br>...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>那么什么是 @RequestMapping注解呢？</p>
+<p><strong>@RequestMapping注解用于建立请求URL和Handler（处理器）之间的映射关系， 该注解可以标注在方法上和类上。</strong></p>
+<h3 id="RequestMapping注解的使用"><a href="#RequestMapping注解的使用" class="headerlink" title="@RequestMapping注解的使用"></a>@RequestMapping注解的使用</h3><ul>
+<li><p>当@RequestMapping注解标注在方法上时，该方法就成了一个可以处理客户端请求 的Handler（处理器），它会在Spring MVC接收到对应的URL请求时被执行。Handler在浏 览器中对应的访问地址，由项目访问路径+处理方法的映射路径共同组成。</p>
+<p>创建FirstController类，在类中创建sayHello()方法，用来处理客户端请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FirstController</span> </span>&#123;<br><span class="hljs-meta">@RequestMapping(value=&quot;/firstController&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span>&#123;<br>System.out.println(<span class="hljs-string">&quot;hello Spring MVC&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>当@RequestMapping注解标注在类上时，@RequestMapping的value属性值相当 于本处理器类的命名空间，即访问该处理器类下的任意处理器都需要带上这个命名空间。 @RequestMapping标注在类上时，其value属性值作为请求URL的第一级访问目录。当处 理器类和处理器都使用@RequestMapping注解指定了对应的映射路径，处理器在浏览器中 的访问地址，由项目访问路径+处理器类的映射路径+处理器的映射路径共同组成。</p>
+<p>接下来通过一个案例演示@RequestMapping注解标注在类上的使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(value=&quot;/springMVC&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FirstController</span> </span>&#123;<br><span class="hljs-meta">@RequestMapping(value=&quot;/firstController&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span>&#123;<br>System.out.println(<span class="hljs-string">&quot;hello Spring MVC&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>说句人话，当@RequestMapping注解标注在类上时，相当于所有请求前面都有了个共同的前缀，当@RequestMapping注解标注在方法上时，它要跟在@RequestMapping注解标注在类上的value后面，是个小弟。</p>
+</li>
+</ul>
+<h2 id="SpringMVC页面跳转类型"><a href="#SpringMVC页面跳转类型" class="headerlink" title="SpringMVC页面跳转类型"></a>SpringMVC页面跳转类型</h2><h3 id="返回值为void类型的页面跳转到默认页面"><a href="#返回值为void类型的页面跳转到默认页面" class="headerlink" title="返回值为void类型的页面跳转到默认页面"></a>返回值为void类型的页面跳转到默认页面</h3><p>当Spring MVC方法的返回值为void类型，方法执行后会跳转到默认的页面。默 认页面的路径由方法映射路径和视图解析器中的前缀、后缀拼接成，拼接格式为“前缀 +方法映射路径+后缀”。如果Spring MVC的配置文件中没有配置视图解析器，则会 报HTTP Status 500错误。</p>
+<p>创建一个页面跳转类PageController，在PageController类中定义方法 showPageByVoid()，用于测试Spring MVC方法返回值为void的页面跳转。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PageController</span> </span>&#123;<br><span class="hljs-meta">@RequestMapping(&quot;/register&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showPageByVoid</span><span class="hljs-params">()</span></span>&#123;<br>System.out.println(<span class="hljs-string">&quot;showPageByVoid running&quot;</span>);<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上述代码的showPageByVoid()方法将会处理URL为register的请求， showPageByVoid()方法中没有返回值，只有一行打印输出字符串的代码。</p>
+<h3 id="返回值为String类型的页面跳转-不带数据"><a href="#返回值为String类型的页面跳转-不带数据" class="headerlink" title="返回值为String类型的页面跳转-不带数据"></a>返回值为String类型的页面跳转-不带数据</h3><p>修改文件PageController.java，新增showPageByString()方法，用于测试返回值 为String类型的页面跳转，showPageByString()方法的实现代码如下所示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PageController</span> </span>&#123;<br><span class="hljs-meta">@RequestMapping(&quot;/register&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">showPageByString</span><span class="hljs-params">()</span> </span>&#123;<br>System.out.println(<span class="hljs-string">&quot;showPageByString running&quot;</span>);&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/image-20220506232905909.png" alt="跳转页面"></p>
+<p>访问地址后，执行了showPageByString()方法，方法执行后成 功跳转到WEB-INF文件夹下的register.jsp页面。如果此时注释掉Spring MVC配置文件springmvc.xml中的视图解析器，在浏览器中访问showPageByString()方法，请求会转发到映射路径为 register对应的showPageByVoid()方法中。</p>
+<p>当方法的返回值为普通的字符串时，Spring MVC在方法执行后会默认以转发的方式响应给 客户端。除了这种默认的转发方式，还可以返回指定前缀的字符串，来设定处理器执行后对请求 进行转发还是重定向，设定转发和重定向的字符串格式如下所示。</p>
+<ul>
+<li><p>forward:需要转发到的资源路径 </p>
+</li>
+<li><p>redirect:需要重定向到的资源路径</p>
+</li>
+</ul>
+<p>修改文件PageController.java，新增showPageByForward()方法和 showPageByRedirect()方法，分别用于测试方法执行后转发和重定向的页面跳转。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RequestMapping(&quot;/showPageByForward&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">showPageByForward</span><span class="hljs-params">()</span> </span>&#123;<br>System.out.println(<span class="hljs-string">&quot;showPageByForward running&quot;</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;forward:orders.jsp&quot;</span>; &#125;<br><span class="hljs-meta">@RequestMapping(&quot;/showPageByRedirect&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">showPageByRedirect</span><span class="hljs-params">()</span> </span>&#123;<br>System.out.println(<span class="hljs-string">&quot;showPageByRedirect running&quot;</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;redirect:http://www.itheima.com&quot;</span>; &#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/python/P4ONJV7DEJ5HR2%25W0%5B36V%5DT.png" alt="跳转页面"></p>
+<p>在浏览器中访问访问地址 <a target="_blank" rel="noopener" href="http://localhost:8080/chapter12/showPageByForward%E3%80%82%E8%AE%BF%E9%97%AE%E5%9C%B0%E5%9D%80%E5%90%8E%EF%BC%8C%E6%89%A7%E8%A1%8C%E4%BA%86">http://localhost:8080/chapter12/showPageByForward。访问地址后，执行了</a> showPageByForward()方法，方法执行后转发到项目的orders.jsp页面</p>
+<p>在浏览器中访问地址<a target="_blank" rel="noopener" href="http://localhost:8080/chapter12/showPageByRedirect%E3%80%82">http://localhost:8080/chapter12/showPageByRedirect。</a> 访问后，浏览器页面进行跳转，跳转的页面如图所示。</p>
+<p><img src="/images/python/image-20220506233231535.png" alt="跳转页面"></p>
+<p>访问地址后执行了 showPageByRedirect()方法，方法执行后重定向到黑马程序员的官网。需要注意的是，方法返回的 字符串一旦添加了“forward:”或“redirect:”前缀，那么视图解析器不再会为方法返回值拼接前 缀和后缀了。</p>
+<h3 id="返回值为String类型的页面跳转-携带数据"><a href="#返回值为String类型的页面跳转-携带数据" class="headerlink" title="返回值为String类型的页面跳转-携带数据"></a>返回值为String类型的页面跳转-携带数据</h3><p>接下来通过一个案例演示携带数据的页面转发，该案例使用HttpServletRequest类型形参和 Model类型形参进行数据传递，案例具体实现步骤如下。</p>
+<p>修改文件PageController.java，新增showPageByRequest()方法和 showPageByModel()方法，showPageByRequest()方法使用HttpServletRequest传 递数据，showPageByModel()方法使用Model传递数据，两个方法都使用字符串指 定跳转的页面。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 只展示了showPageByRequest()方法</span><br><span class="hljs-meta">@RequestMapping(&quot;/showPageByRequest&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">showPageByRequest</span><span class="hljs-params">(HttpServletRequest request)</span> </span>&#123;<br>System.out.println(<span class="hljs-string">&quot;showPageByRequest running&quot;</span>);<br>request.setAttribute(<span class="hljs-string">&quot;username&quot;</span>,<span class="hljs-string">&quot;request&quot;</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;register&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>修改文件User.java，在register.jsp的表单中添加value属性，用于接收转发传递过 来的数据</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%@ page language=<span class="hljs-string">&quot;java&quot;</span> contentType=<span class="hljs-string">&quot;text/html;</span><br><span class="hljs-string">charset=UTF-8&quot;</span> pageEncoding=<span class="hljs-string">&quot;UTF-8&quot;</span>%&gt;<br>&lt;html&gt;&lt;!-- 只显示了form表单的内容-- &gt;&lt;body&gt;<br>&lt;form action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath &#125;/registerUser&quot;</span> &gt;<br>用户名：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;username&quot;</span><br>value=<span class="hljs-string">&quot;$&#123;username&#125;&quot;</span> /&gt;&lt;br /&gt;<br>密&amp;nbsp;&amp;nbsp;&amp;nbsp;码：&lt;input type=<span class="hljs-string">&quot;text&quot;</span><br>name=<span class="hljs-string">&quot;password&quot;</span> value=<span class="hljs-string">&quot;$&#123;user.password&#125;&quot;</span> /&gt;&lt;br /&gt;<br>&lt;input type=&quot;submit&quot; value=&quot;注册&quot;/&gt;&lt;/form&gt;&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+<p>在浏览器中访问地址 <a target="_blank" rel="noopener" href="http://localhost:8080/chapter12/showPageByRequest%E3%80%82%E8%AE%BF%E9%97%AE%E5%90%8E%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A1%B5%E9%9D%A2%E8%BF%9B%E8%A1%8C%E8%B7%B3%E8%BD%AC%EF%BC%8C%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%A1%B5%E9%9D%A2%E5%A6%82%E5%9B%BE%E6%89%80%E7%A4%BA%E3%80%82">http://localhost:8080/chapter12/showPageByRequest。访问后，浏览器页面进行跳转，跳转的页面如图所示。</a></p>
+<p><img src="/images/python/image-20220506233438116.png" alt="页面跳转"></p>
+<p>访问地址后执行了 showPageByRequest()方法，方法执行后HttpServletRequest中的username转发到register.jsp页 面中。</p>
+<p>在浏览器中访问地址<a target="_blank" rel="noopener" href="http://localhost:8080/chapter12/showPageByModel%E3%80%82%E8%AE%BF">http://localhost:8080/chapter12/showPageByModel。访</a> 问后，浏览器页面进行跳转，跳转的页面如图所示。</p>
+<p><img src="/images/python/image-20220506233528909.png" alt="页面跳转"></p>
+<p>访问地址后执行了 showPageByModel()方法，方法执行后，Model中的username和user对象转发到register.jsp页面。</p>
+<h3 id="返回值为ModelAndView类型的页面跳转"><a href="#返回值为ModelAndView类型的页面跳转" class="headerlink" title="返回值为ModelAndView类型的页面跳转"></a>返回值为ModelAndView类型的页面跳转</h3><p>使用方法的返回值可以设定跳转的逻辑视图名称，使用Model等对象实现页面跳 转时传输数据。除此之外，Spring MVC还提供了兼顾视图和数据的对象 ModelAndView，ModelAndView对象包含视图相关内容和模型数据两部分，其中视 图相关的内容可以设置逻辑视图的名称，也可以设置具体的View实例；模型数据则会 在视图渲染过程中被合并到最终的视图输出。</p>
+<p>接下来通过一个案例演示返回值为ModelAndView类型的页面跳转，案例具体实现步骤如下</p>
+<p>修改文件PageController.java，新增showModelAndView()方法，在 showModelAndView()方法中使用ModelAndView封装数据和视图，完成页面跳转 时传递数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RequestMapping(&quot;/showModelAndView&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> ModelAndView <span class="hljs-title">showModelAndView</span><span class="hljs-params">()</span> </span>&#123;<br>ModelAndView modelAndView = <span class="hljs-keyword">new</span> ModelAndView();<br>modelAndView.addObject(<span class="hljs-string">&quot;username&quot;</span>,<span class="hljs-string">&quot;heima&quot;</span>);<br>User user = <span class="hljs-keyword">new</span> User(); user.setPassword(<span class="hljs-string">&quot;password&quot;</span>);<br>modelAndView.addObject(<span class="hljs-string">&quot;user&quot;</span>,user);<br>modelAndView.setViewName(<span class="hljs-string">&quot;register&quot;</span>);<br><span class="hljs-keyword">return</span> modelAndView;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在浏览器中访问地址 <a target="_blank" rel="noopener" href="http://localhost:8080/chapter12/showModelAndView%E3%80%82%E8%AE%BF%E9%97%AE%E5%90%8E%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A1%B5%E9%9D%A2">http://localhost:8080/chapter12/showModelAndView。访问后，浏览器页面</a> 进行跳转，跳转的页面如图所示。</p>
+<p><img src="/images/python/image-20220506233652108.png" alt="页面跳转"></p>
+<p>访问地址后执行了showModelAndView()方法，方法执行后，添加的模 型数据都在register.jsp页面成功取出。</p>
+<h2 id="SpringMVC三大组件"><a href="#SpringMVC三大组件" class="headerlink" title="SpringMVC三大组件"></a>SpringMVC三大组件</h2><h3 id="处理器映射器"><a href="#处理器映射器" class="headerlink" title="处理器映射器"></a>处理器映射器</h3><p>处理器映射器可以理解为一个Map，HandlerMapping负责根据 用户请求的URL找到Handler（处理器），Spring MVC提供了不同的映射器来实现不同 的映射方式。</p>
+<h3 id="处理器适配器"><a href="#处理器适配器" class="headerlink" title="处理器适配器"></a>处理器适配器</h3><p>处理器适配器作用是根据处理器映射器找到的处理器 Handler 信息，去执行相关的 Handler。不同的处理器映射器映射出来的Handler对象是不一样的，不同的映射由不同 的适配器来负责解析。</p>
+<h3 id="视图解析器"><a href="#视图解析器" class="headerlink" title="视图解析器"></a>视图解析器</h3><p>视图解析器进行视图解析，首先将逻辑视图名解析成物理视图名，即具体的页面地 址，再生成View视图对象返回。</p>
+<h3 id="Spring-MVC执行流程"><a href="#Spring-MVC执行流程" class="headerlink" title="Spring MVC执行流程"></a>Spring MVC执行流程</h3><p><img src="/images/python/image-20220506233932767.png" alt="执行流程"></p>
+<h2 id="Mybatis映射文件"><a href="#Mybatis映射文件" class="headerlink" title="Mybatis映射文件"></a>Mybatis映射文件</h2><h2 id="Mybatis的核心对象"><a href="#Mybatis的核心对象" class="headerlink" title="Mybatis的核心对象"></a>Mybatis的核心对象</h2><ul>
+<li>SqlSessionFactoryBuilder</li>
+<li>SqlSessionFactory</li>
+<li>SqlSession</li>
+</ul>
+<h3 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h3><p>SqlSessionFactoryBuilder对象是线程安全的，它一旦被创建，在整个应用程序执行期间都会存在。如果我们多次创建同一个数据库的SqlSessionFactory对象，那么该数据库的资源将很容易被耗尽。通常每一个数据库只创建一个SqlSessionFactory对象，所以在构建SqlSessionFactory对象时，建议使用单例模式。</p>
+<h3 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h3><p>SqlSession是Mybatis框架中另一个重要的对象，它是应用程序与持久层之间执行交互操作的一个单线程对象，主要作用是执行持久化操作。类似于JDBC中的connection，SqlSession对象包含了执行SQL操作的方法，由于其底层封装了JDBC连接，所以可以直接使用SqlSession对象来执行已映射的SQL语句。</p>
+<h2 id="动态SQL（直接看代码即可）"><a href="#动态SQL（直接看代码即可）" class="headerlink" title="动态SQL（直接看代码即可）"></a>动态SQL（直接看代码即可）</h2><h3 id="动态SQL常用元素"><a href="#动态SQL常用元素" class="headerlink" title="动态SQL常用元素"></a>动态SQL常用元素</h3><table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><if></td>
+<td>判断语句，用于单条件判断</td>
+</tr>
+<tr>
+<td><choose>(<when>、<otherwise>)</td>
+<td>相当于Java中的switch…case…default语句，用于多条件判断</td>
+</tr>
+<tr>
+<td><where></td>
+<td>简化SQL语句中where的条件判断</td>
+</tr>
+<tr>
+<td><trim></td>
+<td>可以灵活地去除多余的关键字</td>
+</tr>
+<tr>
+<td><set></td>
+<td>用于SQL语句的动态更新</td>
+</tr>
+<tr>
+<td><foreach></td>
+<td>循环语句，常用于in语句等列举条件中</td>
+</tr>
+</tbody></table>
+<h3 id="条件查询操作"><a href="#条件查询操作" class="headerlink" title="条件查询操作"></a>条件查询操作</h3><h4 id="元素的应用"><a href="#元素的应用" class="headerlink" title="元素的应用"></a><if>元素的应用</h4><p>在MyBatis中，元素是最常用的判断元素，它类似于Java中的if语句，主要用于 实现某些简单的条件判断。在实际应用中，我们可能会通过某个条件查询某个数据。例如， 要查找某个客户的信息，可以通过姓名或者年龄来查找客户，也可以不填写年龄直接通过 姓名来查找客户，还可以都不填写而查询出所有客户，此时姓名和年龄就是非必须条件。 类似于这种情况，在MyBatis中就可以通过元素来实现。</p>
+<p>创建映射文件：创建映射文件CustomerMapper.xml，在映射文件中，根据客户姓名和年 龄组合条件查询客户信息，使用元素编写该组合条件的动态SQL。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!– 该xml文件中只列出了<span class="hljs-keyword">if</span>元素的动态SQL--&gt;<br>&lt;<span class="hljs-keyword">if</span> test=<span class="hljs-string">&quot;username !=null and username !=‘’“&gt;</span><br><span class="hljs-string">and username like concat(&#x27;%&#x27;,#&#123;username&#125;, &#x27;%&#x27;)</span><br><span class="hljs-string">&lt;/if&gt;</span><br><span class="hljs-string">&lt;if test=&quot;</span>jobs !=<span class="hljs-keyword">null</span> and jobs !=‘’“&gt;<br>and jobs= #&#123;jobs&#125;<br>&lt;/if&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="、、元素"><a href="#、、元素" class="headerlink" title="、、元素"></a><choose>、<when>、<otherwise>元素</h4><p>在使用元素时，只要test属性中的表达式为true，就会执行元素中的条件语句， 但是在实际应用中，有时只需要从多个选项中选择一个去执行。 例如下面的场景：“当客户名称不为空，则只根据客户名称进行客户筛选；当客户 名称为空，而客户职业不为空，则只根据客户职业进行客户筛选。当客户名称和客户职业 都为空，则要求查询出所有电话不为空的客户信息。” 针对上面情况，使用元素进行处理是不合适的。MyBatis提供了<choose>、<when>、<otherwise>元素进行处理，这三个元素往往组合在一起使用，作用相当于 Java语言中的if…else if…else。</p>
+<p>在映射文件CustomerMapper.xml中，添加使用、、元素 执行上述情况的动态SQL。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!-- 只展示三个组合元素的部分--&gt;<br>&lt;choose&gt;<br>&lt;when test=<span class="hljs-string">&quot;username !=null and username !=&#x27;&#x27;&quot;</span>&gt;<br><span class="hljs-function">and username like <span class="hljs-title">concat</span><span class="hljs-params">(<span class="hljs-string">&#x27;%&#x27;</span>,#&#123;username&#125;, <span class="hljs-string">&#x27;%&#x27;</span>)</span></span><br><span class="hljs-function">&lt;/when&gt;</span><br><span class="hljs-function">&lt;when test</span>=<span class="hljs-string">&quot;jobs !=null and jobs !=&#x27;&#x27;&quot;</span>&gt;<br>and jobs= #&#123;jobs&#125;<br>&lt;/when&gt;<br>&lt;otherwise&gt;and phone is not null&lt;/otherwise&gt;<br>&lt;/choose&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="、元素"><a href="#、元素" class="headerlink" title="、元素"></a><where>、<trim>元素</h4><p><strong><where>、<trim> 使用场景：</strong></p>
+<p>在映射文件中，编写的SQL后面加入了“where 1=1”的条件的话，既保证了 where后面的条件成立，又避免了where后面第一个词是and或者or之类的关键字。 例如下面这条Mybatis拼接出的SQL语句是不正确的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">select * <span class="hljs-function">from t_customer where and username like <span class="hljs-title">concat</span><span class="hljs-params">(<span class="hljs-string">&#x27;%&#x27;</span>,?,</span></span><br>&#x27;%&#x27;) and jobs = #&#123;jobs&#125;<br></code></pre></td></tr></table></figure>
+<p>上述SQL语句中，where后直接跟的是and，这在运行时会报SQL语法错误，针对这 种情况，可以使用MyBatis提供的<where>元素和<trim>元素进行处理。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;select id=<span class="hljs-string">&quot;findCustomerByNameAndJobs&quot;</span><br>parameterType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span><br>resultType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span>&gt;<br>select * from t_customer<br>&lt;where&gt;<br>&lt;<span class="hljs-keyword">if</span> test=<span class="hljs-string">&quot;username !=null and username !=&#x27;&#x27;&quot;</span>&gt;<br><span class="hljs-function">and username like <span class="hljs-title">concat</span><span class="hljs-params">(<span class="hljs-string">&#x27;%&#x27;</span>,#&#123;username&#125;, <span class="hljs-string">&#x27;%&#x27;</span>)</span>&lt;/<span class="hljs-keyword">if</span>&gt;</span><br><span class="hljs-function">&lt;<span class="hljs-keyword">if</span> test</span>=<span class="hljs-string">&quot;jobs !=null and jobs !=&#x27;&#x27;&quot;</span>&gt;<br>and jobs= #&#123;jobs&#125;&lt;/if&gt;<br>&lt;/where&gt;&lt;/select&gt;<br></code></pre></td></tr></table></figure>
+<p>上述代码配置中，<where>元素会自动判断由组合条件拼装的SQL语句，只有<where>元素内的某一个或多个条件成立时，才会在拼接SQL中加入where关键字，否 则将不会添加；即使where之后的内容有多余的“AND”或“OR”,<where>元素也会自动将他们去除。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;select id=<span class="hljs-string">&quot;findCustomerByNameAndJobs&quot;</span><br>parameterType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span><br>resultType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span>&gt;<br>select * from t_customer<br>&lt;trim prefix=<span class="hljs-string">&quot;where&quot;</span> prefixOverrides=<span class="hljs-string">&quot;and&quot;</span> &gt;<br>&lt;<span class="hljs-keyword">if</span> test=<span class="hljs-string">&quot;username !=null and username !=&#x27;&#x27;&quot;</span>&gt;<br><span class="hljs-function">and username like <span class="hljs-title">concat</span><span class="hljs-params">(<span class="hljs-string">&#x27;%&#x27;</span>,#&#123;username&#125;, <span class="hljs-string">&#x27;%&#x27;</span>)</span>&lt;/<span class="hljs-keyword">if</span>&gt;</span><br><span class="hljs-function">&lt;<span class="hljs-keyword">if</span> test</span>=<span class="hljs-string">&quot;jobs !=null and jobs !=&#x27;&#x27;&quot;</span>&gt;<br>and jobs= #&#123;jobs&#125;&lt;/if&gt;&lt;/trim&gt;<br>&lt;/select&gt;<br></code></pre></td></tr></table></figure>
+
+
+<p>上述配置代码中，<trim>元素的作用是去除一些多余的前缀字符串，它的prefix属 性代表的是语句的前缀（where），而prefixOverrides属性代表的是需要去除的前缀字 符串（SQL中的“AND”或“OR”）。</p>
+<h3 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h3><p>在Hibernate框架中，如果想要更新某一个对象，就需要发送所有的字段给持久化 对象，然而在实际应用中，大多数情况下都是更新某一个或几个字段。如果更新的每一条 数据都要将其所有的属性都更新一遍，那么执行效率是非常差的。为了解决更新数据的效 率问题，MyBatis提供了<set>元素。<set>元素主要用于更新操作，它可以在动态SQL 语句前输出一个SET关键字，并将SQL语句中最后一个多余的逗号去除。<set>元素与<if> 元素结合可以只更新需要更新的字段。</p>
+<p>在映射文件CustomerMapper.xml中，添加使用元素执行更新操作的动态SQL。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;update id=<span class="hljs-string">&quot;updateCustomerBySet”</span><br><span class="hljs-string">parameterType=&quot;</span>com.itheima.pojo.Customer<span class="hljs-string">&quot;&gt;update t_customer</span><br><span class="hljs-string">&lt;set&gt;</span><br><span class="hljs-string">&lt;if test=&quot;</span>username !=<span class="hljs-keyword">null</span> and username !=<span class="hljs-string">&#x27;&#x27;</span><span class="hljs-string">&quot;&gt;</span><br><span class="hljs-string">username=#&#123;username&#125;,&lt;/if&gt;</span><br><span class="hljs-string">&lt;if test=&quot;</span>jobs !=<span class="hljs-keyword">null</span> and jobs !=<span class="hljs-string">&#x27;&#x27;</span><span class="hljs-string">&quot;&gt; jobs=#&#123;jobs&#125;,&lt;/if&gt;</span><br><span class="hljs-string">&lt;if test=&quot;</span>phone !=<span class="hljs-keyword">null</span> and phone !=<span class="hljs-string">&#x27;&#x27;</span><span class="hljs-string">&quot;&gt;phone=#&#123;phone&#125;,&lt;/if&gt;</span><br><span class="hljs-string">&lt;/set&gt; where id=#&#123;id&#125;</span><br><span class="hljs-string">&lt;/update&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="复杂查询操作"><a href="#复杂查询操作" class="headerlink" title="复杂查询操作"></a>复杂查询操作</h3><p><foreach>元素中的属性：</p>
+<ul>
+<li>List类型：若入参为单参数且参数类型是一个List，collection属性值为list</li>
+<li>数组类型：若入参为单参数且参数类型是一个数组，collection属性值为array。</li>
+<li>Map类型：若传入参数为多参数，就需要把参数封装为一个Map进行处理，collection属性值 为Map。若传入参数为多参数，就需要把参数封装为一个Map进行处理，collection属性 值为Map。</li>
+</ul>
+<h4 id="元素迭代数组"><a href="#元素迭代数组" class="headerlink" title="元素迭代数组"></a><foreach>元素迭代数组</h4><p>在映射文件CustomerMapper.xml中，添加使用元素迭代数组执行批量查询操作 的动态SQL。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;select id=<span class="hljs-string">&quot;findByArray&quot;</span> parameterType=<span class="hljs-string">&quot;java.util.Arrays&quot;</span><br>resultType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span>&gt;select * from t_customer where<br>id in<br>&lt;foreach item=<span class="hljs-string">&quot;id&quot;</span> index=<span class="hljs-string">&quot;index&quot;</span> collection=<span class="hljs-string">&quot;array&quot;</span><br>open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt; #&#123;id&#125;<br>&lt;/foreach&gt;<br>select&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="元素迭代List"><a href="#元素迭代List" class="headerlink" title="元素迭代List"></a><foreach>元素迭代List</h4><p>在映射文件CustomerMapper.xml中，添加使用元素迭代List集合执行批量查询 操作的动态SQL。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;select id=<span class="hljs-string">&quot;findByList&quot;</span> parameterType=<span class="hljs-string">&quot;java.util.Arrays&quot;</span><br>resultType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span>&gt;<br>select * from t_customer where id in<br>&lt;foreach item=<span class="hljs-string">&quot;id&quot;</span> index=<span class="hljs-string">&quot;index&quot;</span> collection=<span class="hljs-string">&quot;list&quot;</span><br>open=<span class="hljs-string">&quot;(&quot;</span> separator=<span class="hljs-string">&quot;,&quot;</span> close=<span class="hljs-string">&quot;)&quot;</span>&gt;<br>#&#123;id&#125;<br>&lt;/foreach&gt;<br>&lt;/select&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="元素迭代Map"><a href="#元素迭代Map" class="headerlink" title="元素迭代Map"></a><foreach>元素迭代Map</h4><p>在映射文件CustomerMapper.xml中，添加使用元素迭代Map集合执行批量查询 操作的动态SQL。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;select id=<span class="hljs-string">&quot;findByMap&quot;</span> parameterType=<span class="hljs-string">&quot;java.util.Map&quot;</span><br>resultType=<span class="hljs-string">&quot;com.itheima.pojo.Customer&quot;</span>&gt;<br>select * from t_customer where jobs=#&#123;jobs&#125; and id in<br>&lt;foreach item=<span class="hljs-string">&quot;roleMap&quot;</span> index=<span class="hljs-string">&quot;index&quot;</span> collection=<span class="hljs-string">&quot;id&quot;</span> open=<span class="hljs-string">&quot;(&quot;</span><br>separator=&quot;,&quot; close=&quot;)&quot;&gt; #&#123;roleMap&#125;<br>&lt;/foreach&gt;<br>&lt;/select&gt;<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Mybatis常用注解"><a href="#Mybatis常用注解" class="headerlink" title="Mybatis常用注解"></a>Mybatis常用注解</h2><h3 id="Select注解"><a href="#Select注解" class="headerlink" title="@Select注解"></a>@Select注解</h3><p>示例：</p>
+<ul>
+<li><p>创建类：创建持久化类Worker，在Worker类中定义id、员工姓名、年龄、性别、工号等属 性以及属性对应的getter/setter方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Worker</span> </span>&#123;<br><span class="hljs-keyword">private</span> Integer id; <span class="hljs-keyword">private</span> String name; <span class="hljs-keyword">private</span> Integer age;<br><span class="hljs-keyword">private</span> String sex;<br><span class="hljs-keyword">private</span> String worker_id;<br><span class="hljs-comment">// 省略getter/setter方法</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Worker&#123;&quot;</span> + <span class="hljs-string">&quot;id=&quot;</span> + id + <span class="hljs-string">&quot;, name=&quot;</span> + name +<br><span class="hljs-string">&quot;, age=&quot;</span> + age + <span class="hljs-string">&quot;, sex=&quot;</span> + sex + <span class="hljs-string">&quot;, worker_id=&quot;</span> + worker_id + <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>&#125;&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>编写查询方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.itheima.dao;<br><span class="hljs-keyword">import</span> com.itheima.pojo.Worker;<br><span class="hljs-keyword">import</span> org.apache.ibatis.annotations.Select;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">WorkerMapper</span> </span>&#123;<br><span class="hljs-meta">@Select(&quot;select * from tb_worker where id = #&#123;id&#125;&quot;)</span><br><span class="hljs-function">Worker <span class="hljs-title">selectWorker</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>加载配置文件：：在核心配置文件mybatis-config.xml中的元素下引入 WorkerMapper接口，将WorkerMapper.java接口加载到核心配置文件中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;mapper <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;com.itheima.dao.WorkerMapper&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="Insert注解"><a href="#Insert注解" class="headerlink" title="@Insert注解"></a>@Insert注解</h3></li>
+<li><p>添加注解：在WorkerMapper接口中添加向tb_worker数据表插入数据的方法 insertWorker()，并在方法上添加@Insert注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Insert(&quot;insert into tb_worker(name,age,sex,worker_id)&quot;</span><br><span class="hljs-meta">+&quot;values(#&#123;name&#125;,#&#123;age&#125;,#&#123;sex&#125;,#&#123;worker_id&#125;)&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insertWorker</span><span class="hljs-params">(Worker worker)</span></span>;<br></code></pre></td></tr></table></figure>
+<h3 id="Update注解"><a href="#Update注解" class="headerlink" title="@Update注解"></a>@Update注解</h3></li>
+<li><p>添加注解：在WorkerMapper接口中添加更新tb_worker表中数据的方法，并在方法上添加 @Update注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Update(&quot;update tb_worker set name = #&#123;name&#125;,age = #&#123;age&#125; &quot;</span><br><span class="hljs-meta">+&quot;where id = #&#123;id&#125;&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">updateWorker</span><span class="hljs-params">(Worker worker)</span></span>;<br></code></pre></td></tr></table></figure>
+<h3 id="Delete注解"><a href="#Delete注解" class="headerlink" title="@Delete注解"></a>@Delete注解</h3></li>
+<li><p>添加注解：在WorkerMapper接口中添加删除数据库中数据的方法，并在方法上添加 @Delete注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Delete(&quot;delete from tb_worker where id = #&#123;id&#125;&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deleteWorker</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span></span>;<br></code></pre></td></tr></table></figure>
+<h3 id="Param注解"><a href="#Param注解" class="headerlink" title="@Param注解"></a>@Param注解</h3></li>
+</ul>
+<p>下面通过一个案例演示@Param注解的使用，该案例要求根据员工的id和姓名查询员工信息， 案例具体实现步骤如下。</p>
+<ul>
+<li><p>添加注解：在WorkerMapper接口中添加多条件查询的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Select(&quot;select * from tb_worker where id = #&#123;param01&#125;</span><br><span class="hljs-meta">and name = #&#123;param02&#125;&quot;)</span><br><span class="hljs-function">Worker <span class="hljs-title">selectWorkerByIdAndName</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;param01&quot;)</span> <span class="hljs-keyword">int</span> id,</span></span><br><span class="hljs-function"><span class="hljs-params"><span class="hljs-meta">@Param(&quot;param02&quot;)</span> String name)</span></span>;<br></code></pre></td></tr></table></figure>
+<h2 id="Mybatis映射文件中常用元素"><a href="#Mybatis映射文件中常用元素" class="headerlink" title="Mybatis映射文件中常用元素"></a>Mybatis映射文件中常用元素</h2></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mapper</td>
+<td>映射文件的根元素，该元素只有一个namespace属性（命名空间）。</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>配置给定命名空间的缓存</td>
+</tr>
+<tr>
+<td>cache-ref</td>
+<td>从其他命名空间引用缓存配置。</td>
+</tr>
+<tr>
+<td>resultMap</td>
+<td>描述数据库结果集和对象的对应关系。</td>
+</tr>
+<tr>
+<td>sql</td>
+<td>可以重用的SQL块，也可以被其他语句使用。</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>用于映射插入语句。</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>用于映射删除语句。</td>
+</tr>
+<tr>
+<td>update</td>
+<td>用于映射更新语句。</td>
+</tr>
+<tr>
+<td>select</td>
+<td>用于映射查询语句。</td>
+</tr>
+</tbody></table>
+<h3 id="元素中namespace属性作用"><a href="#元素中namespace属性作用" class="headerlink" title="元素中namespace属性作用"></a><mapper>元素中namespace属性作用</h3><p><strong>namespace属性有两个作用：</strong></p>
+<ul>
+<li>用于区别不同的mapper，全局唯一</li>
+<li>绑定DAO接口，即面向接口编程。当namespace绑定某一接口之后，可以不用写该接口的实现类，Mybatis会通过接口的全限定名查找到对应的mapper配置来执行SQL语句，因此namespace的命名必须跟接口同名。</li>
+</ul>
+<p><strong><mapper>元素如何区别不同的XML文件:</strong></p>
+<p>在不同映射文件中，<mapper>元素的子元素的id可以相同，Mybatis通过<mapper>元素的namespace属性值和子元素id联合区分不同的Mapper.xml文件。接口中的方法与映射文件中SQL语句id一一对应。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/">http://1905060202.github.io/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">期末复习</a><a class="post-meta__tags" href="/tags/web/">web</a><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">高级Web技术实验(一)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/" title="高级Web技术实验(一)"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-08</div><div class="title">高级Web技术实验(一)</div></div></a></div><div><a href="/2021/08/02/Butterfly%E8%A3%85%E4%BF%AE%E4%B9%8B%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/" title="Butterfly装修之新手上路"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-01-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-02</div><div class="title">Butterfly装修之新手上路</div></div></a></div><div><a href="/2021/08/05/wordpress%E4%B9%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="wordpress之搭建博客"><img class="cover" src="/images/%E5%B0%81%E9%9D%A2/%E5%BB%BA%E7%AB%99.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-05</div><div class="title">wordpress之搭建博客</div></div></a></div><div><a href="/2021/08/03/%E9%85%8D%E7%BD%AEbutterfly%E6%97%B6%E6%88%91%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/" title="配置butterfly时我踩过的坑"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-03</div><div class="title">配置butterfly时我踩过的坑</div></div></a></div><div><a href="/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" title="站在数据分析师的角度谈谈对数据的处理方法"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-30</div><div class="title">站在数据分析师的角度谈谈对数据的处理方法</div></div></a></div><div><a href="/2021/06/19/Python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="Python与数据分析期末复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-19</div><div class="title">Python与数据分析期末复习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/you.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">62</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1905060202" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">前段时间博客崩溃，眼下课程设计与期末考试接踵而至，心有余而力不足，等有空再重新整理博客吧！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">高级Web技术复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E7%9A%84%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7%E5%8F%8A%E5%85%B6%E5%90%AB%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">Spring的两大特性及其含义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IoC"><span class="toc-number">1.1.1.</span> <span class="toc-text">IoC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP"><span class="toc-number">1.1.2.</span> <span class="toc-text">AOP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.</span> <span class="toc-text">Spring的自动装配机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text">自动装配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EXML%E7%9A%84%E8%A3%85%E9%85%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">基于XML的装配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7setter%E6%96%B9%E6%B3%95%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">属性setter方法注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">构造方法注入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A3%85%E9%85%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text">基于注解的装配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%A0%B8%E5%BF%83%E5%AE%B9%E5%99%A8%E5%B1%82%E7%BB%84%E6%88%90"><span class="toc-number">1.3.</span> <span class="toc-text">Spring核心容器层组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%B9%E5%99%A8%E6%A8%A1%E5%9D%97%E5%90%84%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心容器模块各模块组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.4.</span> <span class="toc-text">Spring Bean的作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-MVC%E6%A1%86%E6%9E%B6%E7%BB%84%E5%90%88%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.5.</span> <span class="toc-text">Spring MVC框架组合注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestMapping%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.1.</span> <span class="toc-text">@RequestMapping注解的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">SpringMVC页面跳转类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%BAvoid%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%88%B0%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.6.1.</span> <span class="toc-text">返回值为void类型的页面跳转到默认页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%BAString%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC-%E4%B8%8D%E5%B8%A6%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.2.</span> <span class="toc-text">返回值为String类型的页面跳转-不带数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%BAString%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC-%E6%90%BA%E5%B8%A6%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.3.</span> <span class="toc-text">返回值为String类型的页面跳转-携带数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%BAModelAndView%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC"><span class="toc-number">1.6.4.</span> <span class="toc-text">返回值为ModelAndView类型的页面跳转</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">1.7.</span> <span class="toc-text">SpringMVC三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8"><span class="toc-number">1.7.1.</span> <span class="toc-text">处理器映射器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8"><span class="toc-number">1.7.2.</span> <span class="toc-text">处理器适配器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-number">1.7.3.</span> <span class="toc-text">视图解析器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-MVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.7.4.</span> <span class="toc-text">Spring MVC执行流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.8.</span> <span class="toc-text">Mybatis映射文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E7%9A%84%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.9.</span> <span class="toc-text">Mybatis的核心对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SqlSessionFactoryBuilder"><span class="toc-number">1.9.1.</span> <span class="toc-text">SqlSessionFactoryBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SqlSession"><span class="toc-number">1.9.2.</span> <span class="toc-text">SqlSession</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81SQL%EF%BC%88%E7%9B%B4%E6%8E%A5%E7%9C%8B%E4%BB%A3%E7%A0%81%E5%8D%B3%E5%8F%AF%EF%BC%89"><span class="toc-number">1.10.</span> <span class="toc-text">动态SQL（直接看代码即可）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81SQL%E5%B8%B8%E7%94%A8%E5%85%83%E7%B4%A0"><span class="toc-number">1.10.1.</span> <span class="toc-text">动态SQL常用元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.10.2.</span> <span class="toc-text">条件查询操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.10.2.1.</span> <span class="toc-text">元素的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%81%E3%80%81%E5%85%83%E7%B4%A0"><span class="toc-number">1.10.2.2.</span> <span class="toc-text">、、元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%81%E5%85%83%E7%B4%A0"><span class="toc-number">1.10.2.3.</span> <span class="toc-text">、元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C"><span class="toc-number">1.10.3.</span> <span class="toc-text">更新操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.10.4.</span> <span class="toc-text">复杂查询操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E8%BF%AD%E4%BB%A3%E6%95%B0%E7%BB%84"><span class="toc-number">1.10.4.1.</span> <span class="toc-text">元素迭代数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E8%BF%AD%E4%BB%A3List"><span class="toc-number">1.10.4.2.</span> <span class="toc-text">元素迭代List</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E8%BF%AD%E4%BB%A3Map"><span class="toc-number">1.10.4.3.</span> <span class="toc-text">元素迭代Map</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.</span> <span class="toc-text">Mybatis常用注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Select%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.1.</span> <span class="toc-text">@Select注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.2.</span> <span class="toc-text">@Insert注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Update%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.3.</span> <span class="toc-text">@Update注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Delete%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.4.</span> <span class="toc-text">@Delete注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Param%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.11.5.</span> <span class="toc-text">@Param注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%85%83%E7%B4%A0"><span class="toc-number">1.12.</span> <span class="toc-text">Mybatis映射文件中常用元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E4%B8%ADnamespace%E5%B1%9E%E6%80%A7%E4%BD%9C%E7%94%A8"><span class="toc-number">1.12.1.</span> <span class="toc-text">元素中namespace属性作用</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="高级Web技术复习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高级Web技术复习"/></a><div class="content"><a class="title" href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="高级Web技术复习">高级Web技术复习</a><time datetime="2022-05-06T12:46:53.000Z" title="发表于 2022-05-06 20:46:53">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/" title="高级Web技术实验(一)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高级Web技术实验(一)"/></a><div class="content"><a class="title" href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/" title="高级Web技术实验(一)">高级Web技术实验(一)</a><time datetime="2022-04-08T02:00:40.000Z" title="发表于 2022-04-08 10:00:40">2022-04-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/10/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="无题"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/01/10/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="无题">无题</a><time datetime="2022-01-10T09:46:19.219Z" title="发表于 2022-01-10 17:46:19">2022-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%A2%98%E5%BA%93/" title="计算机网络题库"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络题库"/></a><div class="content"><a class="title" href="/2022/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%A2%98%E5%BA%93/" title="计算机网络题库">计算机网络题库</a><time datetime="2022-01-06T06:11:57.000Z" title="发表于 2022-01-06 14:11:57">2022-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" title="计算机算法设计与分析复习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机算法设计与分析复习"/></a><div class="content"><a class="title" href="/2022/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" title="计算机算法设计与分析复习">计算机算法设计与分析复习</a><time datetime="2022-01-04T01:10:50.000Z" title="发表于 2022-01-04 09:10:50">2022-01-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
