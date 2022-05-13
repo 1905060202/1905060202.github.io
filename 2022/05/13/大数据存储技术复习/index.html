@@ -1,0 +1,376 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>大数据存储技术复习 | 胡小宁的博客</title><meta name="keywords" content="大数据技术,期末复习,分布式技术"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="大数据存储技术-深入分布式缓存从原理到实践 总结与复习整理：hyn spxzx 前言：在老杨的基础之上，增添了些辅助理解的内容。重新绘制了一些图片，使它看起来更简洁易懂。删除了部分内容，redis的代码等，使文章读起来没那么硬核，降低学习门槛，让读者拥有60分飘过水平即可。  CAP理论CAP理论是分布式系统的理论基础。  一致性Consistency：在分布式系统中的所有数据备份，在同一时刻是否">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据存储技术复习">
+<meta property="og:url" content="http://1905060202.github.io/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="大数据存储技术-深入分布式缓存从原理到实践 总结与复习整理：hyn spxzx 前言：在老杨的基础之上，增添了些辅助理解的内容。重新绘制了一些图片，使它看起来更简洁易懂。删除了部分内容，redis的代码等，使文章读起来没那么硬核，降低学习门槛，让读者拥有60分飘过水平即可。  CAP理论CAP理论是分布式系统的理论基础。  一致性Consistency：在分布式系统中的所有数据备份，在同一时刻是否">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-05-13T14:06:32.000Z">
+<meta property="article:modified_time" content="2022-05-13T17:12:37.956Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="大数据技术">
+<meta property="article:tag" content="期末复习">
+<meta property="article:tag" content="分布式技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/images/you.jpg"><link rel="canonical" href="http://1905060202.github.io/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据存储技术复习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 01:12:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/you.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">63</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据存储技术复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-13T14:06:32.000Z" title="发表于 2022-05-13 22:06:32">2022-05-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-13T17:12:37.956Z" title="更新于 2022-05-14 01:12:37">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据存储技术复习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="大数据存储技术-深入分布式缓存从原理到实践-总结与复习"><a href="#大数据存储技术-深入分布式缓存从原理到实践-总结与复习" class="headerlink" title="大数据存储技术-深入分布式缓存从原理到实践 总结与复习"></a>大数据存储技术-深入分布式缓存从原理到实践 总结与复习</h1><p>整理：hyn spxzx</p>
+<p>前言：在老杨的基础之上，增添了些辅助理解的内容。重新绘制了一些图片，使它看起来更简洁易懂。删除了部分内容，redis的代码等，使文章读起来没那么硬核，降低学习门槛，让读者拥有60分飘过水平即可。</p>
+<p><img src="/images/python/image-20220514001139031.png" alt="版权所有"></p>
+<h2 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h2><p>CAP理论是分布式系统的理论基础。</p>
+<ul>
+<li>一致性Consistency：在分布式系统中的所有数据备份，在同一时刻是否有同样的值</li>
+<li>可用性Availability：在集群中一部分节点故障后，集群整体是否还能响应客户端的读写请求</li>
+<li>分区容忍性Partition tolerance：以实际效果而言，分区相当于对通信的时限要求。系统如果不能在一定时限内达成数据一致性，就意味着发生了分区，必须就当前操作在C和A之间做出选择</li>
+</ul>
+<p>高可用、数据一致是很多系统设计的目标，但是分区又是不可避免地事情，由此引出了以下几种选择：</p>
+<h3 id="CA-without-P"><a href="#CA-without-P" class="headerlink" title="CA without P"></a>CA without P</h3><p>不要求P，则C(强一致性)和A是可以保证的。（但分区始终是存在的，CA的系统更多是允许分区后各子系统依然保持CA）</p>
+<p>典型放弃分区容忍性的例子有 <strong>关系型数据库</strong>、<strong>LDAP</strong> 等</p>
+<p><img src="/images/python/image-20220513223829714.png" alt="CA without P"></p>
+<h3 id="CP-without-A"><a href="#CP-without-A" class="headerlink" title="CP without A"></a>CP without A</h3><p>不要求A，相当于每个请求都需要在Server之间强一致，而P(分区)会导致同步时间无限延长，如此CP也是可以保证的。</p>
+<p>很多<strong>传统的数据库分布式事务</strong>都属于这种模式，<strong>分布式锁</strong>也属于这种情况，如下图示：</p>
+<p><img src="/images/python/image-20220513224048203.png" alt="CP without A"></p>
+<h3 id="AP-without-C"><a href="#AP-without-C" class="headerlink" title="AP without C"></a>AP without C</h3><p>需放弃一致性。一旦分区发生，节点之间可能会失去联系，为了高可用，每个节点只能用本地数据提供服务，而这样会导致全局数据的不一致性。</p>
+<p>现在众多<strong>NoSQL</strong>都属于这类，如下图示：</p>
+<p><img src="/images/python/image-20220513224256995.png" alt="AP without C"></p>
+<h2 id="Raft算法的三个子问题"><a href="#Raft算法的三个子问题" class="headerlink" title="Raft算法的三个子问题"></a>Raft算法的三个子问题</h2><p>在写这个问题之前，要先明白Raft是用来做什么的。</p>
+<p>上文提到，CAP理论代表了分布式系统的理论基础。理论有了，用什么来实现理论呢。这就是Raft要解决的问题。</p>
+<p>Raft主要针对的是，分布式系统中，多个节点之间就某个值达成一致的通信协议。也就是说，Raft是面向Consistency问题的解决方案。</p>
+<p>Raft将一致性算法分成了几个关键模块（子问题）：</p>
+<ul>
+<li>领导人选举</li>
+<li>日志复制</li>
+<li>安全性</li>
+</ul>
+<p>为了实现一致性这个目标，Raft算法执行的这个过程就和选举一样，参选者需要说服大多数选民（服务器）投票给他，一旦选定后就跟随其操作，领导人说啥，下面的人就做啥。</p>
+<p>其实期末复习只需要知道这些就可以了，但是Raft的算法真的很有趣，我真的很想继续写下去。所以下面的内容可以选择性看一看。</p>
+<h3 id="Raft算法的选举过程"><a href="#Raft算法的选举过程" class="headerlink" title="Raft算法的选举过程"></a>Raft算法的选举过程</h3><ol>
+<li>任何一个服务器都可以成为一个候选者，它向其他服务器（选民）发出要求选举自己的请求。</li>
+<li>其他服务器同意了，回复OK（同意）指令。此时如果有一个Follower服务器宕机，没有接收到选举的请求，则只要达到半数以上的票数，候选人还是可以成为领导者的</li>
+<li>这样，这个候选者就成为领导者，他可以向选民们发出要执行具体操作动作的指令，比如日志复制。</li>
+<li>如果一旦这个Leader宕机崩溃了，那么Follower中会有一个成为候选者，发起选举，相当于在执行1~2这个步骤。</li>
+</ol>
+<p><img src="https://lotabout.me/2019/Raft-Consensus-Algorithm/raft-server-states.svg" alt="Raft 一致性算法| 三点水"></p>
+<h2 id="Nginx的负载均衡策略"><a href="#Nginx的负载均衡策略" class="headerlink" title="Nginx的负载均衡策略"></a>Nginx的负载均衡策略</h2><p>在揭秘Nginx的负载均衡策略之前，我们要知道什么是Nginx呢？Nginx又有什么作用呢？</p>
+<p>在探寻这些问题的答案之前，我们首先要知道什么是分布式系统的设计策略！</p>
+<h3 id="分布式系统设计策略"><a href="#分布式系统设计策略" class="headerlink" title="分布式系统设计策略"></a>分布式系统设计策略</h3><p><strong>分布式系统本质是通过低廉的硬件攒在一起以获得更好的吞吐量、性能以及可用性等</strong>。一台设备坏了，可以通过负载均衡和路由到其他设备上。分布式系统有一些通用的设计策略，首先要解决心跳问题（Heartbeat）。一台服务器判定存活状态，才能执行任务，否则则不能。在分布式环境下，有几个问题是普遍关心的，我们称之为设计策略：</p>
+<ul>
+<li>如何检测你还活着？</li>
+<li>如何保障高可用性？</li>
+<li>容错处理</li>
+<li>重试机制</li>
+<li>负载均衡</li>
+</ul>
+<h4 id="如何检测你还活着？—-《心跳检测》"><a href="#如何检测你还活着？—-《心跳检测》" class="headerlink" title="如何检测你还活着？— 《心跳检测》"></a>如何检测你还活着？— 《心跳检测》</h4><p>在分布式环境中,存在着非常多的node，其实质是这些节点分担任务的运行、计算或者程序逻辑处理。那么就有一个非常重要的问题，如何检测一个节点出现了故障乃至无法工作了？</p>
+<p>传统解决这一命题是采用心跳检测的手段，如同通过仪器对病人进行一些检测诊断一样。心跳，就是以固定的频率向其他节点汇报当前节点状态的方式。收到心跳，一般可以认为一个节点和现在的网络是良好的。</p>
+<p>心跳汇报时，一般会携带附加状态、元数据信息等，便于管理。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/terwer/upload/img/image-20220410224103189.png" alt="image-20220410224103189"></p>
+<p>若Sever没有收到Node3的心跳时，Server认为Node3失联。</p>
+<p>但是失联只是Node3失去联系，不代表Node3存在故障，有可能是Node3处于繁忙状态，导致调用检测超时，也有可能Server与Node3直接出现网络闪断或者链路故障。</p>
+<p>因此，心跳不是万能的。收到心跳可以确认正常，但是收不到心跳，不能认定该节点已经死亡。这时候，可以通过一些方法帮助Server做决定：</p>
+<p>周期性心跳检测机制、累计失效检测机制。</p>
+<ul>
+<li>周期性心跳检测机制</li>
+</ul>
+<p>Server每隔t秒向Node集群发送检测请求，设定超时时间，如果超过超时时间，则判断死亡，可以把该节点踢出集群。</p>
+<h4 id="如何保障高可用性？—《高可用性设计》"><a href="#如何保障高可用性？—《高可用性设计》" class="headerlink" title="如何保障高可用性？—《高可用性设计》"></a>如何保障高可用性？—《高可用性设计》</h4><p>系统高可用性的常用设计模式包括三种：</p>
+<ul>
+<li><strong>主备模式</strong></li>
+</ul>
+<p>主备模式就是，当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者习惯以自动（热备）或手动（冷备）方式将服务切换到主机上运行。在数据库部分，习惯称之为MS模式。MS模式即Master/Slave模式，这在数据库高可用性方案中比较常用。</p>
+<ul>
+<li><strong>互备模式</strong></li>
+</ul>
+<p>互备模式是指两台主机同时运行各自的服务且相互监督情况。在数据库高可用性部分，常用的互备模式是MM模式。MM模式即Multi-Master模式，指一个系统存在多个master，每个master都具有read-write能力，需根据时间戳或业务逻辑合并版本。</p>
+<p>比如分布式版本管理系统git可以理解成Multi-master，具备最终一致性。</p>
+<ul>
+<li><strong>集群模式</strong></li>
+</ul>
+<p>集群模式是指有多个节点在运行，同时可以通过主控节点分担服务请求，比如zookeeper。集群模式要特别解决主控节点本身的高可用问题。</p>
+<p>TFS集群就是最好的集群模式例子：</p>
+<p><img src="https://yqfile.alicdn.com/36c3a605ed34c1a7b30655f6fc5c25dc849b1524.png" alt="structure"></p>
+<h4 id="容错处理怎么做？—《容错性》"><a href="#容错处理怎么做？—《容错性》" class="headerlink" title="容错处理怎么做？—《容错性》"></a>容错处理怎么做？—《容错性》</h4><p>容错性顾名思义就是IT系统对于错误的包容能力，<strong>这里的容错确切的说是容纳故障，而非容纳错误。</strong></p>
+<p>以前文提到的TFS集群为例，TFS集群需要容错（一个集群宕掉咋办？）、NameServer需要容错、DataServer需要容错。NameServer的容错机制是通过主备切换完成的。NameServer主要管理了DataServer和Block之间的关系。如每个DataServer用有哪些Block，每个Block存放在拿些DataServer上等。同时,NameServer采用了HA结构，一主一备，主NameServer上的操作会重放至备NameServer上。如果主NameServer出现问题，可以实时切换到备NameServer。</p>
+<p>另外NameServer和DataServer之间也会有定时的heartbeat，DataServer会把自己拥有的Block发送给NameServer。NameServer会根据这些信息重新构建DataServer和Block的关系。</p>
+<p><strong>容错处理是保障分布式系统环境下系统的高可用性</strong>，一个典型的案例就是对于缓存实现雪崩问题的解决方案。这里就涉及到了缓存穿透、缓存击穿和缓存雪崩三大问题，也是期中考试要考的内容。</p>
+<p><strong>所以我们知道，容错处理的目的是为了保障分布式系统的高可用性，其中对于缓存穿透、缓存击穿、缓存雪崩的处理便属于容错处理</strong>。<strong>我们会在分布式系统设计策略这一节写完之后，阐述这三个缓存问题是什么以及解决方案。</strong></p>
+<h4 id="负载均衡是什么？—《负载均衡》"><a href="#负载均衡是什么？—《负载均衡》" class="headerlink" title="负载均衡是什么？—《负载均衡》"></a>负载均衡是什么？—《负载均衡》</h4><p>负载均衡集群：<strong>其关键在于使用多台集群服务器共同分担计算任务，把网络请求及计算分配到集群可用的服务器上去，从而达到可用性及较好的用户操作体验。</strong></p>
+<p><img src="https://tangocc.github.io/img/in-post/post-load-balance.png" alt="img"></p>
+<p>负载均衡有硬件解决方案，也有软件解决方案。硬件解决方案有著名的F5、软件有LVS、HAproxy、Nginx等。<strong>由此我们引出了什么是Nginx。</strong></p>
+<h3 id="Nginx-负载均衡的软件解决方案"><a href="#Nginx-负载均衡的软件解决方案" class="headerlink" title="Nginx-负载均衡的软件解决方案"></a>Nginx-负载均衡的软件解决方案</h3><p>Nginx的作用是解决负载均衡问题，它实现负载均衡有如下几种策略：</p>
+<ul>
+<li>轮询：即Round Robin，根据Nginx配置文件中的顺序，依次把客户端Web请求分发到不同的后端服务器</li>
+<li>最少连接：当前谁的连接最少，分发给谁</li>
+<li>IP地址哈希：确定相同IP请求可以转发给同一个后端节点处理、以方便session保持</li>
+<li>基于权重的负载均衡：配置Nginx把请求更多地分发到高配置的后端服务器上，包相对较少的请求分发到低配服务器。</li>
+</ul>
+<p><strong>在这里我们提到了IP地址哈希，这也是期中考试的考点，我们会在Nginx负载均衡这一小结结束之后，详细阐述。</strong></p>
+<h3 id="缓存击穿、缓存穿透与缓存雪崩是什么？怎么解决？"><a href="#缓存击穿、缓存穿透与缓存雪崩是什么？怎么解决？" class="headerlink" title="缓存击穿、缓存穿透与缓存雪崩是什么？怎么解决？"></a>缓存击穿、缓存穿透与缓存雪崩是什么？怎么解决？</h3><h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><ul>
+<li>缓存里没有key，数据库里有数据</li>
+<li>某一个key失效，通常是热点数据，导致高并发情况下，请求直接打到DB上，DB直接崩掉（若是大量的key同时失效则变成了缓存雪崩）<ul>
+<li>解决方法：在查询第一个数据请求上使用一个互斥锁来锁住它。其他线程走到这一步拿不到锁就等着，等到第一个线程查询到了数据，然后做缓存。后面的线程进来发现已经有缓存了，就直接走缓存。</li>
+</ul>
+</li>
+</ul>
+<h4 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h4><ul>
+<li>缓存里没有数据</li>
+<li>大量不存在的id去查询数据，会产生大量的请求到DB查询，可能会导致DB由于压力过大而宕机<ul>
+<li>解决办法：<ul>
+<li>对null缓存：如果一个查询结果返回为空（不管数据是否存在），我们仍把这个空结果（null）进行缓存，设置空结果的过期时间会很短，最长不超过五分钟。</li>
+<li>Bloom Filter：在缓存之前再加一层Bloom Filter，在查询的时候先去Bloom Filter去查询key是否存在，如果不存在就直接返回，存在再走缓存-&gt;查DB</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><ul>
+<li>key对应的数据存在，但在redis中过期，此时若有大量的并发请求过来，这些请求发现缓存过期一般都会从DB加载数据并返回缓存，此时若有大并发的请求可能会瞬间把后端DB压垮。<ul>
+<li>解决方法：<ul>
+<li>构建多级缓存：nginx缓存+redis缓存+其他缓存（ehcache等）</li>
+<li>将缓存失效时间分散开 ：比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件</li>
+<li>互斥锁：<ul>
+<li>在第一个请求去查询数据库的时候对他加一个互斥锁，其余查询的请求就会被阻塞住，直到锁被释放，从而保护数据库。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="一致性算法"><a href="#一致性算法" class="headerlink" title="一致性算法"></a>一致性算法</h2><p>一致性哈希算法是在1997年由MIT提出的一种分布式哈希（DHT）实现算法。主要解决单调性（Monotonicity）和分散性（Spread）的问题。单调性简单描述是哈希的结果能够保证原有已分配的内容可以被映射到原有缓冲中去，避免在节点增减过程中导致不能命中</p>
+<h3 id="一致性Hash"><a href="#一致性Hash" class="headerlink" title="一致性Hash"></a>一致性Hash</h3><p>一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数H的值空间为0-2^32-1（即哈希值是一个32位无符号整型），整个哈希环如下所示</p>
+<p><img src="/images/python/image-20220513233659673.png" alt="image-20220513233659673"></p>
+<p><strong>学过数据结构-查询-散列表这一章应该知道什么是Hash，这里不多赘述，简而言之就是将IP地址通过Hash函数直接转变成存储地址。</strong></p>
+<ul>
+<li><p>将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针”行走“，遇到的第一台服务器就是其应该定位到的服务器。</p>
+</li>
+<li><p>增、减（宕机）结点后，原本 Node C 拥有的缓存数据需要”托付“给 Node C 的顺时针前驱节点Node E或后继节点Node D。如图所示：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">操作前</th>
+<th align="center">操作后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="/images/python/image-20220513235126795.png" alt="C节点未宕机"></td>
+<td align="center"><img src="/images/python/image-20220513235254717.png" alt="C节点宕机后"></td>
+</tr>
+<tr>
+<td align="center"><img src="/images/python/image-20220513235126795.png" alt="没有新增节点"></td>
+<td align="center"><img src="/images/python/image-20220513235454788.png" alt="增加E节点后"></td>
+</tr>
+</tbody></table>
+<h3 id="Hash环的数据倾斜问题"><a href="#Hash环的数据倾斜问题" class="headerlink" title="Hash环的数据倾斜问题"></a>Hash环的数据倾斜问题</h3><p>一致性Hash算法在服务节点台少时，容易因为节点分布不均匀而造成数据倾斜（被缓存的对象大部分集中缓存在某一台服务器上）问题，例如系统中只有两台服务器，其环分布如图所示：</p>
+<p><img src="/images/python/image-20220513235709371.png" alt="不均匀节点"></p>
+<ul>
+<li>具体做法可以在服务器IP或主机名的后面增加编号来实现。<ul>
+<li>为每台服务器计算三个虚拟节点，于是可以分别计算”Node A#1“、”Node A#2“、”Node<br>A#3“、”Node B#1“、”Node B#2“、”Node B#3“的哈希值，于是形成六个虚拟节点。</li>
+<li>这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚<br>至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/python/image-20220513235754339.png" alt="解决后"></p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>这一块内容较多，也是大数据存储技术中最重要的章节。</p>
+<p>我们分为几个部分来进行梳理和复习：</p>
+<ul>
+<li>Redis的数据结构</li>
+<li>Redis的持久化方式</li>
+<li>Redis的内存回收算法</li>
+<li>Redis的节点通信协议</li>
+<li>Redis的优化</li>
+</ul>
+<p>在进行学习之前，我们必须要知道什么是Redis，它是用来解决什么问题的？</p>
+<p>在Web应用发展的初期，那时关系型数据库受到了较为广泛的关注和应用，原因是因为那时候Web站点基本上访问和并发不高、交互也较少。而在后来，随着访问量的提升，使用关系型数据库的Web站点多多少少都开始在性能上出现了一些瓶颈，而瓶颈的源头一般是在磁盘的I/O上。而随着互联网技术的进一步发展，各种类型的应用层出不穷，这导致在当今云计算、大数据盛行的时代，对性能有了更多的需求，主要体现在以下四个方面：</p>
+<ol>
+<li>低延迟的读写速度：应用快速地反应能极大地提升用户的满意度</li>
+<li>支撑海量的数据和流量：对于搜索这样大型应用而言，需要利用PB级别的数据和能应对百万级的流量</li>
+<li>大规模集群的管理：系统管理员希望分布式应用能更简单的部署和管理</li>
+<li>庞大运营成本的考量：IT部门希望在硬件成本、软件成本和人力成本能够有大幅度地降低</li>
+</ol>
+<p>为了克服这一问题，NoSQL应运而生，它同时具备了高性能、可扩展性强、高可用等优点，受到广泛开发人员和仓库管理人员的青睐。</p>
+<p><strong>Redis是现在最受欢迎的NoSQL数据库之一</strong></p>
+<p>余下的内容，请参考老杨的文档。这里笔者还未做整理。</p>
+<h2 id="关系型数据库和非关系型数据库的优缺点分析"><a href="#关系型数据库和非关系型数据库的优缺点分析" class="headerlink" title="关系型数据库和非关系型数据库的优缺点分析"></a>关系型数据库和非关系型数据库的优缺点分析</h2><ul>
+<li>关系型数据库：<ul>
+<li>优点：<ol>
+<li>容易理解</li>
+<li>易于维护</li>
+<li>使用方便</li>
+<li>能完成一些复杂操作</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>读写性差</li>
+<li>灵活性欠缺</li>
+<li>硬盘I/O有瓶颈</li>
+<li>海量数据读写能力差</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>非关系型数据库：<ul>
+<li>优点：<ol>
+<li>读写性能高</li>
+<li>格式灵活</li>
+<li>速度快</li>
+<li>高拓展性</li>
+<li>成本低，部署简单</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>不提供SQL支持，学习成本和使用成本高</li>
+<li>无事务处理</li>
+<li>数据结构相对复杂，复杂查询方面稍微欠缺</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/">http://1905060202.github.io/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF/">大数据技术</a><a class="post-meta__tags" href="/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">期末复习</a><a class="post-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF/">分布式技术</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">高级Web技术复习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/28/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%8B%93%E8%8D%92/" title="大数据实验之拓荒"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-28</div><div class="title">大数据实验之拓荒</div></div></a></div><div><a href="/2021/06/30/%E7%AB%99%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" title="站在数据分析师的角度谈谈对数据的处理方法"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-30</div><div class="title">站在数据分析师的角度谈谈对数据的处理方法</div></div></a></div><div><a href="/2021/06/19/Python%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="Python与数据分析期末复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-19</div><div class="title">Python与数据分析期末复习</div></div></a></div><div><a href="/2022/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" title="计算机算法设计与分析复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">计算机算法设计与分析复习</div></div></a></div><div><a href="/2022/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%A2%98%E5%BA%93/" title="计算机网络题库"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-06</div><div class="title">计算机网络题库</div></div></a></div><div><a href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="高级Web技术复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">高级Web技术复习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/you.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">63</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1905060202" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">前段时间博客崩溃，眼下课程设计与期末考试接踵而至，心有余而力不足，等有空再重新整理博客吧！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF-%E6%B7%B1%E5%85%A5%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%A4%8D%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">大数据存储技术-深入分布式缓存从原理到实践 总结与复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CAP%E7%90%86%E8%AE%BA"><span class="toc-number">1.1.</span> <span class="toc-text">CAP理论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CA-without-P"><span class="toc-number">1.1.1.</span> <span class="toc-text">CA without P</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CP-without-A"><span class="toc-number">1.1.2.</span> <span class="toc-text">CP without A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AP-without-C"><span class="toc-number">1.1.3.</span> <span class="toc-text">AP without C</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Raft%E7%AE%97%E6%B3%95%E7%9A%84%E4%B8%89%E4%B8%AA%E5%AD%90%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">Raft算法的三个子问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Raft%E7%AE%97%E6%B3%95%E7%9A%84%E9%80%89%E4%B8%BE%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">Raft算法的选举过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.</span> <span class="toc-text">Nginx的负载均衡策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">分布式系统设计策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B%E4%BD%A0%E8%BF%98%E6%B4%BB%E7%9D%80%EF%BC%9F%E2%80%94-%E3%80%8A%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E3%80%8B"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">如何检测你还活着？— 《心跳检测》</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E9%9A%9C%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%EF%BC%9F%E2%80%94%E3%80%8A%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%E8%AE%BE%E8%AE%A1%E3%80%8B"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">如何保障高可用性？—《高可用性设计》</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%9F%E2%80%94%E3%80%8A%E5%AE%B9%E9%94%99%E6%80%A7%E3%80%8B"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">容错处理怎么做？—《容错性》</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E2%80%94%E3%80%8A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E3%80%8B"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">负载均衡是什么？—《负载均衡》</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">Nginx-负载均衡的软件解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E3%80%81%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">1.3.3.</span> <span class="toc-text">缓存击穿、缓存穿透与缓存雪崩是什么？怎么解决？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">缓存击穿</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">缓存穿透</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">缓存雪崩</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">一致性算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7Hash"><span class="toc-number">1.4.1.</span> <span class="toc-text">一致性Hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash%E7%8E%AF%E7%9A%84%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.2.</span> <span class="toc-text">Hash环的数据倾斜问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis"><span class="toc-number">1.5.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">1.6.</span> <span class="toc-text">关系型数据库和非关系型数据库的优缺点分析</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="大数据存储技术复习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据存储技术复习"/></a><div class="content"><a class="title" href="/2022/05/13/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="大数据存储技术复习">大数据存储技术复习</a><time datetime="2022-05-13T14:06:32.000Z" title="发表于 2022-05-13 22:06:32">2022-05-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="高级Web技术复习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高级Web技术复习"/></a><div class="content"><a class="title" href="/2022/05/06/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%A4%8D%E4%B9%A0/" title="高级Web技术复习">高级Web技术复习</a><time datetime="2022-05-06T12:46:53.000Z" title="发表于 2022-05-06 20:46:53">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/" title="高级Web技术实验(一)"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高级Web技术实验(一)"/></a><div class="content"><a class="title" href="/2022/04/08/%E9%AB%98%E7%BA%A7Web%E6%8A%80%E6%9C%AF%E5%AE%9E%E9%AA%8C-%E4%B8%80/" title="高级Web技术实验(一)">高级Web技术实验(一)</a><time datetime="2022-04-08T02:00:40.000Z" title="发表于 2022-04-08 10:00:40">2022-04-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/10/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="无题"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/01/10/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="无题">无题</a><time datetime="2022-01-10T09:46:19.219Z" title="发表于 2022-01-10 17:46:19">2022-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%A2%98%E5%BA%93/" title="计算机网络题库"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络题库"/></a><div class="content"><a class="title" href="/2022/01/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%A2%98%E5%BA%93/" title="计算机网络题库">计算机网络题库</a><time datetime="2022-01-06T06:11:57.000Z" title="发表于 2022-01-06 14:11:57">2022-01-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
