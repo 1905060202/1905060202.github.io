@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>西南交大840数据结构算法整理</title>
+      <link href="/2022/07/29/%E8%A5%BF%E5%8D%97%E4%BA%A4%E5%A4%A7840%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"/>
+      <url>/2022/07/29/%E8%A5%BF%E5%8D%97%E4%BA%A4%E5%A4%A7840%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>时至七月末，开始着手专业课的复习。因为是科班出身，数据结构已经在一年级下就学过了，所以对书上的知识点都已经很熟悉。但时过境迁，岁月流逝，相隔两年的时间也让我对书中的细节有所遗忘，趁着暑假的功夫，好好捡一捡过往的记忆。</p><p>这篇文章主要记录的是数据结构的重点算法，针对西南交大历年考题量身定制了《算法三讲》。</p><p>分为三个部分。</p><ul><li>其一是840考试的重点算法，主要针对最后一题的算法设计，内容极其重要，所以将他放在第一讲。</li><li>其二是王道数据结构的所有算法大题，难度较高，综合性较强，难度在真题之上。这一部分的内容要反复修炼，熟唸于心。</li><li>其三是840历年真题的所有算法的设计思路，进行拓展思考。</li></ul><h1 id="第一讲-840重点算法"><a href="#第一讲-840重点算法" class="headerlink" title="第一讲 840重点算法"></a>第一讲 840重点算法</h1><h2 id="写在前面-1"><a href="#写在前面-1" class="headerlink" title="写在前面"></a>写在前面</h2><p>本讲内容的顺序按照考试重点考察频率的优先级进行安排，也就是说，最常考的内容会放到前面，不常考的放在后面。</p><p> 2022.8.9 于成都·抚琴东南路</p><h2 id="树与二叉树"><a href="#树与二叉树" class="headerlink" title="树与二叉树"></a>树与二叉树</h2><h3 id="二叉树顺序存储结构和二叉链表存储结构的相互转化的算法"><a href="#二叉树顺序存储结构和二叉链表存储结构的相互转化的算法" class="headerlink" title="二叉树顺序存储结构和二叉链表存储结构的相互转化的算法"></a>二叉树顺序存储结构和二叉链表存储结构的相互转化的算法</h3><h4 id="1-将二叉树的链表存储形式转化为树的顺序存储形式"><a href="#1-将二叉树的链表存储形式转化为树的顺序存储形式" class="headerlink" title="1.将二叉树的链表存储形式转化为树的顺序存储形式"></a>1.将二叉树的链表存储形式转化为树的顺序存储形式</h4><p>树的顺序存储结构，是利用完全二叉树的性质来定义的，不管一颗二叉树什么结构，他都可以补全成完全二叉树。</p><p>其实我们把二叉树的顺序表从1开始（有些也从0开始，此时他的左右孩子就变成了2i+1与2i+2）。此时他的左右孩子为2i与2i+1.</p><p>可以通过树的遍历算法实现，用树的结点来做索引，每次如果遇到空的情况，直接将该数组值变为‘0’.</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//T为根节点 K数组用来存放数据 i表示该数组再数组中的下标 在这之前先将K数组全部初始化为‘0’</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">TranstoArray</span><span class="hljs-params">(BiTree T,<span class="hljs-keyword">char</span> K[],<span class="hljs-keyword">int</span> i)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(T)&#123;<br>        K[i] = T-&gt;data;<br>        TranstoArray(T-&gt;lchild,K,<span class="hljs-number">2</span>i);<br>        TranstoArray(T-&gt;rchild,K,<span class="hljs-number">2</span>i+<span class="hljs-number">1</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        K[i] = <span class="hljs-string">&#x27;0&#x27;</span>;<span class="hljs-comment">//若T为空，说明上个结点的左或右孩子中必有空的情况</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h4 id="2-将树的顺序存储结构转化为树的二叉链式存储结构"><a href="#2-将树的顺序存储结构转化为树的二叉链式存储结构" class="headerlink" title="2.将树的顺序存储结构转化为树的二叉链式存储结构"></a>2.将树的顺序存储结构转化为树的二叉链式存储结构</h4><p>此时用数组K来索引，每次通过数组K的值来创建二叉树结点<strong>，所以要用“指针的指针”或者“指针的引用”，来创建一颗新的二叉树结构。</strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//T表示一个在主函数中定义的指针的地址（指针的指针）</span><br><span class="hljs-comment">//过程类似于二叉排序树，AVL的创建</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">TranstoTable</span><span class="hljs-params">(BiTree *T,<span class="hljs-keyword">char</span> K[],<span class="hljs-keyword">int</span> i)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(K[i]!=<span class="hljs-string">&#x27;0&#x27;</span>)&#123;<br>      BiTree temp = <span class="hljs-keyword">new</span> BiNode;<span class="hljs-comment">//用来申请新的空间</span><br>        temp-&gt;data = K[i];<br>        temp-&gt;lchild = temp-&gt;rchild = <span class="hljs-literal">NULL</span>;<br>        (*T) = temp;<br>        TranstoTable(&amp;(*T)-&gt;lchild,K,<span class="hljs-number">2</span>i);<span class="hljs-comment">//每次通过改变左右指针的空间来继续创建</span><br>        TranstoTable(&amp;(*T)-&gt;rchild,K,<span class="hljs-number">2</span>i+<span class="hljs-number">1</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        (*T) = <span class="hljs-literal">NULL</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>上部分黑色重点标注的部分可能不太好理解，我自己在写代码的时候，也遇到了困惑。比如BiTree是什么？它传递的参数又是什么？什么是指针的指针？以上问题，我们在下面回答。</p><p>在写完代码之后，发觉自己对二叉树的链式定义有些遗忘了，在这里写一下二叉树的链式定义。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BiTNode</span>&#123;</span><br>    ElemType data;<span class="hljs-comment">//数据域</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BiTNode</span> *<span class="hljs-title">lchild</span>,*<span class="hljs-title">rchild</span>;</span><span class="hljs-comment">//左、右孩子指针</span><br>&#125;BiTNode,*BiTree；<span class="hljs-comment">//注意这里的BiTree是指向BiTNode类型结点的指针</span><br></code></pre></td></tr></table></figure><p>可以看到，BiTree是指向BiTNode这种结点的指针，那么在第一个算法中，我们用BiTree定义T时，实际上我们定义的是一个指向根节点的指针。</p><p>而在第二个算法中，我们定义了一个指向根节点指针的指针。为什么要这么做呢？这是我在复习时的一个疑惑。下面给出我的解释。如果在第二个算法中，直接使用BiTree定义根节点的指针，那么在 <code>(*T) = temp;</code>这部分代码，就会变成<code>T = temp;</code>这种形式，而这种形式实际上是一种地址的赋值，相当于temp与T指向了同一个地址，而这种只能改变指针所指的地址的内容，不能改变指针本身的指向。<strong>在函数调用时用指针或者引用做参数，表示把变量的地址传递给子函数，但是子函数只能修改指针所指变量的值，并不能修改指针的指向。如果想要修改指针的指向，就要用指针的指针，或者指针的引用</strong>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 考研 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spark大数据分析技术期末复习</title>
       <link href="/2022/06/21/Spark%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
       <url>/2022/06/21/Spark%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</url>
