@@ -4,11 +4,156 @@
   
     
     <entry>
+      <title>Java面试速成指南</title>
+      <link href="/2022/09/07/Java%E9%9D%A2%E8%AF%95%E9%80%9F%E6%88%90%E6%8C%87%E5%8D%97/"/>
+      <url>/2022/09/07/Java%E9%9D%A2%E8%AF%95%E9%80%9F%E6%88%90%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>临时接到面试通知，很仓促，所以在这里速过一下可能会被面到的问题。</p><h2 id="Java基础（重点）"><a href="#Java基础（重点）" class="headerlink" title="Java基础（重点）"></a>Java基础（重点）</h2><h3 id="Java代理的几种实现方式"><a href="#Java代理的几种实现方式" class="headerlink" title="Java代理的几种实现方式"></a>Java代理的几种实现方式</h3><ul><li>静态代理：只能静态代理某些类或者某些方法，不推荐使用，编码简单</li><li>动态代理：包含Proxy代理和CGLIB动态代理</li></ul><h3 id="ArraryList与LinkedList的区别（重点）"><a href="#ArraryList与LinkedList的区别（重点）" class="headerlink" title="ArraryList与LinkedList的区别（重点）"></a>ArraryList与LinkedList的区别（重点）</h3><p>底层的数据结构有区别，ArraryList是由数组实现的，而LinkedList是基于链表实现的。</p><p>链表和数组的在于，数组的内存空间是连续的，根据索引就可以实现随机存取，而链表只能从头遍历。所以对于查找效率来讲，ArrayList要比LinkedList高效。但在插入和删除数据的时候，LinkedList要比ArrayList高效。</p><h3 id="HashMap和HashTable的区别是什么（重点）"><a href="#HashMap和HashTable的区别是什么（重点）" class="headerlink" title="HashMap和HashTable的区别是什么（重点）"></a>HashMap和HashTable的区别是什么（重点）</h3><ul><li>HashTable是线程同步的，HashMap不是线程同步的</li><li>HashTable不允许&lt;键，值&gt;有空值，HashMap允许&lt;键，值&gt;有空值（key有一个，value可以有多个）</li><li>HashTable还支持Enumeration，HashMap使用Iterator</li><li>HashTable与HashMap继承的父类不同，但是实现了相同的接口</li></ul><h3 id="HashMap有哪些线程安全的方式（重点）"><a href="#HashMap有哪些线程安全的方式（重点）" class="headerlink" title="HashMap有哪些线程安全的方式（重点）"></a>HashMap有哪些线程安全的方式（重点）</h3><ul><li>通过Collections.synchronizedMap()返回一个新的Map，这个新的Map就是线程安全的。</li><li>重写改写HashMap，具体看java.util.concurrent.ConcurrentHashMap</li></ul><h3 id="Java类加载器有哪些？（重点）"><a href="#Java类加载器有哪些？（重点）" class="headerlink" title="Java类加载器有哪些？（重点）"></a>Java类加载器有哪些？（重点）</h3><ul><li><p>Bootstrap类加载器：它负责将JAVA_HOME/lib路径下的核心类库加载到内存中</p></li><li><p>Extention类加载器：负责加载JAVA_HOME/lib/ext目录下的的类库</p></li><li><p>Application类加载器：负责加载系统java -classpath路径下的类库</p></li></ul><h3 id="如何避免ABA问题（重点）"><a href="#如何避免ABA问题（重点）" class="headerlink" title="如何避免ABA问题（重点）"></a>如何避免ABA问题（重点）</h3><p>可以通过加版本号或者时间戳解决，或者保证单项递增或递减就不会出现此类问题。</p><p>atomic包下AtomicStampedReference类：其conpareAndSet方法首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用的该标志的值设置为给定的更新值。</p><h3 id="CLASS初始化的过程是什么？"><a href="#CLASS初始化的过程是什么？" class="headerlink" title="CLASS初始化的过程是什么？"></a>CLASS初始化的过程是什么？</h3><p>类加载的过程大致分为：加载–<strong>验证–准备–解析</strong>–初始化–使用–卸载 相当于 加载–连接–初始化–使用–卸载</p><p>类的初始化阶段，是真正开始执行类中定义的Java程序代码（字节码）并按程序员的意图去初始化类变量的过程。更直接地说，初始化阶段是执行类构造器<clinit>()方法的过程。<clinit>()方法是由编译器自动收集类中的所有类变量的赋值动作和静态代码块static{}中的语句合并产生的，其中编译器收集的顺序是由语句在源文件中出现的顺序决定，<strong>重点就是类变量和静态代码块按源文件中的定义顺序决定执行顺序。</strong></p><h3 id="如何实现一个IOC容器？"><a href="#如何实现一个IOC容器？" class="headerlink" title="如何实现一个IOC容器？"></a>如何实现一个IOC容器？</h3><p>主要分为四步：</p><ul><li>在配置文件中，配置包的扫描路径</li><li>根据扫描路径，递归包路径，取出所有的.class文件</li><li>反射这些.class文件，确定哪些.class文件需要交给IOC容器管理，把这些类找出来</li><li>对需要注入的类进行依赖注入</li></ul><h2 id="JVM（重点）"><a href="#JVM（重点）" class="headerlink" title="JVM（重点）"></a>JVM（重点）</h2><h3 id="什么是守护线程？"><a href="#什么是守护线程？" class="headerlink" title="什么是守护线程？"></a>什么是守护线程？</h3><p>在Java中有两类线程：User Thread和Daemon Thread。任何一个守护线程都是整个JVM中所有非守护线程的保姆。</p><p>只要当前JVM实例尚存在任何一个非守护线程没有结束，守护线程就继续工作。比如GC。</p><p>设置守护线程要注意，thread。setDaemon(true)必须在thread.start()之前</p><h3 id="双亲委派"><a href="#双亲委派" class="headerlink" title="双亲委派"></a>双亲委派</h3><p>如果一个类加载器收到了类加载请求，他并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类还存在其父类加载器，则进一步向上委托，依次递归，直至达到顶层。如果父类加载器可以完成任务，就成功返回，倘若父类加载器无法完成此任务，子加载器才会尝试自己去加载。</p><p>双亲委派的优点：</p><ul><li>每一个类只被加载了一次，避免了重复加载</li><li>有效避免了某些恶意类的加载</li></ul><h3 id="为什么要使用线程池？"><a href="#为什么要使用线程池？" class="headerlink" title="为什么要使用线程池？"></a>为什么要使用线程池？</h3><p>Java线程的创建非常昂贵，需要JVM和OS配合完成大量的工作</p><ul><li>必须为线程堆栈分配和初始化大量内存块，其中包括至少1MB栈内存</li><li>需要进行系统调用，以便在OS中创建和注册本地线程</li></ul><p>Java高并发应用频繁创建和销毁线程是非常低效的，而且是不被编程规范所允许的。</p><p>线程池主要解决了两个问题：</p><ul><li>提升性能：线程池能独立负责线程的创建、维护和分配。在执行大量异步任务时，可以不需要自己创建线程，而是将任务交给线程池去调度。线程池能尽可能使用空闲的线程去执行异步任务，最大限度地对已经创建的线程进行复用。</li><li>线程管理：每个Java线程池会保持基本的线程统计信息</li></ul><h3 id="JVM8为什么要增加元空间？"><a href="#JVM8为什么要增加元空间？" class="headerlink" title="JVM8为什么要增加元空间？"></a>JVM8为什么要增加元空间？</h3><h4 id="持久代"><a href="#持久代" class="headerlink" title="持久代"></a>持久代</h4><p><strong>持久代中包含了虚拟机中所有可通过反射获取到的数据</strong>，比如Class和Method对象。<strong>JVM用于描述应用程序中用到的类和方法的元数据也存储在持久代中除此之外，Java SE库中的类和方法也都存储在这里。</strong></p><p>如果JVM发现有的类已经不需要了，他就回去回收这些类。</p><h4 id="持久代的大小"><a href="#持久代的大小" class="headerlink" title="持久代的大小"></a>持久代的大小</h4><p>他的上限是MaxPermSize，默认是64MB.持久代用完后，会抛出OOM，异常。需要多大的持久代取决于类的数量，方法的大小以及常量池的大小。</p><h4 id="元空间"><a href="#元空间" class="headerlink" title="元空间"></a>元空间</h4><p>取代了持久代，元空间使用本地内存。</p><p>元空间的优点：</p><ul><li>类及相关的元数据的生命周期与类加载器保持一致</li><li>每个加载器有专门的存储空间</li><li>只进行线性分配</li></ul><h3 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h3><p><strong>JVM内存分为：堆、虚拟机栈、本地方法栈、程序计数器、方法区5部分</strong></p><p><strong>JDK1.7与JDK1.8最大的区别是：元数据区取代了永久代（持久代）。元空间本质和持久类似。都是对JVM规范中方法区的实现。不过元空间与持久代最大的不同在于：元数据空间并不在虚拟机中，而是使用本地内存。</strong></p><p>新生代：eden、from、to</p><p>老年代：old</p><p>持久代：perm</p><p>元空间：meta</p><h3 id="synchronized和lock有哪些区别？（重点）"><a href="#synchronized和lock有哪些区别？（重点）" class="headerlink" title="synchronized和lock有哪些区别？（重点）"></a>synchronized和lock有哪些区别？（重点）</h3><ul><li>lock是一个接口，synchronized是一个关键字。</li><li>synchronized在发生异常时会自动释放占有的锁，因此不会出现死锁。而lock发生异常的时候，不会主动释放占有的锁，必须手动unlock来释放锁，可能引起死锁。</li><li>lock等待锁过程中可以用interrupt来中断等待，而synchronized只能等待锁的释放，不能响应中断。</li><li>Lock可以通过tryLock来知道有没有获取锁，而synchronized不能</li><li>Lock可以提高多个线程进行读写的效率</li></ul><h3 id="有哪些垃圾回收算法？"><a href="#有哪些垃圾回收算法？" class="headerlink" title="有哪些垃圾回收算法？"></a>有哪些垃圾回收算法？</h3><ul><li>标记-清除算法：标记，清除，产生碎片，低效</li><li>复制算法：标记，复制到另一边，清除，代价是内存比原来少了一半</li><li>标记-整理算法：标记，清楚，整理到一起。费时间</li><li>分代收集法：根据对象存活周期，将内存划分为几块。一般是把Java堆分成新生代和老年代，根据各个年代采用合适的算法。</li></ul><h3 id="如何预防死锁"><a href="#如何预防死锁" class="headerlink" title="如何预防死锁"></a>如何预防死锁</h3><p>死锁发生的四个必要条件：</p><ul><li>互斥</li><li>非抢占</li><li>占有且等待</li><li>循环等待</li></ul><p>预防死锁的方式就是破坏这四个必要条件。</p><h3 id="volatile的可见性和禁止指令重排序怎么实现？（重点）"><a href="#volatile的可见性和禁止指令重排序怎么实现？（重点）" class="headerlink" title="volatile的可见性和禁止指令重排序怎么实现？（重点）"></a>volatile的可见性和禁止指令重排序怎么实现？（重点）</h3><p>volatile的功能就是被修饰的变量在被修改后可以立即同步到主内存，被修饰的变量在每次是用之前都从主内存刷新。</p><p>可见性本质是通过内存屏障来实现的，禁止指令重排序也是通过内存屏障实现的。</p><p>内存屏障：</p><ul><li>他确保指令重排序时不会把其后面的指令拍到内存屏障之前的位置，也不会把前面的指令拍到内存屏障后面的位置。在执行到内存屏障这句指令时，在它前面的操作已全部完成。</li><li>他会强制将对缓存的修改操作立即写入主存</li><li>如果是写操作，它会导致其他CPU中对应的缓存行无效。</li></ul><p><img src="../images/python/image-20220907232211961.png" alt="禁止指令重排序"></p><h3 id="程序开多少线程合适？（重点）"><a href="#程序开多少线程合适？（重点）" class="headerlink" title="程序开多少线程合适？（重点）"></a>程序开多少线程合适？（重点）</h3><p>CPU密集型：线程数等于核心数cpu</p><p>IO密集型：等待时间占比越多，线程开的越多。cpu运行占比越多，线程越少。</p><h3 id="线程创建的方式（重点）"><a href="#线程创建的方式（重点）" class="headerlink" title="线程创建的方式（重点）"></a>线程创建的方式（重点）</h3><ul><li>继承Thread类创建线程</li><li>实现Runnable接口创建线程</li><li>使用Callable和Future创建线程</li><li>使用线程池例如Exector框架继承Thread类创建线程 </li></ul><h3 id="什么是字节码？采用字节码的好处是什么？"><a href="#什么是字节码？采用字节码的好处是什么？" class="headerlink" title="什么是字节码？采用字节码的好处是什么？"></a>什么是字节码？采用字节码的好处是什么？</h3><p>在Java中，供虚拟机理解的代码叫做字节码（即.class文件），它不面向任何的处理器，只面向虚拟机。</p><p>每一种平台的解释器是不同的，但是实现的虚拟机是相同的。Java源程序经过编译变成字节码，字节码由虚拟机解释执行，虚拟机将每一条要执行的字节码送给解释器，解释器将其翻译成特定机器上的机器码，然后在特定的机器上运行。</p><p>Java语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。所以Java程序运行比较高效。而且，由于字节码并不专针对一种机器，因此,Java程序无需重新编译便可在多种不同的计算机上运行。</p><h3 id="ThreadLocal的原理及使用场景"><a href="#ThreadLocal的原理及使用场景" class="headerlink" title="ThreadLocal的原理及使用场景"></a>ThreadLocal的原理及使用场景</h3><p>每一个Thread对象均含有一个ThreadLocalMap类型的成员变量threadLocals，他存储本线程中所有ThreadLocal对象及其对应的值。</p><p>ThreadLocalMap对对象由一个一个Entry对象构成</p><h3 id="ThreadLocal内存泄漏"><a href="#ThreadLocal内存泄漏" class="headerlink" title="ThreadLocal内存泄漏"></a>ThreadLocal内存泄漏</h3><p>ThreadLocal内存泄露的根本原因是：由于ThreadLocalMap的生命周期跟Thread一样长，如果没有手动删除对应key就会导致内存泄漏，而不是因为弱引用。</p><p>ThreadLocal正确的使用方法：</p><ul><li>每次使用完ThreadLocal都调用它的remove()方法清除数据</li><li>将ThreadLocal变量定义成private static，这样就一直存在ThreadLocal的强引用，也就能保证任何时候都能通过ThreadLocal的弱引用访问到Entry的value值，进而清除掉。</li></ul><h3 id="GC是如何判断对象可以被回收的？（重点）"><a href="#GC是如何判断对象可以被回收的？（重点）" class="headerlink" title="GC是如何判断对象可以被回收的？（重点）"></a>GC是如何判断对象可以被回收的？（重点）</h3><ul><li>引用计数法：每一个对象有一个引用属性，新增一个引用时加一，引用释放减一，计数为0的时候可以回收。但是这种方法有一个致命的问题，无法解决循环引用的问题。</li><li>可达性分析算法：<ul><li>从Gc root开始向下搜索，搜索所走过的路径被成为引用链，当一个对象到GcRoot没有任何引用链相连时，则证明此对象是不可用的，那么虚拟机就可以判定收回。</li><li>Gc Root有：<ul><li>虚拟机栈中的对象</li><li>方法区中静态属性引用的对象</li><li>方法区中常量引用的对象</li><li>本地方法栈中引用的对象</li></ul></li></ul></li></ul><h4 id="不同的引用类型"><a href="#不同的引用类型" class="headerlink" title="不同的引用类型"></a>不同的引用类型</h4><ul><li><p>强引用：通过关键字new的对象就是强引用对象，强引用对象任何时候都不会被收回，宁愿OOM</p></li><li><p>软引用：如果一个对象持有软引用，那么当JVM空间不足时，会被回收。一个类的软引用可以通过java.lang.ref.SoftReferece持有</p></li><li><p>弱引用：如果一个对象持有弱引用，那么在GC时，只要发现弱引用对象，就会被回收。一个类的弱引用可以通过java.lang.ref.WeakReference持有</p></li><li><p>虚引用：几乎和没有一样，随时可以被回收。通过PhantomReference持有。</p></li></ul><h2 id="MySQL（重点）"><a href="#MySQL（重点）" class="headerlink" title="MySQL（重点）"></a>MySQL（重点）</h2><h3 id="MySQL的隔离级别有哪些？"><a href="#MySQL的隔离级别有哪些？" class="headerlink" title="MySQL的隔离级别有哪些？"></a>MySQL的隔离级别有哪些？</h3><ol><li>读取未提交内容（脏读）</li><li>读取提交内容（不可重复读）</li><li>可重复读（MySQL默认隔离级别）</li><li>可串行化</li></ol><h3 id="MySQL聚簇和非聚簇索引的区别是什么？"><a href="#MySQL聚簇和非聚簇索引的区别是什么？" class="headerlink" title="MySQL聚簇和非聚簇索引的区别是什么？"></a>MySQL聚簇和非聚簇索引的区别是什么？</h3><p>索引存在于磁盘中。<strong>存储引擎是基于表的，而不是数据库。</strong></p><p>mysql的索引类型是和存储引擎相关的，innodb存储引擎文件跟索引文件全部放在ibd文件中，而myisam数据文件放在myd文件中，索引放在myi中，区分聚簇和非聚簇索引，<strong>判断数据和索引是否放在一起就可以了。</strong></p><p>innodb既有聚簇索引，也有非聚簇索引。而myisam中只有非聚簇索引。</p><h3 id="MySQL为什么需要主从同步？"><a href="#MySQL为什么需要主从同步？" class="headerlink" title="MySQL为什么需要主从同步？"></a>MySQL为什么需要主从同步？</h3><ul><li>在业务复杂的系统中，有这么一个情景，有一句sql需要锁表，导致暂时不能使用读服务，那么就很影响运行中的业务，使用主从复制，让主库负责写，从库负责读，这样即使主库出了锁表的情景，通过从库也可以保证业务的正常运行。</li><li>做数据的热备份</li><li>业务量越来越大，I/O访问频率过高，单机无法满足，此时做多库存储，降低磁盘I/O访问的频率，提高单个机器的I/O性能。</li></ul><h3 id="什么是MySQL的主从复制？"><a href="#什么是MySQL的主从复制？" class="headerlink" title="什么是MySQL的主从复制？"></a>什么是MySQL的主从复制？</h3><p>业务量比较大的时候，一台服务器承载不住那么大的压力。于是需要多台服务器。这些服务器需要同步信息，以此来缓解压力。MySQL采用异步复制的方式，没必要都复制，效率太低。</p><h3 id="什么是MVCC？"><a href="#什么是MVCC？" class="headerlink" title="什么是MVCC？"></a>什么是MVCC？</h3><p>MVCC，多版本并发控制<strong>，MVCC是一种并发控制的方法。在进行多线程并发读写的时候，不会进行加锁操作，既能保证数据安全，又能保证并发效率。</strong></p><ul><li>当前读：update、insert、delete这些操作都是一种当前读，他读取的是最新的纪录版本，读取时还要保证其他并发事务不能修改当前记录，会对读取的记录加锁。</li><li>快照读：不加锁的select就是快照读。快照读的前提是隔离级别不能是串行级别。</li></ul><h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="什么是Bean的自动装配？"><a href="#什么是Bean的自动装配？" class="headerlink" title="什么是Bean的自动装配？"></a>什么是Bean的自动装配？</h3><p>bean的自动装配是指，bean的属性值在进行注入的时候通过某种特定的规则和方式去容器里查找，并设置到具体的对象属性中，主要有五种方式。</p><ul><li>no</li><li>ByName</li><li>ByType</li><li>constructor</li><li>autodetect</li></ul><h3 id="Spring的优势"><a href="#Spring的优势" class="headerlink" title="Spring的优势"></a>Spring的优势</h3><ul><li>Spring通过DI、和AOP来简化企业级Java开发</li><li>Spring框架之外还存在一个构建在核心框架之上的庞大生态圈，它将Spring扩展到不同领域，如Web服务、REST、移动开发以及NoSQL</li><li>Spring的ORM和DAO提供了与第三方持久层框架的良好整合，并简化了底层的数据库访问</li></ul><h3 id="事务的基本特征是什么"><a href="#事务的基本特征是什么" class="headerlink" title="事务的基本特征是什么"></a>事务的基本特征是什么</h3><pre><code>- 原子性- 一致性- 隔离性- 持久性</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> Spring </tag>
+            
+            <tag> Java面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JVM与Java并发编程</title>
+      <link href="/2022/09/06/JVM%E4%B8%8EJava%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <url>/2022/09/06/JVM%E4%B8%8EJava%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>校招面试重点！请先行准备！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JVM </tag>
+            
+            <tag> 并发编程 </tag>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>系统设计与设计模式详解</title>
+      <link href="/2022/09/06/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2022/09/06/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>校招面试重点！请先行准备！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 后端 </tag>
+            
+            <tag> 设计模式 </tag>
+            
+            <tag> 系统设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL详解</title>
+      <link href="/2022/09/06/MySQL%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2022/09/06/MySQL%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>校招面试重点！请先行准备！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+            <tag> 后端 </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Redis详解</title>
+      <link href="/2022/09/06/Redis%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2022/09/06/Redis%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+            <tag> 后端 </tag>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>操作系统面试指南</title>
       <link href="/2022/09/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
       <url>/2022/09/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/</url>
       
-        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>校招在即，着手准备操作系统方面的面试。因为大二下学期学习了操作系统，所以对知识的理解还算深刻，只是一些细节忘记了，在这里重新梳理一下。</p><p>本文部分内容转自：<a href="https://javaguide.cn/cs-basics/operating-system/operating-system-basic-questions-01.html#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8">JavaGuide面试指南</a></p><h1 id="操作系统基础"><a href="#操作系统基础" class="headerlink" title="操作系统基础"></a>操作系统基础</h1><h2 id="什么是操作系统？"><a href="#什么是操作系统？" class="headerlink" title="什么是操作系统？"></a>什么是操作系统？</h2><ul><li><strong>操作系统本质上是一个运行在计算机上的软件程序 ，用于管理计算机硬件和软件资源。</strong></li><li><strong>操作系统的内核（Kernel）是操作系统的核心部分，它负责系统的内存管理，硬件设备的管理，文件系统的管理以及应用程序的管理</strong>。</li></ul><p><img src="https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/2020-8/Kernel_Layout.png" alt="Kernel_Layout"></p><h2 id="什么是系统调用？"><a href="#什么是系统调用？" class="headerlink" title="什么是系统调用？"></a>什么是系统调用？</h2><p>介绍系统调用之前，我们先来了解一下用户态和系统态。</p><p>根据进程访问资源的特点，我们可以把进程在系统上的运行分为两个级别：</p><ul><li>用户态：用户态运行的进程可以直接读取用户程序的数据</li><li>系统态：系统态运行的进程几乎可以访问计算机的任何资源，不受限制</li></ul><p>说了用户态和系统态之后，那么什么是系统调用呢？</p><p>我们运行的程序基本都是在用户态上的，如果我们想调用操作系统提供的系统态级别的子功能咋办呢？那就需要系统调用了。</p><p>我们在运行的用户程序中，凡是与系统态级别的资源有关的操作（如文件管理、进程控制、进程通信、内存管理，设备管理等），都必须通过系统调用方式向操作系统提出服务请求，并由操作系统代为完成。</p><p>这些系统调用大致可分为如下几类：</p><ul><li>设备管理：完成设备的请求与释放，以及设备启动等功能。</li><li>文件管理：完成文件的读、写、创建及删除等功能。</li><li>进程控制：完成进程的创建、撤销、阻塞以及唤醒功能</li><li>进程通信：完成进程之间的消息传递或信号传递等功能</li><li>内存管理：完成内存分配、回收以及获取作业占用内存区大小及地址等功能</li></ul><h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>线程是进程划分的更小的运行单位，一个进程在其执行期间可以产生多个线程。线程和进程最大的区别在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。线程执行开销小，但不利于资源的管理和保护。进程恰恰相反。</p><p>按石林老师的话来讲，进程是资源分配的最小单位，线程是CPU调度的最小单位。但是捏，CPU它也算资源吧，那这句话这么说就不太对了。石老师破天荒的提出了，进程是资源分配的最小单位，线程是时间分配的最小单位。</p><h2 id="进程有哪几种状态？"><a href="#进程有哪几种状态？" class="headerlink" title="进程有哪几种状态？"></a>进程有哪几种状态？</h2><p>进程的状态和线程的状态很相似，我们一般把他分为五态，考研还细分出了七态，我说真变态。</p><ul><li>创建状态：进程正在被创建，尚未到就绪状态。</li><li>就绪状态：进程已处于准备运行状态，即进程获得了除了处理器之外的一切所需资源，一旦得到处理器资源（处理器分配时间片）即可运行</li><li>阻塞状态：又称为等待状态，进程正在等待某一件事件而暂停运行，如等待某资源为可用或等待IO操作完成。即使处理器空闲，该进程也不能运行。</li><li>结束状态：进程正在从系统中消失。可能是进程正常结束或者其他原因中断退出运行。</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>校招在即，着手准备操作系统方面的面试。因为大二下学期学习了操作系统，所以对知识的理解还算深刻，只是一些细节忘记了，在这里重新梳理一下。</p><p>本文部分内容转自：<a href="https://javaguide.cn/cs-basics/operating-system/operating-system-basic-questions-01.html#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8">JavaGuide面试指南</a></p><h1 id="操作系统基础"><a href="#操作系统基础" class="headerlink" title="操作系统基础"></a>操作系统基础</h1><h2 id="什么是操作系统？"><a href="#什么是操作系统？" class="headerlink" title="什么是操作系统？"></a>什么是操作系统？</h2><ul><li><strong>操作系统本质上是一个运行在计算机上的软件程序 ，用于管理计算机硬件和软件资源。</strong></li><li><strong>操作系统的内核（Kernel）是操作系统的核心部分，它负责系统的内存管理，硬件设备的管理，文件系统的管理以及应用程序的管理</strong>。</li></ul><p><img src="https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/2020-8/Kernel_Layout.png" alt="Kernel_Layout"></p><h2 id="什么是系统调用？"><a href="#什么是系统调用？" class="headerlink" title="什么是系统调用？"></a>什么是系统调用？</h2><p>介绍系统调用之前，我们先来了解一下用户态和系统态。</p><p>根据进程访问资源的特点，我们可以把进程在系统上的运行分为两个级别：</p><ul><li>用户态：用户态运行的进程可以直接读取用户程序的数据</li><li>系统态：系统态运行的进程几乎可以访问计算机的任何资源，不受限制</li></ul><p>说了用户态和系统态之后，那么什么是系统调用呢？</p><p>我们运行的程序基本都是在用户态上的，如果我们想调用操作系统提供的系统态级别的子功能咋办呢？那就需要系统调用了。</p><p>我们在运行的用户程序中，凡是与系统态级别的资源有关的操作（如文件管理、进程控制、进程通信、内存管理，设备管理等），都必须通过系统调用方式向操作系统提出服务请求，并由操作系统代为完成。</p><p>这些系统调用大致可分为如下几类：</p><ul><li>设备管理：完成设备的请求与释放，以及设备启动等功能。</li><li>文件管理：完成文件的读、写、创建及删除等功能。</li><li>进程控制：完成进程的创建、撤销、阻塞以及唤醒功能</li><li>进程通信：完成进程之间的消息传递或信号传递等功能</li><li>内存管理：完成内存分配、回收以及获取作业占用内存区大小及地址等功能</li></ul><h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>线程是进程划分的更小的运行单位，一个进程在其执行期间可以产生多个线程。线程和进程最大的区别在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。线程执行开销小，但不利于资源的管理和保护。进程恰恰相反。</p><p>按石林老师的话来讲，进程是资源分配的最小单位，线程是CPU调度的最小单位。但是捏，CPU它也算资源吧，那这句话这么说就不太对了。石老师破天荒的提出了，进程是资源分配的最小单位，线程是时间分配的最小单位。</p><h2 id="进程有哪几种状态？"><a href="#进程有哪几种状态？" class="headerlink" title="进程有哪几种状态？"></a>进程有哪几种状态？</h2><p>进程的状态和线程的状态很相似，我们一般把他分为五态，考研还细分出了七态，我说真变态。</p><ul><li>创建状态：进程正在被创建，尚未到就绪状态。</li><li>就绪状态：进程已处于准备运行状态，即进程获得了除了处理器之外的一切所需资源，一旦得到处理器资源（处理器分配时间片）即可运行</li><li>阻塞状态：又称为等待状态，进程正在等待某一件事件而暂停运行，如等待某资源为可用或等待IO操作完成。即使处理器空闲，该进程也不能运行。</li><li>结束状态：进程正在从系统中消失。可能是进程正常结束或者其他原因中断退出运行。</li></ul><h2 id="进程间通信的方式"><a href="#进程间通信的方式" class="headerlink" title="进程间通信的方式"></a>进程间通信的方式</h2><p>大概有七种常见的进程通信方式：</p><ul><li>管道/匿名管道（Pipes）：用于具有亲缘关系的父子进程间或兄弟进程间的通信<ul><li>有名管道（Names Pipes）：匿名管道由于没有名字，只能用于亲缘关系的进程通信。为了克服这个缺点，提出了有名管道。有名管道严格遵循先进先出。有名管道以磁盘文件的形式存在，可以实现本机任意两个进程通信。</li></ul></li><li>信号：信号是一种比较复杂的通信方式，用于通知接收进程某个事件已发生。</li><li>消息队列：消息队列是消息的链表，具有特定的格式，存放在内存中并由消息队列标识符标识。管道和消息队列的通信数据都是先进先出原则。与管道不同的是消息队列存放在内核中，只有在内核重启（操作系统重启），或者显示的删除一个消息队列时，该消息队列才会被真正的删除。消息队列可以实现消息的随机查询，消息不一定要以先进先出的次序读取，也可以按消息的类型读取。比FIFO更有优势。<strong>消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点</strong></li><li>信号量：信号量是一个计数器，用于多进程对共享数据的访问，信号量的意图在于进程间同步。这种通信方式主要用于解决与同步相关的问题并避免竞争条件。</li><li><strong>共享内存</strong>：使得多个进程可以访问同一块内存空间，不同进程可以及时看到对方进程中对共享内存中数据的更新。这种方式需要依靠某种同步操作，如互斥锁和信号量等。可以说这是最有用的进程间通信方式。</li><li><strong>套接字（socket）</strong>：此方法主要用于在客户端和服务器之间通过网络进行通信。套接字是支持TCP/IP的网络通信的基本操作单元，可以看作是不同主机之间的进程进行双向通信的端点，简单点说就是通信的两方的一种约定，用套接字中的相关函数来完成通信过程。</li></ul><h2 id="线程间的同步方式"><a href="#线程间的同步方式" class="headerlink" title="线程间的同步方式"></a>线程间的同步方式</h2><p>线程同步是两个或多个共享关键资源的线程的并发执行。应该同步线程以避免关键资源的使用冲突。操作系统一般有下面三种线程的同步方式：</p><ul><li>互斥量：采用互斥对象机制，只有拥有互斥对象的进程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问。比如Java中的synchronized关键词和各种Lock都是这种机制。</li><li>信号量：它允许同一时刻多个线程访问同一资源，但是需要控制同一时刻访问此资源的最大线程量。</li><li>事件：Wait/Notify：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程的优先级的比较操作。</li></ul><h2 id="进程的调度算法"><a href="#进程的调度算法" class="headerlink" title="进程的调度算法"></a>进程的调度算法</h2><ul><li>先到先服务调度算法（FCFS）：从就绪队列中选择一个最先进入该队列的进程为之分配资源，使他立即执行并一直执行到完成或发生某件事而被阻塞放弃占用CPU时再重新调度。</li><li>短作业优先（SJF）调度算法：从就绪队列中选出一个估计运行时间最短的进程为之分配资源，使他立即执行并一直执行到完成或发生某件事而被阻塞放弃占用CPU时再重新调度。</li><li>时间片轮转调度算法：时间片轮转调度是一种最古老，最简单，最公平且使用最广的一种算法。又称RR调度，每个进程被分配一个时间段，称作他为时间片，即该进程允许运行的时间。</li><li>多级反馈队列调度算法：多级反馈队列调度算法既能使高优先级作业得到响应又能使短作业迅速完成。因而它是目前被公认的一种较好的进程调度算法,UNIX操作系统采取的便是多级反馈队列调度算法。</li></ul><h2 id="什么是死锁？"><a href="#什么是死锁？" class="headerlink" title="什么是死锁？"></a>什么是死锁？</h2><p>多个进程/线程同时被阻塞，他们中的一个或者全部都在等待某个资源被释放。由于进程/线程被无限期的阻塞，因此程序不可能正常终止。</p><h2 id="死锁的四个条件"><a href="#死锁的四个条件" class="headerlink" title="死锁的四个条件"></a>死锁的四个条件</h2><ul><li>互斥：资源必须处于非共享模式，既一次只有一个进程可以使用。如果另一进程申请该资源，那么必须等待直到该资源被释放为止。</li><li>占有并等待：一个进程至少应该占有一个资源，并等待另一资源，而该资源被其他进程占有。</li><li>非抢占：资源不能被抢占。只能在持有资源的进程完成任务后，该资源才会被释放，</li><li>循环等待：顾名思义</li></ul><p>注意，以上四点必须同时成立！</p><h3 id="解决死锁的方法"><a href="#解决死锁的方法" class="headerlink" title="解决死锁的方法"></a>解决死锁的方法</h3><p>解决死锁的方法可以从多个角度去分析，一般的情况下，有<strong>预防，避免，检测和解除四种</strong>。</p><ul><li><strong>预防</strong> 是采用某种策略，<strong>限制并发进程对资源的请求</strong>，从而使得死锁的必要条件在系统执行的任何时间上都不满足。</li><li><strong>避免</strong>则是系统在分配资源时，根据资源的使用情况<strong>提前做出预测</strong>，从而<strong>避免死锁的发生</strong></li><li><strong>检测</strong>是指系统设有<strong>专门的机构</strong>，当死锁发生时，该机构能够检测死锁的发生，并精确地确定与死锁有关的进程和资源。</li><li><strong>解除</strong> 是与检测相配套的一种措施，用于<strong>将进程从死锁状态下解脱出来</strong>。</li></ul><h4 id="死锁的预防"><a href="#死锁的预防" class="headerlink" title="死锁的预防"></a>死锁的预防</h4><p>死锁四大必要条件上面都已经列出来了，只要破坏四个必要条件中的任何一个就能够预防死锁的发生。</p><ul><li>破坏第一个条件 <strong>互斥条件</strong>：有很多资源 <strong>往往是不能同时访问的</strong> ，所以这种做法在大多数的场合是行不通的。</li><li>破坏第三个条件 <strong>非抢占</strong> ：<strong>剥夺式调度算法</strong>，会导致 <strong>资源利用率下降</strong>。</li></ul><p>所以一般比较实用的 <strong>预防死锁的方法</strong>，是通过考虑破坏第二个条件和第四个条件。</p><p><strong>1、静态分配策略（破坏占用并等待）</strong></p><p>静态分配策略可以破坏死锁产生的第二个条件（占有并等待）。所谓静态分配策略，就是指一个进程必须在执行前就申请到它所需要的全部资源，并且知道它所要的资源都得到满足之后才开始执行<strong>。进程要么占有所有的资源然后开始执行，要么不占有资源，不会出现占有一些资源等待一些资源的情况。</strong></p><p><strong>2、层次分配策略（破坏循环等待）</strong></p><p>层次分配策略破坏了产生死锁的第四个条件(循环等待)。在层次分配策略下，所有的资源被分成了多个层次，一个进程得到某一次的一个资源后，它只能再申请较高一层的资源；当一个进程要释放某层的一个资源时，必须先释放所占用的较高层的资源，<strong>按这种策略，是不可能出现循环等待链的，因为那样的话，就出现了已经申请了较高层的资源，反而去申请了较低层的资源</strong>，不符合层次分配策略。</p><h4 id="死锁的避免（银行家算法）"><a href="#死锁的避免（银行家算法）" class="headerlink" title="死锁的避免（银行家算法）"></a>死锁的避免（银行家算法）</h4><p>上面提到的 <strong>破坏</strong> 死锁产生的四个必要条件之一就可以成功 <strong>预防系统发生死锁</strong> ，但是会导致 <strong>低效的进程运行</strong> 和 <strong>资源使用率</strong> 。而死锁的避免相反，它的角度是允许系统中<strong>同时存在四个必要条件</strong> ，只要掌握并发进程中与每个进程有关的资源动态申请情况，做出 <strong>明智和合理的选择</strong> ，仍然可以避免死锁，因为四大条件仅仅是产生死锁的必要条件。</p><p>我们将系统的状态分为 <strong>安全状态</strong> 和 <strong>不安全状态</strong> ，每当在未申请者分配资源前先测试系统状态，若把系统资源分配给申请者会产生死锁，则拒绝分配，否则接受申请，并为它分配资源。</p><p>那么如何保证系统保持在安全状态呢？通过算法，其中最具有代表性的 <strong>避免死锁算法</strong> 就是 Dijkstra 的银行家算法，银行家算法用一句话表达就是：当一个进程申请使用资源的时候，<strong>银行家算法</strong> 通过先 <strong>试探</strong> 分配给该进程资源，然后通过 <strong>安全性算法</strong> 判断分配后系统是否处于安全状态，若不安全则试探分配作废，让该进程继续等待，若能够进入到安全的状态，则就 <strong>真的分配资源给该进程</strong>。</p><p><img src="https://img-blog.csdn.net/20180508204335770?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNDE0Mjcx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="银行家算法"></p><p>A：已分配资源 N：所需资源 M：需求</p><p>M-A=N 用剩余资源去比较每个进程此时的N，看是否可以满足，如果可以，释放此进程的M，可用资源就+M，再进行比较。如果都可以妥善解决，那此刻系统就是安全状态。</p><p>死锁的避免(银行家算法)改善解决了 <strong>资源使用率低的问题</strong> ，但是它要不断地检测每个进程对各类资源的占用和申请情况，以及做 <strong>安全性检查</strong> ，需要花费较多的时间。</p><h4 id="死锁的检测"><a href="#死锁的检测" class="headerlink" title="死锁的检测"></a>死锁的检测</h4><p>对资源的分配加以限制可以 <strong>预防和避免</strong> 死锁的发生，但是都不利于各进程对系统资源的<strong>充分共享</strong>。解决死锁问题的另一条途径是 <strong>死锁检测和解除</strong> 。这种方法对资源的分配不加以任何限制，也不采取死锁避免措施，但系统 <strong>定时地运行一个 “死锁检测”</strong> 的程序，判断系统内是否出现死锁，如果检测到系统发生了死锁，再采取措施去解除它</p><h3 id="真相"><a href="#真相" class="headerlink" title="真相"></a>真相</h3><p>说了这么多，实际上对于操作系统而言，对于死锁采用的是鸵鸟策略。埋头不管，最为高效。</p>]]></content>
       
       
       <categories>
