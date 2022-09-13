@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>大数据项目之数据处理和Python操作Kafka | 胡小宁的博客</title><meta name="keywords" content="大数据分析,Spark,Kafka,Python"><meta name="author" content="胡小宁"><meta name="copyright" content="胡小宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="写在前面昨天是中秋节，休息了一天，和老王楠姐去密室逃脱完了一局，玩的是不恐怖的本，但里面的氛围还是很阴森。从密室逃脱出来之后，吃了小炒黄牛肉，一共有四个菜，小炒黄牛肉、芋头蒸排骨、炒花菜、脆皮豆腐。小炒黄牛肉没有放辣椒，吃起来味道很不错。其中最辣的一道菜是脆皮豆腐，我没吃几口。炒花菜里面的油渣好吃，我吃了很多。吃完就去的helens，点了一扎果啤，虽然叫果啤，但对我来说还是有度数，三四杯下肚，头就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据项目之数据处理和Python操作Kafka">
+<meta property="og:url" content="http://1905060202.github.io/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/index.html">
+<meta property="og:site_name" content="胡小宁的博客">
+<meta property="og:description" content="写在前面昨天是中秋节，休息了一天，和老王楠姐去密室逃脱完了一局，玩的是不恐怖的本，但里面的氛围还是很阴森。从密室逃脱出来之后，吃了小炒黄牛肉，一共有四个菜，小炒黄牛肉、芋头蒸排骨、炒花菜、脆皮豆腐。小炒黄牛肉没有放辣椒，吃起来味道很不错。其中最辣的一道菜是脆皮豆腐，我没吃几口。炒花菜里面的油渣好吃，我吃了很多。吃完就去的helens，点了一扎果啤，虽然叫果啤，但对我来说还是有度数，三四杯下肚，头就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-09-11T02:13:40.000Z">
+<meta property="article:modified_time" content="2022-09-12T10:29:29.265Z">
+<meta property="article:author" content="胡小宁">
+<meta property="article:tag" content="大数据分析">
+<meta property="article:tag" content="Spark">
+<meta property="article:tag" content="Kafka">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/images/you.jpg"><link rel="canonical" href="http://1905060202.github.io/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据项目之数据处理和Python操作Kafka',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-12 18:29:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/you.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">120</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">胡小宁的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据项目之数据处理和Python操作Kafka</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-11T02:13:40.000Z" title="发表于 2022-09-11 10:13:40">2022-09-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-12T10:29:29.265Z" title="更新于 2022-09-12 18:29:29">2022-09-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据项目之数据处理和Python操作Kafka"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>昨天是中秋节，休息了一天，和老王楠姐去密室逃脱完了一局，玩的是不恐怖的本，但里面的氛围还是很阴森。从密室逃脱出来之后，吃了小炒黄牛肉，一共有四个菜，小炒黄牛肉、芋头蒸排骨、炒花菜、脆皮豆腐。小炒黄牛肉没有放辣椒，吃起来味道很不错。其中最辣的一道菜是脆皮豆腐，我没吃几口。炒花菜里面的油渣好吃，我吃了很多。吃完就去的helens，点了一扎果啤，虽然叫果啤，但对我来说还是有度数，三四杯下肚，头就晕晕的，红色的血管在脸上扩张，有种狼狈的醉意。隔壁桌有人来问我们的戒指是不是粉色的，这是个活动，每一桌都有一种颜色的戒指，如果两桌颜色的戒指一样，就可以去前台兑换啤酒。来了两桌人问，最后来的那一桌和我们的颜色是一样的，我就去和他们桌的一个人去兑换啤酒了。去的途中知道，那个人是中南林科大的，从长沙来湘潭玩。我们这桌一共是三个人，一人一瓶啤酒，拿来了三瓶。我们喝完了一扎果啤，就把兑换来的倒进果啤扎里面去了，因为里面还有很多冰块，可以喝到冰爽的啤酒。喝酒的过程，我们前期主要在玩手机，我投了一份方太的简历。我们聊到考研，觉得这件事本身并不难，难的是坚持下去，这个过程十分枯燥。后期，我们三个玩骰子，就这样，一人几口下肚，三瓶啤酒也就没了。喝完之后，打了个滴滴回去，在车上我就已经快睡着了，撑着睡意到家，和芦打了三十分钟的视频电话，就昏昏睡去了。对了，在去玩密室逃脱之前，我们买了茶颜悦色喝，我还是老样子，幽兰拿铁。就写到这里吧，做实验了。</p>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>本案例采用的数据集压缩包为data_format.zip<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1cs02Nc">点击这里下载data_format.zip数据集</a>，该数据集压缩包是淘宝2015年双11前6个月(包含双11)的交易数据(交易数据有偏移，但是不影响实验的结果)，里面包含3个文件，分别是用户行为日志文件user_log.csv 、回头客训练集train.csv 、回头客测试集test.csv. 在这个案例中只是用user_log.csv这个文件，下面列出文件user_log.csv的数据格式定义：</p>
+<p>用户行为日志user_log.csv，日志中的字段定义如下：</p>
+<ol>
+<li><p>user_id | 买家id</p>
+</li>
+<li><p>item_id | 商品id</p>
+</li>
+<li><p>cat_id | 商品类别id</p>
+</li>
+<li><p>merchant_id | 卖家id</p>
+</li>
+<li><p>brand_id | 品牌id</p>
+</li>
+<li><p>month | 交易时间:月</p>
+</li>
+<li><p>day | 交易事件:日</p>
+</li>
+<li><p>action | 行为,取值范围{0,1,2,3},0表示点击，1表示加入购物车，2表示购买，3表示关注商品</p>
+</li>
+<li><p>age_range | 买家年龄分段：1表示年龄&lt;18,2表示年龄在[18,24]，3表示年龄在[25,29]，4表示年龄在[30,34]，5表示年龄在[35,39]，6表示年龄在[40,49]，7和8表示年龄&gt;=50,0和NULL则表示未知</p>
+</li>
+<li><p>gender | 性别:0表示女性，1表示男性，2和NULL表示未知</p>
+</li>
+<li><p>province| 收获地址省份</p>
+</li>
+</ol>
+<p>数据具体格式如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">user_id</span>,item_id,cat_id,merchant_id,brand_id,month,day,action,age_range,gender,province<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">323294</span>,<span class="hljs-number">833</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,内蒙古<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">844400</span>,<span class="hljs-number">1271</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,山西<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">575153</span>,<span class="hljs-number">1271</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,山西<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">996875</span>,<span class="hljs-number">1271</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,内蒙古<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">1086186</span>,<span class="hljs-number">1271</span>,<span class="hljs-number">1253</span>,<span class="hljs-number">1049</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,浙江<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">623866</span>,<span class="hljs-number">1271</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,黑龙江<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">542871</span>,<span class="hljs-number">1467</span>,<span class="hljs-number">2882</span>,<span class="hljs-number">2661</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">5</span>,<span class="hljs-number">2</span>,四川<br><span class="hljs-attribute">328862</span>,<span class="hljs-number">536347</span>,<span class="hljs-number">1095</span>,<span class="hljs-number">883</span>,<span class="hljs-number">1647</span>,<span class="hljs-number">08</span>,<span class="hljs-number">29</span>,<span class="hljs-number">0</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1</span>,吉林<br></code></pre></td></tr></table></figure>
+<p>这个案例实时统计每秒中男女生购物人数，因此针对每条购物日志，我们只需要获取gender即可，然后发送给Kafka，接下来Spark Streaming再接收gender进行处理。</p>
+<h2 id="数据预处理-1"><a href="#数据预处理-1" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>本案例使用Python对数据进行预处理，并将处理后的数据直接通过Kafka生产者发送给Kafka，这里需要先安装Python操作Kafka的代码库，请在Ubuntu中打开一个命令行终端，执行如下Shell命令来安装Python操作Kafka的代码库（备注：如果之前已经安装过，则这里不需要安装）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip3 install kafka-python<br></code></pre></td></tr></table></figure>
+<p>接着可以写如下Python代码，文件名为producer.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># coding: utf-8</span><br><span class="hljs-keyword">import</span> csv<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaProducer<br> <br><span class="hljs-comment"># 实例化一个KafkaProducer示例，用于向Kafka投递消息</span><br>producer = KafkaProducer(bootstrap_servers=<span class="hljs-string">&#x27;localhost:9092&#x27;</span>)<br><span class="hljs-comment"># 打开数据文件</span><br>csvfile = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;../data/user_log.csv&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>)<br><span class="hljs-comment"># 生成一个可用于读取csv文件的reader</span><br>reader = csv.reader(csvfile)<br> <br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> reader:<br>    gender = line[<span class="hljs-number">9</span>] <span class="hljs-comment"># 性别在每行日志代码的第9个元素</span><br>    <span class="hljs-keyword">if</span> gender == <span class="hljs-string">&#x27;gender&#x27;</span>:<br>        <span class="hljs-keyword">continue</span> <span class="hljs-comment"># 去除第一行表头</span><br>    time.sleep(<span class="hljs-number">0.1</span>) <span class="hljs-comment"># 每隔0.1秒发送一行数据</span><br>    <span class="hljs-comment"># 发送数据，topic为&#x27;sex&#x27;</span><br>    producer.send(<span class="hljs-string">&#x27;sex&#x27;</span>,line[<span class="hljs-number">9</span>].encode(<span class="hljs-string">&#x27;utf8&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p>上述代码很简单，首先是先实例化一个Kafka生产者。然后读取用户日志文件，每次读取一行，接着每隔0.1秒发送给Kafka，这样1秒发送10条购物日志。这里发送给Kafka的topic为’sex’。</p>
+<h2 id="Python操作Kafka"><a href="#Python操作Kafka" class="headerlink" title="Python操作Kafka"></a>Python操作Kafka</h2><p>我们可以写一个KafkaConsumer测试数据是否投递成功，代码如下，文件名为consumer.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaConsumer<br> <br>consumer = KafkaConsumer(<span class="hljs-string">&#x27;sex&#x27;</span>)<br><span class="hljs-keyword">for</span> msg <span class="hljs-keyword">in</span> consumer:<br>    print((msg.value).decode(<span class="hljs-string">&#x27;utf8&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p>Python</p>
+<p>在开启上述KafkaProducer和KafkaConsumer之前，需要先开启Kafka，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /usr/local/kafka<br>bin/zookeeper-server-start.sh config/zookeeper.properties<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 打开新的窗口</span><br>cd /usr/local/kafka<br>bin/kafka-server-start.sh config/server.properties<br></code></pre></td></tr></table></figure>
+<p>在Kafka开启之后，即可开启KafkaProducer和KafkaConsumer。开启方法如下：<br>请在Ubuntu中，打开一个命令行 终端窗口，执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/bigdata/scripts  <span class="hljs-comment">#进入到代码目录</span><br>python3 producer.py <span class="hljs-comment">#启动生产者发送消息给Kafaka</span><br></code></pre></td></tr></table></figure>
+<p>然后，请在Ubuntu中，打开另外一个命令行 终端窗口，执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/bigdata/scripts  <span class="hljs-comment">#进入到代码目录</span><br>python3 consumer.py <span class="hljs-comment">#启动消费者从Kafaka接收消息</span><br></code></pre></td></tr></table></figure>
+<p>运行上面这条命令以后，这时，你会看到屏幕上会输出一行又一行的数字，类似下面的样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">2<br>1<br>1<br>1<br>2<br>0<br>2<br>1<br>……<br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">胡小宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://1905060202.github.io/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/">http://1905060202.github.io/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://1905060202.github.io" target="_blank">胡小宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">大数据分析</a><a class="post-meta__tags" href="/tags/Spark/">Spark</a><a class="post-meta__tags" href="/tags/Kafka/">Kafka</a><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据分析项目之Spark Streaming实时处理数据</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/09/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93%E4%B9%8B%E6%88%91%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面试总结之我的职业规划</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/" title="大数据分析项目之Spark Streaming实时处理数据"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-12</div><div class="title">大数据分析项目之Spark Streaming实时处理数据</div></div></a></div><div><a href="/2022/09/02/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%90%AD%E5%BB%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="大数据分析项目之搭建云服务器环境"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-02</div><div class="title">大数据分析项目之搭建云服务器环境</div></div></a></div><div><a href="/2022/09/14/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%EF%BC%88Scala%E7%89%88%EF%BC%89/" title="大数据分析项目之Spark-Streaming实时处理数据（Scala版）"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-14</div><div class="title">大数据分析项目之Spark-Streaming实时处理数据（Scala版）</div></div></a></div><div><a href="/2022/06/21/Spark%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="Spark大数据分析技术期末复习"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-21</div><div class="title">Spark大数据分析技术期末复习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/you.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">胡小宁</div><div class="author-info__description">虽千万人吾往矣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">120</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1905060202" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">前段时间博客崩溃，眼下课程设计与期末考试接踵而至，心有余而力不足，等有空再重新整理博客吧！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">数据预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86-1"><span class="toc-number">2.1.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E6%93%8D%E4%BD%9CKafka"><span class="toc-number">2.2.</span> <span class="toc-text">Python操作Kafka</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/14/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%EF%BC%88Scala%E7%89%88%EF%BC%89/" title="大数据分析项目之Spark-Streaming实时处理数据（Scala版）"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据分析项目之Spark-Streaming实时处理数据（Scala版）"/></a><div class="content"><a class="title" href="/2022/09/14/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%EF%BC%88Scala%E7%89%88%EF%BC%89/" title="大数据分析项目之Spark-Streaming实时处理数据（Scala版）">大数据分析项目之Spark-Streaming实时处理数据（Scala版）</a><time datetime="2022-09-13T16:50:57.000Z" title="发表于 2022-09-14 00:50:57">2022-09-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/13/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97%E4%B9%8B%E4%BA%92%E8%81%94%E7%BD%91%E4%BC%81%E4%B8%9A/" title="面试指南之互联网企业"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面试指南之互联网企业"/></a><div class="content"><a class="title" href="/2022/09/13/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97%E4%B9%8B%E4%BA%92%E8%81%94%E7%BD%91%E4%BC%81%E4%B8%9A/" title="面试指南之互联网企业">面试指南之互联网企业</a><time datetime="2022-09-13T08:54:57.000Z" title="发表于 2022-09-13 16:54:57">2022-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/" title="大数据分析项目之Spark Streaming实时处理数据"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据分析项目之Spark Streaming实时处理数据"/></a><div class="content"><a class="title" href="/2022/09/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE%E4%B9%8BSpark-Streaming%E5%AE%9E%E6%97%B6%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/" title="大数据分析项目之Spark Streaming实时处理数据">大数据分析项目之Spark Streaming实时处理数据</a><time datetime="2022-09-12T10:25:34.000Z" title="发表于 2022-09-12 18:25:34">2022-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/" title="大数据项目之数据处理和Python操作Kafka"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据项目之数据处理和Python操作Kafka"/></a><div class="content"><a class="title" href="/2022/09/11/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8CPython%E6%93%8D%E4%BD%9CKafka/" title="大数据项目之数据处理和Python操作Kafka">大数据项目之数据处理和Python操作Kafka</a><time datetime="2022-09-11T02:13:40.000Z" title="发表于 2022-09-11 10:13:40">2022-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/09/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93%E4%B9%8B%E6%88%91%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" title="面试总结之我的职业规划"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面试总结之我的职业规划"/></a><div class="content"><a class="title" href="/2022/09/09/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93%E4%B9%8B%E6%88%91%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" title="面试总结之我的职业规划">面试总结之我的职业规划</a><time datetime="2022-09-09T10:38:35.000Z" title="发表于 2022-09-09 18:38:35">2022-09-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 胡小宁</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function electric_clock_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img id="card-clock-loading" src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-clock/clock/images/weather/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading" class="entered loading"></div></div></div></div></div>';
+                console.log('已挂载electric_clock')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            electric_clock_injector_config()
+        } </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax  src="https://cdn.jsdelivr.net/gh/Zfour/hexo-electric-clock@1.0.6/clock.js"></script><!-- hexo injector body_end end --></body></html>
